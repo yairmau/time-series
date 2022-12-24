@@ -1,0 +1,26 @@
+project:
+  type: book
+  output-dir: docs
+
+
+book:
+  title: "Time Series Analysis"
+  author: "Yair Mau"
+  # date: "12/24/2022"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    fontsize: 1.2em
+  pdf:
+    documentclass: scrreprt
+
+
+
