@@ -9,6 +9,9 @@ book:
   # date: "12/24/2022"
   chapters:
     - index.qmd
+    - first-steps/first-steps.ipynb
+    - convolution/index.qmd
+    - seasonal-decomposition/seasonal-decomposition.ipynb
     - intro.qmd
     - summary.qmd
     - references.qmd
