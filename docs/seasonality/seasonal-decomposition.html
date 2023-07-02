@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series Analysis - 4&nbsp; Seasonal Decomposition</title>
+<title>Time Series Analysis - 5&nbsp; Seasonal Decomposition</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,7 +93,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../references.html" rel="next">
+<link href="../technical-stuff/technical-stuff.html" rel="next">
 <link href="../seasonality/seasonality.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -139,7 +139,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Seasonal Decomposition</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Seasonal Decomposition</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -156,6 +156,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Time Series Analysis</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://yairmau.com/" title="" class="sidebar-tool px-1"><i class="bi bi-house"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -210,7 +213,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Dynamic Time Warp</span></a>
+  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cross-correlation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dynamic Time Warp</span></a>
   </div>
 </li>
       </ul>
@@ -225,14 +233,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../seasonality/seasonal-decomposition.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Seasonal Decomposition</span></a>
+  <a href="../seasonality/seasonal-decomposition.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Seasonal Decomposition</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">Technical Stuff</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">Bibliography</a>
   </div>
 </li>
     </ul>
@@ -244,9 +257,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#trends-in-atmospheric-carbon-dioxide" id="toc-trends-in-atmospheric-carbon-dioxide" class="nav-link active" data-scroll-target="#trends-in-atmospheric-carbon-dioxide"><span class="toc-section-number">5</span>  Trends in Atmospheric Carbon Dioxide</a>
+  <li><a href="#trends-in-atmospheric-carbon-dioxide" id="toc-trends-in-atmospheric-carbon-dioxide" class="nav-link active" data-scroll-target="#trends-in-atmospheric-carbon-dioxide"><span class="toc-section-number">6</span>  Trends in Atmospheric Carbon Dioxide</a>
   <ul class="collapse">
-  <li><a href="#decompose-data" id="toc-decompose-data" class="nav-link" data-scroll-target="#decompose-data"><span class="toc-section-number">5.1</span>  decompose data</a></li>
+  <li><a href="#decompose-data" id="toc-decompose-data" class="nav-link" data-scroll-target="#decompose-data"><span class="toc-section-number">6.1</span>  decompose data</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -256,7 +269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Seasonal Decomposition</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Seasonal Decomposition</span></h1>
 </div>
 
 
@@ -283,8 +296,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="trends-in-atmospheric-carbon-dioxide" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Trends in Atmospheric Carbon Dioxide</h1>
+<section id="trends-in-atmospheric-carbon-dioxide" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Trends in Atmospheric Carbon Dioxide</h1>
 <p>Mauna Loa CO2 concentration.<br>
 data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
 <div class="cell" data-execution_count="6">
@@ -831,8 +844,8 @@ data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
 </div>
 </div>
 </div>
-<section id="decompose-data" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="decompose-data"><span class="header-section-number">5.1</span> decompose data</h2>
+<section id="decompose-data" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="decompose-data"><span class="header-section-number">6.1</span> decompose data</h2>
 <p><code>seasonal_decompose</code> returns an object with four components:</p>
 <ul>
 <li>observed: <span class="math inline">\(Y(t)\)</span></li>
@@ -846,8 +859,8 @@ Y(t) = T(t) + S(t) + e(t)
 <p>Multiplicative model: <span class="math display">\[
 Y(t) = T(t) \times S(t) \times e(t)
 \]</span></p>
-<section id="interlude" class="level4" data-number="5.1.0.1">
-<h4 data-number="5.1.0.1" class="anchored" data-anchor-id="interlude"><span class="header-section-number">5.1.0.1</span> Interlude</h4>
+<section id="interlude" class="level4" data-number="6.1.0.1">
+<h4 data-number="6.1.0.1" class="anchored" data-anchor-id="interlude"><span class="header-section-number">6.1.0.1</span> Interlude</h4>
 <p>learn how to use <code>zip</code> in a loop</p>
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>letters <span class="op">=</span> [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span>]</span>
@@ -1059,8 +1072,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../references.html" class="pagination-link">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../technical-stuff/technical-stuff.html" class="pagination-link">
+        <span class="nav-page-text">Technical Stuff</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -17,14 +17,19 @@ book:
         - smoothing/convolution.qmd
     - part: lags/lags.qmd
       chapters:
+        - lags/cross-correlation.ipynb
         - lags/dynamic-time-warp.qmd
     - part: seasonality/seasonality.qmd
       chapters:
         - seasonality/seasonal-decomposition.ipynb
+    - technical-stuff/technical-stuff.qmd
     - references.qmd
-    
   sidebar:
+    tools:
+      - icon: house
+        href: https://yairmau.com/
     logo: archive/clock-history.png
+  search: true
 
 bibliography: references.bib
 

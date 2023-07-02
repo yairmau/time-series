@@ -1,0 +1,24 @@
+# Technical Stuff {.unnumbered}
+
+## Operating systems
+
+I recommend working with UNIX-based operating systems (MacOS or Linux). Everything is easier.
+
+If you use Windows, consider [installing Linux on Windows with WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
+
+## Software
+
+[Anaconda's Python distribution](https://www.anaconda.com/download)
+
+[VSCode](https://code.visualstudio.com/download)
+
+## Python packages
+
+[Kats — a one-stop shop for time series analysis](https://engineering.fb.com/2021/06/21/open-source/kats/)  
+Developed by Meta
+
+[statsmodels](https://www.statsmodels.org/stable/)
+statsmodels is a Python package that provides a complement to scipy for statistical computations including descriptive statistics and estimation and inference for statistical models.
+
+[ydata-profiling](https://ydata-profiling.ydata.ai/docs/master/pages/use_cases/time_series_datasets.html)  
+Quick Exploratory Data Analysis on time-series data. [Read also this](https://towardsdatascience.com/how-to-do-an-eda-for-time-series-cbb92b3b1913).
