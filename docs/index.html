@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.251">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -31,7 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./first-steps/first-steps.html" rel="next">
+<link href="./introduction/introduction.html" rel="next">
+<link href="./archive/clock-history.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -41,6 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/iconify-1.0.0-beta.2/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -60,6 +62,7 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 
 </head>
@@ -81,7 +84,10 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./archive/clock-history.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Time Series Analysis</a> 
     </div>
@@ -95,34 +101,69 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">About</a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./introduction/introduction.html" class="sidebar-item-text sidebar-link">Introduction</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./first-steps/first-steps.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">First Steps — basic time series analysis</span></a>
+  <a href="./introduction/first-steps.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">First Steps — basic time series analysis</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./smoothing/smoothing.html" class="sidebar-item-text sidebar-link">Smoothing</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./convolution/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Convolution</span></a>
+  <a href="./smoothing/convolution.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Convolution</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./lags/lags.html" class="sidebar-item-text sidebar-link">Time Lags</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./seasonal-decomposition/seasonal-decomposition.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Seasonal Decomposition</span></a>
+  <a href="./lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Dynamic Time Warp</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./seasonality/seasonality.html" class="sidebar-item-text sidebar-link">Seasonality</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  <a href="./seasonality/seasonal-decomposition.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Seasonal Decomposition</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Summary</span></a>
-  </div>
-</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
@@ -137,7 +178,21 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#about" id="toc-about" class="nav-link active" data-scroll-target="#about">About</a>
+  <ul class="collapse">
+  <li><a href="#disclaimer" id="toc-disclaimer" class="nav-link" data-scroll-target="#disclaimer">Disclaimer</a></li>
+  <li><a href="#when-and-where" id="toc-when-and-where" class="nav-link" data-scroll-target="#when-and-where">When and Where?</a></li>
+  <li><a href="#syllabus" id="toc-syllabus" class="nav-link" data-scroll-target="#syllabus">Syllabus</a>
+  <ul class="collapse">
+  <li><a href="#course-description" id="toc-course-description" class="nav-link" data-scroll-target="#course-description">Course description</a></li>
+  <li><a href="#course-aims" id="toc-course-aims" class="nav-link" data-scroll-target="#course-aims">Course aims</a></li>
+  <li><a href="#learning-outcomes" id="toc-learning-outcomes" class="nav-link" data-scroll-target="#learning-outcomes">Learning outcomes</a></li>
+  <li><a href="#course-content" id="toc-course-content" class="nav-link" data-scroll-target="#course-content">Course content</a></li>
+  <li><a href="#books-and-other-sources" id="toc-books-and-other-sources" class="nav-link" data-scroll-target="#books-and-other-sources">Books and other sources</a></li>
+  <li><a href="#course-evaluation" id="toc-course-evaluation" class="nav-link" data-scroll-target="#course-evaluation">Course evaluation</a></li>
+  </ul></li>
+  <li><a href="#weekly-program" id="toc-weekly-program" class="nav-link" data-scroll-target="#weekly-program">Weekly program</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -160,17 +215,168 @@ ul.task-list li input[type="checkbox"] {
           </div>
   </div>
     
+  
     
   </div>
   
 
 </header>
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>This is a work in progress.</p>
+<section id="about" class="level1 unnumbered">
+<h1 class="unnumbered">About</h1>
+<section id="disclaimer" class="level2">
+<h2 class="anchored" data-anchor-id="disclaimer">Disclaimer</h2>
+<div class="alert alert-danger">
+The material here is not comprehensive and <code>does not</code> constitute a stand alone course in Time Series Analysis. This is only the support material for the actual presential course I give.
+</div>
+</section>
+<section id="when-and-where" class="level2">
+<h2 class="anchored" data-anchor-id="when-and-where">When and Where?</h2>
+<p><iconify-icon inline="" icon="ion:calendar-sharp"></iconify-icon> Day of the week, from 00:00 to 24:00<br>
+<iconify-icon inline="" icon="mdi:location"></iconify-icon> Computer classroom #16</p>
+</section>
+<section id="syllabus" class="level2">
+<h2 class="anchored" data-anchor-id="syllabus">Syllabus</h2>
+<section id="course-description" class="level3">
+<h3 class="anchored" data-anchor-id="course-description">Course description</h3>
+<p>Data analysis of time series, with practical examples from environmental sciences.</p>
+</section>
+<section id="course-aims" class="level3">
+<h3 class="anchored" data-anchor-id="course-aims">Course aims</h3>
+<p>This course aims at giving the students a broad overview of the main steps involved in the analysis of time series: data management, data wrangling, visualization, analysis, and forecast. The course will provide a hands-on approach, where students will actively engage with real-life datasets from the field of environmental science.</p>
+</section>
+<section id="learning-outcomes" class="level3">
+<h3 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h3>
+<p>On successful completion of this module,students should be able to:</p>
+<ul>
+<li>Explore a time-series dataset, while formulating interesting questions.</li>
+<li>Choose the appropriate tools to attack the problem and answer the questions.</li>
+<li>Communicate their findings and the methods they used to achieve them, using graphs, statistics, text, and a well-documented code.</li>
+</ul>
+</section>
+<section id="course-content" class="level3">
+<h3 class="anchored" data-anchor-id="course-content">Course content</h3>
+<ul>
+<li><strong>Data wrangling:</strong> organization, cleaning, merging, filling gaps, excluding outliers, smoothing, resampling.</li>
+<li><strong>Visualization:</strong> best practices for graph making using leading python libraries.</li>
+<li><strong>Analysis:</strong> stationarity, seasonality, (auto)correlations, lags, derivatives, spectral analysis.</li>
+<li><strong>Forecast:</strong> ARIMA</li>
+<li><strong>Data management:</strong> how to plan ahead and best organize large quantities of data. If there is enough time, we will build a simple time-series database.</li>
+</ul>
+</section>
+<section id="books-and-other-sources" class="level3">
+<h3 class="anchored" data-anchor-id="books-and-other-sources">Books and other sources</h3>
+</section>
+<section id="course-evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="course-evaluation">Course evaluation</h3>
+<p>There will be 2 projects during the semester (each worth 25% of the final grade), and one final project (50%).</p>
+</section>
+</section>
+<section id="weekly-program" class="level2">
+<h2 class="anchored" data-anchor-id="weekly-program">Weekly program</h2>
+<section id="week-1" class="level4">
+<h4 class="anchored" data-anchor-id="week-1">Week 1</h4>
+<ul>
+<li><strong>Lecture:</strong> Course overview, setting of expectations. Introduction, basic concepts, continuous vs discrete time series, sampling, aliasing</li>
+<li><strong>Exercise:</strong> Loading csv file into python, basic time series manipulation with pandas and plotting</li>
+</ul>
+</section>
+<section id="week-2" class="level4">
+<h4 class="anchored" data-anchor-id="week-2">Week 2</h4>
+<ul>
+<li><strong>Lecture:</strong> Filling gaps, removing outliers</li>
+<li><strong>Exercise:</strong> Practice the same topics learned during the lecture. Data: air temperature and relative humidity</li>
+</ul>
+</section>
+<section id="week-3" class="level4">
+<h4 class="anchored" data-anchor-id="week-3">Week 3</h4>
+<ul>
+<li><strong>Lecture:</strong> Interpolation, resampling, binning statistics</li>
+<li><strong>Exercise:</strong> Practice the same topics learned during the lecture. Data: air temperature and relative humidity, precipitation</li>
+</ul>
+</section>
+<section id="week-4" class="level4">
+<h4 class="anchored" data-anchor-id="week-4">Week 4</h4>
+<ul>
+<li><strong>Lecture:</strong> Time series plotting: best practices. Dos and don’ts and maybes</li>
+<li><strong>Exercise:</strong> Practice with Seaborn, Plotly, Pandas, Matplotlib</li>
+</ul>
+<div class="alert alert-success">
+<strong>Project 1</strong><br>
+Basic data wrangling, using real data (temperature, relative humidity, precipitation) downloaded from USGS. 25% of the final grade
+</div>
+</section>
+<section id="week-5" class="level4">
+<h4 class="anchored" data-anchor-id="week-5">Week 5</h4>
+<ul>
+<li><strong>Lecture:</strong> Smoothing, running averages, convolution</li>
+<li><strong>Exercise:</strong> Practice the same topics learned during the lecture. Data: sap flow, evapotranspiration</li>
+</ul>
+</section>
+<section id="week-6" class="level4">
+<h4 class="anchored" data-anchor-id="week-6">Week 6</h4>
+<ul>
+<li><strong>Lecture:</strong> Strong and weak stationarity, stochastic processes, auto-correlation</li>
+<li><strong>Exercise:</strong> Practice the same topics learned during the lecture. Data: temperature and wind speed</li>
+</ul>
+</section>
+<section id="week-7" class="level4">
+<h4 class="anchored" data-anchor-id="week-7">Week 7</h4>
+<ul>
+<li><strong>Lecture:</strong> Correlation between signals. Pearson correlation, time-lagged cross-correlations, dynamic time warping</li>
+<li><strong>Exercise:</strong> Practice the same topics learned during the lecture. Data: temperature, solar radiation, relative humidity, soil moisture, evapotranspiration</li>
+</ul>
+</section>
+<section id="week-8" class="level4">
+<h4 class="anchored" data-anchor-id="week-8">Week 8</h4>
+<p>Same as lecture 7 above</p>
+</section>
+<section id="week-9" class="level4">
+<h4 class="anchored" data-anchor-id="week-9">Week 9</h4>
+<ul>
+<li><strong>Lecture:</strong> Download data from repositories, using API, merging, documentation</li>
+<li><strong>Exercise:</strong> Download data from USGS, NOAA, Fluxnet, Israel Meteorological Service</li>
+</ul>
+<div class="alert alert-success">
+<strong>Project 2</strong><br>
+Students will study a Fluxnet site of their choosing. How do gas fluxes (CO2, H2O) depend on environmental conditions? 25% of the final grade
+</div>
+</section>
+<section id="week-10" class="level4">
+<h4 class="anchored" data-anchor-id="week-10">Week 10</h4>
+<ul>
+<li><strong>Lecture:</strong> Fourier decomposition, filtering, Nyquist–Shannon sampling theorem</li>
+<li><strong>Exercise:</strong> Practice the same topics learned during the lecture. Data: dendrometer data</li>
+</ul>
+</section>
+<section id="week-11" class="level4">
+<h4 class="anchored" data-anchor-id="week-11">Week 11</h4>
+<ul>
+<li><strong>Lecture:</strong> Seasonality, seasonal decomposition (trend, seasonal, residue), Hilbert transform</li>
+<li><strong>Exercise:</strong> Practice the same topics learned during the lecture. Data: monthly atmospheric CO2 concentration, hourly air temperature</li>
+</ul>
+</section>
+<section id="week-12" class="level4">
+<h4 class="anchored" data-anchor-id="week-12">Week 12</h4>
+<ul>
+<li><strong>Lecture:</strong> Derivatives, differencing</li>
+<li><strong>Exercise:</strong> Practice the same topics learned during the lecture. Data: dendrometer data</li>
+</ul>
+</section>
+<section id="week-13" class="level4">
+<h4 class="anchored" data-anchor-id="week-13">Week 13</h4>
+<ul>
+<li><strong>Lecture:</strong> Forecasting. ARIMA</li>
+<li><strong>Exercise:</strong> Practice the same topics learned during the lecture. Data: vegetation variables (sap flow, ET, DBH, etc)</li>
+</ul>
+<div class="alert alert-success">
+<p><strong>Final Project</strong><br>
+In consultation with the lecturer, students will ask a specific scientific question about a site of their choosing (from NOAA, USGS, Fluxnet), and answer it using the tools learned during the semester. The report will be written in Jupyter Notebook, combining in one document all the calculations, documentation, figures, analysis, and discussion. 50% of the final grade.</p>
+</div>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -215,7 +421,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -251,24 +474,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
@@ -276,8 +517,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./first-steps/first-steps.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">First Steps — basic time series analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./introduction/introduction.html" class="pagination-link">
+        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

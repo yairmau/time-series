@@ -6,15 +6,25 @@ project:
 book:
   title: "Time Series Analysis"
   author: "Yair Mau"
-  # date: "12/24/2022"
+  favicon: archive/clock-history.png
   chapters:
     - index.qmd
-    - first-steps/first-steps.ipynb
-    - convolution/index.qmd
-    - seasonal-decomposition/seasonal-decomposition.ipynb
-    - intro.qmd
-    - summary.qmd
+    - part: introduction/introduction.qmd
+      chapters:
+      - introduction/first-steps.ipynb
+    - part: smoothing/smoothing.qmd
+      chapters:
+        - smoothing/convolution.qmd
+    - part: lags/lags.qmd
+      chapters:
+        - lags/dynamic-time-warp.qmd
+    - part: seasonality/seasonality.qmd
+      chapters:
+        - seasonality/seasonal-decomposition.ipynb
     - references.qmd
+    
+  sidebar:
+    logo: archive/clock-history.png
 
 bibliography: references.bib
 
@@ -25,6 +35,8 @@ format:
     - custom.scss
     fontsize: 1.2em
     highlight-style: gruvbox
+    include-in-header:
+      - includes.html
   pdf:
     documentclass: scrreprt
 
