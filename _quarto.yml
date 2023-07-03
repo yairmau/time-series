@@ -19,6 +19,7 @@ book:
       chapters:
         - lags/cross-correlation.ipynb
         - lags/dynamic-time-warp.qmd
+        - lags/ldtw.ipynb
     - part: seasonality/seasonality.qmd
       chapters:
         - seasonality/seasonal-decomposition.ipynb
