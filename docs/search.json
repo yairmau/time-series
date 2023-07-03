@@ -98,6 +98,13 @@
     "text": "2.5 🤷‍♂️ Which window shape and width to choose?\nSorry, there is not definite answer here… It really depends on your data and what you need to do with it. See below a comparison of all examples in the videos above."
   },
   {
+    "objectID": "lags/cross-correlation.html",
+    "href": "lags/cross-correlation.html",
+    "title": "3  Cross-correlation",
+    "section": "",
+    "text": "import numpy as np\n\n\nprint('dfvdfv')\n\ndfvdfv"
+  },
+  {
     "objectID": "seasonality/seasonal-decomposition.html",
     "href": "seasonality/seasonal-decomposition.html",
     "title": "5  Seasonal Decomposition",
