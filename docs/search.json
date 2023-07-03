@@ -105,6 +105,13 @@
     "text": "import numpy as np\n\n\nprint('dfvdfv')\n\ndfvdfv"
   },
   {
+    "objectID": "lags/LDTW.html",
+    "href": "lags/LDTW.html",
+    "title": "5  LDTW",
+    "section": "",
+    "text": "according to this paper"
+  },
+  {
     "objectID": "seasonality/seasonal-decomposition.html",
     "href": "seasonality/seasonal-decomposition.html",
     "title": "6  Seasonal Decomposition",
