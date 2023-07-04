@@ -46,7 +46,7 @@
     "href": "outliers/zscore.html",
     "title": "1  Z-score",
     "section": "",
-    "text": "\\[\nz  = \\frac{x-\\mu}{\\sigma},\n\\]\nwhere\n\n\\(x\\) is a data point,\n\\(\\mu\\) is the time series mean, and\n\\(\\sigma\\) is the time series standard deviation.\n\ndef zscore(df, degree=3):\n    data = df.copy()\n    data['zscore'] = (data - data.mean())/data.std()\n    outliers = data[(data['zscore'] &lt;= -degree) | (data['zscore'] &gt;= degree)]\n    return outliers['value'], data\nNow we can simply use this function:\nthreshold = 2.5\noutliers, transformed = zscore(tx, threshold)\nSource: Atwan (2022)\n\n\n\n\nAtwan, Tarek A. 2022. Time Series Analysis with Python Cookbook: Practical Recipes for Exploratory Data Analysis, Data Preparation, Forecasting, and Model Evaluation. Packt."
+    "text": "\\[\nz  = \\frac{x-\\mu}{\\sigma},\n\\]\n\n\nwhere\n\n\\(x=\\) data point,\n\n\\(\\mu=\\) time series mean\n\n\\(\\sigma=\\) time series standard deviation.\n\nLet’s write a function that identifies outliers according to the Z-score.\ndef zscore(df, degree=3):\n    data = df.copy()\n    data['zscore'] = (data - data.mean())/data.std()\n    outliers = data[(data['zscore'] &lt;= -degree) | (data['zscore'] &gt;= degree)]\n    return outliers['value'], data\nNow we can simply use this function:\nthreshold = 2.5\noutliers, transformed = zscore(tx, threshold)\nSource: Atwan (2022)\n\n\n\n\nAtwan, Tarek A. 2022. Time Series Analysis with Python Cookbook: Practical Recipes for Exploratory Data Analysis, Data Preparation, Forecasting, and Model Evaluation. Packt."
   },
   {
     "objectID": "introduction/first-steps.html#nan-missing-data-outliers",

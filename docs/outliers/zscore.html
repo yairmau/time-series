@@ -122,7 +122,7 @@ div.csl-indent {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -287,7 +287,7 @@ div.csl-indent {
         
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -309,12 +309,17 @@ div.csl-indent {
 <p><span class="math display">\[
 z  = \frac{x-\mu}{\sigma},
 \]</span></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
 <p>where</p>
 <ul>
-<li><span class="math inline">\(x\)</span> is a data point,</li>
-<li><span class="math inline">\(\mu\)</span> is the time series mean, and</li>
-<li><span class="math inline">\(\sigma\)</span> is the time series standard deviation.</li>
+<li><span class="math inline">\(x=\)</span> data point,<br>
+</li>
+<li><span class="math inline">\(\mu=\)</span> time series mean<br>
+</li>
+<li><span class="math inline">\(\sigma=\)</span> time series standard deviation.</li>
 </ul>
+</div></div><p>Let’s write a function that identifies outliers according to the Z-score.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> zscore(df, degree<span class="op">=</span><span class="dv">3</span>):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> df.copy()</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'zscore'</span>] <span class="op">=</span> (data <span class="op">-</span> data.mean())<span class="op">/</span>data.std()</span>

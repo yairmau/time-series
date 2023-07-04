@@ -4,11 +4,15 @@ $$
 z  = \frac{x-\mu}{\sigma},
 $$
 
-where
+::: {.column-margin}
+where  
 
-* $x$ is a data point,
-* $\mu$ is the time series mean, and 
-* $\sigma$ is the time series standard deviation.
+* $x=$ data point,  
+* $\mu=$ time series mean  
+* $\sigma=$ time series standard deviation.
+:::
+
+Let's write a function that identifies outliers according to the Z-score.
 
 ```python
 def zscore(df, degree=3):
