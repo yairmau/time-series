@@ -1,0 +1,26 @@
+## Outliers and Gaps
+
+### Z-score
+
+$$
+z  = \frac{x-\mu}{\sigma},
+$$
+
+where $x$ is a data point, $\mu$ is the time series mean, and $\sigma$ is the time series standard deviation.
+
+```python
+def zscore(df, degree=3):
+    data = df.copy()
+    data['zscore'] = (data - data.mean())/data.std()
+    outliers = data[(data['zscore'] <= -degree) | (data['zscore'] >= degree)]
+    return outliers['value'], data
+```
+
+Now we can simply use this function:
+
+```python
+threshold = 2.5
+outliers, transformed = zscore(tx, threshold)
+```
+
+Source: @atwan2022time

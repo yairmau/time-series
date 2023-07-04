@@ -9,6 +9,9 @@ book:
   favicon: archive/clock-history.png
   chapters:
     - index.qmd
+    - part: outliers/outliers.qmd
+      chapters:
+      - outliers/zscore.qmd
     - part: introduction/introduction.qmd
       chapters:
       - introduction/first-steps.ipynb
@@ -27,8 +30,10 @@ book:
     - references.qmd
   sidebar:
     tools:
-      - icon: house
+      - icon: house-fill
         href: https://yairmau.com/
+      - icon: bookmark-fill
+        href: /references.html
     logo: archive/clock-history.png
   search: true
 
@@ -40,7 +45,7 @@ format:
     - flatly
     - custom.scss
     fontsize: 1.2em
-    highlight-style: gruvbox
+    highlight-style: breezedark # monokai # breezedark # espresso
     include-in-header:
       - includes.html
   pdf:
