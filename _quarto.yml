@@ -18,6 +18,9 @@ book:
     - part: smoothing/smoothing.qmd
       chapters:
         - smoothing/convolution.qmd
+    - part: stationarity/stationarity.qmd
+      chapters:
+        - stationarity/autocorrelation.qmd
     - part: lags/lags.qmd
       chapters:
         - lags/cross-correlation.ipynb
