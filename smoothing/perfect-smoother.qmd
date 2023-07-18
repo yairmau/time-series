@@ -1,0 +1,33 @@
+## A perfect smoother
+
+Source: @eilers2003perfect
+
+[GitHub repository](https://github.com/mhvwerts/whittaker-eilers-smoother/tree/master)
+
+Noisy series $y$ of length $m$.
+
+The smoothed series is called $z$.
+
+We have conflicting interests:
+
+* we want a $z$ series "as smooth as possible".
+* however, the smoother $z$ is, the farthest from $y$ it will be (low fidelity).
+
+Roughness:
+
+$$
+R = \displaystyle\sum_i (z_i - z_{i-1})^2
+$$
+
+
+Fit to data:
+
+$$
+S = \displaystyle\sum_i (y_i - z_i)^2
+$$
+
+Cost functional to be minimized:
+
+$$
+Q = S + \lambda R
+$$

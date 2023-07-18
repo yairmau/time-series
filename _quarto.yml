@@ -9,26 +9,50 @@ book:
   favicon: archive/clock-history.png
   chapters:
     - index.qmd
+    - part: basics/basics.qmd
+      chapters:
+      - basics/pandas.qmd
+      - basics/pyplot.qmd
+      - introduction/first-steps.ipynb
     - part: outliers/outliers.qmd
       chapters:
       - outliers/zscore.qmd
-    - part: introduction/introduction.qmd
+    - part: resampling/resampling.qmd
       chapters:
-      - introduction/first-steps.ipynb
+        - resampling/upsampling.qmd
+        - resampling/downsampling.qmd
+    - part: best-practices/best-practices.qmd
+      chapters:
+        - best-practices/dates.qmd
     - part: smoothing/smoothing.qmd
       chapters:
         - smoothing/convolution.qmd
+        - smoothing/LOESS.qmd
+        - smoothing/perfect-smoother.qmd
     - part: stationarity/stationarity.qmd
       chapters:
+        - stationarity/stochastic.qmd
         - stationarity/autocorrelation.qmd
     - part: lags/lags.qmd
       chapters:
         - lags/cross-correlation.ipynb
         - lags/dynamic-time-warp.qmd
         - lags/LDTW.ipynb
+    - part: frequency/frequency.qmd
+      chapters:
+        - frequency/fourier.qmd
+        - frequency/filtering.qmd
+        - frequency/nyquist.qmd
     - part: seasonality/seasonality.qmd
       chapters:
         - seasonality/seasonal-decomposition.ipynb
+        - seasonality/hilbert.qmd
+    - part: rates-of-change/rates-of-change.qmd
+      chapters:
+        - rates-of-change/derivatives.qmd
+    - part: forecasting/forecasting.qmd
+      chapters:
+        - forecasting/arima.qmd
     - technical-stuff/technical-stuff.qmd
     - references.qmd
   sidebar:

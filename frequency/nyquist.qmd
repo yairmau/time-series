@@ -1,0 +1,1 @@
+## Nyquist-Shannon sampling theorem

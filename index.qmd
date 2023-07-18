@@ -1,15 +1,21 @@
 # About {.unnumbered}
 
+Welcome to Time Series Analysis for Environmental Sciences (71606) at the Hebrew University of Jerusalem. This is Yair Mau, your host for today. I am a senior lecturer at the Institute of Environmental Sciences, at the Faculty of Agriculture, Food and Environment, in Rehovot, Israel.
+
+This website contains (almost) all the material you’ll need for the course. If you find any mistakes, or have any comments, please email me.
+
 ## Disclaimer
 
 <div class="alert alert-danger">
 The material here is not comprehensive and `does not` constitute a stand alone course in Time Series Analysis. This is only the support material for the actual presential course I give.</div>
 
-## When and Where?
+## What, who, when and where?
 
-{{< iconify ion calendar-sharp >}} Day of the week, from 00:00 to 24:00  
-{{< iconify mdi location >}} Computer classroom #16
-
+{{< iconify ic round-info >}} Course number 71606, 3 academic points  
+{{< iconify mdi teacher >}} Yair Mau (lecturer), Erez Feuer (TA)  
+{{< iconify ion calendar-sharp >}} Tuesdays, from 14:15 to 17:00  
+{{< iconify mdi location >}} Computer [classroom #16](https://goo.gl/maps/21CScuxTqJ28Umjw5)   
+{{< iconify mingcute question-fill >}} Office hours: upon request
 
 ## Syllabus
 
@@ -38,6 +44,8 @@ On successful completion of this module,students should be able to:
 * **Data management:** how to plan ahead and best organize large quantities of data. If there is enough time, we will build a simple time-series database.
 
 ### Books and other sources 
+
+[Click here.](references.html)
 
 ### Course evaluation
 
