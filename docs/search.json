@@ -63,13 +63,6 @@
     "text": "3.4 Smoothing noisy data\n\n# %matplotlib widget\n\nfig, ax = plt.subplots(1, figsize=(8,4))\n\nax.plot(df['RH'], '.')\n# add labels and title\nax.set(xlabel = \"time\",\n       ylabel = \"RH (%)\",\n       title = \"Relative Humidity\")\n# makes slanted dates\nplt.gcf().autofmt_xdate()  \n\n\n\n\n\n3.4.1 Moving average and SavGol\n\n# %matplotlib widget\n\nfig, ax = plt.subplots(1, figsize=(8,4))\n\n# apply a rolling average of size \"window_size\",\n# it can be either by number of points, or by window time\n# window_size = 30  # number of measurements\nwindow_size = '120min'  # minutes\nRH_smooth = df['RH'].rolling(window_size, center=True).mean().to_frame()\nRH_smooth.rename(columns={'RH': 'rolling_avg'}, inplace=True)\n\nRH_smooth['SG'] = savgol_filter(df['RH'], window_length=121, polyorder=2)\n\nax.plot(df['RH'], color=\"tab:blue\", label=\"data\")\nax.plot(RH_smooth['rolling_avg'], color=\"tab:orange\", label=\"moving average\")\nax.plot(RH_smooth['SG'], color=\"tab:red\", label=\"Savitzky-Golay filter\")\n# add labels and title\nax.set(xlabel = \"time\",\n       ylabel = \"RH (%)\",\n       title = \"Relative Humidity\")\n# makes slanted dates\nplt.gcf().autofmt_xdate()\nax.legend()\n\n<matplotlib.legend.Legend at 0x7fe6a0525730>"
   },
   {
-    "objectID": "outliers/outliers.html",
-    "href": "outliers/outliers.html",
-    "title": "Outliers and Gaps",
-    "section": "",
-    "text": "Z-score\n\\[\nz  = \\frac{x-\\mu}{\\sigma},\n\\]\nwhere \\(x\\) is a data point, \\(\\mu\\) is the time series mean, and \\(\\sigma\\) is the time series standard deviation.\ndef zscore(df, degree=3):\n    data = df.copy()\n    data['zscore'] = (data - data.mean())/data.std()\n    outliers = data[(data['zscore'] <= -degree) | (data['zscore'] >= degree)]\n    return outliers['value'], data\nNow we can simply use this function:\nthreshold = 2.5\noutliers, transformed = zscore(tx, threshold)\nSource: Atwan (2022)\n\n\n\n\nAtwan, Tarek A. 2022. Time Series Analysis with Python Cookbook: Practical Recipes for Exploratory Data Analysis, Data Preparation, Forecasting, and Model Evaluation. Packt."
-  },
-  {
     "objectID": "outliers/zscore.html",
     "href": "outliers/zscore.html",
     "title": "4  Z-score",
