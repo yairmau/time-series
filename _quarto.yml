@@ -9,53 +9,54 @@ book:
   favicon: archive/clock-history.png
   chapters:
     - index.qmd
-    - part: basics/basics.qmd
+    - part: "Basic data manipulation and plotting"
       chapters:
       - basics/pandas.qmd
       - basics/pyplot.qmd
       - introduction/first-steps.ipynb
-    - part: outliers/outliers.qmd
+    - part: "Outliers and Gaps"
       chapters:
       - outliers/zscore.qmd
-    - part: resampling/resampling.qmd
+    - part: "Resampling"
       chapters:
         - resampling/upsampling.qmd
         - resampling/downsampling.qmd
-    - part: best-practices/best-practices.qmd
+    - part: "Best practices"
       chapters:
         - best-practices/dates.qmd
-    - part: smoothing/smoothing.qmd
+    - part: "Smoothing"
       chapters:
         - smoothing/convolution.qmd
         - smoothing/LOESS.qmd
         - smoothing/perfect-smoother.qmd
-    - part: stationarity/stationarity.qmd
+    - part: "Stationarity"
       chapters:
         - stationarity/stochastic.qmd
         - stationarity/autocorrelation.qmd
-    - part: lags/lags.qmd
+    - part: "Time lags"
       chapters:
         - lags/cross-correlation.ipynb
         - lags/dynamic-time-warp.qmd
         - lags/LDTW.ipynb
-    - part: frequency/frequency.qmd
+    - part: "Frequency"
       chapters:
         - frequency/fourier.qmd
         - frequency/filtering.qmd
         - frequency/nyquist.qmd
-    - part: seasonality/seasonality.qmd
+    - part: "Seasonality"
       chapters:
         - seasonality/seasonal-decomposition.ipynb
         - seasonality/hilbert.qmd
-    - part: rates-of-change/rates-of-change.qmd
+    - part: "Rates of change"
       chapters:
         - rates-of-change/derivatives.qmd
-    - part: forecasting/forecasting.qmd
+    - part: "Forecasting"
       chapters:
         - forecasting/arima.qmd
     - technical-stuff/technical-stuff.qmd
     - references.qmd
   sidebar:
+    collapse-level: 1
     tools:
       - icon: house-fill
         href: https://yairmau.com/
