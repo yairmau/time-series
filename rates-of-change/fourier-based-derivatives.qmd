@@ -1,0 +1,3 @@
+## Fourier-based derivatives
+
+https://nirpyresearch.com/fourier-spectral-smoothing-method/

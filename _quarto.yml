@@ -50,6 +50,9 @@ book:
     - part: "Rates of change"
       chapters:
         - rates-of-change/derivatives.qmd
+        - rates-of-change/finite-differences.qmd
+        - rates-of-change/fourier-based-derivatives.qmd
+        - rates-of-change/LOESS-based-derivatives.qmd
     - part: "Forecasting"
       chapters:
         - forecasting/arima.qmd
