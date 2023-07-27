@@ -75,12 +75,18 @@ format:
     theme:
     - flatly
     - custom.scss
+    # - font_defs.css
+    # css: styles.css
     fontsize: 1.2em
     highlight-style: breezedark # monokai # breezedark # espresso
     include-in-header:
       - includes.html
+    
   pdf:
     documentclass: scrreprt
+    include-in-header:
+      - latex_preamble.tex
+
 
 
 

@@ -1,8 +1,10 @@
 /*-- scss:rules --*/
+// @import url('https://fonts.cdnfonts.com/css/latin-modern-roman?styles=545');                
 
 /* make navbar of the same width and website ::content */
 /* https://www.ddanieltan.com/posts/blogtips/ */
 .navbar > .container-xxl, .navbar > .container-xl, .navbar > .container-lg, .navbar > .container-md, .navbar > .container-sm, .navbar > .container, .navbar > .container-fluid {
     max-width: 800px;
     margin: 0 auto;
-  } 
+  }
+

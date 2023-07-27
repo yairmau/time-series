@@ -1,0 +1,26 @@
+/* <link rel="stylesheet" href="https://lalten.github.io/lmweb/style/latinmodern-mono.css" type="text/css" charset="utf-8" /> */
+/* <link href="https://fonts.cdnfonts.com/css/latin-modern-math" rel="stylesheet"> */
+
+
+p {
+    font-size: 20px;
+    font-family:
+      Georgia,
+      sans-serif                                          
+      !important; }
+
+ul, ol {
+font-size: 20px;
+font-family:
+    Georgia,
+    sans-serif
+    !important; }
+
+/* Headers */
+h1, h2, h3, h4, h5, h6{
+    font-weight: bold;
+    font-family:
+        Georgia,
+        sans-serif
+        !important;
+}
