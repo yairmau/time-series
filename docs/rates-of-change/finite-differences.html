@@ -397,19 +397,19 @@ ul.task-list li input[type="checkbox"] {
 \frac{df(t)}{dt} = \frac{f(t) - f(t-\Delta t)}{\Delta t} + \mathcal{O}(\Delta t).
 \tag{22.2}\]</span></span></p>
 <p>If we sum together <a href="#eq-tpfdf">Equation&nbsp;<span>22.1</span></a> and <a href="#eq-tpbdf">Equation&nbsp;<span>22.2</span></a> we get:</p>
-<p><span class="math display">\[
-\cancel{abcde}
-\]</span></p>
 <!-- $$
+\cancel{abcde}
+$$ -->
+<p><span id="eq-sum"><span class="math display">\[
 \begin{aligned}
-2\frac{df(t)}{dt} &= \frac{f(t+\Delta t) - \cancel{f(t)}}{\Delta t} + \frac{\cancel{f(t)} - f(t-\Delta t)}{\Delta t} \\
- &= \frac{f(t+\Delta t) - f(t-\Delta t)}{\Delta t}.
+2\frac{df(t)}{dt} &amp;= \frac{f(t+\Delta t) - \cancel{f(t)}}{\Delta t} + \frac{\cancel{f(t)} - f(t-\Delta t)}{\Delta t} \\
+&amp;= \frac{f(t+\Delta t) - f(t-\Delta t)}{\Delta t}.
 \end{aligned}
-$$ {#eq-sum} -->
+\tag{22.3}\]</span></span></p>
 <p>Dividing both sides by 2 gives the <em>two-point central difference formula</em>:</p>
 <p><span id="eq-twcdf"><span class="math display">\[
 \frac{df(t)}{dt} = \frac{f(t+\Delta t) - f(t-\Delta t)}{2\Delta t} + \mathcal{O}(\Delta t^2).
-\tag{22.3}\]</span></span></p>
+\tag{22.4}\]</span></span></p>
 <p>Two things are worth mentioning about the approximation above:</p>
 <ol type="1">
 <li>it is balanced, that is, there is no preference of the future over the past.</li>

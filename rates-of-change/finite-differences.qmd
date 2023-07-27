@@ -32,16 +32,16 @@ $$ {#eq-tpbdf}
 
 If we sum together @eq-tpfdf and @eq-tpbdf we get:
 
-$$
-\cancel{abcde}
-$$
-
 <!-- $$
+\cancel{abcde}
+$$ -->
+
+$$
 \begin{aligned}
 2\frac{df(t)}{dt} &= \frac{f(t+\Delta t) - \cancel{f(t)}}{\Delta t} + \frac{\cancel{f(t)} - f(t-\Delta t)}{\Delta t} \\
  &= \frac{f(t+\Delta t) - f(t-\Delta t)}{\Delta t}.
 \end{aligned}
-$$ {#eq-sum} -->
+$$ {#eq-sum}
 
 Dividing both sides by 2 gives the *two-point central difference formula*:
 
