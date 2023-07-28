@@ -81,6 +81,7 @@ format:
     highlight-style: breezedark # monokai # breezedark # espresso
     include-in-header:
       - includes.html
+    code-line-numbers: true
     
   pdf:
     documentclass: scrreprt

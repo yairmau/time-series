@@ -476,18 +476,18 @@ z  = \frac{x-\mu}{\sigma},
 <li><span class="math inline">\(\sigma=\)</span> time series standard deviation.</li>
 </ul>
 </div></div><p>Let’s write a function that identifies outliers according to the Z-score.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> zscore(df, degree<span class="op">=</span><span class="dv">3</span>):</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> df.copy()</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'zscore'</span>] <span class="op">=</span> (data <span class="op">-</span> data.mean())<span class="op">/</span>data.std()</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    outliers <span class="op">=</span> data[(data[<span class="st">'zscore'</span>] <span class="op">&lt;=</span> <span class="op">-</span>degree) <span class="op">|</span> (data[<span class="st">'zscore'</span>] <span class="op">&gt;=</span> degree)]</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> outliers[<span class="st">'value'</span>], data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">def</span> zscore(df, degree<span class="op">=</span><span class="dv">3</span>):</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    data <span class="op">=</span> df.copy()</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    data[<span class="st">'zscore'</span>] <span class="op">=</span> (data <span class="op">-</span> data.mean())<span class="op">/</span>data.std()</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    outliers <span class="op">=</span> data[(data[<span class="st">'zscore'</span>] <span class="op">&lt;=</span> <span class="op">-</span>degree) <span class="op">|</span> (data[<span class="st">'zscore'</span>] <span class="op">&gt;=</span> degree)]</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    <span class="cf">return</span> outliers[<span class="st">'value'</span>], data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now we can simply use this function:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="fl">2.5</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>outliers, transformed <span class="op">=</span> zscore(tx, threshold)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Source: <span class="citation" data-cites="atwan2022time">Atwan (<a href="../references.html#ref-atwan2022time" role="doc-biblioref">2022</a>)</span></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>threshold <span class="op">=</span> <span class="fl">2.5</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>outliers, transformed <span class="op">=</span> zscore(tx, threshold)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Source: <span class="citation" data-cites="atwan2022time">Atwan (<a href="#ref-atwan2022time" role="doc-biblioref">2022</a>)</span></p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-atwan2022time" class="csl-entry" role="doc-biblioentry">
 Atwan, Tarek A. 2022. <em>Time Series Analysis with Python Cookbook: Practical Recipes for Exploratory Data Analysis, Data Preparation, Forecasting, and Model Evaluation</em>. Packt.
 </div>

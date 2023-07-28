@@ -456,30 +456,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <div class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandas.plotting <span class="im">import</span> register_matplotlib_converters</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>register_matplotlib_converters()  <span class="co"># datetime converter for a matplotlib</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.seasonal <span class="im">import</span> seasonal_decompose</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> pandas.plotting <span class="im">import</span> register_matplotlib_converters</span>
+<span id="cb1-5"><a href="#cb1-5"></a>register_matplotlib_converters()  <span class="co"># datetime converter for a matplotlib</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-7"><a href="#cb1-7"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="im">from</span> statsmodels.tsa.seasonal <span class="im">import</span> seasonal_decompose</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="trends-in-atmospheric-carbon-dioxide" class="level1" data-number="20">
 <h1 data-number="20"><span class="header-section-number">20</span> Trends in Atmospheric Carbon Dioxide</h1>
 <p>Mauna Loa CO2 concentration.<br>
 data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_weekly_mlo.csv"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url, header<span class="op">=</span><span class="dv">47</span>, na_values<span class="op">=</span>[<span class="op">-</span><span class="fl">999.99</span>])</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># you can first download, and then read the csv</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># filename = "co2_weekly_mlo.csv"</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># df = pd.read_csv(filename, header=47, na_values=[-999.99])</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>url <span class="op">=</span> <span class="st">"https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_weekly_mlo.csv"</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>df <span class="op">=</span> pd.read_csv(url, header<span class="op">=</span><span class="dv">47</span>, na_values<span class="op">=</span>[<span class="op">-</span><span class="fl">999.99</span>])</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># you can first download, and then read the csv</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># filename = "co2_weekly_mlo.csv"</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co"># df = pd.read_csv(filename, header=47, na_values=[-999.99])</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 
 <div>
@@ -639,9 +639,9 @@ data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
 </div>
 </div>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(df[[<span class="st">'year'</span>, <span class="st">'month'</span>, <span class="st">'day'</span>]])</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.set_index(<span class="st">'date'</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>df[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(df[[<span class="st">'year'</span>, <span class="st">'month'</span>, <span class="st">'day'</span>]])</span>
+<span id="cb3-2"><a href="#cb3-2"></a>df <span class="op">=</span> df.set_index(<span class="st">'date'</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 
 <div>
@@ -813,14 +813,14 @@ data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
 </div>
 </div>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># %matplotlib widget</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>ax.plot(df[<span class="st">'average'</span>])</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"date"</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>       ylabel<span class="op">=</span><span class="st">"CO2 concentration (ppm)"</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>       <span class="co"># ylim=[0, 430],</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>       title<span class="op">=</span><span class="st">"Mauna Loa CO2 concentration"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># %matplotlib widget</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb4-4"><a href="#cb4-4"></a>ax.plot(df[<span class="st">'average'</span>])</span>
+<span id="cb4-5"><a href="#cb4-5"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"date"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6"></a>       ylabel<span class="op">=</span><span class="st">"CO2 concentration (ppm)"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7"></a>       <span class="co"># ylim=[0, 430],</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>       title<span class="op">=</span><span class="st">"Mauna Loa CO2 concentration"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="seasonal-decomposition_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
 </div>
@@ -828,10 +828,10 @@ data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
 <p>fill missing data. interpolate method: ‘time’<br>
 <a href="https://thepythonyouneed.com/how-to-interpolate-values-with-pandas/">interpolation methods visualized</a></p>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'co2'</span>] <span class="op">=</span> (df[<span class="st">'average'</span>].resample(<span class="st">"D"</span>) <span class="co">#resample daily</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                          .interpolate(method<span class="op">=</span><span class="st">'time'</span>) <span class="co">#interpolate by time</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>df[<span class="st">'co2'</span>] <span class="op">=</span> (df[<span class="st">'average'</span>].resample(<span class="st">"D"</span>) <span class="co">#resample daily</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>                          .interpolate(method<span class="op">=</span><span class="st">'time'</span>) <span class="co">#interpolate by time</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>            )</span>
+<span id="cb5-4"><a href="#cb5-4"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 
 <div>
@@ -1034,11 +1034,11 @@ Y(t) = T(t) \times S(t) \times e(t)
 <h4 data-number="20.1.0.1" class="anchored" data-anchor-id="interlude"><span class="header-section-number">20.1.0.1</span> Interlude</h4>
 <p>learn how to use <code>zip</code> in a loop</p>
 <div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>letters <span class="op">=</span> [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span>]</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># zip let's us iterate over to lists at the same time</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> l, n <span class="kw">in</span> <span class="bu">zip</span>(letters, numbers):</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>l<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>letters <span class="op">=</span> [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span>]</span>
+<span id="cb6-2"><a href="#cb6-2"></a>numbers <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co"># zip let's us iterate over to lists at the same time</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="cf">for</span> l, n <span class="kw">in</span> <span class="bu">zip</span>(letters, numbers):</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>l<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>a = 1
 b = 2
@@ -1049,49 +1049,49 @@ e = 5</code></pre>
 </div>
 <p>Plot each component separately.</p>
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># %matplotlib widget</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">4</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>decomposed_m <span class="op">=</span> seasonal_decompose(df[<span class="st">'co2'</span>], model<span class="op">=</span><span class="st">'multiplicative'</span>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>decomposed_a <span class="op">=</span> seasonal_decompose(df[<span class="st">'co2'</span>], model<span class="op">=</span><span class="st">'additive'</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>decomposed <span class="op">=</span> decomposed_m</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> (<span class="fl">0.5</span>, <span class="fl">0.9</span>)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>components <span class="op">=</span>[<span class="st">"observed"</span>, <span class="st">"trend"</span>, <span class="st">"seasonal"</span>, <span class="st">"resid"</span>]</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">"tab:blue"</span>, <span class="st">"tab:orange"</span>, <span class="st">"tab:green"</span>, <span class="st">"tab:red"</span>]</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> axx, component, color <span class="kw">in</span> <span class="bu">zip</span>(ax, components, colors):</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> <span class="bu">getattr</span>(decomposed, component)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    axx.plot(data, color<span class="op">=</span>color)</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    axx.text(<span class="op">*</span>pos, component, bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'white'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>),</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>           transform<span class="op">=</span>axx.transAxes, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'top'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># %matplotlib widget</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">4</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-4"><a href="#cb8-4"></a>decomposed_m <span class="op">=</span> seasonal_decompose(df[<span class="st">'co2'</span>], model<span class="op">=</span><span class="st">'multiplicative'</span>)</span>
+<span id="cb8-5"><a href="#cb8-5"></a>decomposed_a <span class="op">=</span> seasonal_decompose(df[<span class="st">'co2'</span>], model<span class="op">=</span><span class="st">'additive'</span>)</span>
+<span id="cb8-6"><a href="#cb8-6"></a>decomposed <span class="op">=</span> decomposed_m</span>
+<span id="cb8-7"><a href="#cb8-7"></a>pos <span class="op">=</span> (<span class="fl">0.5</span>, <span class="fl">0.9</span>)</span>
+<span id="cb8-8"><a href="#cb8-8"></a>components <span class="op">=</span>[<span class="st">"observed"</span>, <span class="st">"trend"</span>, <span class="st">"seasonal"</span>, <span class="st">"resid"</span>]</span>
+<span id="cb8-9"><a href="#cb8-9"></a>colors <span class="op">=</span> [<span class="st">"tab:blue"</span>, <span class="st">"tab:orange"</span>, <span class="st">"tab:green"</span>, <span class="st">"tab:red"</span>]</span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="cf">for</span> axx, component, color <span class="kw">in</span> <span class="bu">zip</span>(ax, components, colors):</span>
+<span id="cb8-11"><a href="#cb8-11"></a>    data <span class="op">=</span> <span class="bu">getattr</span>(decomposed, component)</span>
+<span id="cb8-12"><a href="#cb8-12"></a>    axx.plot(data, color<span class="op">=</span>color)</span>
+<span id="cb8-13"><a href="#cb8-13"></a>    axx.text(<span class="op">*</span>pos, component, bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'white'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>),</span>
+<span id="cb8-14"><a href="#cb8-14"></a>           transform<span class="op">=</span>axx.transAxes, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'top'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="seasonal-decomposition_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># %matplotlib widget</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>decomposed <span class="op">=</span> decomposed_m</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].plot(df[<span class="st">'co2'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"observed"</span>)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].plot(decomposed.trend <span class="op">*</span> decomposed.resid, color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"trend*resid"</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].plot(decomposed.trend <span class="op">*</span> decomposed.seasonal, color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">"trend*seasonal"</span>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].plot(decomposed.trend, color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"trend"</span>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"CO$_2$ concentration (ppm)"</span>,</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>          title<span class="op">=</span><span class="st">"Mauna Loa CO$_2$ concentration"</span>)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> <span class="st">"2000-01-01"</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> <span class="st">"2003-01-01"</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>zoom <span class="op">=</span> <span class="bu">slice</span>(start, end)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot(df.loc[zoom, <span class="st">'co2'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"observed"</span>)</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot((decomposed.trend <span class="op">*</span> decomposed.resid)[zoom], color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"trend*resid"</span>)</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot((decomposed.trend <span class="op">*</span> decomposed.seasonal)[zoom], color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">"trend*seasonal"</span>)</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot(decomposed.trend[zoom], color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"trend"</span>)</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>date_form <span class="op">=</span> DateFormatter(<span class="st">"%Y"</span>)</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].xaxis.set_major_formatter(date_form)</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].xaxis.set_major_locator(mdates.YearLocator(<span class="dv">1</span>))</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"Components, 2000--2003"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># %matplotlib widget</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a>decomposed <span class="op">=</span> decomposed_m</span>
+<span id="cb9-4"><a href="#cb9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb9-6"><a href="#cb9-6"></a>ax[<span class="dv">0</span>].plot(df[<span class="st">'co2'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"observed"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7"></a>ax[<span class="dv">0</span>].plot(decomposed.trend <span class="op">*</span> decomposed.resid, color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"trend*resid"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8"></a>ax[<span class="dv">0</span>].plot(decomposed.trend <span class="op">*</span> decomposed.seasonal, color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">"trend*seasonal"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9"></a>ax[<span class="dv">0</span>].plot(decomposed.trend, color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"trend"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"CO$_2$ concentration (ppm)"</span>,</span>
+<span id="cb9-11"><a href="#cb9-11"></a>          title<span class="op">=</span><span class="st">"Mauna Loa CO$_2$ concentration"</span>)</span>
+<span id="cb9-12"><a href="#cb9-12"></a>ax[<span class="dv">0</span>].legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-13"><a href="#cb9-13"></a></span>
+<span id="cb9-14"><a href="#cb9-14"></a>start <span class="op">=</span> <span class="st">"2000-01-01"</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a>end <span class="op">=</span> <span class="st">"2003-01-01"</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a>zoom <span class="op">=</span> <span class="bu">slice</span>(start, end)</span>
+<span id="cb9-17"><a href="#cb9-17"></a>ax[<span class="dv">1</span>].plot(df.loc[zoom, <span class="st">'co2'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"observed"</span>)</span>
+<span id="cb9-18"><a href="#cb9-18"></a>ax[<span class="dv">1</span>].plot((decomposed.trend <span class="op">*</span> decomposed.resid)[zoom], color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"trend*resid"</span>)</span>
+<span id="cb9-19"><a href="#cb9-19"></a>ax[<span class="dv">1</span>].plot((decomposed.trend <span class="op">*</span> decomposed.seasonal)[zoom], color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">"trend*seasonal"</span>)</span>
+<span id="cb9-20"><a href="#cb9-20"></a>ax[<span class="dv">1</span>].plot(decomposed.trend[zoom], color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"trend"</span>)</span>
+<span id="cb9-21"><a href="#cb9-21"></a>date_form <span class="op">=</span> DateFormatter(<span class="st">"%Y"</span>)</span>
+<span id="cb9-22"><a href="#cb9-22"></a>ax[<span class="dv">1</span>].xaxis.set_major_formatter(date_form)</span>
+<span id="cb9-23"><a href="#cb9-23"></a>ax[<span class="dv">1</span>].xaxis.set_major_locator(mdates.YearLocator(<span class="dv">1</span>))</span>
+<span id="cb9-24"><a href="#cb9-24"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"Components, 2000--2003"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="seasonal-decomposition_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
 </div>

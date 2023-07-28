@@ -1,3 +1,5 @@
 ## Fourier-based derivatives
 
-https://nirpyresearch.com/fourier-spectral-smoothing-method/
+This tutorial is based on @pelliccia2019fourier.
+
+

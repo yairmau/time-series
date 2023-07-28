@@ -495,7 +495,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="numerics" class="level2" data-number="8.4">
 <h2 data-number="8.4" class="anchored" data-anchor-id="numerics"><span class="header-section-number">8.4</span> Numerics</h2>
 <p>Running averages are very common tools in time-series analysis. The <code>pandas</code> package makes life quite simple. For example, in order to calculate the running average of temperature using a rectangular kernel, one writes</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'temperature'</span>].rolling(window<span class="op">=</span><span class="st">'20'</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>df[<span class="st">'temperature'</span>].rolling(window<span class="op">=</span><span class="st">'20'</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li><code>window=20</code> means that the width of the window is 20 points. Pandas lets us define a window width in time units, for example, <code>window='120min'</code>.</li>
 <li><code>center=True</code> is needed in order to assign the result of averaging to the center of the window. Make it <code>False</code> and see what happens.</li>
@@ -504,28 +504,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>It is implicit in the command above a “rectangular” kernel. What if we want other shapes?</p>
 <section id="gaussian" class="level3" data-number="8.4.1">
 <h3 data-number="8.4.1" class="anchored" data-anchor-id="gaussian"><span class="header-section-number">8.4.1</span> Gaussian</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'temperature'</span>].rolling(window<span class="op">=</span>window_width,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                          center<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                          win_type<span class="op">=</span><span class="st">"gaussian"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                 .mean(std<span class="op">=</span>std_gaussian)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>(</span>
+<span id="cb2-2"><a href="#cb2-2"></a>df[<span class="st">'temperature'</span>].rolling(window<span class="op">=</span>window_width,</span>
+<span id="cb2-3"><a href="#cb2-3"></a>                          center<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb2-4"><a href="#cb2-4"></a>                          win_type<span class="op">=</span><span class="st">"gaussian"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>                 .mean(std<span class="op">=</span>std_gaussian)</span>
+<span id="cb2-6"><a href="#cb2-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>where * <code>window_width</code> is an integer, number of points in your window * <code>std_gaussian</code> is the standard deviation of your gaussian, measured in sample points, not time!</p>
 <p>For instance, if we have measurements every 10 minutes, and our window width is 500 minutes, then <code>window_width = 500/10 + 1</code> (first and last included). If we want a standard deviation of 60 minutes, then <code>std_gaussian = 6</code>. The gaussian kernel will look like this:</p>
 <p><img src="gaussian_kernel.png" class="img-fluid"></p>
 <p>You can take a look at various options for kernel shapes <a href="https://docs.scipy.org/doc/scipy/reference/signal.windows.html#module-scipy.signal.windows">here</a>, provided by the <code>scipy</code> package. The graph above was achieved by running:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> scipy.signal.gaussian(window_width, std)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>plt.plot(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>g <span class="op">=</span> scipy.signal.gaussian(window_width, std)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>plt.plot(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="triangular" class="level3" data-number="8.4.2">
 <h3 data-number="8.4.2" class="anchored" data-anchor-id="triangular"><span class="header-section-number">8.4.2</span> Triangular</h3>
 <p>Same idea as gaussian, but simpler, because we don’t need to think about standard deviation.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'temperature'</span>].rolling(window<span class="op">=</span>window_width,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                          center<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                          win_type<span class="op">=</span><span class="st">"triang"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                 .mean()</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>(</span>
+<span id="cb4-2"><a href="#cb4-2"></a>df[<span class="st">'temperature'</span>].rolling(window<span class="op">=</span>window_width,</span>
+<span id="cb4-3"><a href="#cb4-3"></a>                          center<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>                          win_type<span class="op">=</span><span class="st">"triang"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>                 .mean()</span>
+<span id="cb4-6"><a href="#cb4-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="which-window-shape-and-width-to-choose" class="level2" data-number="8.5">

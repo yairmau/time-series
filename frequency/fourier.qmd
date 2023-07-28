@@ -1,1 +1,19 @@
 ## Fourier transform
+
+![](sine1.png)
+
+![](sine2.png)
+
+![](Fourier_transform_time_and_frequency_domains.gif)
+
+![](Continuous_Fourier_transform_of_rect_and_sinc_functions.gif)
+
+$$
+F[x(t)] = F(f) = \int_{-\infty}^{\infty}x(t)e^{-2\pi i f t}dt
+$$
+
+$$
+f(t) = \int_{-\infty}^{\infty}F(f)e^{2\pi i f t}df
+$$
+
+https://dibsmethodsmeetings.github.io/fourier-transforms/
