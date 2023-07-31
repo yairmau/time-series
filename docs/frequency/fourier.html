@@ -67,7 +67,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -358,10 +358,17 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#basic-wave-concepts" id="toc-basic-wave-concepts" class="nav-link active" data-scroll-target="#basic-wave-concepts"><span class="toc-section-number">16.1</span>  Basic wave concepts</a></li>
+  <li><a href="#fourier-series" id="toc-fourier-series" class="nav-link" data-scroll-target="#fourier-series"><span class="toc-section-number">16.2</span>  Fourier series</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -380,10 +387,36 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="basic-wave-concepts" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="basic-wave-concepts"><span class="header-section-number">16.1</span> Basic wave concepts</h2>
 <p><img src="sine1.png" class="img-fluid"></p>
 <p><img src="sine2.png" class="img-fluid"></p>
-<p><img src="Fourier_transform_time_and_frequency_domains.gif" class="img-fluid"></p>
-<p><img src="Continuous_Fourier_transform_of_rect_and_sinc_functions.gif" class="img-fluid"></p>
+<p>
+<a href="https://commons.wikimedia.org/wiki/File:Fourier_series_and_transform.gif#/media/File:Fourier_series_and_transform.gif"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Fourier_series_and_transform.gif" alt="Fourier series and transform.gif" height="480" width="600"></a>
+</p>
+<p>Source: <a href="https://en.wikipedia.org/wiki/File:Fourier_series_and_transform.gif" class="uri">https://en.wikipedia.org/wiki/File:Fourier_series_and_transform.gif</a></p>
+<p><a href="https://commons.wikimedia.org/wiki/File:Fourier_synthesis_square_wave_animated.gif"><img width="512" alt="Fourier synthesis square wave animated" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Fourier_synthesis_square_wave_animated.gif"></a><br>
+Source: <a href="https://commons.wikimedia.org/wiki/File:Fourier_synthesis_square_wave_animated.gif" class="uri">https://commons.wikimedia.org/wiki/File:Fourier_synthesis_square_wave_animated.gif</a></p>
+<p><a href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"><img width="512" alt="Continuous Fourier transform of rect and sinc functions" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"></a><br>
+Source: <a href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif" class="uri">https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif</a></p>
+<p><a href="https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif"><img width="512" alt="Sawtooth Fourier Animation" src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Sawtooth_Fourier_Animation.gif"></a><br>
+Source: <a href="https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif" class="uri">https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif</a></p>
+</section>
+<section id="fourier-series" class="level2 page-columns page-full" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="fourier-series"><span class="header-section-number">16.2</span> Fourier series</h2>
+<blockquote class="blockquote">
+<p>a periodic function can be described as a sum of sines and cosines.</p>
+</blockquote>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Not any function, but certainly most functions we will deal with in this course. The function has to fullful the <a href="https://en.wikipedia.org/wiki/Dirichlet–Jordan_test">Dirichlet conditions</a></p>
+</div></div><p>The classic examples are usually the square function and the sawtooth function:</p>
+<iframe scrolling="no" title="Fourier Series" src="https://www.geogebra.org/material/iframe/id/yd2qcp97/width/791/height/469/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false" width="791px" height="469px" style="border:0px;">
+</iframe>
+<p>[Source: <a href="https://www.geogebra.org/m/tkajbzmg" class="uri">https://www.geogebra.org/m/tkajbzmg</a>]</p>
+<p><a href="https://www.geogebra.org/m/k4eq4fkr" class="uri">https://www.geogebra.org/m/k4eq4fkr</a></p>
+<iframe scrolling="no" title="2.2.2. Fourier-Reihe periodischer Funktionen" src="https://www.geogebra.org/material/iframe/id/wzawveyr/width/1117/height/560/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/true/sdz/true/ctl/false" width="1117px" height="560px" style="border:0px;">
+</iframe>
 <p><span class="math display">\[
 F[x(t)] = F(f) = \int_{-\infty}^{\infty}x(t)e^{-2\pi i f t}dt
 \]</span></p>
@@ -393,6 +426,7 @@ f(t) = \int_{-\infty}^{\infty}F(f)e^{2\pi i f t}df
 <p>https://dibsmethodsmeetings.github.io/fourier-transforms/</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
