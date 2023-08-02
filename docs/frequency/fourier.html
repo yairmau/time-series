@@ -363,7 +363,8 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#basic-wave-concepts" id="toc-basic-wave-concepts" class="nav-link active" data-scroll-target="#basic-wave-concepts"><span class="toc-section-number">16.1</span>  Basic wave concepts</a></li>
-  <li><a href="#fourier-series" id="toc-fourier-series" class="nav-link" data-scroll-target="#fourier-series"><span class="toc-section-number">16.2</span>  Fourier series</a></li>
+  <li><a href="#fouriers-theorem" id="toc-fouriers-theorem" class="nav-link" data-scroll-target="#fouriers-theorem"><span class="toc-section-number">16.2</span>  Fourier’s theorem</a></li>
+  <li><a href="#fourier-series" id="toc-fourier-series" class="nav-link" data-scroll-target="#fourier-series"><span class="toc-section-number">16.3</span>  Fourier series</a></li>
   </ul>
 </nav>
     </div>
@@ -389,21 +390,54 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="basic-wave-concepts" class="level2" data-number="16.1">
 <h2 data-number="16.1" class="anchored" data-anchor-id="basic-wave-concepts"><span class="header-section-number">16.1</span> Basic wave concepts</h2>
+<p>The function</p>
+<p><span id="eq-sin-Bf"><span class="math display">\[
+f(t) = B\sin(2\pi f t)
+\tag{16.1}\]</span></span></p>
+<p>has two basic characteristics, its amplitude <span class="math inline">\(B\)</span> and frequency <span class="math inline">\(f\)</span>.</p>
 <p><img src="sine1.png" class="img-fluid"></p>
+<p>In the figure above, the amplitude <span class="math inline">\(B=0.6\)</span> and we see that the distance between two peaks is called period, <span class="math inline">\(T=2\)</span> s. The frequency is defined as the inverse of the period:</p>
+<p><span id="eq-fT"><span class="math display">\[
+f = \frac{1}{T}.
+\tag{16.2}\]</span></span></p>
+<p>When time is in seconds, then the frequency is measured in Hertz (Hz). For the graph above, therefore, we see a wave whose frequency is <span class="math inline">\(f = 1/(2 \text{ s}) = 0.5\)</span> Hz.</p>
+<p>In the figure below, we see what happens when we vary the values of the frequency and amplitude.</p>
 <p><img src="sine2.png" class="img-fluid"></p>
-<p>
-<a href="https://commons.wikimedia.org/wiki/File:Fourier_series_and_transform.gif#/media/File:Fourier_series_and_transform.gif"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Fourier_series_and_transform.gif" alt="Fourier series and transform.gif" height="480" width="600"></a>
-</p>
-<p>Source: <a href="https://en.wikipedia.org/wiki/File:Fourier_series_and_transform.gif" class="uri">https://en.wikipedia.org/wiki/File:Fourier_series_and_transform.gif</a></p>
+<p>The graph above introduces two new characteristics of a wave, its phase <span class="math inline">\(\phi\)</span>, and its offset <span class="math inline">\(B\)</span>. A more general description of a sine wave is</p>
+<p><span id="eq-sin-Bf-phi"><span class="math display">\[
+f(t) = B\sin(2\pi f t + \phi) + B_0.
+\tag{16.3}\]</span></span></p>
+<p>The offset <span class="math inline">\(B_0\)</span> moves the wave up and down, while changing the value of <span class="math inline">\(\phi\)</span> makes the sine wave move left and right. When the phase <span class="math inline">\(\phi=2\pi\)</span>, the sine wave will have shifted a full period, and the resulting wave is identical to the original:</p>
+<p><span id="eq-sin-Bf-phi-2pi"><span class="math display">\[
+B\sin(2\pi f t) = B\sin(2\pi f t + 2\pi).
+\tag{16.4}\]</span></span></p>
+<p>All the above can also be said about a cosine, whose general for can be given as</p>
+<p><span id="eq-sin-Af-phi"><span class="math display">\[
+A\cos(2\pi f t + \phi) + A_0
+\tag{16.5}\]</span></span></p>
+<p>One final point before we jump into the deep waters is that the sine and cosine functions are related through a simple phase shift:</p>
+<p><span class="math display">\[
+\cos\left(2\pi f t + \frac{\pi}{2}\right) = \sin\left(2\pi f t\right)
+\]</span></p>
+</section>
+<section id="fouriers-theorem" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="fouriers-theorem"><span class="header-section-number">16.2</span> Fourier’s theorem</h2>
+<p>Fourier’s theorem states that</p>
+<blockquote class="blockquote">
+<p>Any periodic signal is composed of a superposition of pure sine waves, with suitably chosen amplitudes and phases, whose frequencies are harmonics of the fundamental frequency of the signal.</p>
+</blockquote>
+<p>See the following animations to visualize the theorem in action.</p>
+<p><a href="https://commons.wikimedia.org/wiki/File:Fourier_series_and_transform.gif#/media/File:Fourier_series_and_transform.gif"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Fourier_series_and_transform.gif" alt="Fourier series and transform.gif" height="480" width="600"></a><br>
+Source: <a href="https://en.wikipedia.org/wiki/File:Fourier_series_and_transform.gif" class="uri">https://en.wikipedia.org/wiki/File:Fourier_series_and_transform.gif</a></p>
 <p><a href="https://commons.wikimedia.org/wiki/File:Fourier_synthesis_square_wave_animated.gif"><img width="512" alt="Fourier synthesis square wave animated" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Fourier_synthesis_square_wave_animated.gif"></a><br>
 Source: <a href="https://commons.wikimedia.org/wiki/File:Fourier_synthesis_square_wave_animated.gif" class="uri">https://commons.wikimedia.org/wiki/File:Fourier_synthesis_square_wave_animated.gif</a></p>
-<p><a href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"><img width="512" alt="Continuous Fourier transform of rect and sinc functions" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"></a><br>
-Source: <a href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif" class="uri">https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif</a></p>
 <p><a href="https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif"><img width="512" alt="Sawtooth Fourier Animation" src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Sawtooth_Fourier_Animation.gif"></a><br>
 Source: <a href="https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif" class="uri">https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif</a></p>
+<p><a href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"><img width="512" alt="Continuous Fourier transform of rect and sinc functions" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"></a><br>
+Source: <a href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif" class="uri">https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif</a></p>
 </section>
-<section id="fourier-series" class="level2 page-columns page-full" data-number="16.2">
-<h2 data-number="16.2" class="anchored" data-anchor-id="fourier-series"><span class="header-section-number">16.2</span> Fourier series</h2>
+<section id="fourier-series" class="level2 page-columns page-full" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="fourier-series"><span class="header-section-number">16.3</span> Fourier series</h2>
 <blockquote class="blockquote">
 <p>a periodic function can be described as a sum of sines and cosines.</p>
 </blockquote>

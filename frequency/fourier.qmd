@@ -2,21 +2,75 @@
 
 ## Basic wave concepts
 
+The function
+
+$$
+f(t) = B\sin(2\pi f t)
+$$ {#eq-sin-Bf}
+
+has two basic characteristics, its amplitude $B$ and frequency $f$.
+
 ![](sine1.png)
+
+In the figure above, the amplitude $B=0.6$ and we see that the distance between two peaks is called period, $T=2$ s. The frequency is defined as the inverse of the period:
+
+$$
+f = \frac{1}{T}.
+$$ {#eq-fT}
+
+When time is in seconds, then the frequency is measured in Hertz (Hz). For the graph above, therefore, we see a wave whose frequency is $f = 1/(2 \text{ s}) = 0.5$ Hz.
+
+In the figure below, we see what happens when we vary the values of the frequency and amplitude.
 
 ![](sine2.png)
 
-<p><a href="https://commons.wikimedia.org/wiki/File:Fourier_series_and_transform.gif#/media/File:Fourier_series_and_transform.gif"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Fourier_series_and_transform.gif" alt="Fourier series and transform.gif" height="480" width="600"></a></p>
+The graph above introduces two new characteristics of a wave, its phase $\phi$, and its offset $B$. A more general description of a sine wave is
+
+$$
+f(t) = B\sin(2\pi f t + \phi) + B_0.
+$$ {#eq-sin-Bf-phi}
+
+The offset $B_0$ moves the wave up and down, while changing the value of $\phi$ makes the sine wave move left and right. When the phase $\phi=2\pi$, the sine wave will have shifted a full period, and the resulting wave is identical to the original:
+
+$$
+B\sin(2\pi f t) = B\sin(2\pi f t + 2\pi).
+$$ {#eq-sin-Bf-phi-2pi}
+
+All the above can also be said about a cosine, whose general for can be given as
+
+$$
+A\cos(2\pi f t + \phi) + A_0
+$$ {#eq-sin-Af-phi}
+
+One final point before we jump into the deep waters is that the sine and cosine functions are related through a simple phase shift:
+
+$$
+\cos\left(2\pi f t + \frac{\pi}{2}\right) = \sin\left(2\pi f t\right)
+$$
+
+## Fourier's theorem
+
+Fourier's theorem states that
+
+> Any periodic signal is composed of a superposition of pure sine waves, with suitably chosen amplitudes and phases, whose frequencies are harmonics of the fundamental frequency of the signal.
+
+See the following animations to visualize the theorem in action.
+
+<a href="https://commons.wikimedia.org/wiki/File:Fourier_series_and_transform.gif#/media/File:Fourier_series_and_transform.gif"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Fourier_series_and_transform.gif" alt="Fourier series and transform.gif" height="480" width="600"></a>  
 Source: <https://en.wikipedia.org/wiki/File:Fourier_series_and_transform.gif>
 
 <a href="https://commons.wikimedia.org/wiki/File:Fourier_synthesis_square_wave_animated.gif"><img width="512" alt="Fourier synthesis square wave animated" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Fourier_synthesis_square_wave_animated.gif"></a>  
 Source: <https://commons.wikimedia.org/wiki/File:Fourier_synthesis_square_wave_animated.gif>
 
+<a href="https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif"><img width="512" alt="Sawtooth Fourier Animation" src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Sawtooth_Fourier_Animation.gif"></a>  
+Source: <https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif>
+
+
+
 <a href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"><img width="512" alt="Continuous Fourier transform of rect and sinc functions" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"></a>  
 Source: <https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif>
 
-<a href="https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif"><img width="512" alt="Sawtooth Fourier Animation" src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Sawtooth_Fourier_Animation.gif"></a>  
-Source: <https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif>
+
 
 ## Fourier series
 

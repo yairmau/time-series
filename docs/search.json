@@ -151,14 +151,21 @@
     "href": "frequency/fourier.html#basic-wave-concepts",
     "title": "16  Fourier transform",
     "section": "16.1 Basic wave concepts",
-    "text": "16.1 Basic wave concepts\n\n\n\n\n\nSource: https://en.wikipedia.org/wiki/File:Fourier_series_and_transform.gif\n\nSource: https://commons.wikimedia.org/wiki/File:Fourier_synthesis_square_wave_animated.gif\n\nSource: https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif\n\nSource: https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif"
+    "text": "16.1 Basic wave concepts\nThe function\n\\[\nf(t) = B\\sin(2\\pi f t)\n\\tag{16.1}\\]\nhas two basic characteristics, its amplitude \\(B\\) and frequency \\(f\\).\n\nIn the figure above, the amplitude \\(B=0.6\\) and we see that the distance between two peaks is called period, \\(T=2\\) s. The frequency is defined as the inverse of the period:\n\\[\nf = \\frac{1}{T}.\n\\tag{16.2}\\]\nWhen time is in seconds, then the frequency is measured in Hertz (Hz). For the graph above, therefore, we see a wave whose frequency is \\(f = 1/(2 \\text{ s}) = 0.5\\) Hz.\nIn the figure below, we see what happens when we vary the values of the frequency and amplitude.\n\nThe graph above introduces two new characteristics of a wave, its phase \\(\\phi\\), and its offset \\(B\\). A more general description of a sine wave is\n\\[\nf(t) = B\\sin(2\\pi f t + \\phi) + B_0.\n\\tag{16.3}\\]\nThe offset \\(B_0\\) moves the wave up and down, while changing the value of \\(\\phi\\) makes the sine wave move left and right. When the phase \\(\\phi=2\\pi\\), the sine wave will have shifted a full period, and the resulting wave is identical to the original:\n\\[\nB\\sin(2\\pi f t) = B\\sin(2\\pi f t + 2\\pi).\n\\tag{16.4}\\]\nAll the above can also be said about a cosine, whose general for can be given as\n\\[\nA\\cos(2\\pi f t + \\phi) + A_0\n\\tag{16.5}\\]\nOne final point before we jump into the deep waters is that the sine and cosine functions are related through a simple phase shift:\n\\[\n\\cos\\left(2\\pi f t + \\frac{\\pi}{2}\\right) = \\sin\\left(2\\pi f t\\right)\n\\]"
+  },
+  {
+    "objectID": "frequency/fourier.html#fouriers-theorem",
+    "href": "frequency/fourier.html#fouriers-theorem",
+    "title": "16  Fourier transform",
+    "section": "16.2 Fourier’s theorem",
+    "text": "16.2 Fourier’s theorem\nFourier’s theorem states that\n\nAny periodic signal is composed of a superposition of pure sine waves, with suitably chosen amplitudes and phases, whose frequencies are harmonics of the fundamental frequency of the signal.\n\nSee the following animations to visualize the theorem in action.\n\nSource: https://en.wikipedia.org/wiki/File:Fourier_series_and_transform.gif\n\nSource: https://commons.wikimedia.org/wiki/File:Fourier_synthesis_square_wave_animated.gif\n\nSource: https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif\n\nSource: https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"
   },
   {
     "objectID": "frequency/fourier.html#fourier-series",
     "href": "frequency/fourier.html#fourier-series",
     "title": "16  Fourier transform",
-    "section": "16.2 Fourier series",
-    "text": "16.2 Fourier series\n\na periodic function can be described as a sum of sines and cosines.\n\n\n\nNot any function, but certainly most functions we will deal with in this course. The function has to fullful the Dirichlet conditions\nThe classic examples are usually the square function and the sawtooth function:\n\n\n[Source: https://www.geogebra.org/m/tkajbzmg]\nhttps://www.geogebra.org/m/k4eq4fkr\n\n\n\\[\nF[x(t)] = F(f) = \\int_{-\\infty}^{\\infty}x(t)e^{-2\\pi i f t}dt\n\\]\n\\[\nf(t) = \\int_{-\\infty}^{\\infty}F(f)e^{2\\pi i f t}df\n\\]\nhttps://dibsmethodsmeetings.github.io/fourier-transforms/"
+    "section": "16.3 Fourier series",
+    "text": "16.3 Fourier series\n\na periodic function can be described as a sum of sines and cosines.\n\n\n\nNot any function, but certainly most functions we will deal with in this course. The function has to fullful the Dirichlet conditions\nThe classic examples are usually the square function and the sawtooth function:\n\n\n[Source: https://www.geogebra.org/m/tkajbzmg]\nhttps://www.geogebra.org/m/k4eq4fkr\n\n\n\\[\nF[x(t)] = F(f) = \\int_{-\\infty}^{\\infty}x(t)e^{-2\\pi i f t}dt\n\\]\n\\[\nf(t) = \\int_{-\\infty}^{\\infty}F(f)e^{2\\pi i f t}df\n\\]\nhttps://dibsmethodsmeetings.github.io/fourier-transforms/"
   },
   {
     "objectID": "seasonality/seasonal-decomposition.html",
