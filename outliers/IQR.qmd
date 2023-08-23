@@ -1,0 +1,8 @@
+## IQR (Inter Quartile Range)
+
+The IQR (Inter Quartile Range) is the distance between the 25th percentile (Q1) and the 75th percentile (Q3).
+In a box plot, the whiskers usually extend $1.5\times$IQR beyond Q1 and Q3, see below.
+
+![Source: @Andy_McDonald_2022](iqr1.png)
+
+A common outlier detection method is to consider whatever points outside the whisker range as outliers.

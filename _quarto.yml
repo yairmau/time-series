@@ -21,6 +21,7 @@ book:
       chapters:
       - outliers/motivation.qmd
       - outliers/zscore.qmd
+      - outliers/IQR.qmd
     - part: "resampling"
       chapters:
         - resampling/motivation.qmd

@@ -1,1 +1,22 @@
 ## motivation
+
+Outliers are observations significantly different from all other observations.
+Consider, for example, this temperature graph:
+
+![](temp-outlier.png)
+
+While most measured points are between 20 and 30 °C, there is obviously something very wrong with the one data point above 80 °C.
+
+How could such a thing come about? 
+This could be the result of non-natural causes, such as measurement errors, wrong data collection, or wrong data entry. On the other hand, this point could have natural sources, such as a very hot spark flying next to the temperature sensor.
+
+Identifying outliers is important, because they might greatly impact measures like mean and standard deviation. 
+When left untouched, outliers might make us reach wrong conclusions about our data.
+See what happens to the slope of this linear regression with and without the outliers.
+
+![Source: @Ou_Zhang_2020](regression-outlier.png)
+
+<!-- 
+That means the outlier data points vary greatly from the expected values—either being much larger or significantly smaller. For data that follows a normal distribution, the values that fall more than three standard deviations from the mean are typically considered outliers. 
+
+Outliers can find their way into a dataset naturally through variability, or they can be the result of issues like human error, faulty equipment, or poor sampling. Regardless of how they get into the data, outliers can have a big impact on statistical analysis and machine learning because they impact calculations like mean and standard deviation, and they can skew hypothesis tests. A data analyst should use various techniques to visualize and identify outliers before deciding whether they should be dropped, kept, or modified.  -->
