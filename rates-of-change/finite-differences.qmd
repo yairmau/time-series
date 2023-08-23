@@ -1,5 +1,5 @@
 ---
-title: "Finite differences"
+title: "finite differences"
 execute:
   freeze: auto  # re-render only when source changes
 jupyter: python3

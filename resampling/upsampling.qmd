@@ -1,1 +1,1 @@
-## Upsampling, interpolation
+## upsampling, interpolation

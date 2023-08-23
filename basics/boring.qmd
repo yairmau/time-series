@@ -1,0 +1,25 @@
+## the boring stuff you absolutely need to do
+
+I assume everyone registered has taken a basic Python course.
+On your computer, do the following:
+
+## Anaconda
+Install [Anaconda's Python distribution](https://www.anaconda.com/download).
+The Anaconda installation brings with it all the main python packages we will need to use. In order to install extra packages, refer to these two tutorials: [tutorial 1](https://www.tutorialspoint.com/how-do-i-install-python-packages-in-anaconda), [tutorial 2](https://docs.anaconda.com/free/anaconda/packages/install-packages.html)
+
+## VSCode
+Install [VSCode](https://code.visualstudio.com/download).
+Visual Studio Code is a very nice IDE (Integrated Development Environment) made by Microsoft, available to all operating systems. Contrary to the title of this page, it is not absolutely necessary to use it, but I like VSCode, and as my student, so do you.
+
+## jupyter notebooks
+We will code exclusively in Jupyter Notebooks. [Get acquainted with them](https://code.visualstudio.com/docs/datascience/jupyter-notebooks). Make sure you can [point VSCode](https://opensourceoptions.com/blog/setup-anaconda-python-to-work-with-visual-studio-code-on-windows/) to the Anaconda environment of your choice ("base" by default). Don't worry, this is easier than it sounds.
+
+## HUJI's computers
+If you are using the computers in the Hebrew University's computer lab, then:
+
+- open Anaconda Navigator
+- in "Environments", choose "asgard"
+- open VSCode from inside Anaconda Navigator
+
+## folder structure
+You **NEED** to be confortable with you computer's folder (or directory) structure. Where are files located? How to navigate through different folders? How is my stuff organized? If you don't feel **absolutely** comfortable with this, then read this, [Windows](http://www2.westsussex.gov.uk/LearningandDevelopment/IT%20Learning%20Guides/Microsoft%20Windows%207/05%20Working%20with%20folders.pdf), [MacOS](https://recoverit.wondershare.com/mac-tips/mac-finder-tutorial-mac.html). If you use Linux then you surely know this stuff. **Make yourself a "time-series" folder** wherever you want, and have it backed up regularly (use Google Drive, Dropbox, do it manually, etc). "My dog deleted my files" is not an excuse.

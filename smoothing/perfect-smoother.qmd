@@ -1,4 +1,4 @@
-## A perfect smoother
+## a perfect smoother
 
 Source: @eilers2003perfect
 

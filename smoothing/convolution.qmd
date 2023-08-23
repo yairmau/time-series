@@ -1,5 +1,5 @@
 ---
-title: Convolution
+title: convolution
 subtitle: Running windows of different shapes (kernels)
 ---
 
@@ -11,7 +11,7 @@ Data is in intervals of 10 minutes, and was downloaded from the Israel Meteorolo
 We see that the temperature curve has a rough profile.
 Can we find ways of getting smoother curves?
 
-## Convolution
+## convolution
 
 Convolution is a fancy word for averaging a time series using a running window.
 We will use the terms **convolution, running average, and rolling average** interchangeably. 
@@ -29,7 +29,7 @@ If we decrease the window width to 200 minutes (21 points), we get the following
 
 There is a tradeoff between the smoothness of a curve, and its ability to describe sharp temporal changes.
 
-## Kernels
+## kernels
 
 We can modify our running average, so that values closer to the center of the window have higher weights, and those further away count less.
 This is achieved by changing the weight profile, or the shape of the kernel.
@@ -43,7 +43,7 @@ We used a gaussian kernel with 60-minute standard deviation (the window in the a
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/mqhA3x6DBvM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## Math
+## math
 
 The definition of a convolution between signal $f(t)$ and kernel $k(t)$ is
 
@@ -63,7 +63,7 @@ $$
 
 Whenever the integral of the kernel is 1, then the convolution will be identical with the running average.
 
-## Numerics
+## numerics
 
 Running averages are very common tools in time-series analysis.
 The `pandas` package makes life quite simple.
@@ -79,7 +79,7 @@ df['temperature'].rolling(window='20', center=True).mean()
 
 It is implicit in the command above a "rectangular" kernel. What if we want other shapes?
 
-### Gaussian
+### gaussian
 
 ```python
 (
@@ -91,6 +91,7 @@ df['temperature'].rolling(window=window_width,
 ```
 
 where
+
 * `window_width` is an integer, number of points in your window
 * `std_gaussian` is the standard deviation of your gaussian, measured in sample points, not time!
 
@@ -106,7 +107,7 @@ g = scipy.signal.gaussian(window_width, std)
 plt.plot(g)
 ```
 
-### Triangular
+### triangular
 
 Same idea as gaussian, but simpler, because we don't need to think about standard deviation.
 
@@ -119,10 +120,15 @@ df['temperature'].rolling(window=window_width,
 )
 ```
 
-## 🤷‍♂️ Which window shape and width to choose?
+## which window shape and width to choose?
+
+🤷‍♂️
 
 Sorry, there is not definite answer here... It really depends on your data and what you need to do with it.
 See below a comparison of all examples in the videos above.
 
 ![](kernel_comparison.png)
 
+One important question you need to ask is: what are the time scales associated with the processes I'm interested in? For example, if I'm interested in the daily temperature pattern, getting rid of 1-minute-long fluctuations would probably be ok. On the other hand, if we were to smooth the signal so much that all that can be seen are the temperature changes between summer and winter, then my smoothing got out of hand, and I threw away the very process I wanted to study.
+
+All this is to say that you need to know in advance a few things about the system you are studying, otherwise you can't know what is "noise" that can be smoothed away.

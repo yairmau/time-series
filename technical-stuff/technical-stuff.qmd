@@ -1,18 +1,18 @@
-# Technical Stuff {.unnumbered}
+# technical stuff {.unnumbered}
 
-## Operating systems
+## operating systems
 
 I recommend working with UNIX-based operating systems (MacOS or Linux). Everything is easier.
 
 If you use Windows, consider [installing Linux on Windows with WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
 
-## Software
+## software
 
 [Anaconda's Python distribution](https://www.anaconda.com/download)
 
 [VSCode](https://code.visualstudio.com/download)
 
-## Python packages
+## python packages
 
 [Kats — a one-stop shop for time series analysis](https://engineering.fb.com/2021/06/21/open-source/kats/)  
 Developed by Meta

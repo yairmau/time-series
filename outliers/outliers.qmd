@@ -1,4 +1,4 @@
-## Outliers and Gaps
+## outliers and gaps
 
 ### Z-score
 

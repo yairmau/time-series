@@ -9,57 +9,70 @@ book:
   favicon: archive/clock-history.png
   chapters:
     - index.qmd
-    - part: "Basic data manipulation and plotting"
+    - who-cares.qmd
+    - part: "start here"
       chapters:
+      - basics/boring.qmd
       - basics/pandas.qmd
       - basics/pyplot.qmd
-      - introduction/first-steps.ipynb
-    - part: "Outliers and Gaps"
+      - basics/all-together.qmd
+      - basics/first-steps.ipynb
+    - part: "outliers and gaps"
       chapters:
+      - outliers/motivation.qmd
       - outliers/zscore.qmd
-    - part: "Resampling"
+    - part: "resampling"
       chapters:
+        - resampling/motivation.qmd
         - resampling/upsampling.qmd
         - resampling/downsampling.qmd
-    - part: "Best practices"
+    - part: "best practices"
       chapters:
+        - best-practices/motivation.qmd
         - best-practices/dates.qmd
-    - part: "Smoothing"
+    - part: "smoothing"
       chapters:
+        - smoothing/motivation.qmd
         - smoothing/convolution.qmd
         - smoothing/LOESS.qmd
         - smoothing/perfect-smoother.qmd
-    - part: "Stationarity"
+    - part: "stationarity"
       chapters:
+        - stationarity/motivation.qmd
         - stationarity/stochastic.qmd
         - stationarity/autocorrelation.qmd
-    - part: "Time lags"
+    - part: "time lags"
       chapters:
+        - lags/motivation.qmd
         - lags/cross-correlation.ipynb
         - lags/dynamic-time-warp.qmd
         - lags/LDTW.ipynb
-    - part: "Frequency"
+    - part: "frequency"
       chapters:
+        - frequency/motivation.qmd
         - frequency/fourier.qmd
         - frequency/filtering.qmd
         - frequency/nyquist.qmd
-    - part: "Seasonality"
+    - part: "seasonality"
       chapters:
+        - seasonality/motivation.qmd
         - seasonality/seasonal-decomposition.ipynb
         - seasonality/hilbert.qmd
-    - part: "Rates of change"
+    - part: "rates of change"
       chapters:
+        - rates-of-change/motivation.qmd
         - rates-of-change/derivatives.qmd
         - rates-of-change/finite-differences.qmd
         - rates-of-change/fourier-based-derivatives.qmd
         - rates-of-change/LOESS-based-derivatives.qmd
-    - part: "Forecasting"
+    - part: "forecasting"
       chapters:
+        - forecasting/motivation.qmd
         - forecasting/arima.qmd
     - technical-stuff/technical-stuff.qmd
     - references.qmd
   sidebar:
-    collapse-level: 1
+    collapse-level: 2
     tools:
       - icon: house-fill
         href: https://yairmau.com/

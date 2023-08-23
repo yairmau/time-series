@@ -1,17 +1,17 @@
-## Autocorrelation
+## autocorrelation
 
 See the temperatures for Jerusalem in a 4-day interval:
 
 ![](jer_temp1.png)
 
-## Question
+## question
 
 If I know the temperature right now, what does that tell me about the temperature 10 minutes from now? How about 100 minutes? 1000 minutes?
 
 To answer this, we need to talk about **autocorrelation**.
 Let's start by introducing the necessary concepts.
 
-## Mean and standard deviation
+## mean and standard deviation
 
 Let's call our time series from above $X$, and its length $N$. Then:
 
@@ -37,7 +37,7 @@ $$
 E[X] = \frac{\displaystyle\sum_{i=1}^N X_i}{N}
 $$
 
-## Autocorrelation
+## autocorrelation
 
 The autocorrelation of a time series $X$ is the answer to the following question:
 

@@ -1,15 +1,15 @@
-# About {.unnumbered}
+# about {.unnumbered}
 
-Welcome to Time Series Analysis for Environmental Sciences (71606) at the Hebrew University of Jerusalem. This is Yair Mau, your host for today. I am a senior lecturer at the Institute of Environmental Sciences, at the Faculty of Agriculture, Food and Environment, in Rehovot, Israel.
+Welcome to **Time Series Analysis for Environmental Sciences** (71606) at the Hebrew University of Jerusalem. This is Yair Mau, your host for today. I am a senior lecturer at the Institute of Environmental Sciences, at the Faculty of Agriculture, Food and Environment, in Rehovot, Israel.
 
 This website contains (almost) all the material you’ll need for the course. If you find any mistakes, or have any comments, please email me.
 
-## Disclaimer
+## disclaimer
 
 <div class="alert alert-danger">
 The material here is not comprehensive and `does not` constitute a stand alone course in Time Series Analysis. This is only the support material for the actual presential course I give.</div>
 
-## What, who, when and where?
+## what, who, when and where?
 
 {{< iconify ic round-info >}} Course number 71606, 3 academic points  
 {{< iconify mdi teacher >}} Yair Mau (lecturer), Erez Feuer (TA)  
@@ -17,17 +17,17 @@ The material here is not comprehensive and `does not` constitute a stand alone c
 {{< iconify mdi location >}} Computer [classroom #16](https://goo.gl/maps/21CScuxTqJ28Umjw5)   
 {{< iconify mingcute question-fill >}} Office hours: upon request
 
-## Syllabus
+## syllabus
 
-### Course description
+### course description
 
 Data analysis of time series, with practical examples from environmental sciences.
 
-### Course aims
+### course aims
 
 This course aims at giving the students a broad overview of the main steps involved in the analysis of time series: data management, data wrangling, visualization, analysis, and forecast. The course will provide a hands-on approach, where students will actively engage with real-life datasets from the field of environmental science.
 
-### Learning outcomes
+### learning outcomes
 
 On successful completion of this module,students should be able to:
 
@@ -35,7 +35,7 @@ On successful completion of this module,students should be able to:
 * Choose the appropriate tools to attack the problem and answer the questions.
 * Communicate their findings and the methods they used to achieve them, using graphs, statistics, text, and a well-documented code.
 
-### Course content
+### course content
 
 * **Data wrangling:** organization, cleaning, merging, filling gaps, excluding outliers, smoothing, resampling.
 * **Visualization:** best practices for graph making using leading python libraries.
@@ -43,32 +43,32 @@ On successful completion of this module,students should be able to:
 * **Forecast:** ARIMA
 * **Data management:** how to plan ahead and best organize large quantities of data. If there is enough time, we will build a simple time-series database.
 
-### Books and other sources 
+### books and other sources 
 
 [Click here.](references.html)
 
-### Course evaluation
+### course evaluation
 
 There will be 2 projects during the semester (each worth 25% of the final grade), and one final project (50%). 
 
-## Weekly program
+## weekly program
 
-#### Week 1
+#### week 1
 
 * **Lecture:** Course overview, setting of expectations. Introduction, basic concepts, continuous vs discrete time series, sampling, aliasing
 * **Exercise:** Loading csv file into python, basic time series manipulation with pandas and plotting
 
-#### Week 2
+#### week 2
 
 * **Lecture:** Filling gaps, removing outliers
 * **Exercise:** Practice the same topics learned during the lecture. Data: air temperature and relative humidity
 
-#### Week 3
+#### week 3
 
 * **Lecture:** Interpolation, resampling, binning statistics
 * **Exercise:** Practice the same topics learned during the lecture. Data: air temperature and relative humidity, precipitation
 
-#### Week 4
+#### week 4
 
 * **Lecture:** Time series plotting: best practices. Dos and don’ts and maybes
 * **Exercise:** Practice with Seaborn, Plotly, Pandas, Matplotlib
@@ -77,26 +77,26 @@ There will be 2 projects during the semester (each worth 25% of the final grade)
 **Project 1**  
 Basic data wrangling, using real data (temperature, relative humidity, precipitation) downloaded from USGS. 25% of the final grade</div>
 
-#### Week 5
+#### week 5
 
 * **Lecture:** Smoothing, running averages, convolution
 * **Exercise:** Practice the same topics learned during the lecture. Data: sap flow, evapotranspiration
 
-#### Week 6
+#### week 6
 
 * **Lecture:** Strong and weak stationarity, stochastic processes, auto-correlation
 * **Exercise:** Practice the same topics learned during the lecture. Data: temperature and wind speed
 
-#### Week 7
+#### week 7
 
 * **Lecture:** Correlation between signals. Pearson correlation, time-lagged cross-correlations, dynamic time warping
 * **Exercise:** Practice the same topics learned during the lecture. Data: temperature, solar radiation, relative humidity, soil moisture, evapotranspiration
 
-#### Week 8
+#### week 8
 
 Same as lecture 7 above
 
-#### Week 9
+#### week 9
 
 * **Lecture:** Download data from repositories, using API, merging, documentation
 * **Exercise:** Download data from USGS, NOAA, Fluxnet, Israel Meteorological Service
@@ -105,22 +105,22 @@ Same as lecture 7 above
 **Project 2**  
 Students will study a Fluxnet site of their choosing. How do gas fluxes (CO2, H2O) depend on environmental conditions? 25% of the final grade</div>
 
-#### Week 10
+#### week 10
 
 * **Lecture:** Fourier decomposition, filtering, Nyquist–Shannon sampling theorem
 * **Exercise:** Practice the same topics learned during the lecture. Data: dendrometer data
 
-#### Week 11
+#### week 11
 
 * **Lecture:** Seasonality, seasonal decomposition (trend, seasonal, residue), Hilbert transform
 * **Exercise:** Practice the same topics learned during the lecture. Data: monthly atmospheric CO2 concentration, hourly air temperature
 
-#### Week 12
+#### week 12
 
 * **Lecture:** Derivatives, differencing
 * **Exercise:** Practice the same topics learned during the lecture. Data: dendrometer data
 
-#### Week 13
+#### week 13
 
 * **Lecture:** Forecasting. ARIMA
 * **Exercise:** Practice the same topics learned during the lecture. Data: vegetation variables (sap flow, ET, DBH, etc)

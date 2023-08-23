@@ -1,6 +1,6 @@
 ## Fourier transform
 
-## Basic wave concepts
+## basic wave concepts
 
 The function
 
@@ -99,6 +99,7 @@ $$
 f(t) = \int_{-\infty}^{\infty}F(f)e^{2\pi i f t}df
 $$
 
-https://dibsmethodsmeetings.github.io/fourier-transforms/
+<https://dibsmethodsmeetings.github.io/fourier-transforms/>
 
 
+<https://www.jezzamon.com/fourier/index.html>

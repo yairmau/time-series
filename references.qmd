@@ -1,6 +1,6 @@
-# Sources  {.unnumbered}
+# sources  {.unnumbered}
 
-## Books
+## books
 
 [from Data to Viz](https://www.data-to-viz.com)
 
@@ -21,7 +21,7 @@ The online edition of this book is available for Hebrew University staff and stu
 [Hands-on Time Series Analysis with Python: From Basics to Bleeding Edge Techniques, by B V Vishwas, Ashish Patel](https://huji.primo.exlibrisgroup.com/permalink/972HUJI_INST/10ptda2/alma9920845706703701)  
 The online edition of this book is available for Hebrew University staff and students.
 
-## Videos
+## videos
 
 [Times Series Analysis for Everyone, by Bruno Goncalves](https://learning.oreilly.com/videos/times-series-analysis/9780136944515/)  
 This series is available for Hebrew University staff and students.
@@ -30,7 +30,7 @@ This series is available for Hebrew University staff and students.
 This video is available for Hebrew University staff and students.
 
 
-## References
+## references
 
 ::: {#refs}
 :::
