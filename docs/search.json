@@ -39,35 +39,35 @@
     "href": "who-cares.html#why-time-series-analysis",
     "title": "who cares?",
     "section": "why “Time Series Analysis?”",
-    "text": "why “Time Series Analysis?”\nasdffds"
+    "text": "why “Time Series Analysis?”\n\nTime has two aspects. There is the arrow, the running river, without which there is no change, no progress, or direction, or creation. And there is the circle or the cycle, without which there is chaos, meaningless succession of instants, a world without clocks or seasons or promises.\nURSULA K. LE GUIN\n\nYou are here because you are interested in how things change, evolve. In this course I want to discuss with you how to make sense of data whose temporal nature is in its very essence. We will talk about randomness, cycles, frequencies, correlations, and more."
   },
   {
     "objectID": "who-cares.html#why-environmental-sciences",
     "href": "who-cares.html#why-environmental-sciences",
     "title": "who cares?",
     "section": "why “Environmental Sciences”",
-    "text": "why “Environmental Sciences”\nasdfasdg"
+    "text": "why “Environmental Sciences”\nThis same time series analysis (TSA) course could be called instead “TSA for finance”, “TSA for Biology”, or any other application. The emphasis in this course is not Environmental Sciences, but the concepts and tools of TSA. Because my research is in Environmental Science, and many of the graduate students at HUJI-Rehovot research this, I chose to use examples “close to home”. The same toolset should be useful for students of other disciplines."
   },
   {
     "objectID": "who-cares.html#what-is-it-good-for",
     "href": "who-cares.html#what-is-it-good-for",
     "title": "who cares?",
     "section": "what is it good for?",
-    "text": "what is it good for?\nasdfasdf"
+    "text": "what is it good for?\nIn many fields of science we are flooded by data, and it’s hard to see the forest for the trees. I hope that the topics we’ll discuss in this course can help you find meaningful patterns in your data, formulate interesting hypotheses, and design better experiments."
   },
   {
     "objectID": "who-cares.html#do-i-need-it",
     "href": "who-cares.html#do-i-need-it",
     "title": "who cares?",
     "section": "do I need it?",
-    "text": "do I need it?\nasdfasf"
+    "text": "do I need it?\nMaybe. If you are a grad student and you have temporal data to analyze, then probably yes. However, I have very fond memories of courses that I took as a grad student that were completely unrelated to my research. Sometimes “because it’s fun” is a perfectly good answer."
   },
   {
     "objectID": "who-cares.html#what-will-i-actually-gain-from-it",
     "href": "who-cares.html#what-will-i-actually-gain-from-it",
     "title": "who cares?",
     "section": "what will I actually gain from it?",
-    "text": "what will I actually gain from it?"
+    "text": "what will I actually gain from it?\nBy the end of this course you will have gained:\n\na hands-on experience of fundamental time-series analysis tools\nan intuition regarding the basic concepts\ntechnical abilities\na springboard for learning more about the subject by yourself"
   },
   {
     "objectID": "basics/boring.html#anaconda",
