@@ -1,1 +1,86 @@
-## all together
+
+ ---
+title: "all together"
+jupyter: python3
+execute:
+  freeze: auto  # re-render only when source changes
+---
+
+Let's make a first plot of real data. We will use NOAA's Global Monitoring Laboratory data on [Trends in Atmospheric Carbon Dioxide](https://gml.noaa.gov/ccgg/trends/data.html).
+
+First, import packages to be used
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+sns.set(style="ticks", font_scale=1.5)
+```
+
+Load CO2 data into a Pandas dataframe. You can load it directly from the URL (option 1), or first download the CSV to your computer and then load it (option 2).
+
+```{python}
+# option 1: load data directly from URL
+# url = "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_weekly_mlo.csv"
+# df = pd.read_csv(url, header=47, na_values=[-999.99])
+
+# option 2: download first, then load csv
+filename = "co2_weekly_mlo.csv"
+df = pd.read_csv(filename,
+                 header=34,  # use row 34 as column names. Whatever above it is ignored
+                 na_values=[-999.99]  # substitute -999.99 for NaN (Not a Number), data not available
+                 )
+# check how the dataframe (table) looks like
+df
+```
+
+Create a new column called `date`, that combines the information from three separate columns: `year`, `month`, `day`.
+
+```{python}
+# function to_datetime translates the full date into a pandas datetime object,
+# that is, pandas knows this is a date, it's not just a string
+df['date'] = pd.to_datetime(df[['year', 'month', 'day']])
+# make 'date' column the dataframe index
+df = df.set_index('date')
+# now see if everything is ok
+df
+```
+
+We are now ready for our first plot! Let's see the weekly CO2 average.
+
+```{python}
+# %matplotlib widget
+# uncomment the above line if you want dynamic control of the figure when using VSCode
+fig, (ax1, ax2) = plt.subplots(1, 2,  # 1 row, 2 columns
+                               figsize=(8,6)  # width, height, in inches
+                               )
+# left panel
+ax1.plot(df['average'])
+ax1.plot(df.loc['2011-01-01':'2011-12-31','average'], color="tab:orange")
+ax1.set(xlabel="date",
+       ylabel="CO2 concentration (ppm)",
+       title="long term");
+# right panel
+ax2.plot(df.loc['2011-01-01':'2011-12-31','average'], color="tab:orange")
+ax2.set(xlabel="date",
+        ylabel="CO2 concentration (ppm)",
+        ylim=[385, 400],  # choose y limits
+        yticks=np.arange(385, 401, 5),  # choose ticks
+        title="one year, 2011");
+# put ticks and label on the right for ax2
+ax2.yaxis.tick_right()
+ax2.yaxis.set_label_position("right")
+# title above both panels
+fig.suptitle("Mauna Loa Observatory")
+# makes slanted dates
+plt.gcf().autofmt_xdate()
+```
+
+```{python}
+import matplotlib.dates as mdates
+from matplotlib.dates import DateFormatter
+from pandas.plotting import register_matplotlib_converters
+register_matplotlib_converters()  # datetime converter for a matplotlib
+``` 
+--->

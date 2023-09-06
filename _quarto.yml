@@ -15,8 +15,7 @@ book:
       - basics/boring.qmd
       - basics/pandas.qmd
       - basics/pyplot.qmd
-      - basics/all-together.qmd
-      - basics/first-steps.ipynb
+      - basics/example.ipynb
     - part: "outliers and gaps"
       chapters:
       - outliers/motivation.qmd
