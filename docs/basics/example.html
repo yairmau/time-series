@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series Analysis - 4&nbsp; Learn by example</title>
+<title>Time Series Analysis - 4&nbsp; learn by example</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basics/boring.html">start here</a></li><li class="breadcrumb-item"><a href="../basics/example.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Learn by example</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basics/boring.html">start here</a></li><li class="breadcrumb-item"><a href="../basics/example.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">learn by example</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -132,9 +132,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Time Series Analysis</a> 
-        <div class="sidebar-tools-main">
+        <div class="sidebar-tools-main tools-wide">
     <a href="https://yairmau.com/" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-house-fill"></i></a>
     <a href="../references.html" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-bookmark-fill"></i></a>
+    <a href="https://github.com/yairmau/time-series/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -187,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../basics/example.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Learn by example</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">learn by example</span></span></a>
   </div>
 </li>
       </ul>
@@ -522,7 +523,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#tweaks" id="toc-tweaks" class="nav-link active" data-scroll-target="#tweaks"><span class="header-section-number">4.1</span> Tweaks</a></li>
+  <li><a href="#open-a-new-jupyter-notebook" id="toc-open-a-new-jupyter-notebook" class="nav-link active" data-scroll-target="#open-a-new-jupyter-notebook"><span class="header-section-number">4.1</span> open a new Jupyter Notebook</a></li>
+  <li><a href="#import-packages" id="toc-import-packages" class="nav-link" data-scroll-target="#import-packages"><span class="header-section-number">4.2</span> import packages</a></li>
+  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data"><span class="header-section-number">4.3</span> load data</a></li>
+  <li><a href="#dealing-with-dates" id="toc-dealing-with-dates" class="nav-link" data-scroll-target="#dealing-with-dates"><span class="header-section-number">4.4</span> dealing with dates</a></li>
+  <li><a href="#first-plot" id="toc-first-plot" class="nav-link" data-scroll-target="#first-plot"><span class="header-section-number">4.5</span> first plot</a></li>
+  <li><a href="#first-plot-v2.0" id="toc-first-plot-v2.0" class="nav-link" data-scroll-target="#first-plot-v2.0"><span class="header-section-number">4.6</span> first plot, v2.0</a></li>
+  <li><a href="#modifications" id="toc-modifications" class="nav-link" data-scroll-target="#modifications"><span class="header-section-number">4.7</span> modifications</a></li>
+  <li><a href="#playing-with-the-code" id="toc-playing-with-the-code" class="nav-link" data-scroll-target="#playing-with-the-code"><span class="header-section-number">4.8</span> playing with the code</a></li>
   </ul>
 </nav>
     </div>
@@ -531,7 +539,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Learn by example</span></h1>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">learn by example</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/basics/example.ipynb"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -546,22 +554,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<p>Now that everything is installed, try to run the code below <em>before</em> the first lecture. Don’t worry if you don’t understand everything.</p>
+<ul>
+<li>If you manage to run everything without errors, this means that your computer is good to go!</li>
+<li>You might encounter a few problems. That’s ok. Make a note and we will solve everything in the first lecture.</li>
+</ul>
 <p>Let’s make a first plot of real data. We will use NOAA’s Global Monitoring Laboratory data on <a href="https://gml.noaa.gov/ccgg/trends/data.html">Trends in Atmospheric Carbon Dioxide</a>.</p>
-<p>First, import packages to be used</p>
+<section id="open-a-new-jupyter-notebook" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="open-a-new-jupyter-notebook"><span class="header-section-number">4.1</span> open a new Jupyter Notebook</h2>
+<ol type="1">
+<li>On your computer, open the program `Anaconda Navigator`` (it may take a while to load).</li>
+<li>Find the white box called <code>VS Code`` and click</code>Launch`.</li>
+<li>Now go to <code>File</code> &gt; <code>Open Folder</code>, and open the folder you created for this course. VS Code may ask you if you trust the authors, and the answer is “yes” (it’s your computer).</li>
+<li>Now <code>File</code> &gt; <code>New File</code>, and call it example.ipynb</li>
+<li>You can start copying and pasting code from this website to your Jupyter Notebook. To run a cell, press Shift+Enter.</li>
+<li>You may be asked to choose to Select Kernel. This is VS Code wanting to know which python installation to use. Click on “Python Environments”, and then choose the option with the word <code>anaconda</code> on it.</li>
+<li>That’s all! Congratulations!</li>
+</ol>
+</section>
+<section id="import-packages" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="import-packages"><span class="header-section-number">4.2</span> import packages</h2>
+<p>First, import packages to be used. They should all be already included in the Anaconda distribution you installed.</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-5"><a href="#cb1-5"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Load CO2 data into a Pandas dataframe. You can load it directly from the URL (option 1), or first download the CSV to your computer and then load it (option 2).</p>
+</section>
+<section id="load-data" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="load-data"><span class="header-section-number">4.3</span> load data</h2>
+<p>Load CO2 data into a Pandas dataframe. You can load it directly from the URL (option 1), or first download the CSV to your computer and then load it (option 2). The link to download the data directly form NOAA is <a href="https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_weekly_mlo.csv">this</a>. If for some reason this doesn’t work, download from this website’s GitHub <a href="https://raw.githubusercontent.com/yairmau/time-series/main/basics/co2_weekly_mlo.csv">repository</a>.</p>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># option 1: load data directly from URL</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="co"># url = "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_weekly_mlo.csv"</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># df = pd.read_csv(url, header=47, na_values=[-999.99])</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># df = pd.read_csv(url, header=34, na_values=[-999.99])</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># option 2: download first, then load csv</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># option 2: download first (use the URL above and save it to your computer), then load csv</span></span>
 <span id="cb2-6"><a href="#cb2-6"></a>filename <span class="op">=</span> <span class="st">"co2_weekly_mlo.csv"</span></span>
 <span id="cb2-7"><a href="#cb2-7"></a>df <span class="op">=</span> pd.read_csv(filename,</span>
 <span id="cb2-8"><a href="#cb2-8"></a>                 header<span class="op">=</span><span class="dv">34</span>,  <span class="co"># use row 34 as column names. Whatever above it is ignored</span></span>
@@ -728,6 +758,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</section>
+<section id="dealing-with-dates" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="dealing-with-dates"><span class="header-section-number">4.4</span> dealing with dates</h2>
 <p>Create a new column called <code>date</code>, that combines the information from three separate columns: <code>year</code>, <code>month</code>, <code>day</code>.</p>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># function to_datetime translates the full date into a pandas datetime object,</span></span>
@@ -908,8 +941,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</section>
+<section id="first-plot" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="first-plot"><span class="header-section-number">4.5</span> first plot</h2>
 <p>We are now ready for our first plot! Let’s see the weekly CO2 average.</p>
-<div class="cell" data-execution_count="34">
+<div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># %matplotlib widget</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="co"># uncomment the above line if you want dynamic control of the figure when using VSCode</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>,  <span class="co"># 1 row, 2 columns</span></span>
@@ -939,14 +975,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="example_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
 </div>
 </div>
+</section>
+<section id="first-plot-v2.0" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="first-plot-v2.0"><span class="header-section-number">4.6</span> first plot, v2.0</h2>
 <p>The dates in the x-label are not great. Let’s try to make them prettier.</p>
+<p>We need to import a few more packages first.</p>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="im">from</span> pandas.plotting <span class="im">import</span> register_matplotlib_converters</span>
 <span id="cb5-4"><a href="#cb5-4"></a>register_matplotlib_converters()  <span class="co"># datetime converter for a matplotlib</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="78">
+<p>Now let’s replot.</p>
+<div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># %matplotlib widget</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="co"># uncomment the above line if you want dynamic control of the figure when using VSCode</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>,  <span class="co"># 1 row, 2 columns</span></span>
@@ -990,7 +1031,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-41"><a href="#cb6-41"></a>                    connectionstyle<span class="op">=</span><span class="st">"arc3,rad=0.2"</span>))</span>
 <span id="cb6-42"><a href="#cb6-42"></a>fig.savefig(<span class="st">"CO2-graph.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/c3/7hp0d36n6vv8jc9hm2440__00000gn/T/ipykernel_20949/850389963.py:42: UserWarning: AutoDateLocator was unable to pick an appropriate interval for this date range. It may be necessary to add an interval value to the AutoDateLocator's intervald dictionary. Defaulting to 6.
+<pre><code>/var/folders/c3/7hp0d36n6vv8jc9hm2440__00000gn/T/ipykernel_31828/850389963.py:42: UserWarning: AutoDateLocator was unable to pick an appropriate interval for this date range. It may be necessary to add an interval value to the AutoDateLocator's intervald dictionary. Defaulting to 6.
   fig.savefig("CO2-graph.png", dpi=300)
 /opt/anaconda3/lib/python3.9/site-packages/IPython/core/events.py:89: UserWarning: AutoDateLocator was unable to pick an appropriate interval for this date range. It may be necessary to add an interval value to the AutoDateLocator's intervald dictionary. Defaulting to 6.
   func(*args, **kwargs)
@@ -1013,10 +1054,11 @@ This says that the labels will be placed at the locations determined in 1.</li>
 Finally, labels are written down</li>
 </ol>
 <p>The arrow is placed in the graph using <code>annotate</code>. It has a tricky syntax and a million options. Read <a href="https://jakevdp.github.io/PythonDataScienceHandbook/04.09-text-and-annotation.html#Arrows-and-Annotation">Jake VanderPlas’s</a> excellent examples to learn more.</p>
-<section id="tweaks" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="tweaks"><span class="header-section-number">4.1</span> Tweaks</h2>
+</section>
+<section id="modifications" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="modifications"><span class="header-section-number">4.7</span> modifications</h2>
 <p>Let’s change a lot of plotting options to see how things could be different.</p>
-<div class="cell" data-execution_count="77">
+<div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"darkgrid"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2"></a>sns.set_context(<span class="st">"notebook"</span>)</span>
 <span id="cb8-3"><a href="#cb8-3"></a></span>
@@ -1058,7 +1100,7 @@ Finally, labels are written down</li>
 <span id="cb8-39"><a href="#cb8-39"></a>    arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">"-&gt;"</span>,</span>
 <span id="cb8-40"><a href="#cb8-40"></a>                    color<span class="op">=</span><span class="st">"black"</span>,</span>
 <span id="cb8-41"><a href="#cb8-41"></a>                    connectionstyle<span class="op">=</span><span class="st">"angle,angleA=0,angleB=-90,rad=40"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="77">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>Text(-100, 40, '2010/11')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -1073,6 +1115,10 @@ Finally, labels are written down</li>
 <li>We changed the colors of the lineplots. To know what colors exist, <a href="https://matplotlib.org/stable/gallery/color/named_colors.html">click here</a>.</li>
 <li>The arrow annotation has a different style. <a href="https://jakevdp.github.io/PythonDataScienceHandbook/04.09-text-and-annotation.html#Arrows-and-Annotation">Read more</a>.</li>
 </ol>
+</section>
+<section id="playing-with-the-code" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="playing-with-the-code"><span class="header-section-number">4.8</span> playing with the code</h2>
+<p>I encourage you to play with the code you just ran. An easy way of learning what each line does is to comment something out and see what changes in the output you see. If you feel brave, try to modify the code a little bit.</p>
 
 
 </section>
@@ -1157,6 +1203,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,

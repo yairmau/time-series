@@ -1,7 +1,5 @@
 ## pyplot
 
-![](https://matplotlib.org/stable/_images/sphx_glr_logos2_003_2_00x.png)
-
 Matplotlib is probably the most common Python package used for plotting. It is both great and horrible:
 
 * Great: you'll have absolutely full control of everything you want to plot. The sky is the limit.

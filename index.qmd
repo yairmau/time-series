@@ -14,7 +14,7 @@ The material here is not comprehensive and `does not` constitute a stand alone c
 {{< iconify ic round-info >}} Course number 71606, 3 academic points  
 {{< iconify mdi teacher >}} Yair Mau (lecturer), Erez Feuer (TA)  
 {{< iconify ion calendar-sharp >}} Tuesdays, from 14:15 to 17:00  
-{{< iconify mdi location >}} Computer [classroom #16](https://goo.gl/maps/21CScuxTqJ28Umjw5)   
+{{< iconify mdi location >}} Computer [classroom #18](https://goo.gl/maps/rzniv9NuyEs4ETH58)   
 {{< iconify mingcute question-fill >}} Office hours: upon request
 
 ## syllabus

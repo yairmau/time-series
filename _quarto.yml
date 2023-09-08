@@ -6,6 +6,7 @@ project:
 book:
   title: "Time Series Analysis"
   author: "Yair Mau"
+  repo-url: https://github.com/yairmau/time-series/
   favicon: archive/clock-history.png
   chapters:
     - index.qmd
