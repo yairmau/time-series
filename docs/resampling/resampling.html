@@ -100,7 +100,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
-<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
 
 </head>
@@ -556,8 +555,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-9"><a href="#cb1-9"></a><span class="co"># Suppress FutureWarnings</span></span>
 <span id="cb1-10"><a href="#cb1-10"></a>warnings.simplefilter(action<span class="op">=</span><span class="st">'ignore'</span>, category<span class="op">=</span><span class="pp">FutureWarning</span>)</span>
 <span id="cb1-11"><a href="#cb1-11"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-12"><a href="#cb1-12"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="op">%</span>matplotlib widget</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-12"><a href="#cb1-12"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we load the csv file for Jerusalem (2019), provided by the <a href="https://ims.gov.il/en/data_gov">IMS</a>.</p>
 <ul>
@@ -974,18 +972,16 @@ S         secondly frequency</code></pre>
 <span id="cb7-5"><a href="#cb7-5"></a>       title<span class="op">=</span><span class="st">"Jerusalem, 2019"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>[Text(0, 0.5, 'Temperature (°C)'),
- [&lt;matplotlib.axis.YTick at 0x7f8282bb9040&gt;,
-  &lt;matplotlib.axis.YTick at 0x7f8282ba69a0&gt;,
-  &lt;matplotlib.axis.YTick at 0x7f8282d08970&gt;,
-  &lt;matplotlib.axis.YTick at 0x7f8284b3dca0&gt;,
-  &lt;matplotlib.axis.YTick at 0x7f8284b54790&gt;,
-  &lt;matplotlib.axis.YTick at 0x7f8284b5b280&gt;],
+ [&lt;matplotlib.axis.YTick at 0x7fa878083ac0&gt;,
+  &lt;matplotlib.axis.YTick at 0x7fa878083fd0&gt;,
+  &lt;matplotlib.axis.YTick at 0x7fa8780830a0&gt;,
+  &lt;matplotlib.axis.YTick at 0x7fa877fa0280&gt;,
+  &lt;matplotlib.axis.YTick at 0x7fa877fa0a60&gt;,
+  &lt;matplotlib.axis.YTick at 0x7fa877fa6550&gt;],
  Text(0.5, 1.0, 'Jerusalem, 2019')]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"bf4ab81e174f40a7ad05cc9a35cffa1f","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
+<p><img src="resampling_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Although all the calculations are correct, the graph is not great.</p>
@@ -1078,9 +1074,7 @@ S         secondly frequency</code></pre>
 <span id="cb10-7"><a href="#cb10-7"></a>date_form <span class="op">=</span> DateFormatter(<span class="st">"%b"</span>)</span>
 <span id="cb10-8"><a href="#cb10-8"></a>ax.xaxis.set_major_formatter(date_form)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"7d125cf67323472ea12f9bdc065e2d44","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
+<p><img src="resampling_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>We’re done! Congratulations :)</p>
@@ -1290,9 +1284,7 @@ S         secondly frequency</code></pre>
 <span id="cb14-10"><a href="#cb14-10"></a>ax.xaxis.set_major_formatter(date_form)</span>
 <span id="cb14-11"><a href="#cb14-11"></a>ax.legend(fontsize<span class="op">=</span><span class="dv">12</span>, frameon<span class="op">=</span><span class="va">False</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"c6ea6ad1f3354acd8ec51a5b49bd040e","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
+<p><img src="resampling_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Voilà! You made a beautiful graph!</p>
