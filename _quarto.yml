@@ -17,16 +17,17 @@ book:
       - basics/pandas.qmd
       - basics/pyplot.qmd
       - basics/example.ipynb
+    - part: "resampling"
+      chapters:
+        - resampling/motivation.ipynb
+        - resampling/resampling.ipynb
+        - resampling/upsampling.qmd
     - part: "outliers and gaps"
       chapters:
       - outliers/motivation.qmd
       - outliers/zscore.qmd
       - outliers/IQR.qmd
-    - part: "resampling"
-      chapters:
-        - resampling/motivation.qmd
-        - resampling/upsampling.qmd
-        - resampling/downsampling.qmd
+
     - part: "best practices"
       chapters:
         - best-practices/motivation.qmd
@@ -96,7 +97,9 @@ format:
     include-in-header:
       - includes.html
     code-line-numbers: true
-    
+    code-tools:
+      source: repo  # https://quarto.org/docs/output-formats/html-code.html#code-tools
+  
   pdf:
     documentclass: scrreprt
     include-in-header:
