@@ -21,7 +21,8 @@ book:
       chapters:
         - resampling/motivation.ipynb
         - resampling/resampling.ipynb
-        - resampling/upsampling.qmd
+        - resampling/upsampling.ipynb
+        - resampling/FAQ.ipynb
     - part: "outliers and gaps"
       chapters:
       - outliers/motivation.qmd

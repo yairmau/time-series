@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../outliers/motivation.html" rel="next">
+<link href="../resampling/FAQ.html" rel="next">
 <link href="../resampling/resampling.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -63,7 +97,12 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -183,6 +222,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">upsampling, interpolation</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/FAQ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">FAQ</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -197,19 +242,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/zscore.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Z-score</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Z-score</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/IQR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">IQR (Inter Quartile Range)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">IQR (Inter Quartile Range)</span></span></a>
   </div>
 </li>
       </ul>
@@ -226,13 +271,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../best-practices/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../best-practices/dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">dates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">dates</span></span></a>
   </div>
 </li>
       </ul>
@@ -249,25 +294,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../smoothing/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../smoothing/convolution.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">convolution</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">convolution</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../smoothing/LOESS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">LOESS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">LOESS</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../smoothing/perfect-smoother.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">a perfect smoother</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">a perfect smoother</span></span></a>
   </div>
 </li>
       </ul>
@@ -284,19 +329,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/stochastic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">stochastic processes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">stochastic processes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/autocorrelation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
   </div>
 </li>
       </ul>
@@ -313,25 +358,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">dynamic time warp</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">dynamic time warp</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/LDTW.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">LDTW</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">LDTW</span></span></a>
   </div>
 </li>
       </ul>
@@ -348,25 +393,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></span></a>
   </div>
 </li>
       </ul>
@@ -383,19 +428,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../seasonality/seasonal-decomposition.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../seasonality/hilbert.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Hilbert transform</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Hilbert transform</span></span></a>
   </div>
 </li>
       </ul>
@@ -412,31 +457,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">finite differences</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">finite differences</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
   </div>
 </li>
       </ul>
@@ -453,13 +498,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
   </div>
 </li>
       </ul>
@@ -482,14 +527,22 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#potential-evapotranspiration-using-penmans-equation" id="toc-potential-evapotranspiration-using-penmans-equation" class="nav-link active" data-scroll-target="#potential-evapotranspiration-using-penmans-equation"><span class="header-section-number">7.1</span> Potential Evapotranspiration using Penman’s equation</a></li>
+  <li><a href="#forwardbackward-fill" id="toc-forwardbackward-fill" class="nav-link" data-scroll-target="#forwardbackward-fill"><span class="header-section-number">7.2</span> Forward/Backward fill</a></li>
+  <li><a href="#interpolation" id="toc-interpolation" class="nav-link" data-scroll-target="#interpolation"><span class="header-section-number">7.3</span> Interpolation</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">upsampling, interpolation</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/resampling/upsampling.qmd"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">upsampling, interpolation</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/resampling/upsampling.ipynb"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -504,8 +557,326 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>In the previous chapter, we resampled from fine temporal resolution to a coarser one. This is also called <strong>downsampling</strong>. We will learn the <strong>upsampling</strong> now: how to go from coarse data to a finer scale.</p>
+<p>Sadly, there is no free lunch, and we just can’t get data that was not measured. What to do then?</p>
+<p>It’s best to consider a practical example.</p>
+<section id="potential-evapotranspiration-using-penmans-equation" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="potential-evapotranspiration-using-penmans-equation"><span class="header-section-number">7.1</span> Potential Evapotranspiration using Penman’s equation</h2>
+<p>We want to calculate the daily potential evapotranspiration using <a href="http://yairmau.com/surface-hydrology/evapotranspiration/evapotranspiration-lecture.html#net-radiation">Penman’s equation</a>. Part of the calculation involves characterizing the energy budget on soil surface. When direct solar radiation measurements are not available, we can estimate the energy balance by knowing the “cloudless skies mean solar radiation”, <span class="math inline">\(R_{so}\)</span>. This is the amount of energy (MJ/m<span class="math inline">\(^2\)</span>/d) that hits the surface, assuming no clouds. This radiation depends on the season and on the latitude you are. For Israel, located at latitude 32° N, we can use the following data for 30°:</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> ticker</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-8"><a href="#cb1-8"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>dates <span class="op">=</span> pd.date_range(start<span class="op">=</span><span class="st">'2021-01-01'</span>, periods<span class="op">=</span><span class="dv">13</span>, freq<span class="op">=</span><span class="st">'MS'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>values <span class="op">=</span> [<span class="fl">17.46</span>, <span class="fl">21.65</span>, <span class="fl">25.96</span>, <span class="fl">29.85</span>, <span class="fl">32.11</span>, <span class="fl">33.20</span>, <span class="fl">32.66</span>, <span class="fl">30.44</span>, <span class="fl">26.67</span>, <span class="fl">22.48</span>, <span class="fl">18.30</span>, <span class="fl">16.04</span>, <span class="fl">17.46</span>]</span>
+<span id="cb2-3"><a href="#cb2-3"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'date'</span>: dates, <span class="st">'radiation'</span>: values})</span>
+<span id="cb2-4"><a href="#cb2-4"></a>df <span class="op">=</span> df.set_index(<span class="st">'date'</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
 
 
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">radiation</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-01</td>
+<td>17.46</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-02-01</td>
+<td>21.65</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-03-01</td>
+<td>25.96</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-04-01</td>
+<td>29.85</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-05-01</td>
+<td>32.11</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-06-01</td>
+<td>33.20</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-07-01</td>
+<td>32.66</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-08-01</td>
+<td>30.44</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-09-01</td>
+<td>26.67</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-10-01</td>
+<td>22.48</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-11-01</td>
+<td>18.30</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-12-01</td>
+<td>16.04</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2022-01-01</td>
+<td>17.46</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb3-2"><a href="#cb3-2"></a>ax.plot(df[<span class="st">'radiation'</span>], color<span class="op">=</span><span class="st">'black'</span>, marker<span class="op">=</span><span class="st">'d'</span>, linestyle<span class="op">=</span><span class="st">'None'</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="vs">r'radiation (MJ/m$^2$/d)'</span>,</span>
+<span id="cb3-4"><a href="#cb3-4"></a>       title<span class="op">=</span><span class="st">"cloudless skies mean solar radiation for latitude 30° N"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5"></a>ax.xaxis.set_major_locator(mdates.MonthLocator())</span>
+<span id="cb3-6"><a href="#cb3-6"></a>date_form <span class="op">=</span> DateFormatter(<span class="st">"%b"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7"></a>ax.xaxis.set_major_formatter(date_form)</span>
+<span id="cb3-8"><a href="#cb3-8"></a>plt.gcf().autofmt_xdate()  <span class="co"># makes slanted dates</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="upsampling_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>We only have 12 values for the whole year, and we can’t use this dataframe to compute daily ET. We need to upsample!</p>
+<p>In the example below, we resample the monthly data into daily data, and do nothing else. Pandas doesn’t know what to do with the new points, so it fills them with NaN.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>df_nan <span class="op">=</span> df[<span class="st">'radiation'</span>].resample(<span class="st">'D'</span>).asfreq().to_frame()</span>
+<span id="cb4-2"><a href="#cb4-2"></a>df_nan.head(<span class="dv">33</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">radiation</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-01</td>
+<td>17.46</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-01-02</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-03</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-01-04</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-05</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-01-06</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-07</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-01-08</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-09</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-01-10</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-11</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-01-12</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-13</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-01-14</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-15</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-01-16</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-17</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-01-18</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-19</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-01-20</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-21</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-01-22</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-23</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-01-24</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-25</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-01-26</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-27</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-01-28</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-29</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-01-30</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-01-31</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2021-02-01</td>
+<td>21.65</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2021-02-02</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="forwardbackward-fill" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="forwardbackward-fill"><span class="header-section-number">7.2</span> Forward/Backward fill</h2>
+<p>We can forward/backward fill these NaNs:</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>df_forw <span class="op">=</span> df[<span class="st">'radiation'</span>].resample(<span class="st">'D'</span>).ffill().to_frame()</span>
+<span id="cb5-2"><a href="#cb5-2"></a>df_back <span class="op">=</span> df[<span class="st">'radiation'</span>].resample(<span class="st">'D'</span>).bfill().to_frame()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb6-2"><a href="#cb6-2"></a>ax.plot(df[<span class="st">'radiation'</span>], color<span class="op">=</span><span class="st">'black'</span>, marker<span class="op">=</span><span class="st">'d'</span>, linestyle<span class="op">=</span><span class="st">'None'</span>, label<span class="op">=</span><span class="st">"original"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3"></a>ax.plot(df_forw[<span class="st">'radiation'</span>], color<span class="op">=</span><span class="st">'tab:blue'</span>, label<span class="op">=</span><span class="st">"forward fill"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4"></a>ax.plot(df_back[<span class="st">'radiation'</span>], color<span class="op">=</span><span class="st">'tab:orange'</span>, label<span class="op">=</span><span class="st">"backward fill"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="vs">r'radiation (MJ/m$^2$/d)'</span>,</span>
+<span id="cb6-6"><a href="#cb6-6"></a>       title<span class="op">=</span><span class="st">"cloudless skies mean solar radiation for latitude 30° N"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb6-8"><a href="#cb6-8"></a>ax.xaxis.set_major_locator(mdates.MonthLocator())</span>
+<span id="cb6-9"><a href="#cb6-9"></a>date_form <span class="op">=</span> DateFormatter(<span class="st">"%b"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10"></a>ax.xaxis.set_major_formatter(date_form)</span>
+<span id="cb6-11"><a href="#cb6-11"></a>plt.gcf().autofmt_xdate()  <span class="co"># makes slanted dates</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="upsampling_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>This does the job, but I want something better, not step functions. The radiation should vary smoothly from day to day. Let’s use interpolation.</p>
+</section>
+<section id="interpolation" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="interpolation"><span class="header-section-number">7.3</span> Interpolation</h2>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>df_linear <span class="op">=</span> df[<span class="st">'radiation'</span>].resample(<span class="st">'D'</span>).interpolate(method<span class="op">=</span><span class="st">'time'</span>).to_frame()</span>
+<span id="cb7-2"><a href="#cb7-2"></a>df_cubic <span class="op">=</span> df[<span class="st">'radiation'</span>].resample(<span class="st">'D'</span>).interpolate(method<span class="op">=</span><span class="st">'cubic'</span>).to_frame()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb8-2"><a href="#cb8-2"></a>ax.plot(df[<span class="st">'radiation'</span>], color<span class="op">=</span><span class="st">'black'</span>, marker<span class="op">=</span><span class="st">'d'</span>, linestyle<span class="op">=</span><span class="st">'None'</span>, label<span class="op">=</span><span class="st">"original"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3"></a>ax.plot(df_linear[<span class="st">'radiation'</span>], color<span class="op">=</span><span class="st">'tab:blue'</span>, label<span class="op">=</span><span class="st">"linear interpolation"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4"></a>ax.plot(df_cubic[<span class="st">'radiation'</span>], color<span class="op">=</span><span class="st">'tab:orange'</span>, label<span class="op">=</span><span class="st">"cubic interpolation"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="vs">r'radiation (MJ/m$^2$/d)'</span>,</span>
+<span id="cb8-6"><a href="#cb8-6"></a>       title<span class="op">=</span><span class="st">"cloudless skies mean solar radiation for latitude 30° N"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb8-8"><a href="#cb8-8"></a>ax.xaxis.set_major_locator(mdates.MonthLocator())</span>
+<span id="cb8-9"><a href="#cb8-9"></a>date_form <span class="op">=</span> DateFormatter(<span class="st">"%b"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10"></a>ax.xaxis.set_major_formatter(date_form)</span>
+<span id="cb8-11"><a href="#cb8-11"></a>plt.gcf().autofmt_xdate()  <span class="co"># makes slanted dates</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="upsampling_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>There are many ways to fill NaNs and to interpolate. A nice detailed guide can be <a href="https://note.nkmk.me/en/python-pandas-interpolate/">found here</a>.</p>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -799,8 +1170,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../outliers/motivation.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">motivation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../resampling/FAQ.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">FAQ</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
