@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series Analysis - 15&nbsp; convolution</title>
+<title>Time Series Analysis - 10&nbsp; convolution</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -112,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../smoothing/motivation.html">smoothing</a></li><li class="breadcrumb-item"><a href="../smoothing/convolution.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">convolution</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../smoothing/motivation.html">smoothing</a></li><li class="breadcrumb-item"><a href="../smoothing/convolution.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">convolution</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -174,20 +174,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basics/pandas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">pandas</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../basics/pyplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">pyplot</span></span></a>
+  <a href="../basics/numpy-pandas-matplotlib.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">numpy, pandas, matplotlib</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../basics/example.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">learn by example</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">learn by example</span></span></a>
   </div>
 </li>
       </ul>
@@ -204,19 +198,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../resampling/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../resampling/resampling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">resampling</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">resampling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../resampling/upsampling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">upsampling, interpolation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">upsampling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/interpolation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">interpolation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -230,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text">outliers and gaps</span></a>
+ <span class="menu-text">smoothing</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -238,20 +238,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../outliers/motivation.html" class="sidebar-item-text sidebar-link">
+  <a href="../smoothing/motivation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../outliers/zscore.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Z-score</span></span></a>
+  <a href="../smoothing/convolution.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">convolution</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../outliers/IQR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">IQR (Inter Quartile Range)</span></span></a>
+  <a href="../smoothing/LOESS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">LOESS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/perfect-smoother.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">a perfect smoother</span></span></a>
   </div>
 </li>
       </ul>
@@ -259,7 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
- <span class="menu-text">best practices</span></a>
+ <span class="menu-text">outliers and gaps</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -267,14 +273,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../best-practices/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../outliers/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../best-practices/dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">dates</span></span></a>
+  <a href="../outliers/zscore.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Z-score</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/IQR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">IQR (Inter Quartile Range)</span></span></a>
   </div>
 </li>
       </ul>
@@ -282,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
- <span class="menu-text">smoothing</span></a>
+ <span class="menu-text">best practices</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -290,26 +302,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../smoothing/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../best-practices/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../smoothing/convolution.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">convolution</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../smoothing/LOESS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">LOESS</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../smoothing/perfect-smoother.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">a perfect smoother</span></span></a>
+  <a href="../best-practices/dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">dates</span></span></a>
   </div>
 </li>
       </ul>
@@ -506,6 +506,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
+ <span class="menu-text">assignments</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">assignment 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">assignment 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment_final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">final assignment</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
@@ -528,15 +557,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#convolution" id="toc-convolution" class="nav-link active" data-scroll-target="#convolution"><span class="header-section-number">15.1</span> convolution</a></li>
-  <li><a href="#kernels" id="toc-kernels" class="nav-link" data-scroll-target="#kernels"><span class="header-section-number">15.2</span> kernels</a></li>
-  <li><a href="#math" id="toc-math" class="nav-link" data-scroll-target="#math"><span class="header-section-number">15.3</span> math</a></li>
-  <li><a href="#numerics" id="toc-numerics" class="nav-link" data-scroll-target="#numerics"><span class="header-section-number">15.4</span> numerics</a>
+  <li><a href="#convolution" id="toc-convolution" class="nav-link active" data-scroll-target="#convolution"><span class="header-section-number">10.1</span> convolution</a></li>
+  <li><a href="#kernels" id="toc-kernels" class="nav-link" data-scroll-target="#kernels"><span class="header-section-number">10.2</span> kernels</a></li>
+  <li><a href="#math" id="toc-math" class="nav-link" data-scroll-target="#math"><span class="header-section-number">10.3</span> math</a></li>
+  <li><a href="#numerics" id="toc-numerics" class="nav-link" data-scroll-target="#numerics"><span class="header-section-number">10.4</span> numerics</a>
   <ul class="collapse">
-  <li><a href="#gaussian" id="toc-gaussian" class="nav-link" data-scroll-target="#gaussian"><span class="header-section-number">15.4.1</span> gaussian</a></li>
-  <li><a href="#triangular" id="toc-triangular" class="nav-link" data-scroll-target="#triangular"><span class="header-section-number">15.4.2</span> triangular</a></li>
+  <li><a href="#gaussian" id="toc-gaussian" class="nav-link" data-scroll-target="#gaussian"><span class="header-section-number">10.4.1</span> gaussian</a></li>
+  <li><a href="#triangular" id="toc-triangular" class="nav-link" data-scroll-target="#triangular"><span class="header-section-number">10.4.2</span> triangular</a></li>
   </ul></li>
-  <li><a href="#which-window-shape-and-width-to-choose" id="toc-which-window-shape-and-width-to-choose" class="nav-link" data-scroll-target="#which-window-shape-and-width-to-choose"><span class="header-section-number">15.5</span> which window shape and width to choose?</a></li>
+  <li><a href="#which-window-shape-and-width-to-choose" id="toc-which-window-shape-and-width-to-choose" class="nav-link" data-scroll-target="#which-window-shape-and-width-to-choose"><span class="header-section-number">10.5</span> which window shape and width to choose?</a></li>
   </ul>
 </nav>
     </div>
@@ -545,7 +574,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">convolution</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/smoothing/convolution.qmd"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">convolution</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/smoothing/convolution.qmd"><i class="bi"></i> Code</button></div></div>
 <p class="subtitle lead">Running windows of different shapes (kernels)</p>
 </div>
 
@@ -564,8 +593,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This is the temperature for Tel Aviv, between 2 and 5 of January 2022. Data is in intervals of 10 minutes, and was downloaded from the Israel Meteorological Service.</p>
 <p><img src="convolution_TA_temperature_2022.png" class="img-fluid"></p>
 <p>We see that the temperature curve has a rough profile. Can we find ways of getting smoother curves?</p>
-<section id="convolution" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="convolution"><span class="header-section-number">15.1</span> convolution</h2>
+<section id="convolution" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="convolution"><span class="header-section-number">10.1</span> convolution</h2>
 <p>Convolution is a fancy word for averaging a time series using a running window. We will use the terms <strong>convolution, running average, and rolling average</strong> interchangeably. See the animation below. We take all temperature values inside a window of width 500 minutes (51 points), and average them with equal weights. The weights profile is called <code>kernel</code>.</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PFD3_BmwH40" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
 </iframe>
@@ -574,8 +603,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </iframe>
 <p>There is a tradeoff between the smoothness of a curve, and its ability to describe sharp temporal changes.</p>
 </section>
-<section id="kernels" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="kernels"><span class="header-section-number">15.2</span> kernels</h2>
+<section id="kernels" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="kernels"><span class="header-section-number">10.2</span> kernels</h2>
 <p>We can modify our running average, so that values closer to the center of the window have higher weights, and those further away count less. This is achieved by changing the weight profile, or the shape of the kernel. We see below the result of a running average using a triangular window of base 500 minutes (51 points).</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/j1CLrYC77nA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
 </iframe>
@@ -583,8 +612,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <iframe width="560" height="315" src="https://www.youtube.com/embed/mqhA3x6DBvM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
 </iframe>
 </section>
-<section id="math" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="math"><span class="header-section-number">15.3</span> math</h2>
+<section id="math" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="math"><span class="header-section-number">10.3</span> math</h2>
 <p>The definition of a convolution between signal <span class="math inline">\(f(t)\)</span> and kernel <span class="math inline">\(k(t)\)</span> is</p>
 <p><span class="math display">\[
 (f * k)(t) = \int f(\tau)k(t-\tau)d\tau.
@@ -595,8 +624,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 \]</span></p>
 <p>Whenever the integral of the kernel is 1, then the convolution will be identical with the running average.</p>
 </section>
-<section id="numerics" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="numerics"><span class="header-section-number">15.4</span> numerics</h2>
+<section id="numerics" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="numerics"><span class="header-section-number">10.4</span> numerics</h2>
 <p>Running averages are very common tools in time-series analysis. The <code>pandas</code> package makes life quite simple. For example, in order to calculate the running average of temperature using a rectangular kernel, one writes</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>df[<span class="st">'temperature'</span>].rolling(window<span class="op">=</span><span class="st">'20'</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
@@ -605,8 +634,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>mean()</code> is the actual calculation, the average of temperature over the window. The <code>rolling</code> part does not compute anything, it just creates a moving window, and we are free to calculate whatever we want. Try to calculate the standard deviation or the maximum, for example.</li>
 </ul>
 <p>It is implicit in the command above a “rectangular” kernel. What if we want other shapes?</p>
-<section id="gaussian" class="level3" data-number="15.4.1">
-<h3 data-number="15.4.1" class="anchored" data-anchor-id="gaussian"><span class="header-section-number">15.4.1</span> gaussian</h3>
+<section id="gaussian" class="level3" data-number="10.4.1">
+<h3 data-number="10.4.1" class="anchored" data-anchor-id="gaussian"><span class="header-section-number">10.4.1</span> gaussian</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>(</span>
 <span id="cb2-2"><a href="#cb2-2"></a>df[<span class="st">'temperature'</span>].rolling(window<span class="op">=</span>window_width,</span>
 <span id="cb2-3"><a href="#cb2-3"></a>                          center<span class="op">=</span><span class="va">True</span>,</span>
@@ -624,8 +653,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>g <span class="op">=</span> scipy.signal.gaussian(window_width, std)</span>
 <span id="cb3-2"><a href="#cb3-2"></a>plt.plot(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="triangular" class="level3" data-number="15.4.2">
-<h3 data-number="15.4.2" class="anchored" data-anchor-id="triangular"><span class="header-section-number">15.4.2</span> triangular</h3>
+<section id="triangular" class="level3" data-number="10.4.2">
+<h3 data-number="10.4.2" class="anchored" data-anchor-id="triangular"><span class="header-section-number">10.4.2</span> triangular</h3>
 <p>Same idea as gaussian, but simpler, because we don’t need to think about standard deviation.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>(</span>
 <span id="cb4-2"><a href="#cb4-2"></a>df[<span class="st">'temperature'</span>].rolling(window<span class="op">=</span>window_width,</span>
@@ -635,8 +664,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-6"><a href="#cb4-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
-<section id="which-window-shape-and-width-to-choose" class="level2" data-number="15.5">
-<h2 data-number="15.5" class="anchored" data-anchor-id="which-window-shape-and-width-to-choose"><span class="header-section-number">15.5</span> which window shape and width to choose?</h2>
+<section id="which-window-shape-and-width-to-choose" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="which-window-shape-and-width-to-choose"><span class="header-section-number">10.5</span> which window shape and width to choose?</h2>
 <p>🤷‍♂️</p>
 <p>Sorry, there is not definite answer here… It really depends on your data and what you need to do with it. See below a comparison of all examples in the videos above.</p>
 <p><img src="kernel_comparison.png" class="img-fluid"></p>
@@ -934,12 +963,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../smoothing/motivation.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">motivation</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">motivation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../smoothing/LOESS.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">LOESS</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">LOESS</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

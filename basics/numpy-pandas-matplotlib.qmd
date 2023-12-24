@@ -1,0 +1,67 @@
+## numpy, pandas, matplotlib
+
+```python
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+```
+
+The three lines above are the most common way you will start every project in this course.
+
+* **numpy** = numerical python. This library has a ton useful mathematical functions, and most importantly, it has an object called `numpy array`, which is one of the most useful data structures we have for time series analysis.
+* **pandas** is built upon numpy, and allows us to easily manipulate data stored in `dataframes`, a fancy name for a table.
+* **pyplot** is a submodule of `matplotlib`, and allows us to beautifully plot data.
+
+The best resource I know to get acquainted with all three packages is [Python Data Science Handbook, by Jake VanderPlas](https://jakevdp.github.io/PythonDataScienceHandbook/index.html). This is a free online book, with excellent step by step examples.
+
+## pandas
+
+We will primarily use the Pandas package to deal with data.
+Pandas has become the standard Python tool to manipulate time series, and you should get acquainted with its basic usage. This course will provide you the opportunity to learn by example, but I'm sure we will only scratch the surface, and you'll be left with lots of questions.
+
+I provide below a (non-comprehensive) list of useful tutorials, they are a good reference for the beginner and for the experienced user.
+
+* [Python Data Science Handbook, by Jake VanderPlas](https://jakevdp.github.io/PythonDataScienceHandbook/index.html)
+* [Data Wrangling with pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
+* [Working with Dates and Times in Python](https://images.datacamp.com/image/upload/v1666944896/Marketing/Blog/Working_with_Dates_and_Times_Cheat_Sheet.pdf)
+* [Cheat Sheet: The pandas DataFrame Object](https://www.webpages.uidaho.edu/~stevel/cheatsheets/Pandas%20DataFrame%20Notes_12pages.pdf)
+* [YouTube tutorials](https://www.youtube.com/watch?v=ZyhVh-qRZPA&list=PL-osiE80TeTsWmV9i9c58mdDCSskIFdDS&pp=iAQB) by Corey Schafer
+
+## pyplot
+
+Matplotlib, and its submodule pyplot, are probably the most common Python plotting tool. Pyplot is both great and horrible:
+
+* Great: you'll have absolutely full control of everything you want to plot. The sky is the limit.
+* Horrible: you'll cry as you do it, because there is so much to know, and it is not the most friendly plotting package.
+
+Pyplot is *object oriented*, so you will usually manipulate the **axes** object like this.
+
+```{python}
+import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4, 5]
+y = [1, 4, 2, 0, 3]
+
+# Figure with two plots
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize = (8, 6))
+# plot on the left
+ax1.plot(x, y, color="tab:blue")
+ax1.plot(x, y[::-1], color="tab:orange")
+ax1.set(xlabel="date",
+        ylabel="something",
+        title="left panel")
+# plot on the right
+ax2.plot(x, y[::-1])
+ax2.set(xlabel="date",
+        ylabel="something else",
+        title="right panel")
+```
+
+For the very beginners, you need to know that `figure` refers to the whole white canvas, and `axes` means the rectangle inside which something will be plotted:
+
+![](https://www.earthdatascience.org/images/earth-analytics/plot-data/fig-2-plots.png)
+
+If you are new to all this, I recommend that you go to:
+
+* [Earth Lab's Introduction to Plotting in Python Using Matplotlib](https://www.earthdatascience.org/courses/scientists-guide-to-plotting-data-in-python/plot-with-matplotlib/introduction-to-matplotlib-plots/)
+* [Jake VanderPlas's Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/index.html)

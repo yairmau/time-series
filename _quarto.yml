@@ -14,31 +14,30 @@ book:
     - part: "start here"
       chapters:
       - basics/boring.qmd
-      - basics/pandas.qmd
-      - basics/pyplot.qmd
+      - basics/numpy-pandas-matplotlib.qmd
       - basics/example.ipynb
     - part: "resampling"
       chapters:
         - resampling/motivation.ipynb
         - resampling/resampling.ipynb
         - resampling/upsampling.ipynb
+        - resampling/interpolation.ipynb
         - resampling/FAQ.ipynb
+    - part: "smoothing"
+      chapters:
+        - smoothing/motivation.ipynb
+        - smoothing/convolution.qmd
+        - smoothing/LOESS.qmd
+        - smoothing/perfect-smoother.qmd
     - part: "outliers and gaps"
       chapters:
       - outliers/motivation.qmd
       - outliers/zscore.qmd
       - outliers/IQR.qmd
-
     - part: "best practices"
       chapters:
         - best-practices/motivation.qmd
         - best-practices/dates.qmd
-    - part: "smoothing"
-      chapters:
-        - smoothing/motivation.qmd
-        - smoothing/convolution.qmd
-        - smoothing/LOESS.qmd
-        - smoothing/perfect-smoother.qmd
     - part: "stationarity"
       chapters:
         - stationarity/motivation.qmd
@@ -63,7 +62,7 @@ book:
         - seasonality/hilbert.qmd
     - part: "rates of change"
       chapters:
-        - rates-of-change/motivation.qmd
+        - rates-of-change/motivation.ipynb
         - rates-of-change/derivatives.qmd
         - rates-of-change/finite-differences.qmd
         - rates-of-change/fourier-based-derivatives.qmd
@@ -72,6 +71,11 @@ book:
       chapters:
         - forecasting/motivation.qmd
         - forecasting/arima.qmd
+    - part: "assignments"
+      chapters:
+        - assignments/assignment1.qmd
+        - assignments/assignment2.qmd
+        - assignments/assignment_final.qmd
     - technical-stuff/technical-stuff.qmd
     - references.qmd
   sidebar:
