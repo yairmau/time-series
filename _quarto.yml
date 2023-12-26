@@ -16,6 +16,7 @@ book:
       - basics/boring.qmd
       - basics/numpy-pandas-matplotlib.qmd
       - basics/example.ipynb
+      - basics/AI-policy.qmd
     - part: "resampling"
       chapters:
         - resampling/motivation.ipynb
@@ -37,7 +38,7 @@ book:
     - part: "best practices"
       chapters:
         - best-practices/motivation.qmd
-        - best-practices/dates.qmd
+        - best-practices/date-formatting.ipynb
     - part: "stationarity"
       chapters:
         - stationarity/motivation.qmd
@@ -104,6 +105,7 @@ format:
     code-line-numbers: true
     code-tools:
       source: repo  # https://quarto.org/docs/output-formats/html-code.html#code-tools
+    callout-icon: false
   
   pdf:
     documentclass: scrreprt

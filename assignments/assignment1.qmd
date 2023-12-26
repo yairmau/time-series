@@ -1,1 +1,28 @@
 ## assignment 1
+
+This assignment comes right after the first session, where we discussed resampling.
+
+## Task
+
+Go to the [IMS website](https://ims.gov.il/en/data_gov){target="_blank"}, and choose another weather station we have not worked with yet. Download 10-minute data for a full year, any year.
+
+Make 3 graphs:
+
+1. Monthly temperature averages
+1. Daily maximum temperature
+1. For each day of the year, show the number of hours when global solar radiation was above, on average, the threshold 10 W/m$^2$. Now add another line, for the threshold 500 W/m$^2$.
+
+**Make 7 more graphs** (total of 10 graphs) of whatever you find interesting. Explore the dataset you downloaded. Use the tools we learned during class. Be creative.
+
+You must download this <a href="/assignments/assignment1-template.ipynb" download>Jupyter Notebook template</a>. Create a zip file with your Jupyter notebook and with the csv you used. Upload this csv to the moodle task we created.
+
+## Evaluation
+
+All your assignments will be evaluated according to the following criteria:
+
+- 40% Presentation. How the graphs look, labels, general organization, markdown, clean code.
+- 30% Discussion. This is where you explain what you did, what you found out, etc.
+- 15% Depth of analysis. You can analyze/explore the data with different levels of complexity, this is where we take that into consideration.
+- 10% Replicability: Your code runs flawlessly.
+- 5%: Code commenting. Explain in your code what you are doing, this is good for everyone, especially for yourself!
+- Bonus: 10% for originality, creative problem solving, or notable analysis.
