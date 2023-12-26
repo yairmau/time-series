@@ -632,7 +632,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-8"><a href="#cb2-8"></a><span class="co"># option 2: download first (use the URL above and save it to your computer), then load csv</span></span>
 <span id="cb2-9"><a href="#cb2-9"></a>filename <span class="op">=</span> <span class="st">"co2_weekly_mlo.csv"</span></span>
 <span id="cb2-10"><a href="#cb2-10"></a>df <span class="op">=</span> pd.read_csv(filename,</span>
-<span id="cb2-11"><a href="#cb2-11"></a>                 header<span class="op">=</span><span class="dv">34</span>,  <span class="co"># use row 34 as column names. Whatever above it is ignored</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>                comment<span class="op">=</span><span class="st">'#'</span>,  <span class="co"># will ignore rows starting with #</span></span>
 <span id="cb2-12"><a href="#cb2-12"></a>                 na_values<span class="op">=</span>[<span class="op">-</span><span class="fl">999.99</span>]  <span class="co"># substitute -999.99 for NaN (Not a Number), data not available</span></span>
 <span id="cb2-13"><a href="#cb2-13"></a>                 )</span>
 <span id="cb2-14"><a href="#cb2-14"></a><span class="co"># check how the dataframe (table) looks like</span></span>
@@ -1069,11 +1069,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-41"><a href="#cb6-41"></a>                    connectionstyle<span class="op">=</span><span class="st">"arc3,rad=0.2"</span>))</span>
 <span id="cb6-42"><a href="#cb6-42"></a>fig.savefig(<span class="st">"CO2-graph.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/c3/7hp0d36n6vv8jc9hm2440__00000gn/T/ipykernel_31828/850389963.py:42: UserWarning: AutoDateLocator was unable to pick an appropriate interval for this date range. It may be necessary to add an interval value to the AutoDateLocator's intervald dictionary. Defaulting to 6.
+<pre><code>/var/folders/hc/jhnmlst937d27zzq9fhfks780000gn/T/ipykernel_10652/850389963.py:42: UserWarning: AutoDateLocator was unable to pick an appropriate interval for this date range. It may be necessary to add an interval value to the AutoDateLocator's intervald dictionary. Defaulting to 6.
   fig.savefig("CO2-graph.png", dpi=300)
-/opt/anaconda3/lib/python3.9/site-packages/IPython/core/events.py:89: UserWarning: AutoDateLocator was unable to pick an appropriate interval for this date range. It may be necessary to add an interval value to the AutoDateLocator's intervald dictionary. Defaulting to 6.
-  func(*args, **kwargs)
-/opt/anaconda3/lib/python3.9/site-packages/IPython/core/pylabtools.py:152: UserWarning: AutoDateLocator was unable to pick an appropriate interval for this date range. It may be necessary to add an interval value to the AutoDateLocator's intervald dictionary. Defaulting to 6.
+/opt/anaconda3/lib/python3.9/site-packages/IPython/core/pylabtools.py:151: UserWarning: AutoDateLocator was unable to pick an appropriate interval for this date range. It may be necessary to add an interval value to the AutoDateLocator's intervald dictionary. Defaulting to 6.
   fig.canvas.print_figure(bytes_io, **kw)</code></pre>
 </div>
 <div class="cell-output cell-output-display">

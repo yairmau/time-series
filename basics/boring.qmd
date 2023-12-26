@@ -22,5 +22,7 @@ One failproof way of making sure VSCode uses the Anaconda installation is the fo
 
 ![](anaconda-navigator.png)
 
+Sometimes you will need to manualy install the Jupyter extension on VSCode. In this case follow [this tutorial](https://code.visualstudio.com/docs/datascience/jupyter-notebooks).
+
 ## folder structure
 You **NEED** to be confortable with you computer's folder (or directory) structure. Where are files located? How to navigate through different folders? How is my stuff organized? If you don't feel **absolutely** comfortable with this, then read this, [Windows](http://www2.westsussex.gov.uk/LearningandDevelopment/IT%20Learning%20Guides/Microsoft%20Windows%207/05%20Working%20with%20folders.pdf), [MacOS](https://recoverit.wondershare.com/mac-tips/mac-finder-tutorial-mac.html). If you use Linux then you surely know this stuff. **Make yourself a "time-series" folder** wherever you want, and have it backed up regularly (use Google Drive, Dropbox, do it manually, etc). "My dog deleted my files" is not an excuse.

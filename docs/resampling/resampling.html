@@ -578,7 +578,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>We can only really understand how to calculate monthly means if we do it ourselves.</p>
 <p>First, let’s import a bunch of packages we need to use.</p>
-<div class="cell" data-execution_count="11">
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -603,7 +603,7 @@ We will go to the IMS website together and see what are the options available an
 <li>We interpret the column <code>Date &amp; Time (Winter)</code> as a date, saying to python that day comes first.</li>
 <li>We make <code>date</code> the index of the dataframe.</li>
 </ul>
-<div class="cell" data-execution_count="2">
+<div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>filename <span class="op">=</span> <span class="st">"../archive/data/jerusalem2019.csv"</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>df <span class="op">=</span> pd.read_csv(filename, na_values<span class="op">=</span>[<span class="st">'-'</span>])</span>
 <span id="cb2-3"><a href="#cb2-3"></a>df.rename(columns<span class="op">=</span>{<span class="st">'Temperature (°C)'</span>: <span class="st">'temperature'</span>,</span>
@@ -611,7 +611,7 @@ We will go to the IMS website together and see what are the options available an
 <span id="cb2-5"><a href="#cb2-5"></a>df[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'Date &amp; Time (Winter)'</span>], dayfirst<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb2-6"><a href="#cb2-6"></a>df <span class="op">=</span> df.set_index(<span class="st">'date'</span>)</span>
 <span id="cb2-7"><a href="#cb2-7"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -900,10 +900,10 @@ We will go to the IMS website together and see what are the options available an
 </div>
 </div>
 <p>With <code>resample</code> it’s easy to compute monthly averages. Resample by itself only divides the data into buckets (in this case monthly buckets), and waits for a further instruction. Here, the next instruction is <code>mean</code>.</p>
-<div class="cell" data-execution_count="3">
+<div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>df_month <span class="op">=</span> df[<span class="st">'temperature'</span>].resample(<span class="st">'M'</span>).mean()</span>
 <span id="cb3-2"><a href="#cb3-2"></a>df_month</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>date
 2019-01-31     9.119937
 2019-02-28     9.629812
@@ -1011,20 +1011,20 @@ S         secondly frequency</code></pre>
 Sometimes, a line of code can get too long and messy. In the code above, we broke line for every step, which makes the process so much cleaner. We <strong>highly</strong> advise you to do the same. <strong>Attention:</strong> This trick works as long as all the elements are inside the same parenthesis.
 </section>
 <p>Now it’s time to plot!</p>
-<div class="cell" data-execution_count="5">
+<div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb7-2"><a href="#cb7-2"></a>ax.plot(df_month[<span class="st">'mean temp'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
 <span id="cb7-3"><a href="#cb7-3"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'Temperature (°C)'</span>,</span>
 <span id="cb7-4"><a href="#cb7-4"></a>       yticks<span class="op">=</span>np.arange(<span class="dv">5</span>,<span class="dv">35</span>,<span class="dv">5</span>),</span>
 <span id="cb7-5"><a href="#cb7-5"></a>       title<span class="op">=</span><span class="st">"Jerusalem, 2019"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>[Text(0, 0.5, 'Temperature (°C)'),
- [&lt;matplotlib.axis.YTick at 0x7fa878083ac0&gt;,
-  &lt;matplotlib.axis.YTick at 0x7fa878083fd0&gt;,
-  &lt;matplotlib.axis.YTick at 0x7fa8780830a0&gt;,
-  &lt;matplotlib.axis.YTick at 0x7fa877fa0280&gt;,
-  &lt;matplotlib.axis.YTick at 0x7fa877fa0a60&gt;,
-  &lt;matplotlib.axis.YTick at 0x7fa877fa6550&gt;],
+ [&lt;matplotlib.axis.YTick at 0x7fa6a2f412b0&gt;,
+  &lt;matplotlib.axis.YTick at 0x7fa6a2f3ec10&gt;,
+  &lt;matplotlib.axis.YTick at 0x7fa685442f40&gt;,
+  &lt;matplotlib.axis.YTick at 0x7fa6853d7e80&gt;,
+  &lt;matplotlib.axis.YTick at 0x7fa6853f9850&gt;,
+  &lt;matplotlib.axis.YTick at 0x7fa685401070&gt;],
  Text(0.5, 1.0, 'Jerusalem, 2019')]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -1037,14 +1037,14 @@ Sometimes, a line of code can get too long and messy. In the code above, we brok
 <li>The ticks on the x-axis are on the first of the month, so there is a mismatch between data and labels.</li>
 </ul>
 <p>We will resample now using <code>MS</code>, which assigns the result to the first of the month (Month Start), and we will then add 14 more days to it (left offset), so that every point is assigned to the middle (15th) of the month.</p>
-<div class="cell" data-execution_count="6">
+<div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>df_month <span class="op">=</span> (df[<span class="st">'temperature'</span>].resample(<span class="st">'MS'</span>,</span>
 <span id="cb9-2"><a href="#cb9-2"></a>                                       loffset<span class="op">=</span>pd.Timedelta(<span class="dv">14</span>, <span class="st">'d'</span>))</span>
 <span id="cb9-3"><a href="#cb9-3"></a>                             .mean()</span>
 <span id="cb9-4"><a href="#cb9-4"></a>                             .to_frame(<span class="st">'mean temp'</span>)</span>
 <span id="cb9-5"><a href="#cb9-5"></a>           )</span>
 <span id="cb9-6"><a href="#cb9-6"></a>df_month</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
 
@@ -1115,7 +1115,7 @@ Sometimes, a line of code can get too long and messy. In the code above, we brok
 </div>
 </div>
 <p>Now let’s plot again, and we’ll choose a cleaner x-axis labeling.</p>
-<div class="cell" data-execution_count="20">
+<div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb10-2"><a href="#cb10-2"></a>ax.plot(df_month.index.month, df_month[<span class="st">'mean temp'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
 <span id="cb10-3"><a href="#cb10-3"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"month"</span>,</span>
@@ -1134,15 +1134,15 @@ Sometimes, a line of code can get too long and messy. In the code above, we brok
 </section>
 <p>We’re done! Congratulations :)</p>
 <p>Now we need to calculate the average minimum/maximum daily temperatures. We start by creating an empty dataframe.</p>
-<div class="cell" data-execution_count="8">
+<div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>df_day <span class="op">=</span> pd.DataFrame()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now resample data by day (<code>D</code>), and take the min/max of each day.</p>
-<div class="cell" data-execution_count="9">
+<div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>df_day[<span class="st">'min temp'</span>] <span class="op">=</span> df[<span class="st">'temperature'</span>].resample(<span class="st">'D'</span>).<span class="bu">min</span>()</span>
 <span id="cb12-2"><a href="#cb12-2"></a>df_day[<span class="st">'max temp'</span>] <span class="op">=</span> df[<span class="st">'temperature'</span>].resample(<span class="st">'D'</span>).<span class="bu">max</span>()</span>
 <span id="cb12-3"><a href="#cb12-3"></a>df_day</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 
@@ -1223,11 +1223,11 @@ Sometimes, a line of code can get too long and messy. In the code above, we brok
 </div>
 </div>
 <p>The next step is to calculate the average minimum/maximum for each month. This is similar to what we did above.</p>
-<div class="cell" data-execution_count="10">
+<div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>df_month[<span class="st">'min temp'</span>] <span class="op">=</span> df_day[<span class="st">'min temp'</span>].resample(<span class="st">'MS'</span>,loffset<span class="op">=</span>pd.Timedelta(<span class="dv">14</span>, <span class="st">'d'</span>)).mean()</span>
 <span id="cb13-2"><a href="#cb13-2"></a>df_month[<span class="st">'max temp'</span>] <span class="op">=</span> df_day[<span class="st">'max temp'</span>].resample(<span class="st">'MS'</span>,loffset<span class="op">=</span>pd.Timedelta(<span class="dv">14</span>, <span class="st">'d'</span>)).mean()</span>
 <span id="cb13-3"><a href="#cb13-3"></a>df_month</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
 
@@ -1326,7 +1326,7 @@ Sometimes, a line of code can get too long and messy. In the code above, we brok
 </div>
 </div>
 <p>Let’s plot…</p>
-<div class="cell" data-execution_count="11">
+<div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb14-2"><a href="#cb14-2"></a>ax.plot(df_month[<span class="st">'max temp'</span>], color<span class="op">=</span><span class="st">'tab:red'</span>, label<span class="op">=</span><span class="st">'max'</span>)</span>
 <span id="cb14-3"><a href="#cb14-3"></a>ax.plot(df_month[<span class="st">'mean temp'</span>], color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'mean'</span>)</span>
@@ -1349,6 +1349,327 @@ Sometimes, a line of code can get too long and messy. In the code above, we brok
 <p>Another comment:<br>
 This time we did not put month numbers in the horizontal axis, we now have month names. How did we do this black magic, you ask? See lines 8–10 above. Matplotlib gives you absolute power over what to put in the axis, if you can only know how to tell it to… Wanna know more? <a href="../best-practices/dates.html">Click here.</a></p>
 </section>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co"># month_wind = df['Wind direction (°)'].resample('3M').mean()  </span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>month_wind <span class="op">=</span> df[<span class="st">'temperature'</span>].resample(<span class="st">'3M'</span>).mean()  </span>
+<span id="cb15-4"><a href="#cb15-4"></a>ax.plot(month_wind.index.month, month_wind.values, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb15-5"><a href="#cb15-5"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"month"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6"></a>       ylabel<span class="op">=</span><span class="st">'Temperature (°C)'</span>,</span>
+<span id="cb15-7"><a href="#cb15-7"></a>       <span class="co"># yticks=np.arange(5,35,5),</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>       title<span class="op">=</span><span class="st">"Jerusalem, 2019"</span>,)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="resampling_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>a <span class="op">=</span> df[<span class="st">'temperature'</span>].resample(<span class="st">'Q'</span>).mean()</span>
+<span id="cb16-2"><a href="#cb16-2"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="55">
+<pre><code>date
+2019-03-31     9.833614
+2019-06-30    20.367656
+2019-09-30    23.472396
+2019-12-31    16.366730
+Freq: Q-DEC, Name: temperature, dtype: float64</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>a.idxmax()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="56">
+<pre><code>Timestamp('2019-09-30 00:00:00', freq='Q-DEC')</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="46">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Station</th>
+<th data-quarto-table-cell-role="th">Date &amp; Time (Winter)</th>
+<th data-quarto-table-cell-role="th">Diffused radiation (W/m^2)</th>
+<th data-quarto-table-cell-role="th">Global radiation (W/m^2)</th>
+<th data-quarto-table-cell-role="th">Direct radiation (W/m^2)</th>
+<th data-quarto-table-cell-role="th">Relative humidity (%)</th>
+<th data-quarto-table-cell-role="th">temperature</th>
+<th data-quarto-table-cell-role="th">Maximum temperature (°C)</th>
+<th data-quarto-table-cell-role="th">Minimum temperature (°C)</th>
+<th data-quarto-table-cell-role="th">Wind direction (°)</th>
+<th data-quarto-table-cell-role="th">Gust wind direction (°)</th>
+<th data-quarto-table-cell-role="th">Wind speed (m/s)</th>
+<th data-quarto-table-cell-role="th">Maximum 1 minute wind speed (m/s)</th>
+<th data-quarto-table-cell-role="th">Maximum 10 minutes wind speed (m/s)</th>
+<th data-quarto-table-cell-role="th">Time ending maximum 10 minutes wind speed (hhmm)</th>
+<th data-quarto-table-cell-role="th">Gust wind speed (m/s)</th>
+<th data-quarto-table-cell-role="th">Standard deviation wind direction (°)</th>
+<th data-quarto-table-cell-role="th">rain</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2019-01-01 00:00:00</td>
+<td>Jerusalem Givat Ram</td>
+<td>01/01/2019 00:00</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>80.0</td>
+<td>8.7</td>
+<td>8.8</td>
+<td>8.6</td>
+<td>75.0</td>
+<td>84.0</td>
+<td>3.3</td>
+<td>4.3</td>
+<td>3.5</td>
+<td>23:58</td>
+<td>6.0</td>
+<td>15.6</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2019-01-01 00:10:00</td>
+<td>Jerusalem Givat Ram</td>
+<td>01/01/2019 00:10</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>79.0</td>
+<td>8.7</td>
+<td>8.8</td>
+<td>8.7</td>
+<td>74.0</td>
+<td>82.0</td>
+<td>3.3</td>
+<td>4.1</td>
+<td>3.3</td>
+<td>00:01</td>
+<td>4.9</td>
+<td>14.3</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2019-01-01 00:20:00</td>
+<td>Jerusalem Givat Ram</td>
+<td>01/01/2019 00:20</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>79.0</td>
+<td>8.7</td>
+<td>8.8</td>
+<td>8.7</td>
+<td>76.0</td>
+<td>82.0</td>
+<td>3.2</td>
+<td>4.1</td>
+<td>3.3</td>
+<td>00:19</td>
+<td>4.9</td>
+<td>9.9</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2019-01-01 00:30:00</td>
+<td>Jerusalem Givat Ram</td>
+<td>01/01/2019 00:30</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>79.0</td>
+<td>8.7</td>
+<td>8.7</td>
+<td>8.6</td>
+<td>78.0</td>
+<td>73.0</td>
+<td>3.6</td>
+<td>4.2</td>
+<td>3.6</td>
+<td>00:30</td>
+<td>5.2</td>
+<td>11.7</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2019-01-01 00:40:00</td>
+<td>Jerusalem Givat Ram</td>
+<td>01/01/2019 00:40</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>79.0</td>
+<td>8.6</td>
+<td>8.7</td>
+<td>8.5</td>
+<td>80.0</td>
+<td>74.0</td>
+<td>3.6</td>
+<td>4.4</td>
+<td>3.8</td>
+<td>00:35</td>
+<td>5.4</td>
+<td>10.5</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2019-12-31 22:20:00</td>
+<td>Jerusalem Givat Ram</td>
+<td>31/12/2019 22:20</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>81.0</td>
+<td>7.4</td>
+<td>7.6</td>
+<td>7.3</td>
+<td>222.0</td>
+<td>255.0</td>
+<td>0.5</td>
+<td>0.9</td>
+<td>1.0</td>
+<td>22:11</td>
+<td>1.0</td>
+<td>47.9</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2019-12-31 22:30:00</td>
+<td>Jerusalem Givat Ram</td>
+<td>31/12/2019 22:30</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>83.0</td>
+<td>7.3</td>
+<td>7.4</td>
+<td>7.3</td>
+<td>266.0</td>
+<td>259.0</td>
+<td>0.6</td>
+<td>0.8</td>
+<td>0.6</td>
+<td>22:28</td>
+<td>1.1</td>
+<td>22.8</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2019-12-31 22:40:00</td>
+<td>Jerusalem Givat Ram</td>
+<td>31/12/2019 22:40</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>83.0</td>
+<td>7.5</td>
+<td>7.6</td>
+<td>7.3</td>
+<td>331.0</td>
+<td>317.0</td>
+<td>0.5</td>
+<td>0.8</td>
+<td>0.6</td>
+<td>22:35</td>
+<td>1.0</td>
+<td>31.6</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2019-12-31 22:50:00</td>
+<td>Jerusalem Givat Ram</td>
+<td>31/12/2019 22:50</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>83.0</td>
+<td>7.5</td>
+<td>7.6</td>
+<td>7.4</td>
+<td>312.0</td>
+<td>285.0</td>
+<td>0.6</td>
+<td>1.0</td>
+<td>0.6</td>
+<td>22:50</td>
+<td>1.4</td>
+<td>31.3</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2019-12-31 23:00:00</td>
+<td>Jerusalem Givat Ram</td>
+<td>31/12/2019 23:00</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>83.0</td>
+<td>7.6</td>
+<td>7.7</td>
+<td>7.4</td>
+<td>315.0</td>
+<td>321.0</td>
+<td>0.7</td>
+<td>1.0</td>
+<td>0.8</td>
+<td>22:54</td>
+<td>1.3</td>
+<td>23.5</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+
+<p>52554 rows × 18 columns</p>
+</div>
+</div>
+</div>
 
 
 
