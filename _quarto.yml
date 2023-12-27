@@ -106,6 +106,7 @@ format:
     code-tools:
       source: repo  # https://quarto.org/docs/output-formats/html-code.html#code-tools
     callout-icon: false
+    fig-align: center
   
   pdf:
     documentclass: scrreprt

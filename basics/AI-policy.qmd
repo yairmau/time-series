@@ -1,10 +1,6 @@
 ## AI policy
-
-<!-- ![](robot-scratching_transparent3.png) -->
-<p align="center">
-  <img src="robot-scratching_transparent3.png" width="100px">
-</p>
  
+![](robot-scratching_transparent3.png){width="100px" fig-align="center"}
 
 The guidelines below are an adaptation of [Ethan Mollick’s extremely useful ideas on AI](https://oneusefulthing.substack.com/p/all-my-classes-suddenly-became-ai){target="_blank"} as an assistant tool for teaching.
 
@@ -17,6 +13,5 @@ Consider the following important points:
 * Ultimately, you, the student, are responsible for the assignment.
 * Acknowledge the use of AI in your assignment. Be transparent about your use of the tool and the extent of assistance it provided.
 
-<p align="center">
-  <img src="ai-meme1.png">
-</p>
+![](ai-meme1.png){fig-align="center"}
+
