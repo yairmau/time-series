@@ -12,7 +12,7 @@ Install [VSCode](https://code.visualstudio.com/download).
 Visual Studio Code is a very nice IDE (Integrated Development Environment) made by Microsoft, available to all operating systems. Contrary to the title of this page, it is not absolutely necessary to use it, but I like VSCode, and as my student, so do you 😉.
 
 ## jupyter notebooks
-We will code exclusively in Jupyter Notebooks. [Get acquainted with them](https://code.visualstudio.com/docs/datascience/jupyter-notebooks). Make sure you can [point VSCode](https://opensourceoptions.com/blog/setup-anaconda-python-to-work-with-visual-studio-code-on-windows/) to the Anaconda environment of your choice ("base" by default). Don't worry, this is easier than it sounds.
+We will code exclusively in Jupyter Notebooks. [Get acquainted with them](https://code.visualstudio.com/docs/datascience/jupyter-notebooks){target="_blank"}. Make sure you can [point VSCode](https://opensourceoptions.com/blog/setup-anaconda-python-to-work-with-visual-studio-code-on-windows/){target="_blank"} to the Anaconda environment of your choice ("base" by default). Don't worry, this is easier than it sounds.
 
 One failproof way of making sure VSCode uses the Anaconda installation is the following:
 
@@ -22,7 +22,7 @@ One failproof way of making sure VSCode uses the Anaconda installation is the fo
 
 ![](anaconda-navigator.png)
 
-Sometimes you will need to manualy install the Jupyter extension on VSCode. In this case follow [this tutorial](https://code.visualstudio.com/docs/datascience/jupyter-notebooks).
+Sometimes you will need to manualy install the Jupyter extension on VSCode. In this case follow [this tutorial](https://code.visualstudio.com/docs/datascience/jupyter-notebooks){target="_blank"}.
 
 ## folder structure
-You **NEED** to be confortable with you computer's folder (or directory) structure. Where are files located? How to navigate through different folders? How is my stuff organized? If you don't feel **absolutely** comfortable with this, then read this, [Windows](http://www2.westsussex.gov.uk/LearningandDevelopment/IT%20Learning%20Guides/Microsoft%20Windows%207/05%20Working%20with%20folders.pdf), [MacOS](https://recoverit.wondershare.com/mac-tips/mac-finder-tutorial-mac.html). If you use Linux then you surely know this stuff. **Make yourself a "time-series" folder** wherever you want, and have it backed up regularly (use Google Drive, Dropbox, do it manually, etc). "My dog deleted my files" is not an excuse.
+You **NEED** to be confortable with you computer's folder (or directory) structure. Where are files located? How to navigate through different folders? How is my stuff organized? If you don't feel **absolutely** comfortable with this, then read this, [Windows](http://www2.westsussex.gov.uk/LearningandDevelopment/IT%20Learning%20Guides/Microsoft%20Windows%207/05%20Working%20with%20folders.pdf){target="_blank"}, [MacOS](https://recoverit.wondershare.com/mac-tips/mac-finder-tutorial-mac.html){target="_blank"}. If you use Linux then you surely know this stuff. **Make yourself a "time-series" folder** wherever you want, and have it backed up regularly (use Google Drive, Dropbox, do it manually, etc). "My dog deleted my files" is not an excuse.

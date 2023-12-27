@@ -600,7 +600,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>If you manage to run everything without errors, this means that your computer is good to go!</li>
 <li>You might encounter a few problems. That’s ok. Make a note and we will solve everything in the first lecture.</li>
 </ul>
-<p>Let’s make a first plot of real data. We will use NOAA’s Global Monitoring Laboratory data on <a href="https://gml.noaa.gov/ccgg/trends/data.html">Trends in Atmospheric Carbon Dioxide</a>.</p>
+<p>Let’s make a first plot of real data. We will use NOAA’s Global Monitoring Laboratory data on <a href="https://gml.noaa.gov/ccgg/trends/data.html" target="_blank">Trends in Atmospheric Carbon Dioxide</a>.</p>
 <section id="open-a-new-jupyter-notebook" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="open-a-new-jupyter-notebook"><span class="header-section-number">3.1</span> open a new Jupyter Notebook</h2>
 <ol type="1">
@@ -626,7 +626,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="load-data" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="load-data"><span class="header-section-number">3.3</span> load data</h2>
-<p>Load CO2 data into a Pandas dataframe. You can load it directly from the URL (option 1), or first download the CSV to your computer and then load it (option 2). The link to download the data directly form NOAA is <a href="https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_weekly_mlo.csv">this</a>. If for some reason this doesn’t work, download from this website’s GitHub <a href="https://raw.githubusercontent.com/yairmau/time-series/main/basics/co2_weekly_mlo.csv">repository</a>.</p>
+<p>Load CO2 data into a Pandas dataframe. You can load it directly from the URL (option 1), or first download the CSV to your computer and then load it (option 2). The link to download the data directly form NOAA is <a href="https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_weekly_mlo.csv">this</a>. If for some reason this doesn’t work, download <a href="../basics/co2_weekly_mlo.csv" download="">here</a>.</p>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># option 1: load data directly from URL</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="co"># url = "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_weekly_mlo.csv"</span></span>
@@ -1095,7 +1095,7 @@ This says that the labels will be placed at the locations determined in 1.</li>
 <li><code>ax1.xaxis.set_major_formatter(formatter)</code><br>
 Finally, labels are written down</li>
 </ol>
-<p>The arrow is placed in the graph using <code>annotate</code>. It has a tricky syntax and a million options. Read <a href="https://jakevdp.github.io/PythonDataScienceHandbook/04.09-text-and-annotation.html#Arrows-and-Annotation">Jake VanderPlas’s</a> excellent examples to learn more.</p>
+<p>The arrow is placed in the graph using <code>annotate</code>. It has a tricky syntax and a million options. Read <a href="https://jakevdp.github.io/PythonDataScienceHandbook/04.09-text-and-annotation.html#Arrows-and-Annotation" target="_blank">Jake VanderPlas’s</a> excellent examples to learn more.</p>
 </section>
 <section id="modifications" class="level2" data-number="3.7">
 <h2 data-number="3.7" class="anchored" data-anchor-id="modifications"><span class="header-section-number">3.7</span> modifications</h2>
@@ -1151,11 +1151,11 @@ Finally, labels are written down</li>
 </div>
 <p>The main changes were:</p>
 <ol type="1">
-<li>Using the Seaborn package, we changed the fontsize and the overall plot style. <a href="https://seaborn.pydata.org/tutorial/aesthetics.html">Read more</a>.<br>
+<li>Using the Seaborn package, we changed the fontsize and the overall plot style. <a href="https://seaborn.pydata.org/tutorial/aesthetics.html" target="_blank">Read more</a>.<br>
 <code>sns.set(style="darkgrid")</code><br>
 <code>sns.set_context("notebook")</code></li>
-<li>We changed the colors of the lineplots. To know what colors exist, <a href="https://matplotlib.org/stable/gallery/color/named_colors.html">click here</a>.</li>
-<li>The arrow annotation has a different style. <a href="https://jakevdp.github.io/PythonDataScienceHandbook/04.09-text-and-annotation.html#Arrows-and-Annotation">Read more</a>.</li>
+<li>We changed the colors of the lineplots. To know what colors exist, <a href="https://matplotlib.org/stable/gallery/color/named_colors.html" target="_blank">click here</a>.</li>
+<li>The arrow annotation has a different style. <a href="https://jakevdp.github.io/PythonDataScienceHandbook/04.09-text-and-annotation.html#Arrows-and-Annotation" target="_blank">Read more</a>.</li>
 </ol>
 </section>
 <section id="playing-with-the-code" class="level2" data-number="3.8">

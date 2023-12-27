@@ -1,12 +1,22 @@
 ## AI policy
 
+<!-- ![](robot-scratching_transparent3.png) -->
+<p align="center">
+  <img src="robot-scratching_transparent3.png" width="100px">
+</p>
+ 
+
 The guidelines below are an adaptation of [Ethan Mollick’s extremely useful ideas on AI](https://oneusefulthing.substack.com/p/all-my-classes-suddenly-became-ai){target="_blank"} as an assistant tool for teaching.
 
-**I EXPECT YOU** to use LLMs (large language models) such as ChatGPT, Bing AI, Google Bard, Lex, or whatever else springs up since the time of this writing. You should familiarize yourself with the AI’s capabilities and limitations.
+**I EXPECT YOU** to use LLMs (large language models) such as ChatGPT, Bing AI, Google Bard, or whatever else springs up since the time of this writing. You should familiarize yourself with the AI’s capabilities and limitations.
 
-Use LLMs to help you learn, chat with them about what you want to accomplish and learn from them how to do it. **Ask** your LLM what each part of the code means, copy and pasting blindly is unacceptable. You are here to learn.
+**Use LLMs to help you learn**, chat with them about what you want to accomplish and learn from them how to do it. **Ask** your LLM what each part of the code means, copy and pasting blindly is unacceptable. You are here to learn.
 
 Consider the following important points:
 
 * Ultimately, you, the student, are responsible for the assignment.
 * Acknowledge the use of AI in your assignment. Be transparent about your use of the tool and the extent of assistance it provided.
+
+<p align="center">
+  <img src="ai-meme1.png">
+</p>
