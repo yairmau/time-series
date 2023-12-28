@@ -1,20 +1,33 @@
 ## assignment 1
 
 This assignment comes right after the first session, where we discussed resampling.
+Read the whole instructions.
 
 ## Task
 
 Go to the [IMS website](https://ims.gov.il/en/data_gov){target="_blank"}, and choose another weather station we have not worked with yet. Download 10-minute data for a full year, any year.
 
-Make 3 graphs:
+**Make 3 graphs:**
 
-1. Monthly temperature averages
-1. Daily maximum temperature
+1. Daily maximum humidity. Bonus: add another line to the graph, the daily minimum humidity.
+1. The number of rainy dais for each month
 1. For each day of the year, show the number of hours when global solar radiation was above, on average, the threshold 10 W/m$^2$. Now add another line, for the threshold 500 W/m$^2$.
 
-**Make 7 more graphs** (total of 10 graphs) of whatever you find interesting. Explore the dataset you downloaded. Use the tools we learned during class. Be creative.
+**Make 5 more graphs** (total of 8 graphs) of whatever you find interesting. You have the liberty to explore various facets of your dataset that capture your interest. It's essential, however, to maintain a focus on resampling. Each of your plots should effectively showcase and emphasize different aspects or techniques of resampling in your data analysis. To ensure diversity in your visualizations, avoid repetitive themes; for instance, if your first plot illustrates daily wind speed, then your second plot should not simply be a monthly resampling of wind speed. Aim for variety and innovation in each plot to fully explore the potential of resampling in data visualization.
 
-You must download this <a href="/assignments/assignment1-template.ipynb" download>Jupyter Notebook template</a>. Create a zip file with your Jupyter notebook and with the csv you used. Upload this csv to the moodle task we created.
+You must download this <a href="/assignments/assignment1-template.ipynb" download>Jupyter Notebook template</a>. Create a zip file with your Jupyter notebook and with the `.csv` you used. Upload this zip file to the moodle task we created.
+
+## Guidelines
+
+1. Always name the axes and add units when relevant.
+1. Always give a title to the plot.
+1. Make sure that all axis tick labels (the numbers/dates on the axes) are readable.
+1. Include a legend if you have multiple lines, colors, or groups.
+1. Use appropriate scales for the axes (linear, logarithmic, etc.) depending on the data's nature.
+1. Ensure that the plot is adequately sized for all elements to be clear and visible.
+1. Choose colors and markers that are distinguishable, especially for plots with multiple elements.
+1. If applicable, include error bars to indicate the variability or uncertainty in the data.
+1. Use grid lines sparingly; they should not overshadow the data.
 
 ## Evaluation
 

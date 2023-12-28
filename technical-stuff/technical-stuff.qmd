@@ -1,4 +1,15 @@
-# technical stuff {.unnumbered}
+---
+title: "technical stuff"
+execute:
+  freeze: auto  # re-render only when source changes
+format:
+  html:
+    toc: true
+    toc-location: body
+    number-chapters: false
+---
+
+<!-- # technical stuff {.unnumbered} -->
 
 ## operating systems
 

@@ -1,0 +1,9 @@
+# stuff {.unnumbered}
+
+Hey! What are you doing here? This page is not meant for you 😜
+
+* This is not a coding course. Neither a programming course. Our goal is to learn how to **think** about time series. Of course, we want to tell the computer how to do stuff, and that requires programming.
+* "How do you do?" *How do you do what?!*  
+  *Welche Sprachen sprechen Sie?*  
+  First do, then get use to it.  
+  Once you got used to doing, go back and understand better.

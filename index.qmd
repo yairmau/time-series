@@ -49,9 +49,12 @@ On successful completion of this module,students should be able to:
 
 ### course evaluation
 
-There will be 2 projects during the semester (each worth 25% of the final grade), and one final project (50%). 
+There will be small projects during the semester (totaling 50% of the final grade), and one final project (50%). 
 
 ## weekly program
+
+<div class="alert alert-danger">
+This year's course will be a bit different that planned due to the shortening of the academic semester. The information below is NOT up to date. Ask Yair what is relevant this year.</div>
 
 #### week 1
 

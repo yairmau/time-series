@@ -79,6 +79,7 @@ book:
         - assignments/assignment_final.qmd
     - technical-stuff/technical-stuff.qmd
     - references.qmd
+    - things-to-remember.qmd
   sidebar:
     collapse-level: 2
     tools:
@@ -86,6 +87,8 @@ book:
         href: https://yairmau.com/
       - icon: bookmark-fill
         href: /references.html
+      - icon: asterisk
+        href: /things-to-remember.html
     logo: archive/clock-history.png
   search: true
 

@@ -100,6 +100,7 @@ ul.task-list li input[type="checkbox"] {
         <div class="sidebar-tools-main tools-wide">
     <a href="https://yairmau.com/" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-house-fill"></i></a>
     <a href="../references.html" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-bookmark-fill"></i></a>
+    <a href="../things-to-remember.html" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-asterisk"></i></a>
     <a href="https://github.com/yairmau/time-series/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
@@ -510,13 +511,19 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">technical stuff</span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">sources</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../things-to-remember.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">stuff</span></a>
   </div>
 </li>
     </ul>
@@ -530,7 +537,8 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#task" id="toc-task" class="nav-link active" data-scroll-target="#task"><span class="header-section-number">40.1</span> Task</a></li>
-  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation"><span class="header-section-number">40.2</span> Evaluation</a></li>
+  <li><a href="#guidelines" id="toc-guidelines" class="nav-link" data-scroll-target="#guidelines"><span class="header-section-number">40.2</span> Guidelines</a></li>
+  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation"><span class="header-section-number">40.3</span> Evaluation</a></li>
   </ul>
 </nav>
     </div>
@@ -554,21 +562,35 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>This assignment comes right after the first session, where we discussed resampling.</p>
+<p>This assignment comes right after the first session, where we discussed resampling. Read the whole instructions.</p>
 <section id="task" class="level2" data-number="40.1">
 <h2 data-number="40.1" class="anchored" data-anchor-id="task"><span class="header-section-number">40.1</span> Task</h2>
 <p>Go to the <a href="https://ims.gov.il/en/data_gov" target="_blank">IMS website</a>, and choose another weather station we have not worked with yet. Download 10-minute data for a full year, any year.</p>
-<p>Make 3 graphs:</p>
+<p><strong>Make 3 graphs:</strong></p>
 <ol type="1">
-<li>Monthly temperature averages</li>
-<li>Daily maximum temperature</li>
+<li>Daily maximum humidity. Bonus: add another line to the graph, the daily minimum humidity.</li>
+<li>The number of rainy dais for each month</li>
 <li>For each day of the year, show the number of hours when global solar radiation was above, on average, the threshold 10 W/m<span class="math inline">\(^2\)</span>. Now add another line, for the threshold 500 W/m<span class="math inline">\(^2\)</span>.</li>
 </ol>
-<p><strong>Make 7 more graphs</strong> (total of 10 graphs) of whatever you find interesting. Explore the dataset you downloaded. Use the tools we learned during class. Be creative.</p>
-<p>You must download this <a href="../assignments/assignment1-template.ipynb" download="">Jupyter Notebook template</a>. Create a zip file with your Jupyter notebook and with the csv you used. Upload this csv to the moodle task we created.</p>
+<p><strong>Make 5 more graphs</strong> (total of 8 graphs) of whatever you find interesting. You have the liberty to explore various facets of your dataset that capture your interest. It’s essential, however, to maintain a focus on resampling. Each of your plots should effectively showcase and emphasize different aspects or techniques of resampling in your data analysis. To ensure diversity in your visualizations, avoid repetitive themes; for instance, if your first plot illustrates daily wind speed, then your second plot should not simply be a monthly resampling of wind speed. Aim for variety and innovation in each plot to fully explore the potential of resampling in data visualization.</p>
+<p>You must download this <a href="../assignments/assignment1-template.ipynb" download="">Jupyter Notebook template</a>. Create a zip file with your Jupyter notebook and with the <code>.csv</code> you used. Upload this zip file to the moodle task we created.</p>
 </section>
-<section id="evaluation" class="level2" data-number="40.2">
-<h2 data-number="40.2" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">40.2</span> Evaluation</h2>
+<section id="guidelines" class="level2" data-number="40.2">
+<h2 data-number="40.2" class="anchored" data-anchor-id="guidelines"><span class="header-section-number">40.2</span> Guidelines</h2>
+<ol type="1">
+<li>Always name the axes and add units when relevant.</li>
+<li>Always give a title to the plot.</li>
+<li>Make sure that all axis tick labels (the numbers/dates on the axes) are readable.</li>
+<li>Include a legend if you have multiple lines, colors, or groups.</li>
+<li>Use appropriate scales for the axes (linear, logarithmic, etc.) depending on the data’s nature.</li>
+<li>Ensure that the plot is adequately sized for all elements to be clear and visible.</li>
+<li>Choose colors and markers that are distinguishable, especially for plots with multiple elements.</li>
+<li>If applicable, include error bars to indicate the variability or uncertainty in the data.</li>
+<li>Use grid lines sparingly; they should not overshadow the data.</li>
+</ol>
+</section>
+<section id="evaluation" class="level2" data-number="40.3">
+<h2 data-number="40.3" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">40.3</span> Evaluation</h2>
 <p>All your assignments will be evaluated according to the following criteria:</p>
 <ul>
 <li>40% Presentation. How the graphs look, labels, general organization, markdown, clean code.</li>
