@@ -27,7 +27,7 @@ book:
     - part: "smoothing"
       chapters:
         - smoothing/motivation.ipynb
-        - smoothing/convolution.qmd
+        - smoothing/sliding.qmd
         - smoothing/LOESS.qmd
         - smoothing/perfect-smoother.qmd
     - part: "outliers and gaps"

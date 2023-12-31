@@ -59,7 +59,7 @@ ax2.set(xlabel="date",
 
 For the very beginners, you need to know that `figure` refers to the whole white canvas, and `axes` means the rectangle inside which something will be plotted:
 
-![](https://www.earthdatascience.org/images/earth-analytics/plot-data/fig-2-plots.png)
+![](fig-2-plots.png)
 
 The image above is good because it has 2 panels, and it's easy to understand what going on.
 Sadly, they mixed the two terms, axis and axes.
