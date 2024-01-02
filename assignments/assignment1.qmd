@@ -33,9 +33,9 @@ You must download this <a href="/assignments/assignment1-template.ipynb" downloa
 
 All your assignments will be evaluated according to the following criteria:
 
-- 40% Presentation. How the graphs look, labels, general organization, markdown, clean code.
-- 30% Discussion. This is where you explain what you did, what you found out, etc.
-- 15% Depth of analysis. You can analyze/explore the data with different levels of complexity, this is where we take that into consideration.
-- 10% Replicability: Your code runs flawlessly.
-- 5%: Code commenting. Explain in your code what you are doing, this is good for everyone, especially for yourself!
-- Bonus: 10% for originality, creative problem solving, or notable analysis.
+- Presentation. How the graphs look, labels, general organization, markdown, clean code.
+- Discussion. This is where you explain what you did, what you found out, etc.
+- Depth of analysis. You can analyze/explore the data with different levels of complexity, this is where we take that into consideration.
+- Replicability: Your code runs flawlessly.
+- Code commenting. Explain in your code what you are doing, this is good for everyone, especially for yourself!
+- Bonus: for originality, creative problem solving, or notable analysis.

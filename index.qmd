@@ -49,7 +49,17 @@ On successful completion of this module,students should be able to:
 
 ### course evaluation
 
-There will be small projects during the semester (totaling 50% of the final grade), and one final project (50%). 
+There will be assignments during the semester (totaling 50% of the final grade), and one final project (50%). 
+
+### Evaluation policy
+
+* **Individual Work:** While we support helping your peers, it's important to remember that all assignments must be completed individually. This means that your submissions should be your own unique work and not contain code or text that is identical to someone else's.
+
+* **Zero Plagiarism:** Do not copy text verbatim from any source. Always express ideas in your own words.
+
+* **On-Time Submission:** Assignments must be turned in by the specified deadline. Late submissions will receive a grade of 0. If you require an extension, requests will only be considered if made at least 24 hours before the due date.
+
+* **Non-Compliance Consequence:** Assignments that do not adhere to these guidelines will automatically receive a grade of 0.
 
 ## weekly program
 
