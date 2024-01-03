@@ -78,8 +78,10 @@ book:
         - assignments/assignment2.qmd
         - assignments/assignment_final.qmd
     - technical-stuff/technical-stuff.qmd
-    - references.qmd
-    - things-to-remember.qmd
+    - part: "behind-the-scenes"
+      chapters:
+      - behind-the-scenes/sliding-window-video.ipynb
+      - behind-the-scenes/API-IMS.ipynb
   sidebar:
     collapse-level: 2
     tools:

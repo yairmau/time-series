@@ -19,13 +19,13 @@ See the animation below.
 We take all temperature values inside a window of width 500 minutes (51 points), and average them with equal weights.
 The weights profile is called `kernel`.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/PFD3_BmwH40" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/SkrpjS0F6CE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 The pink curve is much smoother than the original!
 However, the running average cannot describe sharp temperature changes.
 If we decrease the window width to 200 minutes (21 points), we get the following result.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/zk3siFLw0Ig" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/frgRh1c0740" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 There is a tradeoff between the smoothness of a curve, and its ability to describe sharp temporal changes.
 
@@ -35,13 +35,16 @@ We can modify our running average, so that values closer to the center of the wi
 This is achieved by changing the weight profile, or the shape of the kernel.
 We see below the result of a running average using a triangular window of base 500 minutes (51 points).
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/j1CLrYC77nA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VOhs01jeQZU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Things can get as fancy as we want.
 Instead of a triangular kernel, which has sharp edges, we can choose a smoother gaussian kernel, see the difference below.
-We used a gaussian kernel with 60-minute standard deviation (the window in the animation is 4 standard deviations wide).
+We used a gaussian kernel with 60-minute standard deviation.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/mqhA3x6DBvM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/3py9WwQWk1A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+See how the three kernel shapes compare.
+![](kernel_shapes.png)
 
 ## math
 
