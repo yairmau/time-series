@@ -28,6 +28,7 @@ book:
       chapters:
         - smoothing/motivation.ipynb
         - smoothing/sliding.qmd
+        - smoothing/savgol.ipynb
         - smoothing/LOESS.qmd
         - smoothing/perfect-smoother.qmd
     - part: "outliers and gaps"
@@ -81,6 +82,7 @@ book:
     - part: "behind-the-scenes"
       chapters:
       - behind-the-scenes/sliding-window-video.ipynb
+      - behind-the-scenes/savgol-video.ipynb
       - behind-the-scenes/API-IMS.ipynb
   sidebar:
     collapse-level: 2
