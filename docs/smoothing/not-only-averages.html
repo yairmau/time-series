@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series Analysis - 13&nbsp; LOESS</title>
+<title>Time Series Analysis - 12&nbsp; not only averages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../smoothing/perfect-smoother.html" rel="next">
-<link href="../smoothing/savgol.html" rel="prev">
+<link href="../smoothing/fit.html" rel="next">
+<link href="../smoothing/sliding.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -64,10 +98,12 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -76,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../smoothing/motivation.html">smoothing</a></li><li class="breadcrumb-item"><a href="../smoothing/LOESS.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">LOESS</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../smoothing/motivation.html">smoothing</a></li><li class="breadcrumb-item"><a href="../smoothing/not-only-averages.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">not only averages</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -221,20 +257,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../smoothing/savgol.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></span></a>
+  <a href="../smoothing/not-only-averages.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">not only averages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../smoothing/LOESS.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">LOESS</span></span></a>
+  <a href="../smoothing/fit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">fit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/savgol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../smoothing/perfect-smoother.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">a perfect smoother</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">a perfect smoother</span></span></a>
   </div>
 </li>
       </ul>
@@ -251,19 +293,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/zscore.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Z-score</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Z-score</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/IQR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">IQR (Inter Quartile Range)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">IQR (Inter Quartile Range)</span></span></a>
   </div>
 </li>
       </ul>
@@ -280,13 +322,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../best-practices/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../best-practices/date-formatting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
   </div>
 </li>
       </ul>
@@ -303,19 +345,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/stochastic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">stochastic processes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">stochastic processes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/autocorrelation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
   </div>
 </li>
       </ul>
@@ -332,25 +374,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">dynamic time warp</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">dynamic time warp</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/LDTW.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">LDTW</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">LDTW</span></span></a>
   </div>
 </li>
       </ul>
@@ -367,25 +409,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></span></a>
   </div>
 </li>
       </ul>
@@ -402,19 +444,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../seasonality/seasonal-decomposition.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../seasonality/hilbert.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Hilbert transform</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Hilbert transform</span></span></a>
   </div>
 </li>
       </ul>
@@ -431,31 +473,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">finite differences</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">finite differences</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
   </div>
 </li>
       </ul>
@@ -472,13 +514,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
   </div>
 </li>
       </ul>
@@ -495,19 +537,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../assignments/assignment1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">assignment 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">assignment 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../assignments/assignment2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">assignment 2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Time Series Analysis (71606) - Problem Set 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../assignments/assignment_final.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">final assignment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">final assignment</span></span></a>
   </div>
 </li>
       </ul>
@@ -515,7 +557,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -530,19 +572,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
   </div>
 </li>
       </ul>
@@ -553,14 +595,20 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#confidence-interval" id="toc-confidence-interval" class="nav-link active" data-scroll-target="#confidence-interval"><span class="header-section-number">12.1</span> Confidence Interval</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">LOESS</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/smoothing/LOESS.qmd"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">not only averages</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/smoothing/not-only-averages.ipynb">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -575,8 +623,222 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<div class="cell" data-execution_count="1">
+<details>
+<summary>import stuff</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> datetime <span class="im">as</span> dt</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> ticker</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="im">import</span> warnings</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># Suppress FutureWarnings</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>warnings.simplefilter(action<span class="op">=</span><span class="st">'ignore'</span>, category<span class="op">=</span><span class="pp">FutureWarning</span>)</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-12"><a href="#cb1-12"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="im">import</span> requests</span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="im">import</span> json</span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="im">import</span> os</span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>API to download data from IMS</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># read token from file</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'../archive/IMS-token.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    TOKEN <span class="op">=</span> <span class="bu">file</span>.readline()</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># 28 = SHANI station</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>STATION_NUM <span class="op">=</span> <span class="dv">28</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>start <span class="op">=</span> <span class="st">"2022/01/01"</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>end <span class="op">=</span> <span class="st">"2022/01/07"</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>filename <span class="op">=</span> <span class="st">'shani_2022_january.json'</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co"># check if the JSON file already exists</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># if so, then load file</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="cf">if</span> os.path.exists(filename):</span>
+<span id="cb2-13"><a href="#cb2-13"></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'r'</span>) <span class="im">as</span> json_file:</span>
+<span id="cb2-14"><a href="#cb2-14"></a>        data <span class="op">=</span> json.load(json_file)</span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="cf">else</span>:</span>
+<span id="cb2-16"><a href="#cb2-16"></a>    <span class="co"># make the API request if the file doesn't exist</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>    url <span class="op">=</span> <span class="ss">f"https://api.ims.gov.il/v1/envista/stations/</span><span class="sc">{</span>STATION_NUM<span class="sc">}</span><span class="ss">/data/?from=</span><span class="sc">{</span>start<span class="sc">}</span><span class="ss">&amp;to=</span><span class="sc">{</span>end<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a>    headers <span class="op">=</span> {<span class="st">'Authorization'</span>: <span class="ss">f'ApiToken </span><span class="sc">{</span>TOKEN<span class="sc">}</span><span class="ss">'</span>}</span>
+<span id="cb2-19"><a href="#cb2-19"></a>    response <span class="op">=</span> requests.get(url, headers<span class="op">=</span>headers)</span>
+<span id="cb2-20"><a href="#cb2-20"></a>    data <span class="op">=</span> json.loads(response.text.encode(<span class="st">'utf8'</span>))</span>
+<span id="cb2-21"><a href="#cb2-21"></a>    </span>
+<span id="cb2-22"><a href="#cb2-22"></a>    <span class="co"># save the JSON data to a file</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'w'</span>) <span class="im">as</span> json_file:</span>
+<span id="cb2-24"><a href="#cb2-24"></a>        json.dump(data, json_file)</span>
+<span id="cb2-25"><a href="#cb2-25"></a><span class="co"># show data to see if it's alright</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="co"># data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>load data and pre process it</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>df <span class="op">=</span> pd.json_normalize(data[<span class="st">'data'</span>],record_path<span class="op">=</span>[<span class="st">'channels'</span>], meta<span class="op">=</span>[<span class="st">'datetime'</span>])</span>
+<span id="cb3-2"><a href="#cb3-2"></a>df[<span class="st">'date'</span>] <span class="op">=</span> (pd.to_datetime(df[<span class="st">'datetime'</span>])</span>
+<span id="cb3-3"><a href="#cb3-3"></a>                .dt.tz_localize(<span class="va">None</span>)  <span class="co"># ignores time zone information</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>             )</span>
+<span id="cb3-5"><a href="#cb3-5"></a>df <span class="op">=</span> df.pivot(index<span class="op">=</span><span class="st">'date'</span>, columns<span class="op">=</span><span class="st">'name'</span>, values<span class="op">=</span><span class="st">'value'</span>)</span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co"># let's work only with a few days, and only temperature</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>start <span class="op">=</span> <span class="st">"2022-01-02"</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>end <span class="op">=</span> <span class="st">"2022-01-05"</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>df <span class="op">=</span> df.loc[start:end, <span class="st">'TD'</span>].to_frame()</span>
+<span id="cb3-10"><a href="#cb3-10"></a>df.rename(columns<span class="op">=</span>{<span class="st">"TD"</span>: <span class="st">"temp"</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co"># df</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>define functions</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># dirty trick to have dates in the middle of the 24-hour period</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># make minor ticks in the middle, put the labels there!</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># from https://matplotlib.org/stable/gallery/ticks/centered_ticklabels.html</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="kw">def</span> centered_dates(ax):</span>
+<span id="cb4-6"><a href="#cb4-6"></a>    date_form <span class="op">=</span> DateFormatter(<span class="st">"</span><span class="sc">%d</span><span class="st"> %b"</span>)  <span class="co"># %d 3-letter-Month</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>    <span class="co"># major ticks at midnight, every day</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>    ax.xaxis.set_major_locator(mdates.DayLocator(interval<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb4-9"><a href="#cb4-9"></a>    ax.xaxis.set_major_formatter(date_form)</span>
+<span id="cb4-10"><a href="#cb4-10"></a>    <span class="co"># minor ticks at noon, every day</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>    ax.xaxis.set_minor_locator(mdates.HourLocator(byhour<span class="op">=</span>[<span class="dv">12</span>]))</span>
+<span id="cb4-12"><a href="#cb4-12"></a>    <span class="co"># erase major tick labels</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a>    ax.xaxis.set_major_formatter(ticker.NullFormatter())</span>
+<span id="cb4-14"><a href="#cb4-14"></a>    <span class="co"># set minor tick labels as define above</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>    ax.xaxis.set_minor_formatter(date_form)</span>
+<span id="cb4-16"><a href="#cb4-16"></a>    <span class="co"># completely erase minor ticks, center tick labels</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>    <span class="cf">for</span> tick <span class="kw">in</span> ax.xaxis.get_minor_ticks():</span>
+<span id="cb4-18"><a href="#cb4-18"></a>        tick.tick1line.set_markersize(<span class="dv">0</span>)</span>
+<span id="cb4-19"><a href="#cb4-19"></a>        tick.tick2line.set_markersize(<span class="dv">0</span>)</span>
+<span id="cb4-20"><a href="#cb4-20"></a>        tick.label1.set_horizontalalignment(<span class="st">'center'</span>)</span>
+<span id="cb4-21"><a href="#cb4-21"></a></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="co"># creating the dictionary with the desired settings</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a>plot_settings <span class="op">=</span> {</span>
+<span id="cb4-24"><a href="#cb4-24"></a>    <span class="st">'ylim'</span>: [<span class="dv">5</span>, <span class="fl">17.5</span>],</span>
+<span id="cb4-25"><a href="#cb4-25"></a>    <span class="st">'xlim'</span>: [df.index[<span class="dv">0</span>], df.index[<span class="op">-</span><span class="dv">1</span>]],</span>
+<span id="cb4-26"><a href="#cb4-26"></a>    <span class="st">'ylabel'</span>: <span class="st">'Temperature (°C)'</span>,</span>
+<span id="cb4-27"><a href="#cb4-27"></a>    <span class="st">'title'</span>: <span class="st">'Yatir Forest, 2022'</span>,</span>
+<span id="cb4-28"><a href="#cb4-28"></a>    <span class="st">'yticks'</span>: [<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>]</span>
+<span id="cb4-29"><a href="#cb4-29"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Let’s see on a graph the average temperature, with an envelope of 1 standard deviation around it:</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>df[<span class="st">'mean'</span>] <span class="op">=</span> df[<span class="st">'temp'</span>].rolling(<span class="st">'3H'</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span>
+<span id="cb5-2"><a href="#cb5-2"></a>df[<span class="st">'std'</span>] <span class="op">=</span> df[<span class="st">'temp'</span>].rolling(<span class="st">'3H'</span>, center<span class="op">=</span><span class="va">True</span>).std()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>plot</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a>plot_std <span class="op">=</span> ax.fill_between(df.index,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>                            df[<span class="st">'mean'</span>] <span class="op">+</span> df[<span class="st">'std'</span>],</span>
+<span id="cb6-6"><a href="#cb6-6"></a>                            df[<span class="st">'mean'</span>] <span class="op">-</span> df[<span class="st">'std'</span>],</span>
+<span id="cb6-7"><a href="#cb6-7"></a>                            color<span class="op">=</span><span class="st">"xkcd:pink"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb6-8"><a href="#cb6-8"></a>plot_data, <span class="op">=</span> ax.plot(df[<span class="st">'temp'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb6-9"><a href="#cb6-9"></a>plot_mean, <span class="op">=</span>ax.plot(df[<span class="st">'mean'</span>], color<span class="op">=</span><span class="st">'xkcd:hot pink'</span>)</span>
+<span id="cb6-10"><a href="#cb6-10"></a></span>
+<span id="cb6-11"><a href="#cb6-11"></a>ax.legend([plot_data, plot_mean, plot_std],</span>
+<span id="cb6-12"><a href="#cb6-12"></a>          [<span class="st">'data'</span>, <span class="st">'3-hour average'</span>, <span class="vs">r"$\pm1$ std envelope"</span>],</span>
+<span id="cb6-13"><a href="#cb6-13"></a>          frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-14"><a href="#cb6-14"></a></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co"># applying the settings to the ax object</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a>ax.<span class="bu">set</span>(<span class="op">**</span>plot_settings)</span>
+<span id="cb6-17"><a href="#cb6-17"></a>centered_dates(ax)</span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="co"># fig.savefig("YF-temperature_2022_jan.png", dpi=300)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="not-only-averages_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<section id="confidence-interval" class="level2 page-columns page-full" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="confidence-interval"><span class="header-section-number">12.1</span> Confidence Interval</h2>
+<p>We can calculate anything we want inside the sliding window. One good example is the <strong>Confidence Interval of the Mean</strong>, given by:</p>
+<p><span class="math display">\[
+CI(\alpha) = Z(\alpha) \cdot SE.
+\]</span></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<ul>
+<li><span class="math inline">\(Z(\alpha)=\)</span> Z-score.</li>
+<li>SE <span class="math inline">\(=\)</span> standard error.</li>
+</ul>
+</div></div><p><span class="math inline">\(Z(\alpha)\)</span> is the Z-score corresponding to the chosen confidence level <span class="math inline">\(\alpha\)</span>. The most commonly used confidence level is 95%, which corresponds to a Z-score of 1.96. What does this mean? This means that we expect to find 95% of the points within <span class="math inline">\(\pm\)</span> 1.96 standard deviations away from the mean.</p>
+<p><img src="confidence-interval.png" class="img-fluid"></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Source: <a href="https://medium.com/@dhaval.sony.504/know-about-confidence-interval-1f66d9ef7d0f">Dhaval Raval’s Medium article</a></p>
+</div></div><p>You can find the Z-score using the following python code:</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a>confidence_level <span class="op">=</span> <span class="fl">0.95</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># 5% outside</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>out <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> confidence_level</span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co"># 0.975 of points to the left of right boundary</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>p <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> out<span class="op">/</span><span class="dv">2</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co"># inverse of cdf: 0.975 of the points will be smaller than what distance (in sigma units)?</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>z_score <span class="op">=</span> norm.ppf(p)</span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="bu">print</span>(<span class="ss">f"z-score = </span><span class="sc">{</span>z_score<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>z-score = 1.959963984540054</code></pre>
+</div>
+</div>
+<p>If you are still not convinced why we need 0.975 instead of 0.95, read this <a href="https://stackoverflow.com/a/20864883">excellent response on stackoverflow</a>.</p>
+<p>SE is the standard error:</p>
+<p><span class="math display">\[
+SE = \frac{\sigma}{ \sqrt{N} }.
+\]</span></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<ul>
+<li><span class="math inline">\(\sigma=\)</span> standard deviation.</li>
+<li><span class="math inline">\(N=\)</span> number of points.</li>
+</ul>
+</div></div><p>We can write a function to calculate the confidence interval of the mean, and use it with the sliding window:</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">def</span> std_error_of_the_mean(window):</span>
+<span id="cb9-2"><a href="#cb9-2"></a>    <span class="cf">return</span> window.std() <span class="op">/</span> np.sqrt(window.count())</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="kw">def</span> confidence_interval(window):</span>
+<span id="cb9-5"><a href="#cb9-5"></a>    <span class="cf">return</span> z_score <span class="op">*</span> std_error_of_the_mean(window)</span>
+<span id="cb9-6"><a href="#cb9-6"></a></span>
+<span id="cb9-7"><a href="#cb9-7"></a>df[<span class="st">'std_error'</span>] <span class="op">=</span> df[<span class="st">'temp'</span>].rolling(<span class="st">'3H'</span>, center<span class="op">=</span><span class="va">True</span>).<span class="bu">apply</span>(std_error_of_the_mean)</span>
+<span id="cb9-8"><a href="#cb9-8"></a>df[<span class="st">'confidence_interval'</span>] <span class="op">=</span> df[<span class="st">'temp'</span>].rolling(<span class="st">'3H'</span>, center<span class="op">=</span><span class="va">True</span>).<span class="bu">apply</span>(confidence_interval)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="11">
+<details>
+<summary>plot</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a>plot_std <span class="op">=</span> ax.fill_between(df.index,</span>
+<span id="cb10-4"><a href="#cb10-4"></a>                            df[<span class="st">'mean'</span>] <span class="op">+</span> df[<span class="st">'confidence_interval'</span>],</span>
+<span id="cb10-5"><a href="#cb10-5"></a>                            df[<span class="st">'mean'</span>] <span class="op">-</span> df[<span class="st">'confidence_interval'</span>],</span>
+<span id="cb10-6"><a href="#cb10-6"></a>                            color<span class="op">=</span><span class="st">"xkcd:pink"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co"># plot_data, = ax.plot(df['temp'], color='black')</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>plot_mean, <span class="op">=</span>ax.plot(df[<span class="st">'mean'</span>], color<span class="op">=</span><span class="st">'xkcd:hot pink'</span>)</span>
+<span id="cb10-9"><a href="#cb10-9"></a></span>
+<span id="cb10-10"><a href="#cb10-10"></a>ax.legend([plot_data, plot_mean, plot_std],</span>
+<span id="cb10-11"><a href="#cb10-11"></a>          [<span class="st">'data'</span>, <span class="st">'3-hour average'</span>, <span class="vs">r"95</span><span class="sc">% c</span><span class="vs">onfidence interval"</span>],</span>
+<span id="cb10-12"><a href="#cb10-12"></a>          frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb10-13"><a href="#cb10-13"></a></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="co"># applying the settings to the ax object</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a>ax.<span class="bu">set</span>(<span class="op">**</span>plot_settings)</span>
+<span id="cb10-16"><a href="#cb10-16"></a>centered_dates(ax)</span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="co"># fig.savefig("YF-temperature_2022_jan.png", dpi=300)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="not-only-averages_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -865,13 +1127,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../smoothing/savgol.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></span>
+      <a href="../smoothing/sliding.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">sliding window</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../smoothing/perfect-smoother.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">a perfect smoother</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../smoothing/fit.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">fit</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

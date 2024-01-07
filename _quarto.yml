@@ -28,8 +28,10 @@ book:
       chapters:
         - smoothing/motivation.ipynb
         - smoothing/sliding.qmd
+        - smoothing/not-only-averages.ipynb
+        - smoothing/fit.ipynb
         - smoothing/savgol.ipynb
-        - smoothing/LOESS.qmd
+        # - smoothing/LOESS.qmd
         - smoothing/perfect-smoother.qmd
     - part: "outliers and gaps"
       chapters:
@@ -76,7 +78,7 @@ book:
     - part: "assignments"
       chapters:
         - assignments/assignment1.qmd
-        - assignments/assignment2.qmd
+        - assignments/assignment2.ipynb
         - assignments/assignment_final.qmd
     - technical-stuff/technical-stuff.qmd
     - part: "behind-the-scenes"
