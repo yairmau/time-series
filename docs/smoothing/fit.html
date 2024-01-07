@@ -101,10 +101,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -596,10 +598,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#linear-fit" id="toc-linear-fit" class="nav-link active" data-scroll-target="#linear-fit"><span class="header-section-number">13.1</span> linear fit</a></li>
+  <li><a href="#polynomial-fit" id="toc-polynomial-fit" class="nav-link" data-scroll-target="#polynomial-fit"><span class="header-section-number">13.2</span> polynomial fit</a></li>
+  <li><a href="#any-function-you-want" id="toc-any-function-you-want" class="nav-link" data-scroll-target="#any-function-you-want"><span class="header-section-number">13.3</span> any function you want</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -618,7 +628,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<div class="cell" data-execution_count="1">
+<p>We will make a little parenthesis to talk about a very important topic: <strong>fitting</strong>.</p>
+<p>See below temperature data inside and outside a greenhouse, for a period of about 2 weeks.</p>
+<p><img src="gh_erez.jpg" class="img-fluid"></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwiQ8bHa0suDAxVMXvEDHVsXCMIQFnoECA0QAQ&amp;url=https%3A%2F%2Fwww.ynet.co.il%2Fenvironment-science%2Farticle%2Fbkhlgjk49&amp;usg=AOvVaw25yr2RjpAaEYNQ7DXK03AW&amp;opi=89978449">Erez Feuer’s greenhouse</a></p>
+</div></div><div class="cell" data-execution_count="7">
 <details>
 <summary>import stuff</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -628,100 +644,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
 <span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> ticker</span>
 <span id="cb1-7"><a href="#cb1-7"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> curve_fit</span>
-<span id="cb1-8"><a href="#cb1-8"></a></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-9"><a href="#cb1-9"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># avoid "SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame."</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>pd.options.mode.chained_assignment <span class="op">=</span> <span class="va">None</span>  <span class="co"># default='warn'</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell" data-execution_count="2">
 <details>
 <summary>load data from csv</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'greenhouse_cooling.csv'</span>, index_col<span class="op">=</span><span class="st">'time'</span>, parse_dates<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># df</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="2">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">T_in</th>
-<th data-quarto-table-cell-role="th">T_out</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">time</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-06-24 23:30:00</td>
-<td>13.8</td>
-<td>16.6</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-06-24 23:40:00</td>
-<td>14.1</td>
-<td>16.4</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-06-24 23:50:00</td>
-<td>14.0</td>
-<td>16.4</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-06-25 00:00:00</td>
-<td>14.6</td>
-<td>16.4</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-06-25 00:10:00</td>
-<td>14.2</td>
-<td>16.3</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-07-08 04:30:00</td>
-<td>13.9</td>
-<td>19.2</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-07-08 04:40:00</td>
-<td>13.2</td>
-<td>18.8</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-07-08 04:50:00</td>
-<td>13.9</td>
-<td>18.7</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-07-08 05:00:00</td>
-<td>13.9</td>
-<td>18.9</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-07-08 05:10:00</td>
-<td>13.6</td>
-<td>18.8</td>
-</tr>
-</tbody>
-</table>
-
-<p>1907 rows × 2 columns</p>
-</div>
-</div>
 </div>
 <div class="cell" data-execution_count="8">
 <details>
 <summary>plot temperatures</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>fig, ax <span class="op">=</span> plt.subplots(sharex<span class="op">=</span><span class="va">True</span>)</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
 <span id="cb3-2"><a href="#cb3-2"></a></span>
 <span id="cb3-3"><a href="#cb3-3"></a>ax.plot(df[<span class="st">'T_in'</span>], c<span class="op">=</span><span class="st">'tab:blue'</span>, label<span class="op">=</span><span class="st">'inside'</span>)</span>
 <span id="cb3-4"><a href="#cb3-4"></a>ax.plot(df[<span class="st">'T_out'</span>], c<span class="op">=</span><span class="st">'tab:orange'</span>, label<span class="op">=</span><span class="st">'outside'</span>)</span>
@@ -736,18 +676,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-13"><a href="#cb3-13"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>&lt;matplotlib.legend.Legend at 0x7fee52490f10&gt;</code></pre>
+<pre><code>&lt;matplotlib.legend.Legend at 0x7fb520e2c820&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="fit_files/figure-html/cell-4-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="19">
+<p>Every evening, at 20:00, the air conditioning turns on, and we see a fast decrease in temperature:</p>
+<div class="cell" data-execution_count="9">
 <details>
 <summary>chose one evening, plot it</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>df_fit <span class="op">=</span> df[<span class="st">'2023-06-29 20:10:00'</span>:<span class="st">'2023-06-29 22:00:00'</span>]</span>
 <span id="cb5-2"><a href="#cb5-2"></a></span>
-<span id="cb5-3"><a href="#cb5-3"></a>fig, ax <span class="op">=</span> plt.subplots(sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
 <span id="cb5-4"><a href="#cb5-4"></a></span>
 <span id="cb5-5"><a href="#cb5-5"></a>ax.scatter(df_fit[<span class="st">'T_in'</span>].index, df_fit[<span class="st">'T_in'</span>], color<span class="op">=</span><span class="st">'tab:green'</span>)</span>
 <span id="cb5-6"><a href="#cb5-6"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
@@ -763,7 +704,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="fit_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="21">
+<p>The AC is able to bring the temperature down, but up to a limit. The AC can work at a maximum given power, and the cooler it is outside, the more effectively the AC will be able to bring down the temperature inside the greenhouse. We can imagine that the AC behaves as an effective external environment to the greenhouse, and the greenhouse cools down according to <a href="https://en.wikipedia.org/wiki/Newton%27s_law_of_cooling">Newton’s law of cooling</a>:</p>
+<p><span class="math display">\[
+\frac{dT}{dt} = r\cdot (T_{\text{env}}-T)
+\]</span></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<ul>
+<li><span class="math inline">\(T=\)</span> the greenhouse temperature</li>
+<li><span class="math inline">\(T_{\text{env}}=\)</span> the outside environment temperature</li>
+<li><span class="math inline">\(r=\)</span> coefficient of heat transfer.</li>
+</ul>
+</div></div><p>The cooling rate is proportional to the difference in temperature between the inside and outside. Assuming <span class="math inline">\(T_{\text{env}}\)</span> and <span class="math inline">\(r\)</span> to be constant, the solution of this differential equation is:</p>
+<p><span class="math display">\[
+T(t) = T_{\text{env}} + \left(T_0 - T_{\text{env}} \right)e^{-rt}.
+\]</span></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<ul>
+<li><span class="math inline">\(T_0=\)</span> the initial greenhouse temperature</li>
+</ul>
+</div></div><p>We want to check if the temperature measured inside the greenhouse behaves like Newton’s law of cooling, and if so, what can we say about the cooling coefficient <span class="math inline">\(r\)</span> and about <span class="math inline">\(T_{\text{env}}\)</span>.</p>
+<section id="linear-fit" class="level2 page-columns page-full" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="linear-fit"><span class="header-section-number">13.1</span> linear fit</h2>
+<p>The following is a <strong>very short</strong> introduction to curve fitting. The natural place to start is with a linear fit.</p>
+<div class="cell" data-execution_count="10">
 <details>
 <summary>linear fit</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>df_fit[<span class="st">'minutes'</span>] <span class="op">=</span> (df_fit.index <span class="op">-</span> df_fit.index[<span class="dv">0</span>]).total_seconds() <span class="op">/</span> <span class="dv">60</span></span>
@@ -771,125 +736,178 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-3"><a href="#cb6-3"></a>degree <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb6-4"><a href="#cb6-4"></a>coeffs <span class="op">=</span> np.polyfit(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>], degree)</span>
 <span id="cb6-5"><a href="#cb6-5"></a><span class="co"># linear Function</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a>linear_function <span class="op">=</span> np.poly1d(coeffs)</span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="bu">print</span>(<span class="ss">f"starting at </span><span class="sc">{</span>coeffs[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss"> degrees, the temperature decreases by </span><span class="sc">{</span><span class="op">-</span>coeffs[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss"> degrees every minute."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-6"><a href="#cb6-6"></a>linear_function <span class="op">=</span> np.poly1d(coeffs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="11">
+<details>
+<summary>see result of linear fit</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a>ax.scatter(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>],</span>
+<span id="cb7-4"><a href="#cb7-4"></a>           color<span class="op">=</span><span class="st">'tab:green'</span>, label<span class="op">=</span><span class="st">'data'</span>)</span>
+<span id="cb7-5"><a href="#cb7-5"></a>ax.plot(df_fit[<span class="st">'minutes'</span>], linear_function(df_fit[<span class="st">'minutes'</span>]),</span>
+<span id="cb7-6"><a href="#cb7-6"></a>        color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'linear fit'</span>)</span>
+<span id="cb7-7"><a href="#cb7-7"></a></span>
+<span id="cb7-8"><a href="#cb7-8"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'minutes'</span>,</span>
+<span id="cb7-9"><a href="#cb7-9"></a>       ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
+<span id="cb7-10"><a href="#cb7-10"></a>       title<span class="op">=</span><span class="st">"temperature inside the greenhouse"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11"></a></span>
+<span id="cb7-12"><a href="#cb7-12"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="bu">print</span>(<span class="ss">f"starting at </span><span class="sc">{</span>coeffs[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss"> degrees, the temperature decreases by </span><span class="sc">{</span><span class="op">-</span>coeffs[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss"> degrees every minute."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>starting at 19.80 degrees, the temperature decreases by 0.05 degrees every minute.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/c3/7hp0d36n6vv8jc9hm2440__00000gn/T/ipykernel_26375/2475866714.py:3: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-  df_fit['minutes'] = (df_fit.index - df_fit.index[0]).total_seconds() / 60</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="23">
-<details>
-<summary>see result of linear fit</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>fig, ax <span class="op">=</span> plt.subplots(sharex<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb9-2"><a href="#cb9-2"></a></span>
-<span id="cb9-3"><a href="#cb9-3"></a>ax.scatter(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>],</span>
-<span id="cb9-4"><a href="#cb9-4"></a>           color<span class="op">=</span><span class="st">'tab:green'</span>, label<span class="op">=</span><span class="st">'data'</span>)</span>
-<span id="cb9-5"><a href="#cb9-5"></a>ax.plot(df_fit[<span class="st">'minutes'</span>], linear_function(df_fit[<span class="st">'minutes'</span>]),</span>
-<span id="cb9-6"><a href="#cb9-6"></a>        color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'linear fit'</span>)</span>
-<span id="cb9-7"><a href="#cb9-7"></a></span>
-<span id="cb9-8"><a href="#cb9-8"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'minutes'</span>,</span>
-<span id="cb9-9"><a href="#cb9-9"></a>       ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
-<span id="cb9-10"><a href="#cb9-10"></a>       title<span class="op">=</span><span class="st">"temperature inside the greenhouse"</span>)</span>
-<span id="cb9-11"><a href="#cb9-11"></a></span>
-<span id="cb9-12"><a href="#cb9-12"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="23">
-<pre><code>&lt;matplotlib.legend.Legend at 0x7fee57808f70&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="fit_files/figure-html/cell-7-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="24">
+<p>The line above is the “best” straight line that describes our data. Defining the residual as the difference between our data and our model (straight line),</p>
+<p><span class="math display">\[
+e = T_{\text{data}} - T_{\text{model}},
+\]</span></p>
+<p>the straight line above is the one that <strong>minimizes</strong> the sum of the squares of residuals. For this reason, the method used above to fit a curve to the data is called “least-squares method”.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>it minimizes the sum</p>
+<p><span class="math display">\[
+S = \sum_i e_i^2
+\]</span></p>
+</div></div><p>Can we do better than a straight line?</p>
+</section>
+<section id="polynomial-fit" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="polynomial-fit"><span class="header-section-number">13.2</span> polynomial fit</h2>
+<div class="cell" data-execution_count="13">
 <details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">def</span> cooling(t, T_env, T0, r):</span>
-<span id="cb11-2"><a href="#cb11-2"></a>    <span class="cf">return</span> T_env <span class="op">+</span> (T0 <span class="op">-</span> T_env)<span class="op">*</span>np.exp(<span class="op">-</span>r<span class="op">*</span>t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>polynomial fit</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># polynomial fit (degree 2)</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>degree <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>coeffs2 <span class="op">=</span> np.polyfit(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>], degree)</span>
+<span id="cb9-4"><a href="#cb9-4"></a>quad_function <span class="op">=</span> np.poly1d(coeffs2)</span>
+<span id="cb9-5"><a href="#cb9-5"></a></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co"># polynomial fit (degree 2)</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>degree <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>coeffs3 <span class="op">=</span> np.polyfit(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>], degree)</span>
+<span id="cb9-9"><a href="#cb9-9"></a>cubic_function <span class="op">=</span> np.poly1d(coeffs3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="27">
+<div class="cell" data-execution_count="14">
 <details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>t <span class="op">=</span> df_fit[<span class="st">'minutes'</span>].values</span>
-<span id="cb12-2"><a href="#cb12-2"></a>y <span class="op">=</span> df_fit[<span class="st">'T_in'</span>].values</span>
-<span id="cb12-3"><a href="#cb12-3"></a></span>
-<span id="cb12-4"><a href="#cb12-4"></a>T_init <span class="op">=</span> df_fit[<span class="st">'T_in'</span>][<span class="dv">0</span>]</span>
-<span id="cb12-5"><a href="#cb12-5"></a></span>
-<span id="cb12-6"><a href="#cb12-6"></a>popt, pcov <span class="op">=</span> curve_fit(f<span class="op">=</span>cooling,             <span class="co"># model function</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a>                     xdata<span class="op">=</span>t,                 <span class="co"># x data</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a>                     ydata<span class="op">=</span>y,                 <span class="co"># y data</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a>                     p0<span class="op">=</span>(<span class="dv">2</span>, T_init, <span class="fl">0.5</span>),     <span class="co"># initial guess of the parameters</span></span>
-<span id="cb12-10"><a href="#cb12-10"></a>                     )</span>
-<span id="cb12-11"><a href="#cb12-11"></a><span class="bu">print</span>(<span class="ss">f"the optimal parameters are </span><span class="sc">{</span>popt<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>see result of polynomial fit</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a>ax.scatter(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>],</span>
+<span id="cb10-4"><a href="#cb10-4"></a>           color<span class="op">=</span><span class="st">'tab:green'</span>, label<span class="op">=</span><span class="st">'data'</span>)</span>
+<span id="cb10-5"><a href="#cb10-5"></a>ax.plot(df_fit[<span class="st">'minutes'</span>], quad_function(df_fit[<span class="st">'minutes'</span>]),</span>
+<span id="cb10-6"><a href="#cb10-6"></a>        color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'order = 2'</span>)</span>
+<span id="cb10-7"><a href="#cb10-7"></a>ax.plot(df_fit[<span class="st">'minutes'</span>], cubic_function(df_fit[<span class="st">'minutes'</span>]),</span>
+<span id="cb10-8"><a href="#cb10-8"></a>        color<span class="op">=</span><span class="st">'tab:olive'</span>, label<span class="op">=</span><span class="st">'order = 3'</span>)</span>
+<span id="cb10-9"><a href="#cb10-9"></a></span>
+<span id="cb10-10"><a href="#cb10-10"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'minutes'</span>,</span>
+<span id="cb10-11"><a href="#cb10-11"></a>       ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
+<span id="cb10-12"><a href="#cb10-12"></a>       title<span class="op">=</span><span class="st">"temperature inside the greenhouse"</span>)</span>
+<span id="cb10-13"><a href="#cb10-13"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>&lt;matplotlib.legend.Legend at 0x7fb52011e190&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="fit_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="any-function-you-want" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="any-function-you-want"><span class="header-section-number">13.3</span> any function you want</h2>
+<p>Now let’s get back to our original assumption, that the greenhouse cools according to Newton’s cooling law. We can still use the least-squares method for any function we want!</p>
+<div class="cell" data-execution_count="15">
+<details>
+<summary>define new function</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">def</span> cooling(t, T_env, T0, r):</span>
+<span id="cb12-2"><a href="#cb12-2"></a>    <span class="co">"""</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="co">    t = time</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="co">    other stuff = parameters to be fitted</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="co">    """</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>    <span class="cf">return</span> T_env <span class="op">+</span> (T0 <span class="op">-</span> T_env)<span class="op">*</span>np.exp(<span class="op">-</span>r<span class="op">*</span>t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="16">
+<details>
+<summary>use scipy’s curve_fit</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>t <span class="op">=</span> df_fit[<span class="st">'minutes'</span>].values</span>
+<span id="cb13-2"><a href="#cb13-2"></a>y <span class="op">=</span> df_fit[<span class="st">'T_in'</span>].values</span>
+<span id="cb13-3"><a href="#cb13-3"></a></span>
+<span id="cb13-4"><a href="#cb13-4"></a>T_init <span class="op">=</span> df_fit[<span class="st">'T_in'</span>][<span class="dv">0</span>]</span>
+<span id="cb13-5"><a href="#cb13-5"></a></span>
+<span id="cb13-6"><a href="#cb13-6"></a>popt, pcov <span class="op">=</span> curve_fit(f<span class="op">=</span>cooling,             <span class="co"># model function</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>                     xdata<span class="op">=</span>t,                 <span class="co"># x data</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>                     ydata<span class="op">=</span>y,                 <span class="co"># y data</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>                     p0<span class="op">=</span>(<span class="dv">2</span>, T_init, <span class="fl">0.5</span>),     <span class="co"># initial guess of the parameters</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a>                     )</span>
+<span id="cb13-11"><a href="#cb13-11"></a><span class="bu">print</span>(<span class="ss">f"the optimal parameters are </span><span class="sc">{</span>popt<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>the optimal parameters are [14.01663586 21.0074623   0.02121802]</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="29">
+<div class="cell" data-execution_count="17">
 <details>
-<summary>see result of linear fit</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>fig, ax <span class="op">=</span> plt.subplots(sharex<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb14-2"><a href="#cb14-2"></a></span>
-<span id="cb14-3"><a href="#cb14-3"></a>ax.scatter(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>],</span>
-<span id="cb14-4"><a href="#cb14-4"></a>           color<span class="op">=</span><span class="st">'tab:green'</span>, label<span class="op">=</span><span class="st">'data'</span>)</span>
-<span id="cb14-5"><a href="#cb14-5"></a>ax.plot(t, cooling(t, <span class="op">*</span>popt),</span>
-<span id="cb14-6"><a href="#cb14-6"></a>        color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'exponential fit'</span>)</span>
-<span id="cb14-7"><a href="#cb14-7"></a></span>
-<span id="cb14-8"><a href="#cb14-8"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'minutes'</span>,</span>
-<span id="cb14-9"><a href="#cb14-9"></a>       ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
-<span id="cb14-10"><a href="#cb14-10"></a>       title<span class="op">=</span><span class="st">"temperature inside the greenhouse"</span>)</span>
-<span id="cb14-11"><a href="#cb14-11"></a></span>
-<span id="cb14-12"><a href="#cb14-12"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>see result of exponential fit</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>fig, ax <span class="op">=</span> plt.subplots(sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb15-2"><a href="#cb15-2"></a></span>
+<span id="cb15-3"><a href="#cb15-3"></a>ax.scatter(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>],</span>
+<span id="cb15-4"><a href="#cb15-4"></a>           color<span class="op">=</span><span class="st">'tab:green'</span>, label<span class="op">=</span><span class="st">'data'</span>)</span>
+<span id="cb15-5"><a href="#cb15-5"></a>ax.plot(t, cooling(t, <span class="op">*</span>popt),</span>
+<span id="cb15-6"><a href="#cb15-6"></a>        color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'exponential fit'</span>)</span>
+<span id="cb15-7"><a href="#cb15-7"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'minutes'</span>,</span>
+<span id="cb15-9"><a href="#cb15-9"></a>       ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
+<span id="cb15-10"><a href="#cb15-10"></a>       title<span class="op">=</span><span class="st">"temperature inside the greenhouse"</span>)</span>
+<span id="cb15-11"><a href="#cb15-11"></a></span>
+<span id="cb15-12"><a href="#cb15-12"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="29">
-<pre><code>&lt;matplotlib.legend.Legend at 0x7fee57b42be0&gt;</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>&lt;matplotlib.legend.Legend at 0x7fb52048f160&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="fit_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
+<p><img src="fit_files/figure-html/cell-12-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<p>Let’s write a function that executes the fit and returns two of the fitted parameters: <code>T_env</code> and <code>r</code>.</p>
-<div class="cell" data-execution_count="30">
+<p>That looks really good :)</p>
+<p>We can use curve fitting to retrieve important parameters from our data. Let’s write a function that executes the fit and returns two of the fitted parameters: <code>T_env</code> and <code>r</code>.</p>
+<div class="cell" data-execution_count="18">
 <details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">def</span> run_fit(data):</span>
-<span id="cb16-2"><a href="#cb16-2"></a>    data[<span class="st">'minutes'</span>] <span class="op">=</span> (data.index <span class="op">-</span> data.index[<span class="dv">0</span>]).total_seconds() <span class="op">/</span> <span class="dv">60</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a>    t <span class="op">=</span> data[<span class="st">'minutes'</span>].values</span>
-<span id="cb16-4"><a href="#cb16-4"></a>    y <span class="op">=</span> data[<span class="st">'T_in'</span>].values</span>
-<span id="cb16-5"><a href="#cb16-5"></a>    T_init <span class="op">=</span> data[<span class="st">'T_in'</span>][<span class="dv">0</span>]</span>
-<span id="cb16-6"><a href="#cb16-6"></a>    popt, pcov <span class="op">=</span> curve_fit(f<span class="op">=</span>cooling,             <span class="co"># model function</span></span>
-<span id="cb16-7"><a href="#cb16-7"></a>                        xdata<span class="op">=</span>t,              <span class="co"># x data</span></span>
-<span id="cb16-8"><a href="#cb16-8"></a>                        ydata<span class="op">=</span>y,              <span class="co"># y data</span></span>
-<span id="cb16-9"><a href="#cb16-9"></a>                        p0<span class="op">=</span>(<span class="dv">2</span>, T_init, <span class="fl">0.5</span>),   <span class="co"># initial guess of the parameters</span></span>
-<span id="cb16-10"><a href="#cb16-10"></a>                        )</span>
-<span id="cb16-11"><a href="#cb16-11"></a>    <span class="cf">return</span> popt[<span class="dv">0</span>],popt[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>define function to retrieve parameters</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">def</span> run_fit(data):</span>
+<span id="cb17-2"><a href="#cb17-2"></a>    data[<span class="st">'minutes'</span>] <span class="op">=</span> (data.index <span class="op">-</span> data.index[<span class="dv">0</span>]).total_seconds() <span class="op">/</span> <span class="dv">60</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>    t <span class="op">=</span> data[<span class="st">'minutes'</span>].values</span>
+<span id="cb17-4"><a href="#cb17-4"></a>    y <span class="op">=</span> data[<span class="st">'T_in'</span>].values</span>
+<span id="cb17-5"><a href="#cb17-5"></a>    T_init <span class="op">=</span> data[<span class="st">'T_in'</span>][<span class="dv">0</span>]</span>
+<span id="cb17-6"><a href="#cb17-6"></a>    popt, pcov <span class="op">=</span> curve_fit(f<span class="op">=</span>cooling,             <span class="co"># model function</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a>                        xdata<span class="op">=</span>t,              <span class="co"># x data</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a>                        ydata<span class="op">=</span>y,              <span class="co"># y data</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a>                        p0<span class="op">=</span>(<span class="dv">2</span>, T_init, <span class="fl">0.5</span>),   <span class="co"># initial guess of the parameters</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a>                        )</span>
+<span id="cb17-11"><a href="#cb17-11"></a>    <span class="cf">return</span> popt[<span class="dv">0</span>],popt[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>We now apply this function to several consecutive evenings, and we keep the results in a new dataframe.</p>
-<div class="cell" data-execution_count="31">
+<div class="cell" data-execution_count="19">
 <details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>df_night <span class="op">=</span> df.between_time(<span class="st">'20:01'</span>, <span class="st">'22:01'</span>, inclusive<span class="op">=</span><span class="st">'left'</span>)</span>
-<span id="cb17-2"><a href="#cb17-2"></a></span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="co"># Group by day and apply the function</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a>result_series <span class="op">=</span> df_night.groupby(df_night.index.date).<span class="bu">apply</span>(run_fit)</span>
-<span id="cb17-5"><a href="#cb17-5"></a></span>
-<span id="cb17-6"><a href="#cb17-6"></a><span class="co"># Convert the series to a dataframe if needed</span></span>
-<span id="cb17-7"><a href="#cb17-7"></a>result_df <span class="op">=</span> pd.DataFrame(result_series.tolist(), index<span class="op">=</span>result_series.index, columns<span class="op">=</span>[<span class="st">'T_env'</span>, <span class="st">'r'</span>])</span>
-<span id="cb17-8"><a href="#cb17-8"></a>result_df.index <span class="op">=</span> pd.to_datetime(result_df.index)</span>
-<span id="cb17-9"><a href="#cb17-9"></a>result_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>define function to retrieve parameters</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>df_night <span class="op">=</span> df.between_time(<span class="st">'20:01'</span>, <span class="st">'22:01'</span>, inclusive<span class="op">=</span><span class="st">'left'</span>)</span>
+<span id="cb18-2"><a href="#cb18-2"></a></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="co"># group by day and apply the function</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a><span class="co"># this is where the magic happens.</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="co"># if you are not familiar with "groupby", this will be hard to understand</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a>result_series <span class="op">=</span> df_night.groupby(df_night.index.date).<span class="bu">apply</span>(run_fit)</span>
+<span id="cb18-7"><a href="#cb18-7"></a></span>
+<span id="cb18-8"><a href="#cb18-8"></a><span class="co"># convert the series to a dataframe</span></span>
+<span id="cb18-9"><a href="#cb18-9"></a>result_df <span class="op">=</span> pd.DataFrame(result_series.tolist(), index<span class="op">=</span>result_series.index, columns<span class="op">=</span>[<span class="st">'T_env'</span>, <span class="st">'r'</span>])</span>
+<span id="cb18-10"><a href="#cb18-10"></a>result_df.index <span class="op">=</span> pd.to_datetime(result_df.index)</span>
+<span id="cb18-11"><a href="#cb18-11"></a>result_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="31">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <div>
 
 
@@ -973,42 +991,56 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="42">
+<div class="cell" data-execution_count="35">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>,<span class="dv">1</span>,sharex<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">7</span>))</span>
-<span id="cb18-2"><a href="#cb18-2"></a></span>
-<span id="cb18-3"><a href="#cb18-3"></a>ax[<span class="dv">0</span>].plot(df[<span class="st">'T_in'</span>], c<span class="op">=</span><span class="st">'tab:blue'</span>, label<span class="op">=</span><span class="st">'inside'</span>)</span>
-<span id="cb18-4"><a href="#cb18-4"></a>ax[<span class="dv">0</span>].plot(df[<span class="st">'T_out'</span>], c<span class="op">=</span><span class="st">'tab:orange'</span>, label<span class="op">=</span><span class="st">'outside'</span>)</span>
-<span id="cb18-5"><a href="#cb18-5"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
-<span id="cb18-6"><a href="#cb18-6"></a>          title<span class="op">=</span><span class="st">"actual temperatures"</span>)</span>
-<span id="cb18-7"><a href="#cb18-7"></a></span>
-<span id="cb18-8"><a href="#cb18-8"></a><span class="co"># formating dates on x axis</span></span>
-<span id="cb18-9"><a href="#cb18-9"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">7</span>, maxticks<span class="op">=</span><span class="dv">11</span>)</span>
-<span id="cb18-10"><a href="#cb18-10"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
-<span id="cb18-11"><a href="#cb18-11"></a>ax[<span class="dv">0</span>].xaxis.set_major_locator(locator)</span>
-<span id="cb18-12"><a href="#cb18-12"></a>ax[<span class="dv">0</span>].xaxis.set_major_formatter(formatter)</span>
-<span id="cb18-13"><a href="#cb18-13"></a></span>
-<span id="cb18-14"><a href="#cb18-14"></a>ax[<span class="dv">0</span>].legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb18-15"><a href="#cb18-15"></a></span>
-<span id="cb18-16"><a href="#cb18-16"></a>ax[<span class="dv">1</span>].plot(result_df[<span class="st">'T_env'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb18-17"><a href="#cb18-17"></a><span class="co"># ax[1].plot(df_night['T_out'].resample('D').mean(), c='m')</span></span>
-<span id="cb18-18"><a href="#cb18-18"></a>ax2 <span class="op">=</span> ax[<span class="dv">1</span>].twinx()</span>
-<span id="cb18-19"><a href="#cb18-19"></a>ax2.plot(df_night[<span class="st">'T_out'</span>].resample(<span class="st">'D'</span>).mean(), color<span class="op">=</span><span class="st">'tab:orange'</span>)</span>
-<span id="cb18-20"><a href="#cb18-20"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="dv">12</span>, <span class="dv">17</span>],</span>
-<span id="cb18-21"><a href="#cb18-21"></a>          ylabel<span class="op">=</span><span class="st">'outside temperature inferred from analysis'</span>)</span>
-<span id="cb18-22"><a href="#cb18-22"></a>ax2.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="dv">19</span>, <span class="dv">24</span>],</span>
-<span id="cb18-23"><a href="#cb18-23"></a>        ylabel<span class="op">=</span><span class="st">"outside temperature"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">3</span>,<span class="dv">1</span>,sharex<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">8</span>))</span>
+<span id="cb19-2"><a href="#cb19-2"></a></span>
+<span id="cb19-3"><a href="#cb19-3"></a>ax[<span class="dv">0</span>].plot(df[<span class="st">'T_in'</span>], c<span class="op">=</span><span class="st">'tab:blue'</span>, label<span class="op">=</span><span class="st">'inside'</span>)</span>
+<span id="cb19-4"><a href="#cb19-4"></a>ax[<span class="dv">0</span>].plot(df[<span class="st">'T_out'</span>], c<span class="op">=</span><span class="st">'tab:orange'</span>, label<span class="op">=</span><span class="st">'outside'</span>)</span>
+<span id="cb19-5"><a href="#cb19-5"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
+<span id="cb19-6"><a href="#cb19-6"></a>          title<span class="op">=</span><span class="st">"actual temperatures"</span>,</span>
+<span id="cb19-7"><a href="#cb19-7"></a>          ylim<span class="op">=</span>[<span class="dv">10</span>,<span class="dv">45</span>])</span>
+<span id="cb19-8"><a href="#cb19-8"></a></span>
+<span id="cb19-9"><a href="#cb19-9"></a><span class="co"># formating dates on x axis</span></span>
+<span id="cb19-10"><a href="#cb19-10"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">7</span>, maxticks<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb19-11"><a href="#cb19-11"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
+<span id="cb19-12"><a href="#cb19-12"></a>ax[<span class="dv">0</span>].xaxis.set_major_locator(locator)</span>
+<span id="cb19-13"><a href="#cb19-13"></a>ax[<span class="dv">0</span>].xaxis.set_major_formatter(formatter)</span>
+<span id="cb19-14"><a href="#cb19-14"></a></span>
+<span id="cb19-15"><a href="#cb19-15"></a>ax[<span class="dv">0</span>].legend(ncol<span class="op">=</span><span class="dv">2</span>, loc<span class="op">=</span><span class="st">'upper center'</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb19-16"><a href="#cb19-16"></a></span>
+<span id="cb19-17"><a href="#cb19-17"></a>ax[<span class="dv">1</span>].plot(result_df[<span class="st">'r'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb19-18"><a href="#cb19-18"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="vs">r"parameter $r$"</span>,</span>
+<span id="cb19-19"><a href="#cb19-19"></a>          ylim<span class="op">=</span>[<span class="dv">0</span>, <span class="fl">0.04</span>])</span>
+<span id="cb19-20"><a href="#cb19-20"></a></span>
+<span id="cb19-21"><a href="#cb19-21"></a>ax[<span class="dv">2</span>].plot(result_df[<span class="st">'T_env'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb19-22"><a href="#cb19-22"></a>ax2b <span class="op">=</span> ax[<span class="dv">2</span>].twinx()</span>
+<span id="cb19-23"><a href="#cb19-23"></a>ax2b.plot(df_night[<span class="st">'T_out'</span>].resample(<span class="st">'D'</span>).mean(), color<span class="op">=</span><span class="st">'tab:orange'</span>)</span>
+<span id="cb19-24"><a href="#cb19-24"></a>ax[<span class="dv">2</span>].<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="dv">12</span>, <span class="dv">17</span>])</span>
+<span id="cb19-25"><a href="#cb19-25"></a>ax2b.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="dv">19</span>, <span class="dv">24</span>],</span>
+<span id="cb19-26"><a href="#cb19-26"></a>        ylabel<span class="op">=</span><span class="st">'outside temperature'</span>)</span>
+<span id="cb19-27"><a href="#cb19-27"></a><span class="co"># color the xticks</span></span>
+<span id="cb19-28"><a href="#cb19-28"></a><span class="cf">for</span> tick <span class="kw">in</span> ax[<span class="dv">2</span>].get_yticklabels():</span>
+<span id="cb19-29"><a href="#cb19-29"></a>    tick.set_color(<span class="st">'tab:orange'</span>)</span>
+<span id="cb19-30"><a href="#cb19-30"></a><span class="co"># color the xlabel</span></span>
+<span id="cb19-31"><a href="#cb19-31"></a>ax[<span class="dv">2</span>].set_ylabel(<span class="vs">r'"outside" temp.'</span><span class="op">+</span><span class="st">'</span><span class="ch">\n</span><span class="st">inferred from</span><span class="ch">\n</span><span class="st">analysis'</span>, color<span class="op">=</span><span class="st">'tab:orange'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="42">
-<pre><code>[(19.0, 24.0), Text(0, 0.5, 'outside temperature')]</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<pre><code>Text(0, 0.5, '"outside" temp.\ninferred from\nanalysis')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="fit_files/figure-html/cell-13-output-2.png" class="img-fluid"></p>
+<p><img src="fit_files/figure-html/cell-15-output-2.png" class="img-fluid"></p>
 </div>
 </div>
+<p>Conclusions:</p>
+<ol type="1">
+<li>The cooling coefficient <span class="math inline">\(r\)</span> seems quite stable throughout the two weeks of measurements. This probably says that the greenhouse and AC properties did not change much. For instance, the greenhouse thermal insulation stayed constant, and the AC power output stayed constant.</li>
+<li>The AC tracks very well the outside temperature! This is to say: the AC works better (more easily) when temperatures outsides are low, and vice-versa.</li>
+</ol>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
