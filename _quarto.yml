@@ -27,12 +27,12 @@ book:
     - part: "smoothing"
       chapters:
         - smoothing/motivation.ipynb
-        - smoothing/sliding.qmd
+        - smoothing/sliding.ipynb
         - smoothing/not-only-averages.ipynb
         - smoothing/fit.ipynb
         - smoothing/savgol.ipynb
         # - smoothing/LOESS.qmd
-        - smoothing/perfect-smoother.qmd
+        # - smoothing/perfect-smoother.qmd
     - part: "outliers and gaps"
       chapters:
       - outliers/motivation.qmd

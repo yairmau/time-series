@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,10 +17,9 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -47,13 +46,43 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -92,13 +121,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
@@ -107,16 +134,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../smoothing/motivation.html">smoothing</a></li><li class="breadcrumb-item"><a href="../smoothing/sliding.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">sliding window</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">sliding window</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
       </button>
     </div>
   </nav>
@@ -124,7 +146,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="../archive/clock-history.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -132,459 +154,391 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Time Series Analysis</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://yairmau.com/" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-house-fill"></i></a>
-    <a href="../references.html" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-bookmark-fill"></i></a>
-    <a href="../things-to-remember.html" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-asterisk"></i></a>
-    <a href="https://github.com/yairmau/time-series/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://yairmau.com/" title="" class="sidebar-tool px-1"><i class="bi bi-house-fill"></i></a>
+    <a href="../references.html" title="" class="sidebar-tool px-1"><i class="bi bi-bookmark-fill"></i></a>
+    <a href="../things-to-remember.html" title="" class="sidebar-tool px-1"><i class="bi bi-asterisk"></i></a>
+    <a href="https://github.com/yairmau/time-series/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
+      <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-        </div>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">about</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link">about</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../who-cares.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">who cares?</span></a>
+  <a href="../who-cares.html" class="sidebar-item-text sidebar-link">who cares?</a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">start here</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">start here</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basics/boring.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">the boring stuff you absolutely need to do</span></span></a>
+  <a href="../basics/boring.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">the boring stuff you absolutely need to do</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basics/numpy-pandas-matplotlib.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">numpy, pandas, matplotlib</span></span></a>
+  <a href="../basics/numpy-pandas-matplotlib.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">numpy, pandas, matplotlib</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basics/example.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">learn by example</span></span></a>
+  <a href="../basics/example.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">learn by example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basics/AI-policy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AI policy</span></span></a>
+  <a href="../basics/AI-policy.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AI policy</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">resampling</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">resampling</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../resampling/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../resampling/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../resampling/resampling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">resampling</span></span></a>
+  <a href="../resampling/resampling.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">resampling</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../resampling/upsampling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">upsampling</span></span></a>
+  <a href="../resampling/upsampling.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">upsampling</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../resampling/interpolation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">interpolation</span></span></a>
+  <a href="../resampling/interpolation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">interpolation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../resampling/FAQ.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">FAQ</span></span></a>
+  <a href="../resampling/FAQ.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">FAQ</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text">smoothing</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">smoothing</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../smoothing/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../smoothing/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../smoothing/sliding.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">sliding window</span></span></a>
+  <a href="../smoothing/sliding.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">sliding window</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../smoothing/not-only-averages.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">not only averages</span></span></a>
+  <a href="../smoothing/not-only-averages.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">not only averages</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../smoothing/fit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">fit</span></span></a>
+  <a href="../smoothing/fit.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">fit</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../smoothing/savgol.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../smoothing/perfect-smoother.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">a perfect smoother</span></span></a>
+  <a href="../smoothing/savgol.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
- <span class="menu-text">outliers and gaps</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">outliers and gaps</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../outliers/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../outliers/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../outliers/zscore.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Z-score</span></span></a>
+  <a href="../outliers/zscore.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Z-score</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../outliers/IQR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">IQR (Inter Quartile Range)</span></span></a>
+  <a href="../outliers/IQR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">IQR (Inter Quartile Range)</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
- <span class="menu-text">best practices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">best practices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../best-practices/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../best-practices/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../best-practices/date-formatting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
+  <a href="../best-practices/date-formatting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">date formatting</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
- <span class="menu-text">stationarity</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">stationarity</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stationarity/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../stationarity/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stationarity/stochastic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">stochastic processes</span></span></a>
+  <a href="../stationarity/stochastic.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">stochastic processes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stationarity/autocorrelation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
+  <a href="../stationarity/autocorrelation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">autocorrelation</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
- <span class="menu-text">time lags</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">time lags</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
+  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">cross-correlation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">dynamic time warp</span></span></a>
+  <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">dynamic time warp</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/LDTW.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">LDTW</span></span></a>
+  <a href="../lags/LDTW.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">LDTW</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
- <span class="menu-text">frequency</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">frequency</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
+  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Fourier transform</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
+  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">filtering</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></span></a>
+  <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
- <span class="menu-text">seasonality</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">seasonality</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../seasonality/seasonal-decomposition.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></span></a>
+  <a href="../seasonality/seasonal-decomposition.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../seasonality/hilbert.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Hilbert transform</span></span></a>
+  <a href="../seasonality/hilbert.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Hilbert transform</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
- <span class="menu-text">rates of change</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">rates of change</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">derivatives</span></span></a>
+  <a href="../rates-of-change/derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">derivatives</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">finite differences</span></span></a>
+  <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">finite differences</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
+  <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
+  <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
- <span class="menu-text">forecasting</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">forecasting</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
+  <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">ARIMA</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
- <span class="menu-text">assignments</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">assignments</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../assignments/assignment1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">assignment 1</span></span></a>
+  <a href="../assignments/assignment1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">assignment 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../assignments/assignment2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Time Series Analysis (71606) - Problem Set 2</span></span></a>
+  <a href="../assignments/assignment2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Time Series Analysis (71606) - Problem Set 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../assignments/assignment_final.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">final assignment</span></span></a>
+  <a href="../assignments/assignment_final.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">final assignment</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
+  <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">technical stuff</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">
- <span class="menu-text">behind-the-scenes</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">behind-the-scenes</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
+  <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">sliding window video</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
+  <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">savgol video</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
+  <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">API to download data from IMS</a>
   </div>
 </li>
       </ul>
@@ -592,22 +546,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#convolution" id="toc-convolution" class="nav-link active" data-scroll-target="#convolution"><span class="header-section-number">11.1</span> convolution</a></li>
-  <li><a href="#kernels" id="toc-kernels" class="nav-link" data-scroll-target="#kernels"><span class="header-section-number">11.2</span> kernels</a></li>
-  <li><a href="#math" id="toc-math" class="nav-link" data-scroll-target="#math"><span class="header-section-number">11.3</span> math</a></li>
-  <li><a href="#numerics" id="toc-numerics" class="nav-link" data-scroll-target="#numerics"><span class="header-section-number">11.4</span> numerics</a>
+  <li><a href="#convolution" id="toc-convolution" class="nav-link active" data-scroll-target="#convolution"><span class="toc-section-number">11.1</span>  convolution</a></li>
+  <li><a href="#kernels" id="toc-kernels" class="nav-link" data-scroll-target="#kernels"><span class="toc-section-number">11.2</span>  kernels</a></li>
+  <li><a href="#math" id="toc-math" class="nav-link" data-scroll-target="#math"><span class="toc-section-number">11.3</span>  math</a></li>
+  <li><a href="#numerics" id="toc-numerics" class="nav-link" data-scroll-target="#numerics"><span class="toc-section-number">11.4</span>  numerics</a>
   <ul class="collapse">
-  <li><a href="#gaussian" id="toc-gaussian" class="nav-link" data-scroll-target="#gaussian"><span class="header-section-number">11.4.1</span> gaussian</a></li>
-  <li><a href="#triangular" id="toc-triangular" class="nav-link" data-scroll-target="#triangular"><span class="header-section-number">11.4.2</span> triangular</a></li>
+  <li><a href="#covid-19-7-day-average" id="toc-covid-19-7-day-average" class="nav-link" data-scroll-target="#covid-19-7-day-average"><span class="toc-section-number">11.4.1</span>  COVID-19 7-day average</a></li>
+  <li><a href="#gaussian" id="toc-gaussian" class="nav-link" data-scroll-target="#gaussian"><span class="toc-section-number">11.4.2</span>  gaussian</a></li>
+  <li><a href="#triangular" id="toc-triangular" class="nav-link" data-scroll-target="#triangular"><span class="toc-section-number">11.4.3</span>  triangular</a></li>
   </ul></li>
-  <li><a href="#which-window-shape-and-width-to-choose" id="toc-which-window-shape-and-width-to-choose" class="nav-link" data-scroll-target="#which-window-shape-and-width-to-choose"><span class="header-section-number">11.5</span> which window shape and width to choose?</a></li>
+  <li><a href="#which-window-shape-and-width-to-choose" id="toc-which-window-shape-and-width-to-choose" class="nav-link" data-scroll-target="#which-window-shape-and-width-to-choose"><span class="toc-section-number">11.5</span>  which window shape and width to choose?</a></li>
   </ul>
 </nav>
     </div>
@@ -616,8 +570,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">sliding window</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/smoothing/sliding.qmd"><i class="bi"></i> Code</button></div></div>
-<p class="subtitle lead">Sliding windows of different shapes (kernels)</p>
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">sliding window</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/smoothing/sliding.ipynb">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -632,19 +585,92 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>This is the temperature for the Yatir Forest, between 2 and 5 of January 2022. Data is in intervals of 10 minutes, and was downloaded from the Israel Meteorological Service.</p>
-<p><img src="YF-temperature_2022_jan.png" class="img-fluid"></p>
+<p>This is the temperature for the Yatir Forest, between 2 and 5 of January 2022. Data (<a href="shani_2022_january.csv" download="">download .csv here</a>) is in intervals of 10 minutes, and was downloaded from the Israel Meteorological Service.</p>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>import stuff</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> datetime <span class="im">as</span> dt</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> ticker</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="im">import</span> os</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="im">import</span> warnings</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># Suppress FutureWarnings</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>warnings.simplefilter(action<span class="op">=</span><span class="st">'ignore'</span>, category<span class="op">=</span><span class="pp">FutureWarning</span>)</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-13"><a href="#cb1-13"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>define useful functions</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># dirty trick to have dates in the middle of the 24-hour period</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># make minor ticks in the middle, put the labels there!</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># from https://matplotlib.org/stable/gallery/ticks/centered_ticklabels.html</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">def</span> centered_dates(ax):</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    date_form <span class="op">=</span> DateFormatter(<span class="st">"</span><span class="sc">%d</span><span class="st"> %b"</span>)  <span class="co"># %d 3-letter-Month</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="co"># major ticks at midnight, every day</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>    ax.xaxis.set_major_locator(mdates.DayLocator(interval<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb2-9"><a href="#cb2-9"></a>    ax.xaxis.set_major_formatter(date_form)</span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="co"># minor ticks at noon, every day</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>    ax.xaxis.set_minor_locator(mdates.HourLocator(byhour<span class="op">=</span>[<span class="dv">12</span>]))</span>
+<span id="cb2-12"><a href="#cb2-12"></a>    <span class="co"># erase major tick labels</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>    ax.xaxis.set_major_formatter(ticker.NullFormatter())</span>
+<span id="cb2-14"><a href="#cb2-14"></a>    <span class="co"># set minor tick labels as define above</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>    ax.xaxis.set_minor_formatter(date_form)</span>
+<span id="cb2-16"><a href="#cb2-16"></a>    <span class="co"># completely erase minor ticks, center tick labels</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>    <span class="cf">for</span> tick <span class="kw">in</span> ax.xaxis.get_minor_ticks():</span>
+<span id="cb2-18"><a href="#cb2-18"></a>        tick.tick1line.set_markersize(<span class="dv">0</span>)</span>
+<span id="cb2-19"><a href="#cb2-19"></a>        tick.tick2line.set_markersize(<span class="dv">0</span>)</span>
+<span id="cb2-20"><a href="#cb2-20"></a>        tick.label1.set_horizontalalignment(<span class="st">'center'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>load data</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'shani_2022_january.csv'</span>, parse_dates<span class="op">=</span>[<span class="st">'date'</span>], index_col<span class="op">=</span><span class="st">'date'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>plot temperature data</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb4-2"><a href="#cb4-2"></a>start <span class="op">=</span> <span class="st">"2022-01-02"</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>end <span class="op">=</span> <span class="st">"2022-01-05"</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>df <span class="op">=</span> df.loc[start:end]</span>
+<span id="cb4-5"><a href="#cb4-5"></a>ax.plot(df[<span class="st">'TD'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a>plot_settings <span class="op">=</span> {</span>
+<span id="cb4-8"><a href="#cb4-8"></a>    <span class="st">'ylim'</span>: [<span class="dv">5</span>, <span class="fl">17.5</span>],</span>
+<span id="cb4-9"><a href="#cb4-9"></a>    <span class="st">'xlim'</span>: [df.index[<span class="dv">0</span>], df.index[<span class="op">-</span><span class="dv">1</span>]],</span>
+<span id="cb4-10"><a href="#cb4-10"></a>    <span class="st">'ylabel'</span>: <span class="st">"Temperature (°C)"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11"></a>    <span class="st">'title'</span>: <span class="st">"Yatir Forest, 2022"</span>,</span>
+<span id="cb4-12"><a href="#cb4-12"></a>    <span class="st">'yticks'</span>: [<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>]</span>
+<span id="cb4-13"><a href="#cb4-13"></a>}</span>
+<span id="cb4-14"><a href="#cb4-14"></a></span>
+<span id="cb4-15"><a href="#cb4-15"></a>ax.<span class="bu">set</span>(<span class="op">**</span>plot_settings)</span>
+<span id="cb4-16"><a href="#cb4-16"></a>centered_dates(ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="sliding_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+</div>
+</div>
 <p>We see that the temperature curve has a rough profile. Can we find ways of getting smoother curves?</p>
 <section id="convolution" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="convolution"><span class="header-section-number">11.1</span> convolution</h2>
 <p>Convolution is a fancy word for averaging a time series using a sliding window. We will use the terms <strong>convolution, running average, and rolling average</strong> interchangeably. See the animation below. We take all temperature values inside a window of width 500 minutes (51 points), and average them with equal weights. The weights profile is called <code>kernel</code>.</p>
 <div style="display: flex; justify-content: center;">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/SkrpjS0F6CE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+<iframe width="650" height="366" src="https://www.youtube.com/embed/SkrpjS0F6CE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
 </iframe>
 </div>
 <p>The pink curve is much smoother than the original! However, the running average cannot describe sharp temperature changes. If we decrease the window width to 200 minutes (21 points), we get the following result.</p>
 <div style="display: flex; justify-content: center;">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/frgRh1c0740" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+<iframe width="650" height="366" src="https://www.youtube.com/embed/frgRh1c0740" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
 </iframe>
 </div>
 <p>There is a tradeoff between the smoothness of a curve, and its ability to describe sharp temporal changes.</p>
@@ -653,12 +679,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="11.2" class="anchored" data-anchor-id="kernels"><span class="header-section-number">11.2</span> kernels</h2>
 <p>We can modify our running average, so that values closer to the center of the window have higher weights, and those further away count less. This is achieved by changing the weight profile, or the shape of the kernel. We see below the result of a running average using a triangular window of base 500 minutes (51 points).</p>
 <div style="display: flex; justify-content: center;">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/VOhs01jeQZU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+<iframe width="650" height="366" src="https://www.youtube.com/embed/VOhs01jeQZU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
 </iframe>
 </div>
 <p>Things can get as fancy as we want. Instead of a triangular kernel, which has sharp edges, we can choose a smoother gaussian kernel, see the difference below. We used a gaussian kernel with 60-minute standard deviation.</p>
 <div style="display: flex; justify-content: center;">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/3py9WwQWk1A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+<iframe width="650" height="366" src="https://www.youtube.com/embed/3py9WwQWk1A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
 </iframe>
 </div>
 <p>See how the three kernel shapes compare. <img src="kernel_shapes.png" class="img-fluid"></p>
@@ -677,22 +703,123 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="numerics" class="level2" data-number="11.4">
 <h2 data-number="11.4" class="anchored" data-anchor-id="numerics"><span class="header-section-number">11.4</span> numerics</h2>
-<p>Running averages are very common tools in time-series analysis. The <code>pandas</code> package makes life quite simple. For example, in order to calculate the running average of temperature using a rectangular kernel, one writes</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>df[<span class="st">'temperature'</span>].rolling(window<span class="op">=</span><span class="st">'20'</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li><code>window=20</code> means that the width of the window is 20 points. Pandas lets us define a window width in time units, for example, <code>window='120min'</code>.</li>
-<li><code>center=True</code> is needed in order to assign the result of averaging to the center of the window. Make it <code>False</code> and see what happens.</li>
-<li><code>mean()</code> is the actual calculation, the average of temperature over the window. The <code>rolling</code> part does not compute anything, it just creates a moving window, and we are free to calculate whatever we want. Try to calculate the standard deviation or the maximum, for example.</li>
-</ul>
-<p>It is implicit in the command above a “rectangular” kernel. What if we want other shapes?</p>
-<section id="gaussian" class="level3" data-number="11.4.1">
-<h3 data-number="11.4.1" class="anchored" data-anchor-id="gaussian"><span class="header-section-number">11.4.1</span> gaussian</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>(</span>
-<span id="cb2-2"><a href="#cb2-2"></a>df[<span class="st">'temperature'</span>].rolling(window<span class="op">=</span>window_width,</span>
-<span id="cb2-3"><a href="#cb2-3"></a>                          center<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb2-4"><a href="#cb2-4"></a>                          win_type<span class="op">=</span><span class="st">"gaussian"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5"></a>                 .mean(std<span class="op">=</span>std_gaussian)</span>
-<span id="cb2-6"><a href="#cb2-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Running averages are very common tools in time-series analysis. The <code>pandas</code> package makes life quite simple. For example, in order to calculate the running average of temperature using a rectangular kernel, one writes:</p>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>df[<span class="st">'temp_smoothed'</span>] <span class="op">=</span> (</span>
+<span id="cb5-2"><a href="#cb5-2"></a>                       df[<span class="st">'TD'</span>].rolling(window<span class="op">=</span><span class="st">'500min'</span>,</span>
+<span id="cb5-3"><a href="#cb5-3"></a>                                        min_periods<span class="op">=</span><span class="dv">50</span>   <span class="co"># comment this to see what happens</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>                                        )</span>
+<span id="cb5-5"><a href="#cb5-5"></a>                               .mean()</span>
+<span id="cb5-6"><a href="#cb5-6"></a>                      )</span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb5-9"><a href="#cb5-9"></a>ax.plot(df[<span class="st">'TD'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb5-10"><a href="#cb5-10"></a>ax.plot(df[<span class="st">'temp_smoothed'</span>], color<span class="op">=</span><span class="st">'xkcd:hot pink'</span>)</span>
+<span id="cb5-11"><a href="#cb5-11"></a>ax.<span class="bu">set</span>(<span class="op">**</span>plot_settings)</span>
+<span id="cb5-12"><a href="#cb5-12"></a>centered_dates(ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="sliding_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>The pink curve looks smooth, but why does it lag behind the data?! What’s going on?</p>
+<section id="covid-19-7-day-average" class="level3" data-number="11.4.1">
+<h3 data-number="11.4.1" class="anchored" data-anchor-id="covid-19-7-day-average"><span class="header-section-number">11.4.1</span> COVID-19 7-day average</h3>
+<p>During the COVID-19 pandemic, we would see graphs like this all the time in the news:</p>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>import COVID-19 data for Israel, process it</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># data from https://health.google.com/covid-19/open-data/raw-data?loc=IL</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co"># define the local file path</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>local_file_path <span class="op">=</span> <span class="st">'COVID_19_israel.csv'</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co"># check if the local file exists</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="cf">if</span> os.path.exists(local_file_path):</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="co"># if the local file exists, load it</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>    covid_IL <span class="op">=</span> pd.read_csv(local_file_path, parse_dates<span class="op">=</span>[<span class="st">'date'</span>], index_col<span class="op">=</span><span class="st">'date'</span>)</span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="cf">else</span>:</span>
+<span id="cb6-9"><a href="#cb6-9"></a>    <span class="co"># if the local file doesn't exist, download from the URL</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a>    url <span class="op">=</span> <span class="st">"https://storage.googleapis.com/covid19-open-data/v3/location/IL.csv"</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>    covid_IL <span class="op">=</span> pd.read_csv(url, parse_dates<span class="op">=</span>[<span class="st">'date'</span>], index_col<span class="op">=</span><span class="st">'date'</span>)</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    <span class="co"># save the downloaded data to the local file for future use</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a>    covid_IL.to_csv(local_file_path)</span>
+<span id="cb6-14"><a href="#cb6-14"></a></span>
+<span id="cb6-15"><a href="#cb6-15"></a>df_covid <span class="op">=</span> covid_IL[<span class="st">'new_confirmed'</span>].to_frame()</span>
+<span id="cb6-16"><a href="#cb6-16"></a>df_covid[<span class="st">'7d_avg'</span>] <span class="op">=</span> df_covid[<span class="st">'new_confirmed'</span>].rolling(window<span class="op">=</span><span class="st">'7D'</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="7">
+<details>
+<summary>plot</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb7-2"><a href="#cb7-2"></a>st <span class="op">=</span> <span class="st">'2022-01-01'</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>en <span class="op">=</span> <span class="st">'2022-03-30'</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>new_cases <span class="op">=</span> ax.bar(df_covid[st:en].index, df_covid.loc[st:en,<span class="st">'new_confirmed'</span>],</span>
+<span id="cb7-5"><a href="#cb7-5"></a>       color<span class="op">=</span><span class="st">"tab:blue"</span>, width<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-6"><a href="#cb7-6"></a>mov_avg, <span class="op">=</span> ax.plot(df_covid.loc[st:en,<span class="st">'7d_avg'</span>],</span>
+<span id="cb7-7"><a href="#cb7-7"></a>        color<span class="op">=</span><span class="st">'xkcd:hot pink'</span>)</span>
+<span id="cb7-8"><a href="#cb7-8"></a>ax.legend(handles<span class="op">=</span>[new_cases, mov_avg],</span>
+<span id="cb7-9"><a href="#cb7-9"></a>          labels<span class="op">=</span>[<span class="st">'new confirmed cases'</span>, <span class="st">'7-day moving average'</span>],</span>
+<span id="cb7-10"><a href="#cb7-10"></a>          frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-11"><a href="#cb7-11"></a>weird_day <span class="op">=</span> <span class="st">"2022-02-12"</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>weird_day_x <span class="op">=</span> mdates.date2num(dt.datetime.strptime(weird_day, <span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">"</span>))</span>
+<span id="cb7-13"><a href="#cb7-13"></a>ax.text(weird_day_x, df_covid.loc[weird_day,<span class="st">'new_confirmed'</span>], <span class="st">"?"</span>)</span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="co"># formating dates on x axis</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">7</span>, maxticks<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb7-16"><a href="#cb7-16"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
+<span id="cb7-17"><a href="#cb7-17"></a>ax.xaxis.set_major_locator(locator)</span>
+<span id="cb7-18"><a href="#cb7-18"></a>ax.xaxis.set_major_formatter(formatter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="sliding_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Take a look at the moving average next to the question mark. How can it be that high, when all the bars around that date are lower? Is the calculation right?</p>
+<p>The answer is that the result of the moving average is assigned to the right-most date in the running window. This is reasonable for COVID-19 cases: if today is Wednesday, I can only calculate a 7-day average based on <strong>past</strong> values, I don’t know what the future will be.</p>
+<p>There is a simple way of assigning the result to the center of the window:</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>df_covid[<span class="st">'7d_avg_center'</span>] <span class="op">=</span> (</span>
+<span id="cb8-2"><a href="#cb8-2"></a>                             df_covid[<span class="st">'new_confirmed'</span>]</span>
+<span id="cb8-3"><a href="#cb8-3"></a>                                 .rolling(window<span class="op">=</span><span class="st">'7D'</span>,</span>
+<span id="cb8-4"><a href="#cb8-4"></a>                                          center<span class="op">=</span><span class="va">True</span>)  <span class="co"># THIS</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>                                 .mean()</span>
+<span id="cb8-6"><a href="#cb8-6"></a>                            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="9">
+<details>
+<summary>plot</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb9-2"><a href="#cb9-2"></a>st <span class="op">=</span> <span class="st">'2022-01-01'</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>en <span class="op">=</span> <span class="st">'2022-03-30'</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>new_cases <span class="op">=</span> ax.bar(df_covid[st:en].index, df_covid.loc[st:en,<span class="st">'new_confirmed'</span>],</span>
+<span id="cb9-5"><a href="#cb9-5"></a>       color<span class="op">=</span><span class="st">"tab:blue"</span>, width<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>mov_avg, <span class="op">=</span> ax.plot(df_covid.loc[st:en,<span class="st">'7d_avg'</span>],</span>
+<span id="cb9-7"><a href="#cb9-7"></a>        color<span class="op">=</span><span class="st">'xkcd:hot pink'</span>)</span>
+<span id="cb9-8"><a href="#cb9-8"></a>mov_avg_center, <span class="op">=</span> ax.plot(df_covid.loc[st:en,<span class="st">'7d_avg_center'</span>],</span>
+<span id="cb9-9"><a href="#cb9-9"></a>                          color<span class="op">=</span><span class="st">'xkcd:mustard'</span>)</span>
+<span id="cb9-10"><a href="#cb9-10"></a>ax.legend(handles<span class="op">=</span>[new_cases, mov_avg, mov_avg_center],</span>
+<span id="cb9-11"><a href="#cb9-11"></a>          labels<span class="op">=</span>[<span class="st">'new confirmed cases'</span>,</span>
+<span id="cb9-12"><a href="#cb9-12"></a>                  <span class="st">'7-day moving average'</span>,</span>
+<span id="cb9-13"><a href="#cb9-13"></a>                  <span class="st">'CENTERED 7-day</span><span class="ch">\n</span><span class="st">moving average'</span>],</span>
+<span id="cb9-14"><a href="#cb9-14"></a>          frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="co"># formating dates on x axis</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">7</span>, maxticks<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb9-17"><a href="#cb9-17"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
+<span id="cb9-18"><a href="#cb9-18"></a>ax.xaxis.set_major_locator(locator)</span>
+<span id="cb9-19"><a href="#cb9-19"></a>ax.xaxis.set_major_formatter(formatter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="sliding_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>As a rule, we will used a <strong>centered</strong> moving average (<code>center=True</code>), unless stated otherwise. Also, only use <code>min_periods</code> if you know what you are doing.</p>
+</section>
+<section id="gaussian" class="level3" data-number="11.4.2">
+<h3 data-number="11.4.2" class="anchored" data-anchor-id="gaussian"><span class="header-section-number">11.4.2</span> gaussian</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>(</span>
+<span id="cb10-2"><a href="#cb10-2"></a>df[<span class="st">'temperature'</span>].rolling(window<span class="op">=</span>window_width,</span>
+<span id="cb10-3"><a href="#cb10-3"></a>                          center<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb10-4"><a href="#cb10-4"></a>                          win_type<span class="op">=</span><span class="st">"gaussian"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5"></a>                 .mean(std<span class="op">=</span>std_gaussian)</span>
+<span id="cb10-6"><a href="#cb10-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>where</p>
 <ul>
 <li><code>window_width</code> is an integer, number of points in your window</li>
@@ -701,18 +828,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>For instance, if we have measurements every 10 minutes, and our window width is 500 minutes, then <code>window_width = 500/10 + 1</code> (first and last included). If we want a standard deviation of 60 minutes, then <code>std_gaussian = 6</code>. The gaussian kernel will look like this:</p>
 <p><img src="gaussian_kernel.png" class="img-fluid"></p>
 <p>You can take a look at various options for kernel shapes <a href="https://docs.scipy.org/doc/scipy/reference/signal.windows.html#module-scipy.signal.windows">here</a>, provided by the <code>scipy</code> package. The graph above was achieved by running:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>g <span class="op">=</span> scipy.signal.gaussian(window_width, std)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>plt.plot(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>g <span class="op">=</span> scipy.signal.gaussian(window_width, std)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>plt.plot(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="triangular" class="level3" data-number="11.4.2">
-<h3 data-number="11.4.2" class="anchored" data-anchor-id="triangular"><span class="header-section-number">11.4.2</span> triangular</h3>
+<section id="triangular" class="level3" data-number="11.4.3">
+<h3 data-number="11.4.3" class="anchored" data-anchor-id="triangular"><span class="header-section-number">11.4.3</span> triangular</h3>
 <p>Same idea as gaussian, but simpler, because we don’t need to think about standard deviation.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>(</span>
-<span id="cb4-2"><a href="#cb4-2"></a>df[<span class="st">'temperature'</span>].rolling(window<span class="op">=</span>window_width,</span>
-<span id="cb4-3"><a href="#cb4-3"></a>                          center<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb4-4"><a href="#cb4-4"></a>                          win_type<span class="op">=</span><span class="st">"triang"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5"></a>                 .mean()</span>
-<span id="cb4-6"><a href="#cb4-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>(</span>
+<span id="cb12-2"><a href="#cb12-2"></a>df[<span class="st">'temperature'</span>].rolling(window<span class="op">=</span>window_width,</span>
+<span id="cb12-3"><a href="#cb12-3"></a>                          center<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb12-4"><a href="#cb12-4"></a>                          win_type<span class="op">=</span><span class="st">"triang"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5"></a>                 .mean()</span>
+<span id="cb12-6"><a href="#cb12-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="which-window-shape-and-width-to-choose" class="level2" data-number="11.5">
@@ -754,23 +881,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -886,92 +999,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

@@ -1,4 +1,9 @@
-## numpy, pandas, matplotlib
+---
+title: "numpy, pandas, matplotlib"
+execute:
+  # echo: false
+  freeze: auto  # re-render only when source changes
+---
 
 ```python
 import numpy as np
