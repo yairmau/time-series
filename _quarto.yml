@@ -79,7 +79,7 @@ book:
       chapters:
         - assignments/assignment1.qmd
         - assignments/assignment2.ipynb
-        - assignments/assignment_final.qmd
+        # - assignments/assignment_final.qmd
     - technical-stuff/technical-stuff.qmd
     - part: "behind-the-scenes"
       chapters:

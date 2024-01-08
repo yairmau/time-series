@@ -3,7 +3,7 @@
 This assignment comes right after the first session, where we discussed resampling.
 Read the whole instructions.
 
-## Task
+## task
 
 Go to the [IMS website](https://ims.gov.il/en/data_gov){target="_blank"}, and choose another weather station we have not worked with yet. Download 10-minute data for a full year, any year.
 
@@ -17,7 +17,7 @@ Go to the [IMS website](https://ims.gov.il/en/data_gov){target="_blank"}, and ch
 
 You must download this <a href="/assignments/assignment1-template.ipynb" download>Jupyter Notebook template</a>. Create a zip file with your Jupyter notebook and with the `.csv` you used. Upload this zip file to the moodle task we created.
 
-## Guidelines
+## guidelines
 
 1. Always name the axes and add units when relevant.
 1. Always give a title to the plot.
@@ -29,7 +29,7 @@ You must download this <a href="/assignments/assignment1-template.ipynb" downloa
 1. If applicable, include error bars to indicate the variability or uncertainty in the data.
 1. Use grid lines sparingly; they should not overshadow the data.
 
-## Evaluation
+## evaluation
 
 All your assignments will be evaluated according to the following criteria:
 
