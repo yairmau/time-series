@@ -483,6 +483,20 @@
     "text": "43.3 python packages\nKats — a one-stop shop for time series analysis\nDeveloped by Meta\nstatsmodels statsmodels is a Python package that provides a complement to scipy for statistical computations including descriptive statistics and estimation and inference for statistical models.\nydata-profiling\nQuick Exploratory Data Analysis on time-series data. Read also this."
   },
   {
+    "objectID": "technical-stuff/datasets.html#sunspots",
+    "href": "technical-stuff/datasets.html#sunspots",
+    "title": "44  datasets",
+    "section": "44.1 Sunspots",
+    "text": "44.1 Sunspots\nThe solar cycle produces varying amounts of sunspots throughout the years.\n\n\n\nSource: https://www.sidc.be/SILSO/monthlyssnplot\nDownload data from the Royal Observatory of Belgium."
+  },
+  {
+    "objectID": "technical-stuff/datasets.html#covid-19-open-data",
+    "href": "technical-stuff/datasets.html#covid-19-open-data",
+    "title": "44  datasets",
+    "section": "44.2 Covid-19 Open Data",
+    "text": "44.2 Covid-19 Open Data\nDownload the data into your own tools and systems to analyze the virus’s spread or decline, investigate COVID-related deaths, study the effects of different vaccines, and more in 20,000-plus locations worldwide.\n\n\n\nSource: https://health.google.com/covid-19/open-data/explorer\nClick here to go to the download page. Choose desired region under section “Understanding the data”."
+  },
+  {
     "objectID": "behind-the-scenes/sliding-window-video.html#rectangular-kernel",
     "href": "behind-the-scenes/sliding-window-video.html#rectangular-kernel",
     "title": "sliding window video",

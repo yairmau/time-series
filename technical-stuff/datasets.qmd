@@ -1,0 +1,35 @@
+---
+title: "datasets"
+subtitle: "where to find data?"
+execute:
+  freeze: auto  # re-render only when source changes
+format:
+  html:
+    toc: true
+    toc-location: body
+    number-chapters: false
+---
+
+## Sunspots
+
+The solar cycle produces varying amounts of sunspots throughout the years.
+
+![](sunspot.png)
+
+::: {.column-margin}
+Source: <https://www.sidc.be/SILSO/monthlyssnplot>
+:::
+
+[Download data](https://www.sidc.be/SILSO/datafiles){target="_blank"} from the Royal Observatory of Belgium.
+
+## Covid-19 Open Data
+
+Download the data into your own tools and systems to analyze the virus’s spread or decline, investigate COVID-related deaths, study the effects of different vaccines, and more in 20,000-plus locations worldwide.
+
+![](covid19-israel.png)
+
+::: {.column-margin}
+Source: <https://health.google.com/covid-19/open-data/explorer>
+:::
+
+[Click here](https://health.google.com/covid-19/open-data/raw-data?loc=IL){target="_blank"} to go to the download page. Choose desired region under section "Understanding the data".

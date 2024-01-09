@@ -80,7 +80,10 @@ book:
         - assignments/assignment1.qmd
         - assignments/assignment2.ipynb
         # - assignments/assignment_final.qmd
-    - technical-stuff/technical-stuff.qmd
+    - part: "technical stuff"
+      chapters:
+        - technical-stuff/technical-stuff.qmd
+        - technical-stuff/datasets.qmd
     - part: "behind-the-scenes"
       chapters:
       - behind-the-scenes/sliding-window-video.ipynb
