@@ -116,6 +116,8 @@ format:
       source: repo  # https://quarto.org/docs/output-formats/html-code.html#code-tools
     callout-icon: false
     fig-align: center
+    # the default MathJax rendering option yields ugly results, use katex
+    html-math-method: katex
   
   pdf:
     documentclass: scrreprt
