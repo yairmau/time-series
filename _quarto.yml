@@ -36,8 +36,11 @@ book:
     - part: "outliers and gaps"
       chapters:
       - outliers/motivation.qmd
-      - outliers/zscore.qmd
-      - outliers/IQR.qmd
+      - outliers/outlier-identification.ipynb
+      - outliers/robust-analysis.ipynb
+      - outliers/sliding-algorithms.ipynb
+      - outliers/substituting-outliers.ipynb
+      - outliers/interpolation.ipynb
     - part: "best practices"
       chapters:
         - best-practices/motivation.qmd
