@@ -92,6 +92,7 @@ book:
       - behind-the-scenes/sliding-window-video.ipynb
       - behind-the-scenes/savgol-video.ipynb
       - behind-the-scenes/API-IMS.ipynb
+      - behind-the-scenes/consecutive_sequense.ipynb
   sidebar:
     collapse-level: 2
     tools:
