@@ -40,7 +40,8 @@ book:
       - outliers/robust-analysis.ipynb
       - outliers/sliding-algorithms.ipynb
       - outliers/substituting-outliers.ipynb
-      - outliers/interpolation.ipynb
+      # - outliers/interpolation.ipynb
+      - outliers/outliers_challenge.ipynb
     - part: "best practices"
       chapters:
         - best-practices/motivation.qmd
@@ -82,6 +83,7 @@ book:
       chapters:
         - assignments/assignment1.qmd
         - assignments/assignment2.ipynb
+
         # - assignments/assignment_final.qmd
     - part: "technical stuff"
       chapters:
@@ -93,6 +95,7 @@ book:
       - behind-the-scenes/savgol-video.ipynb
       - behind-the-scenes/API-IMS.ipynb
       - behind-the-scenes/consecutive_sequence.ipynb
+      - behind-the-scenes/outliers_graphs.ipynb
   sidebar:
     collapse-level: 2
     tools:
