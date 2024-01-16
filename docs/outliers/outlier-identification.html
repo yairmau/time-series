@@ -554,7 +554,10 @@ div.csl-indent {
    
   <ul>
   <li><a href="#visual-inspection" id="toc-visual-inspection" class="nav-link active" data-scroll-target="#visual-inspection"><span class="toc-section-number">16.1</span>  visual inspection</a></li>
-  <li><a href="#z-score" id="toc-z-score" class="nav-link" data-scroll-target="#z-score"><span class="toc-section-number">16.2</span>  Z-score</a></li>
+  <li><a href="#z-score" id="toc-z-score" class="nav-link" data-scroll-target="#z-score"><span class="toc-section-number">16.2</span>  Z-score</a>
+  <ul class="collapse">
+  <li><a href="#attention" id="toc-attention" class="nav-link" data-scroll-target="#attention"><span class="toc-section-number">16.2.1</span>  ATTENTION!</a></li>
+  </ul></li>
   <li><a href="#iqr" id="toc-iqr" class="nav-link" data-scroll-target="#iqr"><span class="toc-section-number">16.3</span>  IQR</a></li>
   <li><a href="#non-stationary-time-series" id="toc-non-stationary-time-series" class="nav-link" data-scroll-target="#non-stationary-time-series"><span class="toc-section-number">16.4</span>  non-stationary time series</a></li>
   <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources"><span class="toc-section-number">16.5</span>  Sources</a></li>
@@ -613,6 +616,22 @@ z  = \frac{x-\mu}{\sigma},
 <p><img src="outliers_3sigma.png" class="img-fluid"></p>
 <p>You can now use this algorithm to any number of time series, let the computer do the hard work.</p>
 <p>Of course, there is nothing sacred about the number 3. You can choose any Z-score you want to perform an analysis on your own data, depending on your needs.</p>
+<section id="attention" class="level3 page-columns page-full" data-number="16.2.1">
+<h3 data-number="16.2.1" class="anchored" data-anchor-id="attention"><span class="header-section-number">16.2.1</span> ATTENTION!</h3>
+<p>For data that is gaussianly distributed, we expect that 99.73% of data to fall within 3 standard deviations from the mean. In other words, 0.27% of points would be considered as <em>outliers</em> according to the Z-score method.</p>
+<p><img src="Normal_Distribution_Sigma.png" class="img-fluid"></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Source: <a href="https://commons.wikimedia.org/wiki/File:Normal_Distribution_Sigma.svg">Wikimedia Commons</a></p>
+</div></div><p>Assume you have a time series gaussianly distributed, with 10k measurements. We would expect to find about 27 outliers in this time series.</p>
+<p>So what is the problem?!</p>
+<p>The thing is, outliers are not supposed to be only data points far from the other points. That’s not enough. A better way of understanding outliers is to imagine that our expected measurements are sampled from a given distribution, and every now an then we have measurements that are sampled from <strong>another</strong> distribution.</p>
+<p><img src="two-distributions.png" class="img-fluid"></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Source: <a href="https://www.brooksbell.com/resource/blog/dealing-with-outliers-part-1/">Taylor Wilson’s “Dealing with Outliers (Part 1): Ignore Them at Your Peril”</a></p>
+</div></div><p>We should have this in mind always. We wouldn’t want to single out good data as something weird. Our true task is to identify which points in our time series were sampled from a different distribution. This can be a very challenging task.</p>
+</section>
 </section>
 <section id="iqr" class="level2 page-columns page-full" data-number="16.3">
 <h2 data-number="16.3" class="anchored" data-anchor-id="iqr"><span class="header-section-number">16.3</span> IQR</h2>

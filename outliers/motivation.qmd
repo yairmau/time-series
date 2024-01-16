@@ -8,13 +8,17 @@ Consider, for example, this temperature graph:
 While most measured points are between 20 and 30 °C, there is obviously something very wrong with the one data point above 80 °C.
 
 How could such a thing come about? 
-This could be the result of non-natural causes, such as measurement errors, wrong data collection, or wrong data entry. On the other hand, this point could have natural sources, such as a very hot spark flying next to the temperature sensor.
+This could be the result of **non-natural causes**, such as measurement errors, wrong data collection, or wrong data entry. On the other hand, this point could have **natural** sources, such as a very hot spark flying next to the temperature sensor.
 
 Identifying outliers is important, because they might greatly impact measures like mean and standard deviation. 
 When left untouched, outliers might make us reach wrong conclusions about our data.
 See what happens to the slope of this linear regression with and without the outliers.
 
-![Source: @Ou_Zhang_2020](regression-outlier.png)
+![](regression-outlier.png)
+
+::: {.column-margin}
+Source: @Ou_Zhang_2020
+:::
 
 <!-- 
 That means the outlier data points vary greatly from the expected values—either being much larger or significantly smaller. For data that follows a normal distribution, the values that fall more than three standard deviations from the mean are typically considered outliers. 
