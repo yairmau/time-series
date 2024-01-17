@@ -97,6 +97,7 @@ book:
       - behind-the-scenes/API-IMS.ipynb
       - behind-the-scenes/consecutive_sequence.ipynb
       - behind-the-scenes/outliers_graphs.ipynb
+      - behind-the-scenes/make_your_own_website.qmd
   sidebar:
     collapse-level: 2
     tools:

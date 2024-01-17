@@ -1,0 +1,68 @@
+# make your own website {.unnumbered}
+
+1. [Install Quarto](https://quarto.org/docs/get-started/){target="_blank"} on your machine.
+1. [Install VS Code](https://code.visualstudio.com/download){target="_blank"}.
+1. [Open a GitHub account](https://github.com){target="_blank"}. Choose a good username for you, this will be also the name of your website.
+1. [Get acquainted](https://quarto.org/docs/authoring/markdown-basics.html){target="_blank"} with basic markdown syntax. You will be writing in markdown, this is a good investment of your time.
+
+The more you know about `git` and basic `command line` instructions, the easier all this will be. You don't need to be a jedi master in computers to make this work, this is not hard, I promisse. Quarto has a great webpage with detailed explanations. Also, ChatGPT can help you if you're lucky.
+
+
+## random tips {.unnumbered}
+
+
+### extensions {.unnumbered}
+Use icons on your website with [iconify](https://github.com/mcanouil/quarto-iconify){target="_blank"} and [fontawesome](https://github.com/quarto-ext/fontawesome){target="_blank"}. You can actually use a wide variety of extensions, [check them out](https://quarto.org/docs/extensions/){target="_blank"}.
+
+### quarto.yml {.unnumbered}
+
+You can configure whatever you need in the `_quarto.yml` file. I'll paste here my html formatting for reference.
+
+  ```yml
+  format:
+  html:
+    theme:
+    # see all available themes https://bootswatch.com
+    - flatly            # chose whatever theme you find suitable
+    - custom.scss       # customize how your website looks
+    fontsize: 1.2em     # self explanatory
+    # choose a nice highlight style for the code
+    highlight-style: breezedark # monokai # breezedark # espresso
+    include-in-header:
+      - includes.html          # you might need to use css configurations in all your pages
+    code-line-numbers: true    # turn on line numbering
+    code-tools:
+      # if you defined repo-url, this will link your website to it.
+      # repo-url: https://github.com/github_username/repository_name/
+      source: repo  # https://quarto.org/docs/output-formats/html-code.html#code-tools
+    callout-icon: false
+    fig-align: center         # center images as default
+    # the default MathJax rendering option yields ugly results, use katex
+    html-math-method: katex
+  ```
+
+### configure your notebook with a suitable header {.unnumbered}
+
+You could start your jupyter notebook with a markdown cell with this header
+```md
+# this jupyter notebook title
+```
+
+but in case you need a lot of control over the details, consider using:
+
+```yml
+---
+title: "this jupyter notebook title"
+execute:
+  # echo: false  # chose this if you don't want to see the code at all, just the output
+  freeze: auto  # re-render only when source changes, VERY useful
+format:
+  html:
+    code-fold: true                 # hide code blocks, show them upon click
+    code-summary: "Show the code"   # rename button to show code block
+---
+```
+
+### obvious statement {.unnumbered}
+
+This very website is a "Quarto website" project hosted on github. Click on "{{< iconify teenyicons code-solid >}} Code" on the top of the page to go to the github repository. Then copy whatever you want, it's all open for everyone to see.
