@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Time Series Analysis - 21&nbsp; challenge part 2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../best-practices/motivation.html" rel="next">
+<link href="../outliers/outliers_challenge.html" rel="prev">
+<link href="../archive/clock-history.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../outliers/motivation.html">outliers and gaps</a></li><li class="breadcrumb-item"><a href="../outliers/outliers_challenge_part2.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">challenge part 2</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../archive/clock-history.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Time Series Analysis</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://yairmau.com/" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-house-fill"></i></a>
+    <a href="../references.html" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-bookmark-fill"></i></a>
+    <a href="../things-to-remember.html" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-asterisk"></i></a>
+    <a href="https://github.com/yairmau/time-series/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">about</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../who-cares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">who cares?</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">start here</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/boring.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">the boring stuff you absolutely need to do</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/numpy-pandas-matplotlib.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">numpy, pandas, matplotlib</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">learn by example</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/AI-policy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AI policy</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">resampling</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/resampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">resampling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/upsampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">upsampling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/interpolation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">interpolation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/FAQ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">FAQ</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">smoothing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/sliding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">sliding window</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/not-only-averages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">not only averages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/fit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">fit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/savgol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">outliers and gaps</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/outlier-identification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">outlier identification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/robust-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">robust analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/sliding-algorithms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">sliding algorithms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/substituting-outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">substituting outliers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/outliers_challenge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">challenge</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/outliers_challenge_part2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">challenge part 2</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">best practices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../best-practices/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../best-practices/date-formatting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">stationarity</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/stochastic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">stochastic processes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/autocorrelation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text">time lags</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">dynamic time warp</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/LDTW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">LDTW</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+ <span class="menu-text">frequency</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+ <span class="menu-text">seasonality</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../seasonality/seasonal-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../seasonality/hilbert.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Hilbert transform</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
+ <span class="menu-text">rates of change</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/derivatives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">derivatives</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">finite differences</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+ <span class="menu-text">forecasting</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
+ <span class="menu-text">assignments</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">assignment 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">assignment 2</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">
+ <span class="menu-text">technical stuff</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true">
+ <span class="menu-text">behind-the-scenes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/consecutive_sequence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/outliers_graphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">define functions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#outliers-and-missing-values" id="toc-outliers-and-missing-values" class="nav-link active" data-scroll-target="#outliers-and-missing-values"><span class="header-section-number">21.1</span> Outliers and missing values</a></li>
+  <li><a href="#cleaning-df1-from-outliars" id="toc-cleaning-df1-from-outliars" class="nav-link" data-scroll-target="#cleaning-df1-from-outliars"><span class="header-section-number">22</span> Cleaning df1 from outliars</a>
+  <ul class="collapse">
+  <li><a href="#method-1-rolling-standard-deviation-envelop" id="toc-method-1-rolling-standard-deviation-envelop" class="nav-link" data-scroll-target="#method-1-rolling-standard-deviation-envelop"><span class="header-section-number">22.1</span> Method 1: Rolling standard deviation envelop</a>
+  <ul class="collapse">
+  <li><a href="#ploting-the-results" id="toc-ploting-the-results" class="nav-link" data-scroll-target="#ploting-the-results"><span class="header-section-number">22.1.1</span> Ploting the results:</a></li>
+  </ul></li>
+  <li><a href="#plateaus" id="toc-plateaus" class="nav-link" data-scroll-target="#plateaus"><span class="header-section-number">22.2</span> plateaus</a></li>
+  </ul></li>
+  <li><a href="#to-do" id="toc-to-do" class="nav-link" data-scroll-target="#to-do"><span class="header-section-number">23</span> TO DO:</a>
+  <ul class="collapse">
+  <li><a href="#its-not-homework-but-you-should-do-it" id="toc-its-not-homework-but-you-should-do-it" class="nav-link" data-scroll-target="#its-not-homework-but-you-should-do-it"><span class="header-section-number">23.1</span> its not homework but you should do it</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">challenge part 2</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/outliers/outliers_challenge_part2.ipynb"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="outliers-and-missing-values" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="outliers-and-missing-values"><span class="header-section-number">21.1</span> Outliers and missing values</h2>
+<p>Here you have 3 dataframes that need cleaning. Use the methods learned in class to process the data.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> ticker</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> warnings</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># Suppress FutureWarnings</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>warnings.simplefilter(action<span class="op">=</span><span class="st">'ignore'</span>, category<span class="op">=</span><span class="pp">FutureWarning</span>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a>warnings.simplefilter(action<span class="op">=</span><span class="st">'ignore'</span>, category<span class="op">=</span><span class="pp">UserWarning</span>)</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-12"><a href="#cb1-12"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>df1 <span class="op">=</span> pd.read_csv(<span class="st">'cleaning1.csv'</span>, </span>
+<span id="cb2-2"><a href="#cb2-2"></a>                  index_col<span class="op">=</span><span class="st">'date'</span>,     <span class="co"># set the column date as index </span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>                  parse_dates<span class="op">=</span><span class="va">True</span>)     <span class="co"># turn to datetime format</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>df1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">A</th>
+<th data-quarto-table-cell-role="th">B</th>
+<th data-quarto-table-cell-role="th">C</th>
+<th data-quarto-table-cell-role="th">D</th>
+<th data-quarto-table-cell-role="th">E</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-01-01 00:00:00</td>
+<td>0</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-01-01 00:05:00</td>
+<td>1</td>
+<td>2.245251</td>
+<td>-1.757193</td>
+<td>1.899602</td>
+<td>-0.999300</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-01-01 00:10:00</td>
+<td>2</td>
+<td>2.909648</td>
+<td>0.854732</td>
+<td>2.050146</td>
+<td>-0.559504</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-01-01 00:15:00</td>
+<td>3</td>
+<td>3.483155</td>
+<td>0.946937</td>
+<td>1.921080</td>
+<td>-0.402084</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-01-01 00:20:00</td>
+<td>2</td>
+<td>4.909169</td>
+<td>0.462239</td>
+<td>1.368470</td>
+<td>-0.698579</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-12-31 23:35:00</td>
+<td>-37</td>
+<td>1040.909898</td>
+<td>-14808.285199</td>
+<td>1505.020266</td>
+<td>423.595984</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-12-31 23:40:00</td>
+<td>-36</td>
+<td>1040.586547</td>
+<td>-14808.874072</td>
+<td>1503.915566</td>
+<td>423.117110</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-12-31 23:45:00</td>
+<td>-37</td>
+<td>1042.937417</td>
+<td>-14808.690745</td>
+<td>1505.479671</td>
+<td>423.862810</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-12-31 23:50:00</td>
+<td>-36</td>
+<td>1042.411572</td>
+<td>-14809.212002</td>
+<td>1506.174334</td>
+<td>423.862432</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-12-31 23:55:00</td>
+<td>-35</td>
+<td>1043.053520</td>
+<td>-14809.990338</td>
+<td>1505.767197</td>
+<td>423.647007</td>
+</tr>
+</tbody>
+</table>
+
+<p>105120 rows × 5 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>df2 <span class="op">=</span> pd.read_csv(<span class="st">'cleaning2_formated.csv'</span>, </span>
+<span id="cb3-2"><a href="#cb3-2"></a>                  index_col<span class="op">=</span><span class="st">'datetime'</span>,     <span class="co"># set the column date as index </span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>                  parse_dates<span class="op">=</span><span class="va">True</span>)     <span class="co"># turn to datetime format</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>df2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">A</th>
+<th data-quarto-table-cell-role="th">B</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">datetime</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-01-01 00:00:00</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-01-01 01:00:00</td>
+<td>-2.027536</td>
+<td>0.011985</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-01-01 02:00:00</td>
+<td>-2.690617</td>
+<td>-0.297928</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-01-01 03:00:00</td>
+<td>-1.985990</td>
+<td>-0.309409</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-01-01 04:00:00</td>
+<td>-2.290898</td>
+<td>-2.866663</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-12-31 19:00:00</td>
+<td>-74.514645</td>
+<td>293.868086</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-12-31 20:00:00</td>
+<td>-74.738058</td>
+<td>294.759346</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-12-31 21:00:00</td>
+<td>-75.848425</td>
+<td>294.076349</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-12-31 22:00:00</td>
+<td>-77.272183</td>
+<td>293.526461</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-12-31 23:00:00</td>
+<td>-76.557400</td>
+<td>293.353369</td>
+</tr>
+</tbody>
+</table>
+
+<p>8760 rows × 2 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>df3 <span class="op">=</span> pd.read_csv(<span class="st">'cleaning3_formated.csv'</span>, </span>
+<span id="cb4-2"><a href="#cb4-2"></a>                  index_col<span class="op">=</span><span class="st">'time'</span>,     <span class="co"># set the column date as index </span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>                  parse_dates<span class="op">=</span><span class="va">True</span>,     <span class="co"># turn to datetime format</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>                )</span>
+<span id="cb4-5"><a href="#cb4-5"></a>df3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">A</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">time</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-01-01</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-01-02</td>
+<td>-0.032027</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-01-03</td>
+<td>-0.586351</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-01-04</td>
+<td>-1.575972</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-01-05</td>
+<td>-2.726800</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-12-27</td>
+<td>6.651301</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-12-28</td>
+<td>6.415175</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-12-29</td>
+<td>7.603140</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-12-30</td>
+<td>8.668182</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-12-31</td>
+<td>8.472768</td>
+</tr>
+</tbody>
+</table>
+
+<p>365 rows × 1 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="cleaning-df1-from-outliars" class="level1" data-number="22">
+<h1 data-number="22"><span class="header-section-number">22</span> Cleaning df1 from outliars</h1>
+<section id="method-1-rolling-standard-deviation-envelop" class="level2" data-number="22.1">
+<h2 data-number="22.1" class="anchored" data-anchor-id="method-1-rolling-standard-deviation-envelop"><span class="header-section-number">22.1</span> Method 1: Rolling standard deviation envelop</h2>
+<p>Visual inspection of all the data:</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">def</span> plot_all_columns(data):</span>
+<span id="cb5-2"><a href="#cb5-2"></a>    column_list <span class="op">=</span> data.columns</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    </span>
+<span id="cb5-4"><a href="#cb5-4"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="bu">len</span>(column_list),<span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="bu">len</span>(column_list)<span class="op">*</span><span class="dv">2</span>))</span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a>    <span class="cf">if</span> <span class="bu">len</span>(column_list) <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb5-7"><a href="#cb5-7"></a>        ax.plot(data[column_list[<span class="dv">0</span>]])</span>
+<span id="cb5-8"><a href="#cb5-8"></a>        <span class="cf">return</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>    <span class="cf">for</span> i, column <span class="kw">in</span> <span class="bu">enumerate</span>(column_list):</span>
+<span id="cb5-10"><a href="#cb5-10"></a>        ax[i].plot(data[column])</span>
+<span id="cb5-11"><a href="#cb5-11"></a>        ax[i].<span class="bu">set</span>(ylabel<span class="op">=</span>column)</span>
+<span id="cb5-12"><a href="#cb5-12"></a>    </span>
+<span id="cb5-13"><a href="#cb5-13"></a>    locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">3</span>, maxticks<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb5-14"><a href="#cb5-14"></a>    formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
+<span id="cb5-15"><a href="#cb5-15"></a>    ax[i].xaxis.set_major_locator(locator)</span>
+<span id="cb5-16"><a href="#cb5-16"></a>    ax[i].xaxis.set_major_formatter(formatter)</span>
+<span id="cb5-17"><a href="#cb5-17"></a></span>
+<span id="cb5-18"><a href="#cb5-18"></a>    <span class="cf">return</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>plot_all_columns(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="outliers_challenge_part2_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Applying the rolling std method on column A:</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># find the rolling std</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>df1[<span class="st">'A_std'</span>] <span class="op">=</span> df1[<span class="st">'A'</span>].rolling(<span class="dv">50</span>, center<span class="op">=</span><span class="va">True</span>, min_periods<span class="op">=</span><span class="dv">1</span>).std()</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co"># find the rolling mean</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>df1[<span class="st">'A_mean'</span>] <span class="op">=</span> df1[<span class="st">'A'</span>].rolling(<span class="dv">50</span>, center<span class="op">=</span><span class="va">True</span>, min_periods<span class="op">=</span><span class="dv">1</span>).mean()</span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co"># define the k parameter -&gt; the number of standard deviations from the mean which above them we classify as outliar</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>k <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co"># finding the top and bottom threshold for each datapoint</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>df1[<span class="st">'A_top'</span>] <span class="op">=</span> df1[<span class="st">'A_mean'</span>] <span class="op">+</span> k<span class="op">*</span>df1[<span class="st">'A_std'</span>]</span>
+<span id="cb7-9"><a href="#cb7-9"></a>df1[<span class="st">'A_bot'</span>] <span class="op">=</span> df1[<span class="st">'A_mean'</span>] <span class="op">-</span> k<span class="op">*</span>df1[<span class="st">'A_std'</span>]</span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co"># creating a mask of booleans that places true if the row is an outliar and false if its not.</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>df1[<span class="st">'A_out'</span>] <span class="op">=</span> ((df1[<span class="st">'A'</span>] <span class="op">&gt;</span> df1[<span class="st">'A_top'</span>]) <span class="op">|</span> (df1[<span class="st">'A'</span>] <span class="op">&lt;</span> df1[<span class="st">'A_bot'</span>]))</span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co"># applying the mask and replacing all outliers with nans.</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>df1[<span class="st">'A_filtered'</span>] <span class="op">=</span> np.where(df1[<span class="st">'A_out'</span>],</span>
+<span id="cb7-14"><a href="#cb7-14"></a>                                np.nan,  <span class="co"># use this if A_out is True</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a>                                df1[<span class="st">'A'</span>]) <span class="co"># otherwise</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a>df1</span>
+<span id="cb7-17"><a href="#cb7-17"></a>                            </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">A</th>
+<th data-quarto-table-cell-role="th">B</th>
+<th data-quarto-table-cell-role="th">C</th>
+<th data-quarto-table-cell-role="th">D</th>
+<th data-quarto-table-cell-role="th">E</th>
+<th data-quarto-table-cell-role="th">A_std</th>
+<th data-quarto-table-cell-role="th">A_mean</th>
+<th data-quarto-table-cell-role="th">A_top</th>
+<th data-quarto-table-cell-role="th">A_bot</th>
+<th data-quarto-table-cell-role="th">A_out</th>
+<th data-quarto-table-cell-role="th">A_filtered</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-01-01 00:00:00</td>
+<td>0</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>1.262273</td>
+<td>1.520000</td>
+<td>4.044546</td>
+<td>-1.004546</td>
+<td>False</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-01-01 00:05:00</td>
+<td>1</td>
+<td>2.245251</td>
+<td>-1.757193</td>
+<td>1.899602</td>
+<td>-0.999300</td>
+<td>1.331858</td>
+<td>1.423077</td>
+<td>4.086793</td>
+<td>-1.240639</td>
+<td>False</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-01-01 00:10:00</td>
+<td>2</td>
+<td>2.909648</td>
+<td>0.854732</td>
+<td>2.050146</td>
+<td>-0.559504</td>
+<td>1.462738</td>
+<td>1.296296</td>
+<td>4.221771</td>
+<td>-1.629179</td>
+<td>False</td>
+<td>2.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-01-01 00:15:00</td>
+<td>3</td>
+<td>3.483155</td>
+<td>0.946937</td>
+<td>1.921080</td>
+<td>-0.402084</td>
+<td>1.649114</td>
+<td>1.142857</td>
+<td>4.441085</td>
+<td>-2.155371</td>
+<td>False</td>
+<td>3.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-01-01 00:20:00</td>
+<td>2</td>
+<td>4.909169</td>
+<td>0.462239</td>
+<td>1.368470</td>
+<td>-0.698579</td>
+<td>1.880022</td>
+<td>0.965517</td>
+<td>4.725561</td>
+<td>-2.794527</td>
+<td>False</td>
+<td>2.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-12-31 23:35:00</td>
+<td>-37</td>
+<td>1040.909898</td>
+<td>-14808.285199</td>
+<td>1505.020266</td>
+<td>423.595984</td>
+<td>2.988291</td>
+<td>-32.633333</td>
+<td>-26.656751</td>
+<td>-38.609916</td>
+<td>False</td>
+<td>-37.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-12-31 23:40:00</td>
+<td>-36</td>
+<td>1040.586547</td>
+<td>-14808.874072</td>
+<td>1503.915566</td>
+<td>423.117110</td>
+<td>3.038748</td>
+<td>-32.655172</td>
+<td>-26.577676</td>
+<td>-38.732669</td>
+<td>False</td>
+<td>-36.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-12-31 23:45:00</td>
+<td>-37</td>
+<td>1042.937417</td>
+<td>-14808.690745</td>
+<td>1505.479671</td>
+<td>423.862810</td>
+<td>3.077483</td>
+<td>-32.714286</td>
+<td>-26.559320</td>
+<td>-38.869251</td>
+<td>False</td>
+<td>-37.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-12-31 23:50:00</td>
+<td>-36</td>
+<td>1042.411572</td>
+<td>-14809.212002</td>
+<td>1506.174334</td>
+<td>423.862432</td>
+<td>3.088901</td>
+<td>-32.814815</td>
+<td>-26.637012</td>
+<td>-38.992617</td>
+<td>False</td>
+<td>-36.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-12-31 23:55:00</td>
+<td>-35</td>
+<td>1043.053520</td>
+<td>-14809.990338</td>
+<td>1505.767197</td>
+<td>423.647007</td>
+<td>3.128283</td>
+<td>-32.884615</td>
+<td>-26.628050</td>
+<td>-39.141181</td>
+<td>False</td>
+<td>-35.0</td>
+</tr>
+</tbody>
+</table>
+
+<p>105120 rows × 11 columns</p>
+</div>
+</div>
+</div>
+<section id="ploting-the-results" class="level3" data-number="22.1.1">
+<h3 data-number="22.1.1" class="anchored" data-anchor-id="ploting-the-results"><span class="header-section-number">22.1.1</span> Ploting the results:</h3>
+<p>Use <code>%matplotlib widget</code> to visualy inspect the results.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">4</span>))</span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a>ax.plot(df1[<span class="st">'A'</span>], c<span class="op">=</span><span class="st">'r'</span>, label<span class="op">=</span><span class="st">'original'</span>)</span>
+<span id="cb8-4"><a href="#cb8-4"></a>ax.plot(df1[<span class="st">'A_filtered'</span>], c<span class="op">=</span><span class="st">'b'</span>, label<span class="op">=</span><span class="st">'filtered'</span>)</span>
+<span id="cb8-5"><a href="#cb8-5"></a>ax.plot(df1[<span class="st">'A_bot'</span>], c<span class="op">=</span><span class="st">'orange'</span>,linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'envelope'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb8-6"><a href="#cb8-6"></a>ax.plot(df1[<span class="st">'A_top'</span>], c<span class="op">=</span><span class="st">'orange'</span>,linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'envelope'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb8-7"><a href="#cb8-7"></a></span>
+<span id="cb8-8"><a href="#cb8-8"></a>ax.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>&lt;matplotlib.legend.Legend at 0x7f9028c8b5e0&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="outliers_challenge_part2_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Now lets write a function so we can easly apply it to all our data:</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">def</span> rolling_std_envelop(series, window_size<span class="op">=</span><span class="dv">50</span>, k<span class="op">=</span><span class="dv">2</span>):</span>
+<span id="cb10-2"><a href="#cb10-2"></a>    series.name <span class="op">=</span> <span class="st">'original'</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>    data <span class="op">=</span> series.to_frame()</span>
+<span id="cb10-4"><a href="#cb10-4"></a>    data[<span class="st">'std'</span>] <span class="op">=</span> data[<span class="st">'original'</span>].rolling(window_size, center<span class="op">=</span><span class="va">True</span>, min_periods<span class="op">=</span><span class="dv">1</span>).std()</span>
+<span id="cb10-5"><a href="#cb10-5"></a>    <span class="co"># find the rolling mean</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>    data[<span class="st">'mean'</span>] <span class="op">=</span> data[<span class="st">'original'</span>].rolling(window_size, center<span class="op">=</span><span class="va">True</span>, min_periods<span class="op">=</span><span class="dv">1</span>).mean()</span>
+<span id="cb10-7"><a href="#cb10-7"></a>    <span class="co"># finding the top and bottom threshold for each datapoint</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>    data[<span class="st">'top'</span>] <span class="op">=</span> data[<span class="st">'mean'</span>] <span class="op">+</span> k<span class="op">*</span>data[<span class="st">'std'</span>]</span>
+<span id="cb10-9"><a href="#cb10-9"></a>    data[<span class="st">'bottom'</span>] <span class="op">=</span> data[<span class="st">'mean'</span>] <span class="op">-</span> k<span class="op">*</span>data[<span class="st">'std'</span>]</span>
+<span id="cb10-10"><a href="#cb10-10"></a>    <span class="co"># creating a mask of booleans that places true if the row is an outliar and false if its not.</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a>    data[<span class="st">'outliers'</span>] <span class="op">=</span> ((data[<span class="st">'original'</span>] <span class="op">&gt;</span> data[<span class="st">'top'</span>]) <span class="op">|</span> (data[<span class="st">'original'</span>] <span class="op">&lt;</span> data[<span class="st">'bottom'</span>]))</span>
+<span id="cb10-12"><a href="#cb10-12"></a>    <span class="co"># applying the mask and replacing all outliers with nans.</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a>    data[<span class="st">'filtered'</span>] <span class="op">=</span> np.where(data[<span class="st">'outliers'</span>],</span>
+<span id="cb10-14"><a href="#cb10-14"></a>                                np.nan,  <span class="co"># use this if outliers is True</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a>                                data[<span class="st">'original'</span>]) <span class="co"># otherwise</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a>    <span class="cf">return</span> data[<span class="st">'filtered'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Lets test the new function:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">4</span>))</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a>ax.plot(df1[<span class="st">'A'</span>], c<span class="op">=</span><span class="st">'r'</span>, label<span class="op">=</span><span class="st">'original'</span>)</span>
+<span id="cb11-4"><a href="#cb11-4"></a>ax.plot(rolling_std_envelop(df1[<span class="st">'A'</span>]), c<span class="op">=</span><span class="st">'b'</span>, label<span class="op">=</span><span class="st">'filtered'</span>)</span>
+<span id="cb11-5"><a href="#cb11-5"></a>ax.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>&lt;matplotlib.legend.Legend at 0x7f9029b58070&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="outliers_challenge_part2_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Now lets reload <code>df1</code> so it will be clean (without all the added columns from before) and apply the function on all columns:</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>df1 <span class="op">=</span> pd.read_csv(<span class="st">'cleaning1.csv'</span>, </span>
+<span id="cb13-2"><a href="#cb13-2"></a>                  index_col<span class="op">=</span><span class="st">'date'</span>,     <span class="co"># set the column date as index </span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>                  parse_dates<span class="op">=</span><span class="va">True</span>)     <span class="co"># turn to datetime format</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>df1_filtered <span class="op">=</span> df1.copy()</span>
+<span id="cb14-2"><a href="#cb14-2"></a>df1_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">A</th>
+<th data-quarto-table-cell-role="th">B</th>
+<th data-quarto-table-cell-role="th">C</th>
+<th data-quarto-table-cell-role="th">D</th>
+<th data-quarto-table-cell-role="th">E</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-01-01 00:00:00</td>
+<td>0</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-01-01 00:05:00</td>
+<td>1</td>
+<td>2.245251</td>
+<td>-1.757193</td>
+<td>1.899602</td>
+<td>-0.999300</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-01-01 00:10:00</td>
+<td>2</td>
+<td>2.909648</td>
+<td>0.854732</td>
+<td>2.050146</td>
+<td>-0.559504</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-01-01 00:15:00</td>
+<td>3</td>
+<td>3.483155</td>
+<td>0.946937</td>
+<td>1.921080</td>
+<td>-0.402084</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-01-01 00:20:00</td>
+<td>2</td>
+<td>4.909169</td>
+<td>0.462239</td>
+<td>1.368470</td>
+<td>-0.698579</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-12-31 23:35:00</td>
+<td>-37</td>
+<td>1040.909898</td>
+<td>-14808.285199</td>
+<td>1505.020266</td>
+<td>423.595984</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-12-31 23:40:00</td>
+<td>-36</td>
+<td>1040.586547</td>
+<td>-14808.874072</td>
+<td>1503.915566</td>
+<td>423.117110</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-12-31 23:45:00</td>
+<td>-37</td>
+<td>1042.937417</td>
+<td>-14808.690745</td>
+<td>1505.479671</td>
+<td>423.862810</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-12-31 23:50:00</td>
+<td>-36</td>
+<td>1042.411572</td>
+<td>-14809.212002</td>
+<td>1506.174334</td>
+<td>423.862432</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-12-31 23:55:00</td>
+<td>-35</td>
+<td>1043.053520</td>
+<td>-14809.990338</td>
+<td>1505.767197</td>
+<td>423.647007</td>
+</tr>
+</tbody>
+</table>
+
+<p>105120 rows × 5 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>columns <span class="op">=</span> df1_filtered.columns</span>
+<span id="cb15-2"><a href="#cb15-2"></a></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="cf">for</span> column <span class="kw">in</span> columns:</span>
+<span id="cb15-4"><a href="#cb15-4"></a>    filtered_column <span class="op">=</span> rolling_std_envelop(df1_filtered[column], window_size<span class="op">=</span><span class="dv">50</span>, k<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb15-5"><a href="#cb15-5"></a>    df1_filtered[column] <span class="op">=</span> filtered_column</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now lets plot the results:</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="bu">len</span>(columns),<span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="bu">len</span>(columns)<span class="op">*</span><span class="dv">2</span>))</span>
+<span id="cb16-2"><a href="#cb16-2"></a></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="cf">for</span> i, column <span class="kw">in</span> <span class="bu">enumerate</span>(columns):</span>
+<span id="cb16-4"><a href="#cb16-4"></a>    ax[i].plot(df1[column], c<span class="op">=</span><span class="st">'r'</span>, label<span class="op">=</span><span class="st">'original'</span>)</span>
+<span id="cb16-5"><a href="#cb16-5"></a>    ax[i].plot(df1_filtered[column], c<span class="op">=</span><span class="st">'b'</span>, label<span class="op">=</span><span class="st">'filtered'</span>)</span>
+<span id="cb16-6"><a href="#cb16-6"></a>    ax[i].legend()</span>
+<span id="cb16-7"><a href="#cb16-7"></a>    ax[i].<span class="bu">set</span>(ylabel<span class="op">=</span>column)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="outliers_challenge_part2_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="plateaus" class="level2" data-number="22.2">
+<h2 data-number="22.2" class="anchored" data-anchor-id="plateaus"><span class="header-section-number">22.2</span> plateaus</h2>
+<p>Now what about the plateaus in the series D?<br>
+Thats another form of outliars.<br>
+the following function will find rows wich have more than n equal following values and replace them with nans.</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># function to copy paste:</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="kw">def</span> conseq_series(series, N):</span>
+<span id="cb17-3"><a href="#cb17-3"></a>    <span class="co">"""</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="co">    part A:</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="co">    1. assume a string of 5 equal values. that's what we want to identify</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a><span class="co">    2. diff produces a string of only 4 consecutive zeros</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="co">    3. no problem, because when applying cumsum, the 4 zeros turn into a plateau of 5, that's what we want</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="co">    so far, so good</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a><span class="co">    part B:</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a><span class="co">    1. groupby value_grp splits data into groups according to cumsum.</span></span>
+<span id="cb17-11"><a href="#cb17-11"></a><span class="co">    2. because cumsum is monotonically increasing, necessarily all groups will be composed of neighboring rows, no funny business</span></span>
+<span id="cb17-12"><a href="#cb17-12"></a><span class="co">    3. what are those groups made of? of rows of column 'series'. this specific column is not too important, because:</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a><span class="co">    4. count 'counts' the number of elements inside each group.</span></span>
+<span id="cb17-14"><a href="#cb17-14"></a><span class="co">    5. the real magic here is that 'transform' assigns each row of the original group with the count result.</span></span>
+<span id="cb17-15"><a href="#cb17-15"></a><span class="co">    6. finally, we can ask the question: which rows belong to a string of identical values greater-equal than some threshold.</span></span>
+<span id="cb17-16"><a href="#cb17-16"></a><span class="co">    zehu, you now have a mask (True-False) with the same shape as the original series.</span></span>
+<span id="cb17-17"><a href="#cb17-17"></a></span>
+<span id="cb17-18"><a href="#cb17-18"></a><span class="co">    """</span></span>
+<span id="cb17-19"><a href="#cb17-19"></a>    <span class="co"># part A:</span></span>
+<span id="cb17-20"><a href="#cb17-20"></a>    sumsum_series <span class="op">=</span> (</span>
+<span id="cb17-21"><a href="#cb17-21"></a>                   (series.diff() <span class="op">!=</span> <span class="dv">0</span>)         <span class="co"># diff zero becomes false, otherwise true</span></span>
+<span id="cb17-22"><a href="#cb17-22"></a>                      .astype(<span class="st">'int'</span>)           <span class="co"># true -&gt; 1  , false -&gt; 0</span></span>
+<span id="cb17-23"><a href="#cb17-23"></a>                      .cumsum()                <span class="co"># cumulative sum, monotonically increasing</span></span>
+<span id="cb17-24"><a href="#cb17-24"></a>                  )</span>
+<span id="cb17-25"><a href="#cb17-25"></a>    <span class="co"># part B:</span></span>
+<span id="cb17-26"><a href="#cb17-26"></a>    mask_outliers <span class="op">=</span> (</span>
+<span id="cb17-27"><a href="#cb17-27"></a>                    series.groupby(sumsum_series)           <span class="co"># take original series and group it by values of cumsum</span></span>
+<span id="cb17-28"><a href="#cb17-28"></a>                                .transform(<span class="st">'count'</span>)        <span class="co"># now count how many are in each group, assign result to each existing row. that's what transform does</span></span>
+<span id="cb17-29"><a href="#cb17-29"></a>                                .ge(N)                    <span class="co"># if row count &gt;= than user-defined n_consecutives, assign True, otherwise False</span></span>
+<span id="cb17-30"><a href="#cb17-30"></a>                    )</span>
+<span id="cb17-31"><a href="#cb17-31"></a>    </span>
+<span id="cb17-32"><a href="#cb17-32"></a>    <span class="co"># apply mask:</span></span>
+<span id="cb17-33"><a href="#cb17-33"></a>    result <span class="op">=</span> pd.Series(np.where(mask_outliers,</span>
+<span id="cb17-34"><a href="#cb17-34"></a>                                np.nan,  <span class="co"># use this if mask_outliers is True</span></span>
+<span id="cb17-35"><a href="#cb17-35"></a>                                series), <span class="co"># otherwise</span></span>
+<span id="cb17-36"><a href="#cb17-36"></a>                            index<span class="op">=</span>series.index)</span>
+<span id="cb17-37"><a href="#cb17-37"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Lets apply it to the <code>df1_filtered</code> df so we will end with a cleaner signal</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">4</span>))</span>
+<span id="cb18-2"><a href="#cb18-2"></a>ax.plot(df1_filtered[<span class="st">'D'</span>], color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">'original'</span>)</span>
+<span id="cb18-3"><a href="#cb18-3"></a>ax.plot(conseq_series(df1_filtered[<span class="st">'D'</span>], <span class="dv">10</span>), c<span class="op">=</span><span class="st">'tab:blue'</span>, label<span class="op">=</span><span class="st">'filtered'</span>)</span>
+<span id="cb18-4"><a href="#cb18-4"></a>ax.set_ylabel(<span class="st">'D'</span>)</span>
+<span id="cb18-5"><a href="#cb18-5"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>&lt;matplotlib.legend.Legend at 0x7f9029b0e9a0&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="outliers_challenge_part2_files/figure-html/cell-17-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="to-do" class="level1" data-number="23">
+<h1 data-number="23"><span class="header-section-number">23</span> TO DO:</h1>
+<section id="its-not-homework-but-you-should-do-it" class="level2" data-number="23.1">
+<h2 data-number="23.1" class="anchored" data-anchor-id="its-not-homework-but-you-should-do-it"><span class="header-section-number">23.1</span> its not homework but you should do it</h2>
+<ul>
+<li>Try other filtering methods</li>
+<li>Tweek the parameters</li>
+<li>Use other dataframes (1,2,3 and if you have your own so better)</li>
+<li>Write cutom filtering functions that you can save and use in your future work.</li>
+</ul>
+<p><strong>Yalla have fun</strong></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../outliers/outliers_challenge.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">challenge</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../best-practices/motivation.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">motivation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -42,6 +42,7 @@ book:
       - outliers/substituting-outliers.ipynb
       # - outliers/interpolation.ipynb
       - outliers/outliers_challenge.ipynb
+      - outliers/outliers_challenge_part2.ipynb
     - part: "best practices"
       chapters:
         - best-practices/motivation.qmd
