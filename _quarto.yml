@@ -50,6 +50,7 @@ book:
     - part: "stationarity"
       chapters:
         - stationarity/motivation.qmd
+        - stationarity/random.qmd
         - stationarity/stochastic.qmd
         - stationarity/autocorrelation.qmd
     - part: "time lags"
