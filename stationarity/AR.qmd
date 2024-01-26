@@ -100,3 +100,11 @@ We can define a process that the current state is dependent on the two previous 
 $$
 x_{t} = \phi_1\,x_{t-1} + \phi_2\,x_{t-2} + \varepsilon
 $$
+
+![](AR2.png)
+
+$$
+1 - \phi_1 \lambda - \phi_2 \lambda^2 = 0
+$$
+
+![](AR2_complex_plane.png)
