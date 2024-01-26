@@ -43,14 +43,12 @@ book:
       # - outliers/interpolation.ipynb
       - outliers/outliers_challenge.ipynb
       - outliers/outliers_challenge_part2.ipynb
-    - part: "best practices"
-      chapters:
-        - best-practices/motivation.qmd
-        - best-practices/date-formatting.ipynb
+    
     - part: "stationarity"
       chapters:
         - stationarity/motivation.qmd
         - stationarity/random.qmd
+        - stationarity/AR.qmd
         - stationarity/stochastic.qmd
         - stationarity/autocorrelation.qmd
     - part: "time lags"
@@ -85,12 +83,13 @@ book:
       chapters:
         - assignments/assignment1.qmd
         - assignments/assignment2.ipynb
-
         # - assignments/assignment_final.qmd
     - part: "technical stuff"
       chapters:
         - technical-stuff/technical-stuff.qmd
         - technical-stuff/datasets.qmd
+        - technical-stuff/date-formatting.ipynb
+        - technical-stuff/sources.qmd
     - part: "behind-the-scenes"
       chapters:
       - behind-the-scenes/sliding-window-video.ipynb
@@ -105,7 +104,7 @@ book:
       - icon: house-fill
         href: https://yairmau.com/
       - icon: bookmark-fill
-        href: /references.html
+        href: /sources.html
       - icon: asterisk
         href: /things-to-remember.html
     logo: archive/clock-history.png

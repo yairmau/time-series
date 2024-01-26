@@ -1,0 +1,102 @@
+# autoregressive processes
+
+This lecture is partially based on @shumway2017time.
+
+Consider the process
+
+$$
+x_{t} = \phi\,x_{t-1}
+$$
+
+![](AR1_deterministic.png)
+
+These solutions look suspiciously similar to those obtained with the simplest 1st-order-homogenous differential equation:
+
+$$
+\frac{dx}{dt} = \varphi\, x
+$$
+whose solution is 
+
+$$
+x(t) = x_0 e^{\varphi\, t}
+$$
+
+
+::: {.column-margin}
+
+Using separation of variables:
+
+$$
+\frac{dx}{x} = \varphi\, dt
+$$
+
+We now integrate
+
+$$
+\int \frac{1}{x}\, dy = \int \varphi\, dt
+$$
+
+...yielding
+
+$$
+\ln(x) = \varphi\, t + C
+$$
+
+where $C$ is an integration constant. Exponentiating both sides:
+
+$$
+x(t) = e^{\varphi\, t}\cdot e^C = C e^{\varphi\, t}
+$$
+
+If we call the initial condition $x(0)=x_0$, we find that $C=x_0$, and we finally arrive at the solution.
+:::
+
+For the exponential solution, it is clear that $x(t)$ grows to infinity if $\varphi>0$, and it goes to zero if $\varphi<0$. This connection is not casual, they are the discrete and continuous versions of the same process. Starting from the continuous process
+$$
+\frac{dx}{dt} = \varphi\, x
+$$
+and using an approximation of the derivative as
+$$
+\frac{dx}{dt} \simeq \frac{x(t+\Delta t) - x(t)}{\Delta t}
+$$
+we have that
+$$
+\frac{x(t+\Delta t) - x(t)}{\Delta t} =  \varphi\, x(t).
+$$
+Solving for $x(t+\Delta t)$ yields
+
+$$
+x(t+\Delta t) = (1 + \Delta t\,\varphi)x(t).
+$$
+
+Calling $\phi=1 + \Delta t\,\varphi$ and modifying the notation a little bit gives
+
+$$
+x_{t+1} = \phi\,x_{t}.
+$$
+
+
+## AR(1)
+
+Let's add some white noise to this process.
+
+$$
+x_{t} = \phi\,x_{t-1} + \varepsilon
+$$
+
+This is called an Autoregressive Process of order 1, or AR(1). Here, the current value $x_{t}$ is dependent on the immediately preceding value $x_{t-1}$.
+
+![](AR1.png)
+
+What can we call the special cases when
+
+* $\phi=1.0$
+* $\phi=0.0$
+
+## AR(2)
+
+We can define a process that the current state is dependent on the two previous states, each with a different weight.
+
+$$
+x_{t} = \phi_1\,x_{t-1} + \phi_2\,x_{t-2} + \varepsilon
+$$

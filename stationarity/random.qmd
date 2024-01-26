@@ -1,21 +1,25 @@
 # random variables
 
-This lecture is partially based on "Introduction to Time Series and Forecasting", by Brockwell and Davis (3rd edition, chapters 1 and 2). Also [this](https://www.math-stat.unibe.ch/e237483/e237655/e243381/e281679/files281691/Chap12_ger.pdf){taget="_blank"}.
+This lecture is partially based on @davis2016introduction [chap. 1, 2]. Also [this](https://www.math-stat.unibe.ch/e237483/e237655/e243381/e281679/files281691/Chap12_ger.pdf){taget="_blank"}.
 
 A random variable is a mathematical concept used in probability theory and statistics to represent and quantify uncertainty. It is a variable whose possible values are outcomes of a random phenomenon. In other words, it's a variable that can take on different values with certain probabilities associated with each value.
 
-## discrete random variable
+### discrete random variable {.unnumbered}
 
 There is a countable number of distinct outcomes.
 The obvious examples are coins and dice, which have 2 and 6 possible outcomes.
 
-## continuous random variable
+![](coin-and-dice.jpg)
 
-Any value within a range is possible. The position of a horizontal spinner is a good example.
+### continuous random variable {.unnumbered}
+
+Any value within a range is possible. The position of a horizontal game spinner is a good example.
+
+![](game-spinner.jpg)
 
 ## white noise
 
-See below three time series made up by three different stochastic (random) processes. All terms in each of the series are **independent and identically distributed (iid)**, meaning that they are uncorrelated and taken from the same underlying distribution.
+See below three time series made up by three different stochastic (random) processes. All terms in **each** of the series are **independent and identically distributed (iid)**, meaning that they are uncorrelated and taken from the same underlying distribution.
 
 ![](iid_N20.png)
 

@@ -1,0 +1,36 @@
+# sources
+
+## books
+
+[from Data to Viz](https://www.data-to-viz.com)
+
+[Fundamentals of Data Visualization, by Claus O. Wilke](https://clauswilke.com/dataviz/)
+
+[PyNotes in Agriscience](https://soilwater.github.io/pynotes-agriscience/intro.html)
+
+[Forecasting: Principles and Practice (3rd ed), by Rob J Hyndman and George Athanasopoulos](https://otexts.com/fpp3/)
+
+[Python for Finance Cookbook 2nd Edition - Code Repository](https://github.com/erykml/Python-for-Finance-Cookbook-2E)
+
+[Practical time series analysis,: prediction with statistics and machine learning, by Aileen Nielsen](https://huji.primo.exlibrisgroup.com/permalink/972HUJI_INST/10ptda2/alma9920842016603701)  
+The online edition of this book is available for Hebrew University staff and students.
+
+[Time series analysis with Python cookbook : practical recipes for exploratory data analysis, data preparation, forecasting, and model evaluation, by Tarek A. Atwan](https://huji.primo.exlibrisgroup.com/permalink/972HUJI_INST/10ptda2/alma9921049267803701)  
+The online edition of this book is available for Hebrew University staff and students.
+
+[Hands-on Time Series Analysis with Python: From Basics to Bleeding Edge Techniques, by B V Vishwas, Ashish Patel](https://huji.primo.exlibrisgroup.com/permalink/972HUJI_INST/10ptda2/alma9920845706703701)  
+The online edition of this book is available for Hebrew University staff and students.
+
+## videos
+
+[Times Series Analysis for Everyone, by Bruno Goncalves](https://learning.oreilly.com/videos/times-series-analysis/9780136944515/)  
+This series is available for Hebrew University staff and students.
+
+[Time Series Analysis with Pandas, by Joshua Malina](https://learning.oreilly.com/videos/time-series-analysis/00000G9DZPO7DJKE/)
+This video is available for Hebrew University staff and students.
+
+
+## references
+
+::: {#refs}
+:::
