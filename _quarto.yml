@@ -49,8 +49,9 @@ book:
         - stationarity/motivation.qmd
         - stationarity/random.qmd
         - stationarity/AR.qmd
-        - stationarity/stochastic.qmd
         - stationarity/autocorrelation.qmd
+        - stationarity/stationarity.qmd
+        - stationarity/ACF_and_PACF_graphs.ipynb
     - part: "time lags"
       chapters:
         - lags/motivation.qmd

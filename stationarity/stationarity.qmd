@@ -1,1 +1,124 @@
-## stationarity
+# stationarity
+
+## weak stationarity
+
+A time series is called weakly stationary if the following conditions are met:
+
+1. its mean $\mu$ does not vary in time:
+   $$
+   \mu_X(t) = \mu_X(t+\tau)
+   $$
+   for all values of $t$ and $\tau$.
+1. its variance is finite for any time $t$:
+   $$
+   \sigma^2_X(t) < \infty.
+   $$
+1. The autocorrelation function between two lagged versions of the same time series, $X(t_1)$ and $X(t_2)$, depends only on the difference $\tau=t_2-t_1$.
+
+## strict/strong stationarity
+
+As the name suggests, strict stationarity requires much more than the above. It requires that the joint CDF of two lagged versions of $X$ is the same. It is rare to require such strong terms, we will assume weak stationarity always from now on.
+
+## stationarity of AR(p)
+
+Let's write once more the definition of AR(p):
+
+$$
+x_{t} = \phi_1\,x_{t-1} + \phi_2\,x_{t-2} + \cdots + \phi_p\,x_{t-p} + \varepsilon
+$$
+
+We can define the **backward shift operator** $B$ as
+
+$$
+B X_t = X_{t-1}
+$$
+
+Of course, if $B$ is applied $p$ times, it shifts $X$ thus:
+
+$$
+B^p X_t = X_{t-p}.
+$$
+
+With that in hand, we can rewrite the definition of AR(p) as follows:
+
+$$
+x_{t} = \phi_1\, B\,x_t + \phi_2\,B^2\,x_t + \cdots + \phi_p\,B^p\,x_t + \varepsilon
+$$
+
+We have many terms with $x_{t}$, so let's group them on the left-hand side:
+
+$$
+x_{t}\, \phi(B) = \varepsilon,
+$$
+
+where the **characteristic polynomial** $\phi(B)$ is
+
+$$
+\phi(B) = 1 - \phi_1\, B - \phi_2\,B^2 - \cdots - \phi_p\,B^p
+$$
+
+In order to determine the stationarity of AR(p), we need to find the roots of
+
+$$
+\phi(B) = 0,
+$$
+
+called characteristic roots. These roots are often complex numbers.
+
+<div class="alert alert-danger">
+AR(p) is stationary if ALL the characteristic roots lie OUTSIDE the unit circle.
+</div>
+
+::: {.column-margin}
+The reason for this is not obvious. A nice explanation can be found in this [StackExchange response](https://quant.stackexchange.com/a/65776).
+:::
+
+## stationarity of AR(1)
+
+We need to solve the roots of the characteristic equation
+
+$$
+1 - \phi_1\, B = 0.
+$$
+
+The only root is
+
+$$
+B = \frac{1}{\phi_1}
+$$
+
+Because we require that this root is greater than 1, we have that:
+
+$$
+\frac{1}{\phi_1} > 1\quad \longrightarrow \quad \phi < 1.
+$$
+
+This result corroborates our conclusion from before:
+
+![](AR1.png)
+
+## stationarity of AR(2)
+
+We need to solve the roots of the characteristic equation
+
+$$
+1 - \phi_1 B - \phi_2 B^2 = 0.
+$$
+
+For the AR(2) time series from before, here are the roots of the characteristic polynomial plotten on the complex plane:
+
+![](AR2.png)
+
+![](AR2_complex_plane.png)
+
+Because complex roots come in pairs, I plotted above only one of the roots, the one with positive imaginary component. The second panel $(\phi_1=1.16,\phi_2=-0.33)$ has two real roots, so both are plotted in blue.
+
+The AR(2) time series will have a periodic component if the roots are complex, and the frequency of oscillation is
+
+$$
+f_0 = \frac{1}{2\pi}\cos^{-1}\left( \frac{\phi_1}{2\sqrt{(-\phi_2)}} \right)
+$$
+
+::: {.column-margin}
+See an interesting discussion in [David Josephs' excellent time series webpage](https://bookdown.org/josephs_david11/tsReview/ar2-models.html){target="_blank"}
+:::

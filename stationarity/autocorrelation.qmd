@@ -1,19 +1,11 @@
-## autocorrelation
+# autocorrelation
 
-See the temperatures for Jerusalem in a 4-day interval:
-
-![](jer_temp1.png)
-
-## question
-
-If I know the temperature right now, what does that tell me about the temperature 10 minutes from now? How about 100 minutes? 1000 minutes?
-
-To answer this, we need to talk about **autocorrelation**.
-Let's start by introducing the necessary concepts.
+In this section, we will make use of a few fundamental concepts from statistics.
+Knowing these concepts well is fundamental to make sense of stationarity.
 
 ## mean and standard deviation
 
-Let's call our time series from above $X$, and its length $N$. Then:
+Let's call our time series $X$, and its length $N$. Then:
 
 $$
 \begin{aligned}
@@ -26,16 +18,57 @@ The mean and standard deviation can be visualized thus:
 
 ![](jer_temp2.png)
 
-One last basic concept we need is the expected value:
+## expected value
+
+The expected value (or expectation) of a variable $X$ is given by
 $$
-E[X] = \sum_{i=1}^N X_i p_i
+E[X] = \sum_{i=1}^N X_i p_i.
 $$
 
-For our time series, the probability $p_i$ that a given point $X_i$ is in the dataset is simply $1/N$, therefore the expectation becomes
+$p_i$ is the weight or probability that $X_i$ occurs. For a time series, the probability $p_i$ that a given point $X_i$ is in the dataset is simply $1/N$, therefore we can write the following measures in terms of expected values:
+
+* mean, also called 1st moment:
+  $$
+  \mu = E[X].
+  $$
+* variance, also called 2nd moment:
+  $$
+  \sigma^2 = E[(X-E[X])^2] = E[(X-\mu)^2].
+  $$
+  Of course, $\sigma$ is called the standard deviation.
+
+## covariance
+
+The covariance between two time series $X$ and $Y$ is given by
 
 $$
-E[X] = \frac{\displaystyle\sum_{i=1}^N X_i}{N}
+\begin{split}
+\text{cov}(X,Y) &= E[(X-E[X])(Y-E[Y])]\\
+                &= E[(X-\mu_X)(Y-\mu_Y)]
+\end{split}
 $$
+
+Compare this to the definition of the variance, and it is obvious that the covariance $\text{cov(X,X)}$ of a time series with itself is its variance.
+
+## correlation
+
+We are almost there. I promise.
+
+The fact that  $\text{cov(X,X)} = \sigma_X^2$ begs us to define a new measure, the correlation:
+
+$$
+\text{corr}(X,Y) = \frac{E[(X-\mu_X)(Y-\mu_Y)]}{\sigma_X \sigma_Y}.
+$$
+
+This is convenient, because now we can say that the correlation of a time series with itself is $\text{corr}(X,X)=1$.
+
+This is also called the Pearson correlation coefficient, and the result has a value between $1$ and $-1$.
+
+![](800px-Correlation_examples.png)
+
+::: {.column-margin}
+Source: [Wikimedia](https://commons.wikimedia.org/wiki/File:Correlation_examples.png)
+:::
 
 ## autocorrelation
 
@@ -47,20 +80,17 @@ In other words:
 
 > how correlated are $X(t)$ and $X(t+\tau)$?
 
-Using the Pearson correlation coefficient
-
-::: {.column-margin}
-Pearson correlation coefficient between $X$ and $Y$:
-$$
-\rho_{X,Y} = \frac{E\left[ (X - \mu_X)(X_Y - \mu_Y) \right]}{\sigma_X\sigma_Y}
-$$
-:::
-
-we get
-
+The autocorrelation is expressed as
 $$
 \rho_{XX}(\tau) = \frac{E\left[ (X_t - \mu)(X_{t+\tau} - \mu) \right]}{\sigma^2}
 $$
+
+::: {.column-margin}
+In other disciplines, the autocorrelation is simply the autocovariance, i.e., it is not normalized by dividing by $\sigma^2$. In time series it is assumed that the autocorrelation is always normalized, therefore between $-1$ and $1$.
+:::
+
+
+The autocorrelation function $\rho_{XX}(\tau)$ provides a useful measure of the degree of dependence among the values of a time series at different times.
 
 A video is worth a billion words, so let's see the autocorrelation in action:
 

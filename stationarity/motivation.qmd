@@ -1,1 +1,9 @@
 ## motivation
+
+See the temperatures for Jerusalem in a 4-day interval:
+
+![](jer_temp1.png)
+
+## question
+
+If I know the temperature right now, what does that tell me about the temperature 10 minutes from now? How about 100 minutes? 1000 minutes?
