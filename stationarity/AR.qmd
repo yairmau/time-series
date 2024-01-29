@@ -115,5 +115,3 @@ The next thing to do is to generalize, and define an autoregressive process that
 $$
 x_{t} = \phi_1\,x_{t-1} + \phi_2\,x_{t-2} + \cdots + \phi_p\,x_{t-p} + \varepsilon
 $$
-
-![](AR2_complex_plane.png)

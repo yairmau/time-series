@@ -87,10 +87,10 @@ $$
 B = \frac{1}{\phi_1}
 $$
 
-Because we require that this root is greater than 1, we have that:
+Because we require that this root is greater than 1 (in absolute value), we have that:
 
 $$
-\frac{1}{\phi_1} > 1\quad \longrightarrow \quad \phi < 1.
+\left|\frac{1}{\phi_1}\right| > 1\quad \longrightarrow \quad |\phi| < 1.
 $$
 
 This result corroborates our conclusion from before:
@@ -121,4 +121,11 @@ $$
 
 ::: {.column-margin}
 See an interesting discussion in [David Josephs' excellent time series webpage](https://bookdown.org/josephs_david11/tsReview/ar2-models.html){target="_blank"}
+:::
+
+
+<iframe scrolling="no" title="AR(2) roots" src="https://www.geogebra.org/material/iframe/id/chr4msvq/width/700/height/500/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/true/ctl/false" width="700px" height="500px" style="border:0px;"> </iframe>
+
+::: {.column-margin}
+Geogebra app made by Yair Mau (2024)
 :::
