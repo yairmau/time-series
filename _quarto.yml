@@ -52,6 +52,7 @@ book:
         - stationarity/autocorrelation.qmd
         - stationarity/stationarity.qmd
         - stationarity/ACF_and_PACF_graphs.ipynb
+        - stationarity/practice.ipynb
     - part: "time lags"
       chapters:
         - lags/motivation.qmd

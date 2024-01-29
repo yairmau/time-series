@@ -70,7 +70,7 @@ AR(p) is stationary if ALL the characteristic roots lie OUTSIDE the unit circle.
 </div>
 
 ::: {.column-margin}
-The reason for this is not obvious. A nice explanation can be found in this [StackExchange response](https://quant.stackexchange.com/a/65776).
+The reason for this is not obvious. A nice explanation can be found in this [StackExchange response](https://quant.stackexchange.com/a/65776). Another good text is @tsay2010analysis[chapter 2].
 :::
 
 ## stationarity of AR(1)
@@ -123,9 +123,35 @@ $$
 See an interesting discussion in [David Josephs' excellent time series webpage](https://bookdown.org/josephs_david11/tsReview/ar2-models.html){target="_blank"}
 :::
 
+Play with the sliders for $\phi_1,\phi_2$ and see what happens to the complex roots:
 
 <iframe scrolling="no" title="AR(2) roots" src="https://www.geogebra.org/material/iframe/id/chr4msvq/width/700/height/500/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/true/ctl/false" width="700px" height="500px" style="border:0px;"> </iframe>
 
 ::: {.column-margin}
 Geogebra app made by Yair Mau (2024)
 :::
+
+Conversely, play with the position of one of the complex roots, and see how this influences the value of $\phi_1,\phi_2$.
+<iframe src="https://www.geogebra.org/classic/dcee44md?embed" width="700" height="500" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px;" frameborder="0"></iframe>
+
+The two roots are easy to find from $\phi_1,\phi_2$, you just need to solve
+
+$$
+1 - \phi_1 B - \phi_2 B^2 = 0
+$$
+
+for B. What if you choose two roots $z_1,z_2$ and want to derive from them the value of $\phi_1,\phi_2$? Just use this:
+
+$$
+\begin{split}
+\phi_1 &= \frac{z_1+z_2}{z_1\cdot z_2}\\
+& \\
+\phi_2 &= -\frac{1}{z_1\cdot z_2}
+\end{split}
+$$
+
+## stationarity of AR(4)
+
+Conceptually, this is exactly like AR(2). In case you ever need to choose AR(4) $\phi$ values, play with the widget below and see if you can put all the roots outside the unit circle.
+
+<iframe src="https://www.geogebra.org/classic/xqqffskn?embed" width="700" height="500" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px;" frameborder="0"></iframe>
