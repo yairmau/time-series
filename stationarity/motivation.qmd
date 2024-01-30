@@ -4,6 +4,19 @@ See the temperatures for Jerusalem in a 4-day interval:
 
 ![](jer_temp1.png)
 
-## question
+## questions
 
-If I know the temperature right now, what does that tell me about the temperature 10 minutes from now? How about 100 minutes? 1000 minutes?
+* If I know the temperature right now, what does that tell me about the temperature 10 minutes from now? How about 100 minutes? 1000 minutes?
+
+* The same applies to the past: how heavily does past information inform today's measurements?
+
+* **information degradation**: how fast does information from a signal degrade, and gets swamped by noise?
+
+## goals
+
+* discuss what is noise, signal, trend, cycles, etc.
+* learn a useful framework to make sense of all the above.
+* acquire statistical and time-series tools to analyze my data
+* eventually, all the above will be crucial to forcast future states.
+
+Let's go! 🚀
