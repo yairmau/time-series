@@ -71,6 +71,8 @@ AR(p) is stationary if ALL the characteristic roots lie OUTSIDE the unit circle.
 
 ::: {.column-margin}
 The reason for this is not obvious. A nice explanation can be found in this [StackExchange response](https://quant.stackexchange.com/a/65776). Another good text is @tsay2010analysis[chapter 2].
+
+@davis2016introduction [chapter 2 p. 49 and chapter 3 p. 75] explain that, strictly speaking, an AR(p) process is stationary as long as the roots do not lie on the unit circle. However, in the case that the roots lie **inside** the unit circle, the process is **noncausal**, meaning that the present state depends on future states. In reality, everyone just ignores this point, and simply say that we require the roots to lie outside the unit circle to guarantee stationarity.
 :::
 
 ## stationarity of AR(1)
@@ -123,15 +125,16 @@ $$
 See an interesting discussion in [David Josephs' excellent time series webpage](https://bookdown.org/josephs_david11/tsReview/ar2-models.html){target="_blank"}
 :::
 
-Play with the sliders for $\phi_1,\phi_2$ and see what happens to the complex roots:
+Play with the widget below to get a feel of how the complex roots depend on the values of $\phi_1$ and $\phi_2$. In the left panel you can move the point A to choose different $\phi$ values, and on the right you see the complex roots of the polynomial instantly updated. As long as the point A is inside the blue triangle, the roots will be outside the unit circle, and therefore the process will be stationary. For $\phi_2$ values above (below) the red line, the complex roots will be real (complex conjugates).
 
-<iframe scrolling="no" title="AR(2) roots" src="https://www.geogebra.org/material/iframe/id/chr4msvq/width/700/height/500/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/true/ctl/false" width="700px" height="500px" style="border:0px;"> </iframe>
+<iframe src="https://www.geogebra.org/classic/wmmsex5v?embed" width="700" height="500" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px;" frameborder="0"></iframe>
 
 ::: {.column-margin}
 Geogebra app made by Yair Mau (2024)
 :::
 
 Conversely, play with the position of one of the complex roots, and see how this influences the value of $\phi_1,\phi_2$.
+
 <iframe src="https://www.geogebra.org/classic/dcee44md?embed" width="700" height="500" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px;" frameborder="0"></iframe>
 
 The two roots are easy to find from $\phi_1,\phi_2$, you just need to solve

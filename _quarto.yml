@@ -53,6 +53,7 @@ book:
         - stationarity/stationarity.qmd
         - stationarity/ACF_and_PACF_graphs.ipynb
         - stationarity/practice.ipynb
+        - stationarity/from_AR_to_SARIMA.ipynb 
     - part: "time lags"
       chapters:
         - lags/motivation.qmd
