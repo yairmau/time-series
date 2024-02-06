@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Time Series Analysis - 30&nbsp; filling missing values</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../lags/motivation.html" rel="next">
+<link href="../stationarity/practice.html" rel="prev">
+<link href="../archive/clock-history.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar floating slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">filling missing values</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../archive/clock-history.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Time Series Analysis</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://yairmau.com/" title="" class="sidebar-tool px-1"><i class="bi bi-house-fill"></i></a>
+    <a href="../sources.html" title="" class="sidebar-tool px-1"><i class="bi bi-bookmark-fill"></i></a>
+    <a href="../things-to-remember.html" title="" class="sidebar-tool px-1"><i class="bi bi-asterisk"></i></a>
+    <a href="https://github.com/yairmau/time-series/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">about</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../who-cares.html" class="sidebar-item-text sidebar-link">who cares?</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">start here</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/boring.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">the boring stuff you absolutely need to do</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/numpy-pandas-matplotlib.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">numpy, pandas, matplotlib</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/example.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">learn by example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/AI-policy.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AI policy</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">resampling</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/resampling.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">resampling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/upsampling.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">upsampling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/interpolation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">interpolation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/FAQ.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">FAQ</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">smoothing</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/sliding.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">sliding window</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/not-only-averages.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">not only averages</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/fit.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">fit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/savgol.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">outliers and gaps</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/outlier-identification.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">outlier identification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/robust-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">robust analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/sliding-algorithms.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">sliding algorithms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/substituting-outliers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">substituting outliers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/outliers_challenge.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">challenge</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/outliers_challenge_part2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">challenge part 2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">stationarity</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/random.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">random variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/AR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">autoregressive processes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/autocorrelation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">autocorrelation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/stationarity.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">stationarity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/ACF_and_PACF_graphs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">ACF and PACF graphs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/from_AR_to_ARIMA.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/practice.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">practice</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/practice2.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">filling missing values</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">time lags</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">cross-correlation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">dynamic time warp</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/LDTW.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">LDTW</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">frequency</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Fourier transform</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">filtering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">seasonality</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../seasonality/seasonal-decomposition.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../seasonality/hilbert.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Hilbert transform</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">rates of change</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">derivatives</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">finite differences</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">forecasting</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">ARIMA</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">assignments</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">assignment 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">assignment 2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">technical stuff</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">technical stuff</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">datasets</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">date formatting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">sources</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">behind-the-scenes</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">sliding window video</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">savgol video</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">API to download data from IMS</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/consecutive_sequence.html" class="sidebar-item-text sidebar-link">remove consecutive values</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/outliers_graphs.html" class="sidebar-item-text sidebar-link">outliers graphs</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/make_your_own_website.html" class="sidebar-item-text sidebar-link">make your own website</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#forward-fill" id="toc-forward-fill" class="nav-link active" data-scroll-target="#forward-fill"><span class="toc-section-number">30.1</span>  Forward fill</a></li>
+  <li><a href="#backwrds-fill" id="toc-backwrds-fill" class="nav-link" data-scroll-target="#backwrds-fill"><span class="toc-section-number">30.2</span>  Backwrds fill</a></li>
+  <li><a href="#interpolation" id="toc-interpolation" class="nav-link" data-scroll-target="#interpolation"><span class="toc-section-number">30.3</span>  Interpolation</a>
+  <ul class="collapse">
+  <li><a href="#linear" id="toc-linear" class="nav-link" data-scroll-target="#linear"><span class="toc-section-number">30.3.1</span>  linear</a></li>
+  <li><a href="#cubic-splines" id="toc-cubic-splines" class="nav-link" data-scroll-target="#cubic-splines"><span class="toc-section-number">30.3.2</span>  cubic splines</a></li>
+  </ul></li>
+  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest"><span class="toc-section-number">30.4</span>  random forest</a></li>
+  <li><a href="#sarimax" id="toc-sarimax" class="nav-link" data-scroll-target="#sarimax"><span class="toc-section-number">31</span>  SARIMAX</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">filling missing values</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/stationarity/practice2.ipynb"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> statsmodels.tsa.statespace.sarimax <span class="im">import</span> SARIMAX</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="im">from</span> statsmodels.tsa.arima_process <span class="im">import</span> ArmaProcess</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> ticker</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="im">import</span> warnings</span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co"># Suppress FutureWarnings</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>warnings.simplefilter(action<span class="op">=</span><span class="st">'ignore'</span>, category<span class="op">=</span><span class="pp">FutureWarning</span>)</span>
+<span id="cb1-15"><a href="#cb1-15"></a>warnings.simplefilter(action<span class="op">=</span><span class="st">'ignore'</span>, category<span class="op">=</span><span class="pp">UserWarning</span>)</span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-17"><a href="#cb1-17"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="im">import</span> random</span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> plot_all_columns(data):</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    column_list <span class="op">=</span> data.columns</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    </span>
+<span id="cb2-4"><a href="#cb2-4"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="bu">len</span>(column_list),<span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="bu">len</span>(column_list)<span class="op">*</span><span class="dv">2</span>))</span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="cf">if</span> <span class="bu">len</span>(column_list) <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb2-7"><a href="#cb2-7"></a>        ax.plot(data[column_list[<span class="dv">0</span>]])</span>
+<span id="cb2-8"><a href="#cb2-8"></a>        <span class="cf">return</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>    <span class="cf">for</span> i, column <span class="kw">in</span> <span class="bu">enumerate</span>(column_list):</span>
+<span id="cb2-10"><a href="#cb2-10"></a>        ax[i].plot(data[column])</span>
+<span id="cb2-11"><a href="#cb2-11"></a>        ax[i].<span class="bu">set</span>(ylabel<span class="op">=</span>column)</span>
+<span id="cb2-12"><a href="#cb2-12"></a>    </span>
+<span id="cb2-13"><a href="#cb2-13"></a>    locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">3</span>, maxticks<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb2-14"><a href="#cb2-14"></a>    formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
+<span id="cb2-15"><a href="#cb2-15"></a>    ax[i].xaxis.set_major_locator(locator)</span>
+<span id="cb2-16"><a href="#cb2-16"></a>    ax[i].xaxis.set_major_formatter(formatter)</span>
+<span id="cb2-17"><a href="#cb2-17"></a></span>
+<span id="cb2-18"><a href="#cb2-18"></a>    <span class="cf">return</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">def</span> plot_missing_vals(original, new, title<span class="op">=</span><span class="st">''</span>):</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    column_list <span class="op">=</span> original.columns</span>
+<span id="cb3-3"><a href="#cb3-3"></a>    </span>
+<span id="cb3-4"><a href="#cb3-4"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="bu">len</span>(column_list),<span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="bu">len</span>(column_list)<span class="op">*</span><span class="dv">2</span>))</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="cf">if</span> <span class="bu">len</span>(column_list) <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb3-7"><a href="#cb3-7"></a>        ax.set_title(title)</span>
+<span id="cb3-8"><a href="#cb3-8"></a>        ax.plot(new[column_list[<span class="dv">0</span>]], c<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb3-9"><a href="#cb3-9"></a>        ax.plot(original[column_list[<span class="dv">0</span>]])</span>
+<span id="cb3-10"><a href="#cb3-10"></a>        <span class="cf">return</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>    <span class="cf">for</span> i, column <span class="kw">in</span> <span class="bu">enumerate</span>(column_list):</span>
+<span id="cb3-12"><a href="#cb3-12"></a>        ax[i].plot(original[column_list[<span class="dv">0</span>]], c<span class="op">=</span><span class="st">'tab:blue'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb3-13"><a href="#cb3-13"></a>        ax[i].plot(new[column], c<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb3-14"><a href="#cb3-14"></a>        ax[i].plot(original[column])</span>
+<span id="cb3-15"><a href="#cb3-15"></a>        <span class="cf">if</span> i <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb3-16"><a href="#cb3-16"></a>            ax[i].scatter(new[column].index,new[column].values, marker<span class="op">=</span><span class="st">'o'</span>, s<span class="op">=</span><span class="dv">4</span>, c<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb3-17"><a href="#cb3-17"></a>            ax[i].scatter(original[column].index,original[column].values, marker<span class="op">=</span><span class="st">'o'</span>, s<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb3-18"><a href="#cb3-18"></a>        <span class="cf">else</span>:</span>
+<span id="cb3-19"><a href="#cb3-19"></a>            ax[i].set_title(title)</span>
+<span id="cb3-20"><a href="#cb3-20"></a>        ax[i].<span class="bu">set</span>(ylabel<span class="op">=</span>column)</span>
+<span id="cb3-21"><a href="#cb3-21"></a>        <span class="co"># calculate and display MSE</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>        mse <span class="op">=</span> mean_squared_error(original[column_list[<span class="dv">0</span>]], new[column])</span>
+<span id="cb3-23"><a href="#cb3-23"></a>        ax[i].text(<span class="fl">0.01</span>, <span class="fl">0.95</span>, <span class="ss">f'MSE: </span><span class="sc">{</span>mse<span class="sc">:.4f}</span><span class="ss">'</span>, transform<span class="op">=</span>ax[i].transAxes, fontsize<span class="op">=</span><span class="dv">12</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>)</span>
+<span id="cb3-24"><a href="#cb3-24"></a>    </span>
+<span id="cb3-25"><a href="#cb3-25"></a>    locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">3</span>, maxticks<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb3-26"><a href="#cb3-26"></a>    formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
+<span id="cb3-27"><a href="#cb3-27"></a>    ax[i].xaxis.set_major_locator(locator)</span>
+<span id="cb3-28"><a href="#cb3-28"></a>    ax[i].xaxis.set_major_formatter(formatter)</span>
+<span id="cb3-29"><a href="#cb3-29"></a></span>
+<span id="cb3-30"><a href="#cb3-30"></a>    <span class="cf">return</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'data_missing.csv'</span>, index_col<span class="op">=</span><span class="st">'date'</span>, parse_dates<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>original</th>
+      <th>mis_1</th>
+      <th>mis_2</th>
+      <th>mis_3</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2019-07-01 00:00:00</th>
+      <td>21.808333</td>
+      <td>21.808333</td>
+      <td>21.808333</td>
+      <td>21.808333</td>
+    </tr>
+    <tr>
+      <th>2019-07-01 02:00:00</th>
+      <td>20.808333</td>
+      <td>20.808333</td>
+      <td>20.808333</td>
+      <td>20.808333</td>
+    </tr>
+    <tr>
+      <th>2019-07-01 04:00:00</th>
+      <td>20.283333</td>
+      <td>20.283333</td>
+      <td>20.283333</td>
+      <td>20.283333</td>
+    </tr>
+    <tr>
+      <th>2019-07-01 06:00:00</th>
+      <td>22.216667</td>
+      <td>22.216667</td>
+      <td>22.216667</td>
+      <td>22.216667</td>
+    </tr>
+    <tr>
+      <th>2019-07-01 08:00:00</th>
+      <td>26.091667</td>
+      <td>26.091667</td>
+      <td>NaN</td>
+      <td>26.091667</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2019-08-31 14:00:00</th>
+      <td>29.400000</td>
+      <td>29.400000</td>
+      <td>NaN</td>
+      <td>29.400000</td>
+    </tr>
+    <tr>
+      <th>2019-08-31 16:00:00</th>
+      <td>26.808333</td>
+      <td>26.808333</td>
+      <td>26.808333</td>
+      <td>26.808333</td>
+    </tr>
+    <tr>
+      <th>2019-08-31 18:00:00</th>
+      <td>24.050000</td>
+      <td>24.050000</td>
+      <td>24.050000</td>
+      <td>24.050000</td>
+    </tr>
+    <tr>
+      <th>2019-08-31 20:00:00</th>
+      <td>23.008333</td>
+      <td>23.008333</td>
+      <td>23.008333</td>
+      <td>23.008333</td>
+    </tr>
+    <tr>
+      <th>2019-08-31 22:00:00</th>
+      <td>22.275000</td>
+      <td>22.275000</td>
+      <td>22.275000</td>
+      <td>22.275000</td>
+    </tr>
+  </tbody>
+</table>
+<p>744 rows × 4 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>plot_all_columns(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="practice2_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<section id="forward-fill" class="level2" data-number="30.1">
+<h2 data-number="30.1" class="anchored" data-anchor-id="forward-fill"><span class="header-section-number">30.1</span> Forward fill</h2>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>df_ffil <span class="op">=</span> df.fillna(method<span class="op">=</span><span class="st">'ffill'</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>plot_missing_vals(df, df_ffil, title<span class="op">=</span><span class="st">'ffill'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="practice2_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="backwrds-fill" class="level2" data-number="30.2">
+<h2 data-number="30.2" class="anchored" data-anchor-id="backwrds-fill"><span class="header-section-number">30.2</span> Backwrds fill</h2>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>df_bfil <span class="op">=</span> df.fillna(method<span class="op">=</span><span class="st">'bfill'</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>plot_missing_vals(df, df_bfil, title<span class="op">=</span><span class="st">'bfill'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="practice2_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="interpolation" class="level2 page-columns page-full" data-number="30.3">
+<h2 data-number="30.3" class="anchored" data-anchor-id="interpolation"><span class="header-section-number">30.3</span> Interpolation</h2>
+<section id="linear" class="level3" data-number="30.3.1">
+<h3 data-number="30.3.1" class="anchored" data-anchor-id="linear"><span class="header-section-number">30.3.1</span> linear</h3>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>interpolated_df <span class="op">=</span> df.interpolate(method<span class="op">=</span><span class="st">'linear'</span>)</span>
+<span id="cb8-2"><a href="#cb8-2"></a>plot_missing_vals(df, interpolated_df, title<span class="op">=</span><span class="st">'linear interpolation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="practice2_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.interpolate.html</p>
+</section>
+<section id="cubic-splines" class="level3 page-columns page-full" data-number="30.3.2">
+<h3 data-number="30.3.2" class="anchored" data-anchor-id="cubic-splines"><span class="header-section-number">30.3.2</span> cubic splines</h3>
+<p>Source: <a href="https://docs.scipy.org/doc/scipy/tutorial/interpolate/1D.html#cubic-splines" class="uri">https://docs.scipy.org/doc/scipy/tutorial/interpolate/1D.html#cubic-splines</a></p>
+<p>Piecewise linear interpolation produces corners at data points, where linear pieces join. To produce a smoother curve, you can use cubic splines, where the interpolating curve is made of cubic pieces with <strong>matching first and second derivatives</strong>.</p>
+<p><img src="cubic_c2_spline.png" class="img-fluid"></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Source: <a href="https://kluge.in-chemnitz.de/opensource/spline/" class="uri">https://kluge.in-chemnitz.de/opensource/spline/</a></p>
+</div></div><div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>interpolated_cubic_df <span class="op">=</span> df.interpolate(method<span class="op">=</span><span class="st">'cubic'</span>)</span>
+<span id="cb9-2"><a href="#cb9-2"></a>plot_missing_vals(df, interpolated_cubic_df, title<span class="op">=</span><span class="st">'cubic interpolation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="practice2_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>plot_missing_vals(interpolated_df, interpolated_cubic_df, title<span class="op">=</span><span class="st">'linear vs cubic interpolation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="practice2_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>interpolated_poly_df <span class="op">=</span> df.interpolate(method<span class="op">=</span><span class="st">'polynomial'</span>, order<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>plot_missing_vals(df, interpolated_poly_df, title<span class="op">=</span><span class="st">'polynomial interpolation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="practice2_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>plot_missing_vals(interpolated_cubic_df, interpolated_poly_df, title<span class="op">=</span><span class="st">'cubic vs polynomial interpolation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="practice2_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>All available interpolation types can be found at the <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.interpolate.html">pandas documentation</a></p>
+</section>
+</section>
+<section id="random-forest" class="level2" data-number="30.4">
+<h2 data-number="30.4" class="anchored" data-anchor-id="random-forest"><span class="header-section-number">30.4</span> random forest</h2>
+<p>Here we explore the use of a commnly used Machine learning model - RandomForest</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="kw">def</span> fillna_randomforest(series):</span>
+<span id="cb13-3"><a href="#cb13-3"></a>    <span class="co"># Ensure the series index is a datetime object</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>    <span class="cf">if</span> <span class="kw">not</span> <span class="bu">isinstance</span>(series.index, pd.DatetimeIndex):</span>
+<span id="cb13-5"><a href="#cb13-5"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Index must be a DatetimeIndex"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6"></a>    </span>
+<span id="cb13-7"><a href="#cb13-7"></a>    <span class="co"># Split series into observed and missing values</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>    observed <span class="op">=</span> series.dropna()</span>
+<span id="cb13-9"><a href="#cb13-9"></a>    missing <span class="op">=</span> series[series.isna()]</span>
+<span id="cb13-10"><a href="#cb13-10"></a>    </span>
+<span id="cb13-11"><a href="#cb13-11"></a>    <span class="co"># Extracting time-based features</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a>    <span class="kw">def</span> create_features(index):</span>
+<span id="cb13-13"><a href="#cb13-13"></a>        <span class="cf">return</span> np.array([index.hour, index.day, index.month, index.year]).T</span>
+<span id="cb13-14"><a href="#cb13-14"></a>    </span>
+<span id="cb13-15"><a href="#cb13-15"></a>    <span class="co"># Create features for training data</span></span>
+<span id="cb13-16"><a href="#cb13-16"></a>    X_train <span class="op">=</span> create_features(observed.index)</span>
+<span id="cb13-17"><a href="#cb13-17"></a>    y_train <span class="op">=</span> observed.values</span>
+<span id="cb13-18"><a href="#cb13-18"></a>    </span>
+<span id="cb13-19"><a href="#cb13-19"></a>    <span class="co"># Train the Random Forest regression model</span></span>
+<span id="cb13-20"><a href="#cb13-20"></a>    model <span class="op">=</span> RandomForestRegressor()</span>
+<span id="cb13-21"><a href="#cb13-21"></a>    model.fit(X_train, y_train)</span>
+<span id="cb13-22"><a href="#cb13-22"></a>    </span>
+<span id="cb13-23"><a href="#cb13-23"></a>    <span class="co"># Create features for missing data and predict</span></span>
+<span id="cb13-24"><a href="#cb13-24"></a>    X_missing <span class="op">=</span> create_features(missing.index)</span>
+<span id="cb13-25"><a href="#cb13-25"></a>    predicted_values <span class="op">=</span> model.predict(X_missing)</span>
+<span id="cb13-26"><a href="#cb13-26"></a>    </span>
+<span id="cb13-27"><a href="#cb13-27"></a>    <span class="co"># Assign the predicted values to the missing positions</span></span>
+<span id="cb13-28"><a href="#cb13-28"></a>    series_filled <span class="op">=</span> series.copy()</span>
+<span id="cb13-29"><a href="#cb13-29"></a>    series_filled[series_filled.isna()] <span class="op">=</span> predicted_values</span>
+<span id="cb13-30"><a href="#cb13-30"></a></span>
+<span id="cb13-31"><a href="#cb13-31"></a>    <span class="cf">return</span> series_filled</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>columns <span class="op">=</span> df.columns</span>
+<span id="cb14-2"><a href="#cb14-2"></a>df_rf <span class="op">=</span> df.copy()</span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="cf">for</span> i, column <span class="kw">in</span> <span class="bu">enumerate</span>(columns):</span>
+<span id="cb14-4"><a href="#cb14-4"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb14-5"><a href="#cb14-5"></a>        <span class="cf">continue</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a>    df_rf[column] <span class="op">=</span> fillna_randomforest(df_rf[column])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>plot_missing_vals(df, df_rf, title<span class="op">=</span><span class="st">'fandomforest'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="practice2_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="sarimax" class="level1" data-number="31">
+<h1 data-number="31"><span class="header-section-number">31</span> SARIMAX</h1>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Model Building and Imputation</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="co"># Build a SARIMA model on the data with gaps</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>seasonal_period <span class="op">=</span> <span class="dv">24</span><span class="op">/</span><span class="dv">2</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>model <span class="op">=</span> SARIMAX(df[<span class="st">'mis_3'</span>], order<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>), seasonal_order<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, seasonal_period), enforce_stationarity<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb16-5"><a href="#cb16-5"></a>results <span class="op">=</span> model.fit(disp<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb16-6"><a href="#cb16-6"></a></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="co"># Impute missing values one by one</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a>ts_data_filled <span class="op">=</span> df[<span class="st">'mis_3'</span>].copy()</span>
+<span id="cb16-9"><a href="#cb16-9"></a>missing_indices <span class="op">=</span> df[<span class="st">'mis_3'</span>].loc[df[<span class="st">'mis_3'</span>].isna()]</span>
+<span id="cb16-10"><a href="#cb16-10"></a><span class="cf">for</span> missing_index <span class="kw">in</span> missing_indices.index:</span>
+<span id="cb16-11"><a href="#cb16-11"></a>    ts_data_filled[missing_index] <span class="op">=</span> results.predict(start<span class="op">=</span>missing_index, end<span class="op">=</span>missing_index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb17-2"><a href="#cb17-2"></a>ax.plot(ts_data_filled, label<span class="op">=</span><span class="st">'Imputed Data'</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb17-3"><a href="#cb17-3"></a>ax.plot(df[<span class="st">'original'</span>], label<span class="op">=</span><span class="st">'Original Data'</span>, color<span class="op">=</span><span class="st">'tab:blue'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb17-4"><a href="#cb17-4"></a>ax.plot(df[<span class="st">'mis_3'</span>], label<span class="op">=</span><span class="st">'Data with Gaps'</span>, color<span class="op">=</span><span class="st">'tab:blue'</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb17-5"><a href="#cb17-5"></a>ax.set_ylabel(<span class="st">'temperature'</span>)</span>
+<span id="cb17-6"><a href="#cb17-6"></a>ax.set_title(<span class="st">'SARIMAX'</span>)</span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="co"># calculate and display MSE</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a>mse <span class="op">=</span> mean_squared_error(df[<span class="st">'original'</span>], ts_data_filled)</span>
+<span id="cb17-9"><a href="#cb17-9"></a>ax.text(<span class="fl">0.01</span>, <span class="fl">0.95</span>, <span class="ss">f'MSE: </span><span class="sc">{</span>mse<span class="sc">:.4f}</span><span class="ss">'</span>, transform<span class="op">=</span>ax.transAxes, fontsize<span class="op">=</span><span class="dv">14</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>)</span>
+<span id="cb17-10"><a href="#cb17-10"></a><span class="co"># ax.legend()</span></span>
+<span id="cb17-11"><a href="#cb17-11"></a></span>
+<span id="cb17-12"><a href="#cb17-12"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">3</span>, maxticks<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb17-13"><a href="#cb17-13"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
+<span id="cb17-14"><a href="#cb17-14"></a>ax.xaxis.set_major_locator(locator)</span>
+<span id="cb17-15"><a href="#cb17-15"></a>ax.xaxis.set_major_formatter(formatter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="practice2_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>The above looks good at the begining of the gap but at the end of the gap it looks bad. That is because we are forcasting and not filling in between the lines… # forward - reverse combination</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">def</span> find_nan_gaps_indexes_datetime(series):</span>
+<span id="cb18-2"><a href="#cb18-2"></a>    <span class="co">"""</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="co">    Find and pair the start and end datetime indexes of gaps in a pandas Series with a datetime index containing NaN values.</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a></span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="co">    Parameters:</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a><span class="co">    series (pandas Series): The input pandas Series with a datetime index containing NaN gaps.</span></span>
+<span id="cb18-7"><a href="#cb18-7"></a></span>
+<span id="cb18-8"><a href="#cb18-8"></a><span class="co">    Returns:</span></span>
+<span id="cb18-9"><a href="#cb18-9"></a><span class="co">    list of tuples: A list of tuples where each tuple contains the start datetime index and end datetime index of a gap.</span></span>
+<span id="cb18-10"><a href="#cb18-10"></a><span class="co">    """</span></span>
+<span id="cb18-11"><a href="#cb18-11"></a>    is_nan <span class="op">=</span> series.isna().values</span>
+<span id="cb18-12"><a href="#cb18-12"></a>    start_indexes <span class="op">=</span> np.where(is_nan <span class="op">&amp;</span> <span class="op">~</span>np.roll(is_nan, <span class="dv">1</span>))[<span class="dv">0</span>]</span>
+<span id="cb18-13"><a href="#cb18-13"></a>    end_indexes <span class="op">=</span> np.where(is_nan <span class="op">&amp;</span> <span class="op">~</span>np.roll(is_nan, <span class="op">-</span><span class="dv">1</span>))[<span class="dv">0</span>]</span>
+<span id="cb18-14"><a href="#cb18-14"></a></span>
+<span id="cb18-15"><a href="#cb18-15"></a>    <span class="co"># If the last gap extends to the end of the Series, add its end index</span></span>
+<span id="cb18-16"><a href="#cb18-16"></a>    <span class="cf">if</span> is_nan[<span class="op">-</span><span class="dv">1</span>]:</span>
+<span id="cb18-17"><a href="#cb18-17"></a>        end_indexes <span class="op">=</span> np.append(end_indexes, <span class="bu">len</span>(series) <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb18-18"><a href="#cb18-18"></a></span>
+<span id="cb18-19"><a href="#cb18-19"></a>    <span class="co"># Pair start and end datetime indexes together</span></span>
+<span id="cb18-20"><a href="#cb18-20"></a>    gap_pairs <span class="op">=</span> [(series.index[start], series.index[end]) <span class="cf">for</span> start, end <span class="kw">in</span> <span class="bu">zip</span>(start_indexes, end_indexes)]</span>
+<span id="cb18-21"><a href="#cb18-21"></a>    </span>
+<span id="cb18-22"><a href="#cb18-22"></a>    <span class="cf">return</span> gap_pairs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">def</span> forward_reverse_SARIMAX(ts_data, order<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), seasonal_order<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">12</span>), seasonal_period<span class="op">=</span><span class="dv">12</span>, enforce_stationarity<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb19-2"><a href="#cb19-2"></a>    <span class="co"># The function forward_reverse_SARIMAX aims to impute missing values in a time series dataset using a</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>    <span class="co"># SARIMAX model approach, both in the original and reversed order of the data. Initially, it builds a </span></span>
+<span id="cb19-4"><a href="#cb19-4"></a>    <span class="co"># SARIMAX model on the provided dataset to predict and fill in the missing values. Then, it reverses </span></span>
+<span id="cb19-5"><a href="#cb19-5"></a>    <span class="co"># the time series data, applies another SARIMAX model on this reversed data, and imputes the missing </span></span>
+<span id="cb19-6"><a href="#cb19-6"></a>    <span class="co"># values again. After obtaining the imputed datasets from both forward and reverse directions, the </span></span>
+<span id="cb19-7"><a href="#cb19-7"></a>    <span class="co"># function iteratively blends the imputed values from both models for each missing point, adjusting </span></span>
+<span id="cb19-8"><a href="#cb19-8"></a>    <span class="co"># the weight given to the forward and reverse imputations based on the position within the missing data gap. </span></span>
+<span id="cb19-9"><a href="#cb19-9"></a>    <span class="co"># This blended approach aims to leverage the predictive insights from both the preceding and succeeding </span></span>
+<span id="cb19-10"><a href="#cb19-10"></a>    <span class="co"># data points, potentially providing a more accurate and balanced imputation for the missing values.</span></span>
+<span id="cb19-11"><a href="#cb19-11"></a>    </span>
+<span id="cb19-12"><a href="#cb19-12"></a>    <span class="co"># Model Building and Imputation</span></span>
+<span id="cb19-13"><a href="#cb19-13"></a>    <span class="co"># Build a SARIMA model on the data with gaps</span></span>
+<span id="cb19-14"><a href="#cb19-14"></a>    model <span class="op">=</span> SARIMAX(ts_data, order<span class="op">=</span>order, seasonal_order<span class="op">=</span>seasonal_order, enforce_stationarity<span class="op">=</span>enforce_stationarity)</span>
+<span id="cb19-15"><a href="#cb19-15"></a>    results <span class="op">=</span> model.fit(disp<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb19-16"><a href="#cb19-16"></a></span>
+<span id="cb19-17"><a href="#cb19-17"></a>    <span class="co"># Impute missing values one by one</span></span>
+<span id="cb19-18"><a href="#cb19-18"></a>    ts_data_filled <span class="op">=</span> ts_data.copy()</span>
+<span id="cb19-19"><a href="#cb19-19"></a>    missing_indices <span class="op">=</span> ts_data.loc[ts_data.isna()]</span>
+<span id="cb19-20"><a href="#cb19-20"></a>    <span class="cf">for</span> missing_index <span class="kw">in</span> missing_indices.index:</span>
+<span id="cb19-21"><a href="#cb19-21"></a>        ts_data_filled[missing_index] <span class="op">=</span> results.predict(start<span class="op">=</span>missing_index, end<span class="op">=</span>missing_index)</span>
+<span id="cb19-22"><a href="#cb19-22"></a>    </span>
+<span id="cb19-23"><a href="#cb19-23"></a></span>
+<span id="cb19-24"><a href="#cb19-24"></a>    <span class="co"># Reverse the time series</span></span>
+<span id="cb19-25"><a href="#cb19-25"></a>    ts_data_reversed <span class="op">=</span> ts_data.iloc[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb19-26"><a href="#cb19-26"></a></span>
+<span id="cb19-27"><a href="#cb19-27"></a>    <span class="co"># Build SARIMAX model on reversed data</span></span>
+<span id="cb19-28"><a href="#cb19-28"></a>    model_reversed <span class="op">=</span> SARIMAX(ts_data_reversed, order<span class="op">=</span>order, seasonal_order<span class="op">=</span>seasonal_order, enforce_stationarity<span class="op">=</span>enforce_stationarity)</span>
+<span id="cb19-29"><a href="#cb19-29"></a>    results_reversed <span class="op">=</span> model_reversed.fit(disp<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb19-30"><a href="#cb19-30"></a></span>
+<span id="cb19-31"><a href="#cb19-31"></a>    <span class="co"># Impute missing values in reversed data</span></span>
+<span id="cb19-32"><a href="#cb19-32"></a>    ts_data_filled_reversed <span class="op">=</span> ts_data_reversed.copy()</span>
+<span id="cb19-33"><a href="#cb19-33"></a>    missing_indices_reversed <span class="op">=</span> ts_data_reversed.loc[ts_data_reversed.isna()]</span>
+<span id="cb19-34"><a href="#cb19-34"></a>    <span class="cf">for</span> missing_index <span class="kw">in</span> missing_indices_reversed.index:</span>
+<span id="cb19-35"><a href="#cb19-35"></a>        ts_data_filled_reversed[missing_index] <span class="op">=</span> results_reversed.predict(start<span class="op">=</span>missing_index, end<span class="op">=</span>missing_index)</span>
+<span id="cb19-36"><a href="#cb19-36"></a></span>
+<span id="cb19-37"><a href="#cb19-37"></a>    <span class="co"># Reverse the imputed data back to original order</span></span>
+<span id="cb19-38"><a href="#cb19-38"></a>    ts_data_filled_reversed <span class="op">=</span> ts_data_filled_reversed.iloc[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb19-39"><a href="#cb19-39"></a></span>
+<span id="cb19-40"><a href="#cb19-40"></a></span>
+<span id="cb19-41"><a href="#cb19-41"></a>    <span class="co"># Initialize a series to hold the combined predictions</span></span>
+<span id="cb19-42"><a href="#cb19-42"></a>    ts_data_combined <span class="op">=</span> ts_data.copy()</span>
+<span id="cb19-43"><a href="#cb19-43"></a></span>
+<span id="cb19-44"><a href="#cb19-44"></a>    <span class="co"># Iterate over each gap</span></span>
+<span id="cb19-45"><a href="#cb19-45"></a>    <span class="cf">for</span> gap_start, gap_end <span class="kw">in</span> find_nan_gaps_indexes_datetime(ts_data):</span>
+<span id="cb19-46"><a href="#cb19-46"></a>        <span class="co"># print(gap_start)</span></span>
+<span id="cb19-47"><a href="#cb19-47"></a>        <span class="co"># Calculate the number of periods in the gap</span></span>
+<span id="cb19-48"><a href="#cb19-48"></a>        gap <span class="op">=</span> ts_data[gap_start:gap_end]</span>
+<span id="cb19-49"><a href="#cb19-49"></a>        gap_length <span class="op">=</span> <span class="bu">len</span>(gap)</span>
+<span id="cb19-50"><a href="#cb19-50"></a>        </span>
+<span id="cb19-51"><a href="#cb19-51"></a>        <span class="co"># Iterate over each index in the gap</span></span>
+<span id="cb19-52"><a href="#cb19-52"></a>        <span class="co"># for i, index in enumerate(pd.date_range(start=gap_start, end=gap_end, freq=ts_data.index.freq)):</span></span>
+<span id="cb19-53"><a href="#cb19-53"></a>        <span class="cf">for</span> i, index <span class="kw">in</span> <span class="bu">enumerate</span>(gap.index):</span>
+<span id="cb19-54"><a href="#cb19-54"></a>            forward_weight <span class="op">=</span> (gap_length <span class="op">-</span> i) <span class="op">/</span> gap_length</span>
+<span id="cb19-55"><a href="#cb19-55"></a>            backward_weight <span class="op">=</span> i <span class="op">/</span> gap_length</span>
+<span id="cb19-56"><a href="#cb19-56"></a>            combined_prediction <span class="op">=</span> (ts_data_filled.at[index] <span class="op">*</span> forward_weight <span class="op">+</span></span>
+<span id="cb19-57"><a href="#cb19-57"></a>                                ts_data_filled_reversed.at[index] <span class="op">*</span> backward_weight)</span>
+<span id="cb19-58"><a href="#cb19-58"></a>            ts_data_combined.at[index] <span class="op">=</span> combined_prediction</span>
+<span id="cb19-59"><a href="#cb19-59"></a>    </span>
+<span id="cb19-60"><a href="#cb19-60"></a>    <span class="cf">return</span> ts_data_combined</span>
+<span id="cb19-61"><a href="#cb19-61"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>f_r_SARIMAX <span class="op">=</span> forward_reverse_SARIMAX(df[<span class="st">'mis_3'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb21-2"><a href="#cb21-2"></a>ax.plot(f_r_SARIMAX, label<span class="op">=</span><span class="st">'Imputed Data'</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb21-3"><a href="#cb21-3"></a>ax.plot(df[<span class="st">'original'</span>], label<span class="op">=</span><span class="st">'Original Data'</span>, color<span class="op">=</span><span class="st">'tab:blue'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb21-4"><a href="#cb21-4"></a>ax.plot(df[<span class="st">'mis_3'</span>], label<span class="op">=</span><span class="st">'Data with Gaps'</span>, color<span class="op">=</span><span class="st">'tab:blue'</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb21-5"><a href="#cb21-5"></a>ax.set_ylabel(<span class="st">'temperature'</span>)</span>
+<span id="cb21-6"><a href="#cb21-6"></a>ax.set_title(<span class="st">'forward reverse SARIMAX'</span>)</span>
+<span id="cb21-7"><a href="#cb21-7"></a><span class="co"># calculate and display MSE</span></span>
+<span id="cb21-8"><a href="#cb21-8"></a>mse <span class="op">=</span> mean_squared_error(df[<span class="st">'original'</span>], f_r_SARIMAX)</span>
+<span id="cb21-9"><a href="#cb21-9"></a>ax.text(<span class="fl">0.01</span>, <span class="fl">0.95</span>, <span class="ss">f'MSE: </span><span class="sc">{</span>mse<span class="sc">:.4f}</span><span class="ss">'</span>, transform<span class="op">=</span>ax.transAxes, fontsize<span class="op">=</span><span class="dv">14</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>)</span>
+<span id="cb21-10"><a href="#cb21-10"></a><span class="co"># ax.legend()</span></span>
+<span id="cb21-11"><a href="#cb21-11"></a></span>
+<span id="cb21-12"><a href="#cb21-12"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">3</span>, maxticks<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb21-13"><a href="#cb21-13"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
+<span id="cb21-14"><a href="#cb21-14"></a>ax.xaxis.set_major_locator(locator)</span>
+<span id="cb21-15"><a href="#cb21-15"></a>ax.xaxis.set_major_formatter(formatter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="practice2_files/figure-html/cell-22-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Calculate MSE</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>mse_fr <span class="op">=</span> mean_squared_error(df[<span class="st">'original'</span>], f_r_SARIMAX)</span>
+<span id="cb22-3"><a href="#cb22-3"></a>mse_rf <span class="op">=</span> mean_squared_error(df[<span class="st">'original'</span>], df_rf[<span class="st">'mis_3'</span>])</span>
+<span id="cb22-4"><a href="#cb22-4"></a></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="bu">print</span>(<span class="st">"Mean Squared Error sarimax:"</span>, mse_fr)</span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="bu">print</span>(<span class="st">"Mean Squared Error rand:"</span>, mse_rf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mean Squared Error sarimax: 1.0961749546737887
+Mean Squared Error rand: 1.4924638305799802</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../stationarity/practice.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">practice</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../lags/motivation.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">motivation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

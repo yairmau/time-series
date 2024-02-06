@@ -10,7 +10,7 @@ Go to the [IMS website](https://ims.gov.il/en/data_gov){target="_blank"}, and ch
 **Make 3 graphs:**
 
 1. Daily maximum humidity. Bonus: add another line to the graph, the daily minimum humidity.
-1. The number of rainy dais for each month
+1. The number of rainy days for each month.
 1. For each day of the year, show the number of hours when global solar radiation was above, on average, the threshold 10 W/m$^2$. Now add another line, for the threshold 500 W/m$^2$.
 
 **Make 5 more graphs** (total of 8 graphs) of whatever you find interesting. You have the liberty to explore various facets of your dataset that capture your interest. It's essential, however, to maintain a focus on resampling. Each of your plots should effectively showcase and emphasize different aspects or techniques of resampling in your data analysis. To ensure diversity in your visualizations, avoid repetitive themes; for instance, if your first plot illustrates daily wind speed, then your second plot should not simply be a monthly resampling of wind speed. Aim for variety and innovation in each plot to fully explore the potential of resampling in data visualization.

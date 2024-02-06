@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series Analysis - 29&nbsp; from AR to SARIMA</title>
+<title>Time Series Analysis - 28&nbsp; from AR to ARIMA</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -112,8 +112,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../lags/motivation.html" rel="next">
-<link href="../stationarity/practice.html" rel="prev">
+<link href="../stationarity/practice.html" rel="next">
+<link href="../stationarity/ACF_and_PACF_graphs.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -164,13 +164,13 @@ div.csl-indent {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">from AR to SARIMA</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -397,12 +397,17 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stationarity/practice.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">practice</span></a>
+  <a href="../stationarity/from_AR_to_ARIMA.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stationarity/from_AR_to_SARIMA.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">from AR to SARIMA</span></a>
+  <a href="../stationarity/practice.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">practice</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/practice2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">filling missing values</span></a>
   </div>
 </li>
       </ul>
@@ -417,22 +422,22 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">cross-correlation</span></a>
+  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">cross-correlation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">dynamic time warp</span></a>
+  <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">dynamic time warp</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/LDTW.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">LDTW</span></a>
+  <a href="../lags/LDTW.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">LDTW</span></a>
   </div>
 </li>
       </ul>
@@ -447,22 +452,22 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Fourier transform</span></a>
+  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Fourier transform</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">filtering</span></a>
+  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">filtering</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></a>
+  <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></a>
   </div>
 </li>
       </ul>
@@ -477,17 +482,17 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../seasonality/seasonal-decomposition.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></a>
+  <a href="../seasonality/seasonal-decomposition.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../seasonality/hilbert.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Hilbert transform</span></a>
+  <a href="../seasonality/hilbert.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Hilbert transform</span></a>
   </div>
 </li>
       </ul>
@@ -502,27 +507,27 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">derivatives</span></a>
+  <a href="../rates-of-change/derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">derivatives</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">finite differences</span></a>
+  <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">finite differences</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></a>
+  <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></a>
+  <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></a>
   </div>
 </li>
       </ul>
@@ -537,12 +542,12 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">ARIMA</span></a>
+  <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">ARIMA</span></a>
   </div>
 </li>
       </ul>
@@ -557,12 +562,12 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../assignments/assignment1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">assignment 1</span></a>
+  <a href="../assignments/assignment1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">assignment 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../assignments/assignment2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">assignment 2</span></a>
+  <a href="../assignments/assignment2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">assignment 2</span></a>
   </div>
 </li>
       </ul>
@@ -577,22 +582,22 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">technical stuff</span></a>
+  <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">technical stuff</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">datasets</span></a>
+  <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">datasets</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">date formatting</span></a>
+  <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">date formatting</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">sources</span></a>
+  <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">sources</span></a>
   </div>
 </li>
       </ul>
@@ -646,20 +651,21 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#arp" id="toc-arp" class="nav-link active" data-scroll-target="#arp"><span class="toc-section-number">29.1</span>  AR(p)</a></li>
-  <li><a href="#maq" id="toc-maq" class="nav-link" data-scroll-target="#maq"><span class="toc-section-number">29.2</span>  MA(q)</a></li>
-  <li><a href="#armapq" id="toc-armapq" class="nav-link" data-scroll-target="#armapq"><span class="toc-section-number">29.3</span>  ARMA(p,q)</a></li>
-  <li><a href="#acf-and-pacf" id="toc-acf-and-pacf" class="nav-link" data-scroll-target="#acf-and-pacf"><span class="toc-section-number">29.4</span>  ACF and PACF</a></li>
-  <li><a href="#non-stationary-data" id="toc-non-stationary-data" class="nav-link" data-scroll-target="#non-stationary-data"><span class="toc-section-number">29.5</span>  Non-stationary data</a></li>
+  <li><a href="#arp" id="toc-arp" class="nav-link active" data-scroll-target="#arp"><span class="toc-section-number">28.1</span>  AR(p)</a></li>
+  <li><a href="#maq" id="toc-maq" class="nav-link" data-scroll-target="#maq"><span class="toc-section-number">28.2</span>  MA(q)</a></li>
+  <li><a href="#armapq" id="toc-armapq" class="nav-link" data-scroll-target="#armapq"><span class="toc-section-number">28.3</span>  ARMA(p,q)</a></li>
+  <li><a href="#acf-and-pacf" id="toc-acf-and-pacf" class="nav-link" data-scroll-target="#acf-and-pacf"><span class="toc-section-number">28.4</span>  ACF and PACF</a></li>
+  <li><a href="#non-stationary-data-and-adf-test" id="toc-non-stationary-data-and-adf-test" class="nav-link" data-scroll-target="#non-stationary-data-and-adf-test"><span class="toc-section-number">28.5</span>  Non-stationary data and ADF test</a></li>
+  <li><a href="#arimapdq" id="toc-arimapdq" class="nav-link" data-scroll-target="#arimapdq"><span class="toc-section-number">28.6</span>  ARIMA(p,d,q)</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">from AR to SARIMA</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/stationarity/from_AR_to_SARIMA.ipynb">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/stationarity/from_AR_to_ARIMA.ipynb">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -675,10 +681,10 @@ div.csl-indent {
 </header>
 
 <p>Up to this point, we learned what an AR process is, and how it relates to the concept of stationarity.</p>
-<p>Our long term goal is to use these concepts to make forcasts (predictions) about the future. Before we do that, it is useful to talk about a generalization of the AR process, that better resembles real-life data.</p>
-<section id="arp" class="level2" data-number="29.1">
-<h2 data-number="29.1" class="anchored" data-anchor-id="arp"><span class="header-section-number">29.1</span> AR(p)</h2>
-<p>An <strong>autoregressive</strong> process <span class="math inline">X</span> is one that depend on a number of <span class="math inline">p</span> past states <span class="math inline">X_{t-p}</span>.</p>
+<p>Our long term goal is to use these concepts to make forecasts (predictions) about the future. Before we do that, it is useful to talk about a generalization of the AR process, that better resembles real-life data.</p>
+<section id="arp" class="level2" data-number="28.1">
+<h2 data-number="28.1" class="anchored" data-anchor-id="arp"><span class="header-section-number">28.1</span> AR(p)</h2>
+<p>An <strong>autoregressive</strong> process <span class="math inline">X</span> is one that depend on <span class="math inline">p</span> past states:</p>
 <p><span class="math display">
 X_{t} = \phi_1\,X_{t-1} + \phi_2\,X_{t-2} + \cdots + \phi_p\,X_{t-p} + \varepsilon
 </span></p>
@@ -688,22 +694,25 @@ X_{t} = \phi_1\,X_{t-1} + \phi_2\,X_{t-2} + \cdots + \phi_p\,X_{t-p} + \varepsil
 </span></p>
 <p>lie <strong>outside</strong> the unit circle, then the AR process is <strong>causal and stationary</strong>.</p>
 </section>
-<section id="maq" class="level2" data-number="29.2">
-<h2 data-number="29.2" class="anchored" data-anchor-id="maq"><span class="header-section-number">29.2</span> MA(q)</h2>
-<p>Similarly, a <strong>moving average</strong> process <span class="math inline">X</span> is one that depend on a number of <span class="math inline">q</span> past noise steps <span class="math inline">\varepsilon_{t-q}</span>.</p>
+<section id="maq" class="level2 page-columns page-full" data-number="28.2">
+<h2 data-number="28.2" class="anchored" data-anchor-id="maq"><span class="header-section-number">28.2</span> MA(q)</h2>
+<p>Similarly, a <strong>moving average</strong> process <span class="math inline">X</span> is one that depend on <span class="math inline">q</span> past noise steps:</p>
 <p><span class="math display">
-X_{t} = \varepsilon_t + \theta_1\,\varepsilon_{t-1} + \theta_2\,\varepsilon_{t-2} + \cdots + \theta_p\,\varepsilon_{t-p}
+X_{t} = \varepsilon_t + \theta_1\,\varepsilon_{t-1} + \theta_2\,\varepsilon_{t-2} + \cdots + \theta_p\,\varepsilon_{t-q}
 </span></p>
 <p>This has nothing to do with the sliding averages used for smoothing we studied before, it’s just the same name for a different concept.</p>
-<p>Note that this equation is similar in structure to that of AR(p), but with weights <span class="math inline">\theta</span> standing for <span class="math inline">\phi</span>, and past noise <span class="math inline">\varepsilon_{t-q}</span> standing in for past states <span class="math inline">X_{t-p}</span>.</p>
+<p>Note that this equation is identical in structure to that of AR(p), but with weights <span class="math inline">\theta</span> standing for <span class="math inline">\phi</span>, and past noise <span class="math inline">\varepsilon_{t-i}</span> standing in for past states <span class="math inline">X_{t-i}</span>.</p>
 <p>This process also has its characteristic polynomial:</p>
 <p><span class="math display">
 \theta(B) = 1 - \theta_1\, B - \theta_2\,B^2 - \cdots - \theta_p\,B^p
 </span></p>
 <p>The complex roots of this polynomial are also important. As long as the roots are <strong>outside</strong> the unit circle, the MA(q) process will be considered <strong>invertible</strong>, which is to say that it can be transformed into an AR(<span class="math inline">\infty</span>) process.</p>
-</section>
-<section id="armapq" class="level2" data-number="29.3">
-<h2 data-number="29.3" class="anchored" data-anchor-id="armapq"><span class="header-section-number">29.3</span> ARMA(p,q)</h2>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>The story is of course more complex than that. Using intelligent mathematical tricks (substitutions), one can change the noise term to make roots move from inside the unit circle to the outside, so effectively there shouldn’t be any problems as long as there aren’t any roots exacly on the unit circle.</p>
+</div></div></section>
+<section id="armapq" class="level2" data-number="28.3">
+<h2 data-number="28.3" class="anchored" data-anchor-id="armapq"><span class="header-section-number">28.3</span> ARMA(p,q)</h2>
 <p>An ARMA(p,q) process is simply the combination of an AR(p) and an MA(q) process:</p>
 <p><span class="math display">
 \begin{split}
@@ -712,10 +721,10 @@ X_{t} &amp;= \phi_1\,X_{t-1} + \phi_2\,X_{t-2} + \cdots + \phi_p\,X_{t-p} \\
 \end{split}
 </span></p>
 </section>
-<section id="acf-and-pacf" class="level2" data-number="29.4">
-<h2 data-number="29.4" class="anchored" data-anchor-id="acf-and-pacf"><span class="header-section-number">29.4</span> ACF and PACF</h2>
+<section id="acf-and-pacf" class="level2" data-number="28.4">
+<h2 data-number="28.4" class="anchored" data-anchor-id="acf-and-pacf"><span class="header-section-number">28.4</span> ACF and PACF</h2>
 <p>The graphs for the autocorrelation and partial autocorrrelation functions can be very useful to identify the order <span class="math inline">p</span> and <span class="math inline">q</span> of an ARMA(p,q) process.</p>
-<div class="cell" data-execution_count="19">
+<div class="cell" data-execution_count="1">
 <details>
 <summary>import stuff</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -725,94 +734,89 @@ X_{t} &amp;= \phi_1\,X_{t-1} + \phi_2\,X_{t-2} + \cdots + \phi_p\,X_{t-p} \\
 <span id="cb1-5"><a href="#cb1-5"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-6"><a href="#cb1-6"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
 <span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="im">from</span> statsmodels.tsa.arima_process <span class="im">import</span> ArmaProcess</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="im">from</span> statsmodels.tsa.arima_process <span class="im">import</span> ArmaProcess</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="im">from</span> statsmodels.tsa.stattools <span class="im">import</span> adfuller</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="28">
+<div class="cell" data-execution_count="2">
 <details>
 <summary>generate ARMA(4,0) process</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>np.random.seed(<span class="dv">0</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a>n <span class="op">=</span> <span class="dv">1000</span>  <span class="co"># number of data points</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>phi_list <span class="op">=</span> np.array([<span class="fl">0.8</span>, <span class="op">-</span><span class="fl">0.28</span>, <span class="fl">0.8</span>, <span class="op">-</span><span class="fl">0.36</span>])</span>
-<span id="cb2-4"><a href="#cb2-4"></a>ar_coefs <span class="op">=</span> np.insert(<span class="op">-</span>phi_list, <span class="dv">0</span>, <span class="dv">1</span>)  <span class="co"># AR coefficients</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>ar_coefs <span class="op">=</span> np.insert(<span class="op">-</span>phi_list, <span class="dv">0</span>, <span class="dv">1</span>)  <span class="co"># AR coefficients. append 1 at the beginning</span></span>
 <span id="cb2-5"><a href="#cb2-5"></a>ma_coefs <span class="op">=</span> [<span class="dv">1</span>] <span class="co"># MA coefficients</span></span>
 <span id="cb2-6"><a href="#cb2-6"></a></span>
 <span id="cb2-7"><a href="#cb2-7"></a>arma_process <span class="op">=</span> ArmaProcess(ar_coefs, ma_coefs)</span>
 <span id="cb2-8"><a href="#cb2-8"></a>data <span class="op">=</span> arma_process.generate_sample(nsample<span class="op">=</span>n)</span>
 <span id="cb2-9"><a href="#cb2-9"></a></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co"># Create a single figure with panels</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb2-12"><a href="#cb2-12"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.4</span>)</span>
-<span id="cb2-13"><a href="#cb2-13"></a></span>
-<span id="cb2-14"><a href="#cb2-14"></a></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="co"># Plot the ARMA process</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a>ax1 <span class="op">=</span> axes[<span class="dv">0</span>]</span>
-<span id="cb2-17"><a href="#cb2-17"></a>ax1.plot(data)</span>
-<span id="cb2-18"><a href="#cb2-18"></a>ax1.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'time'</span>,</span>
-<span id="cb2-19"><a href="#cb2-19"></a>        ylabel<span class="op">=</span><span class="st">'value'</span>,</span>
-<span id="cb2-20"><a href="#cb2-20"></a>        title<span class="op">=</span><span class="st">'ARMA(4,0) process'</span>,</span>
-<span id="cb2-21"><a href="#cb2-21"></a>       )</span>
-<span id="cb2-22"><a href="#cb2-22"></a></span>
-<span id="cb2-23"><a href="#cb2-23"></a><span class="co"># Plot ACF and PACF graphs</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a>ax2 <span class="op">=</span> axes[<span class="dv">1</span>]</span>
-<span id="cb2-25"><a href="#cb2-25"></a>sm.graphics.tsa.plot_acf(data, lags<span class="op">=</span>n<span class="op">-</span><span class="dv">1</span>, ax<span class="op">=</span>ax2, title<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb2-26"><a href="#cb2-26"></a>ax2.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"ACF"</span>,</span>
-<span id="cb2-27"><a href="#cb2-27"></a>        xlabel<span class="op">=</span><span class="st">"lags"</span>)</span>
-<span id="cb2-28"><a href="#cb2-28"></a></span>
-<span id="cb2-29"><a href="#cb2-29"></a>ax3 <span class="op">=</span> axes[<span class="dv">2</span>]</span>
-<span id="cb2-30"><a href="#cb2-30"></a>sm.graphics.tsa.plot_pacf(data, lags<span class="op">=</span><span class="dv">30</span>, ax<span class="op">=</span>ax3, title<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb2-31"><a href="#cb2-31"></a>ax3.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>],</span>
-<span id="cb2-32"><a href="#cb2-32"></a>        ylabel<span class="op">=</span><span class="st">'PACF'</span>,</span>
-<span id="cb2-33"><a href="#cb2-33"></a>        xlabel<span class="op">=</span><span class="st">"lags"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-10"><a href="#cb2-10"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
+<span id="cb2-11"><a href="#cb2-11"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.4</span>)  <span class="co"># increase vertical space between panels</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a>ax1 <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb2-14"><a href="#cb2-14"></a>ax1.plot(data)</span>
+<span id="cb2-15"><a href="#cb2-15"></a>ax1.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'time'</span>,</span>
+<span id="cb2-16"><a href="#cb2-16"></a>        ylabel<span class="op">=</span><span class="st">'value'</span>,</span>
+<span id="cb2-17"><a href="#cb2-17"></a>        title<span class="op">=</span><span class="st">'ARMA(4,0) process'</span>,</span>
+<span id="cb2-18"><a href="#cb2-18"></a>       )</span>
+<span id="cb2-19"><a href="#cb2-19"></a></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="co"># plot ACF and PACF graphs</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>ax2 <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb2-22"><a href="#cb2-22"></a>sm.graphics.tsa.plot_acf(data, lags<span class="op">=</span>n<span class="op">-</span><span class="dv">1</span>, ax<span class="op">=</span>ax2, title<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb2-23"><a href="#cb2-23"></a>ax2.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"ACF"</span>,</span>
+<span id="cb2-24"><a href="#cb2-24"></a>        xlabel<span class="op">=</span><span class="st">"lags"</span>)</span>
+<span id="cb2-25"><a href="#cb2-25"></a></span>
+<span id="cb2-26"><a href="#cb2-26"></a>ax3 <span class="op">=</span> axes[<span class="dv">2</span>]</span>
+<span id="cb2-27"><a href="#cb2-27"></a>sm.graphics.tsa.plot_pacf(data, lags<span class="op">=</span><span class="dv">30</span>, ax<span class="op">=</span>ax3, title<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb2-28"><a href="#cb2-28"></a>ax3.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>],</span>
+<span id="cb2-29"><a href="#cb2-29"></a>        ylabel<span class="op">=</span><span class="st">'PACF'</span>,</span>
+<span id="cb2-30"><a href="#cb2-30"></a>        xlabel<span class="op">=</span><span class="st">"lags"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="from_AR_to_SARIMA_files/figure-html/cell-3-output-1.png" class="img-fluid"></p>
+<p><img src="from_AR_to_ARIMA_files/figure-html/cell-3-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Note that for the ARMA(4,0) process, the last significant PACF value is at lag <span class="math inline">\tau=4</span>.</p>
-<div class="cell" data-execution_count="37">
+<div class="cell" data-execution_count="3">
 <details>
 <summary>generate ARMA(0,3) process</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>np.random.seed(<span class="dv">0</span>)</span>
 <span id="cb3-2"><a href="#cb3-2"></a>n <span class="op">=</span> <span class="dv">1000</span>  <span class="co"># number of data points</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>theta_list <span class="op">=</span> np.array([<span class="fl">0.4</span>, <span class="op">-</span><span class="fl">0.3</span>, <span class="fl">0.8</span>])</span>
-<span id="cb3-4"><a href="#cb3-4"></a>ma_coefs <span class="op">=</span> np.insert(<span class="op">-</span>theta_list, <span class="dv">0</span>, <span class="dv">1</span>)  <span class="co"># AR coefficients</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>ma_coefs <span class="op">=</span> np.insert(<span class="op">-</span>theta_list, <span class="dv">0</span>, <span class="dv">1</span>)  <span class="co"># MA coefficients. append 1 at the beginning</span></span>
 <span id="cb3-5"><a href="#cb3-5"></a>ar_coefs <span class="op">=</span> [<span class="dv">1</span>]</span>
 <span id="cb3-6"><a href="#cb3-6"></a></span>
 <span id="cb3-7"><a href="#cb3-7"></a>arma_process <span class="op">=</span> ArmaProcess(ar_coefs, ma_coefs)</span>
 <span id="cb3-8"><a href="#cb3-8"></a>data <span class="op">=</span> arma_process.generate_sample(nsample<span class="op">=</span>n)</span>
 <span id="cb3-9"><a href="#cb3-9"></a></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co"># Create a single figure with panels</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb3-12"><a href="#cb3-12"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.4</span>)</span>
-<span id="cb3-13"><a href="#cb3-13"></a></span>
-<span id="cb3-14"><a href="#cb3-14"></a></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="co"># Plot the ARMA process</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a>ax1 <span class="op">=</span> axes[<span class="dv">0</span>]</span>
-<span id="cb3-17"><a href="#cb3-17"></a>ax1.plot(data)</span>
-<span id="cb3-18"><a href="#cb3-18"></a>ax1.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'time'</span>,</span>
-<span id="cb3-19"><a href="#cb3-19"></a>        ylabel<span class="op">=</span><span class="st">'value'</span>,</span>
-<span id="cb3-20"><a href="#cb3-20"></a>        title<span class="op">=</span><span class="st">'ARMA(0,3) process'</span>,</span>
-<span id="cb3-21"><a href="#cb3-21"></a>       )</span>
-<span id="cb3-22"><a href="#cb3-22"></a></span>
-<span id="cb3-23"><a href="#cb3-23"></a><span class="co"># Plot ACF and PACF graphs</span></span>
-<span id="cb3-24"><a href="#cb3-24"></a>ax2 <span class="op">=</span> axes[<span class="dv">1</span>]</span>
-<span id="cb3-25"><a href="#cb3-25"></a>sm.graphics.tsa.plot_acf(data, lags<span class="op">=</span><span class="dv">20</span>, ax<span class="op">=</span>ax2, title<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb3-26"><a href="#cb3-26"></a>ax2.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"ACF"</span>,</span>
-<span id="cb3-27"><a href="#cb3-27"></a>        xlabel<span class="op">=</span><span class="st">"lags"</span>)</span>
-<span id="cb3-28"><a href="#cb3-28"></a></span>
-<span id="cb3-29"><a href="#cb3-29"></a>ax3 <span class="op">=</span> axes[<span class="dv">2</span>]</span>
-<span id="cb3-30"><a href="#cb3-30"></a>sm.graphics.tsa.plot_pacf(data, lags<span class="op">=</span><span class="dv">30</span>, ax<span class="op">=</span>ax3, title<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb3-31"><a href="#cb3-31"></a>ax3.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>],</span>
-<span id="cb3-32"><a href="#cb3-32"></a>        ylabel<span class="op">=</span><span class="st">'PACF'</span>,</span>
-<span id="cb3-33"><a href="#cb3-33"></a>        xlabel<span class="op">=</span><span class="st">"lags"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-10"><a href="#cb3-10"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
+<span id="cb3-11"><a href="#cb3-11"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a>ax1 <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb3-14"><a href="#cb3-14"></a>ax1.plot(data)</span>
+<span id="cb3-15"><a href="#cb3-15"></a>ax1.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'time'</span>,</span>
+<span id="cb3-16"><a href="#cb3-16"></a>        ylabel<span class="op">=</span><span class="st">'value'</span>,</span>
+<span id="cb3-17"><a href="#cb3-17"></a>        title<span class="op">=</span><span class="st">'ARMA(0,3) process'</span>,</span>
+<span id="cb3-18"><a href="#cb3-18"></a>       )</span>
+<span id="cb3-19"><a href="#cb3-19"></a></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="co"># plot ACF and PACF graphs</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>ax2 <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb3-22"><a href="#cb3-22"></a>sm.graphics.tsa.plot_acf(data, lags<span class="op">=</span><span class="dv">20</span>, ax<span class="op">=</span>ax2, title<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb3-23"><a href="#cb3-23"></a>ax2.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"ACF"</span>,</span>
+<span id="cb3-24"><a href="#cb3-24"></a>        xlabel<span class="op">=</span><span class="st">"lags"</span>)</span>
+<span id="cb3-25"><a href="#cb3-25"></a></span>
+<span id="cb3-26"><a href="#cb3-26"></a>ax3 <span class="op">=</span> axes[<span class="dv">2</span>]</span>
+<span id="cb3-27"><a href="#cb3-27"></a>sm.graphics.tsa.plot_pacf(data, lags<span class="op">=</span><span class="dv">30</span>, ax<span class="op">=</span>ax3, title<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb3-28"><a href="#cb3-28"></a>ax3.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>],</span>
+<span id="cb3-29"><a href="#cb3-29"></a>        ylabel<span class="op">=</span><span class="st">'PACF'</span>,</span>
+<span id="cb3-30"><a href="#cb3-30"></a>        xlabel<span class="op">=</span><span class="st">"lags"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="from_AR_to_SARIMA_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
+<p><img src="from_AR_to_ARIMA_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>For the ARMA(0,3) process, the last significant ACF value is at lag <span class="math inline">\tau=3</span>.</p>
-<div class="cell" data-execution_count="38">
+<div class="cell" data-execution_count="4">
 <details>
 <summary>generate ARMA(4,3) process</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>np.random.seed(<span class="dv">0</span>)</span>
@@ -851,7 +855,7 @@ X_{t} &amp;= \phi_1\,X_{t-1} + \phi_2\,X_{t-2} + \cdots + \phi_p\,X_{t-p} \\
 <span id="cb4-34"><a href="#cb4-34"></a>        xlabel<span class="op">=</span><span class="st">"lags"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="from_AR_to_SARIMA_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+<p><img src="from_AR_to_ARIMA_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>This table from <span class="citation" data-cites="shumway2017time">Shumway and Stoffer (<a href="../technical-stuff/sources.html#ref-shumway2017time" role="doc-biblioref">2017, 108</a>)</span> is useful to sum up what we’ve learned so far.</p>
@@ -886,10 +890,244 @@ X_{t} &amp;= \phi_1\,X_{t-1} + \phi_2\,X_{t-2} + \cdots + \phi_p\,X_{t-p} \\
 </tbody>
 </table>
 </section>
-<section id="non-stationary-data" class="level2" data-number="29.5">
-<h2 data-number="29.5" class="anchored" data-anchor-id="non-stationary-data"><span class="header-section-number">29.5</span> Non-stationary data</h2>
-<p>What do we do if it turns out that our data is not stationary? One common solution is to apply successive <strong>differencing</strong> operations, until the outcome seems stationary (e.g., its ACF drops to zero for <span class="math inline">\tau\ge1</span>). Remember that in chapter “ACF and PACF graphs” we saw that the ACF of white noise is zero for all values of <span class="math inline">\tau\neq 0</span>.</p>
-<p><span class="citation" data-cites="chatfield2016analysis">Chatfield (<a href="../technical-stuff/sources.html#ref-chatfield2016analysis" role="doc-biblioref">2016, chap. 3</a>, page 63)</span></p>
+<section id="non-stationary-data-and-adf-test" class="level2" data-number="28.5">
+<h2 data-number="28.5" class="anchored" data-anchor-id="non-stationary-data-and-adf-test"><span class="header-section-number">28.5</span> Non-stationary data and ADF test</h2>
+<p>The following is partially based on <span class="citation" data-cites="chatfield2016analysis">Chatfield (<a href="../technical-stuff/sources.html#ref-chatfield2016analysis" role="doc-biblioref">2016, chap. 3</a>, page 63)</span>.</p>
+<p>What do we do if it turns out that our data is not stationary? Heck, how can we even tell if our data is stationary or not? The most common stationarity test is the Augmented Dickey–Fuller (ADF) test. This is not a trivial subject that can be completely understood in a few words, so I’ll give the very basic intuition here.</p>
+<p>A stationary time series has a constant mean <span class="math inline">\mu</span>. If at a given instant <span class="math inline">t</span> our state <span class="math inline">X_t</span> is way above the mean, we would expect that, with a high probability, the next step brings it closer to the mean. This is to say that the the difference between two consecutive states <span class="math inline">X_t-X_{t-1}</span> depends on the value of <span class="math inline">X_t</span>! Nonstationary time series do not show this behavior: the differences between two time steps do not depend on the state value. The idea described here is for the Dickey-Fuller test. The Augmented Dickey-Fuller test is basically the same, but for time lags <span class="math inline">p</span> between states, not only 1.</p>
+<p>The ADF test has a null hypothesis that the time series is <strong>not stationary</strong>. By applying the test to a given time series, we get a p-value as one of the results. The smaller the p-value, the more evidence we have to reject the null hypothesis, and therefore conclude that our time series is indeed stationary.</p>
+<p>Let’s see an example:</p>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Generate ARIMA(1,1,2) process with differencing</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>N <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>np.random.seed(<span class="dv">1</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>arima_112_diff <span class="op">=</span> sm.tsa.arma_generate_sample(ar<span class="op">=</span>[<span class="dv">1</span>, <span class="op">-</span><span class="fl">0.5</span>], ma<span class="op">=</span>[<span class="dv">1</span>, <span class="fl">0.7</span>, <span class="fl">0.3</span>], nsample<span class="op">=</span>N)</span>
+<span id="cb5-5"><a href="#cb5-5"></a>arima_112 <span class="op">=</span> np.cumsum(arima_112_diff)</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb5-8"><a href="#cb5-8"></a>ax.plot(arima_112)</span>
+<span id="cb5-9"><a href="#cb5-9"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"time"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10"></a>       ylabel<span class="op">=</span><span class="st">"signal"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11"></a>       title<span class="op">=</span><span class="st">"a non-stationary time series"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12"></a>plt.show()</span>
+<span id="cb5-13"><a href="#cb5-13"></a></span>
+<span id="cb5-14"><a href="#cb5-14"></a>result <span class="op">=</span> adfuller(arima_112)</span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="bu">print</span>(<span class="st">'p-value: '</span>, result[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="from_AR_to_ARIMA_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>p-value:  0.591478751185507</code></pre>
+</div>
+</div>
+<p>So what do we do if we have a non-stationary time series? One common solution is to apply successive <strong>differencing</strong> operations, until the outcome becomes stationary.</p>
+<p>Let’s define the difference operator <span class="math inline">\nabla</span> as</p>
+<p><span class="math display">
+\nabla X_t = X_t - X_{t-1}.
+</span></p>
+<p>Now recalling that the backward shift operator <span class="math inline">B</span> is defined as</p>
+<p><span class="math display">
+B X_t = X_{t-1},
+</span></p>
+<p>we can rewrite the difference operator as</p>
+<p><span class="math display">
+\begin{split}
+\nabla X_t &amp;= X_t - BX_t\\
+           &amp;= (1-B)X_t.
+\end{split}
+</span></p>
+<p>If we apply the difference operator <span class="math inline">d</span> times, then we denote this as</p>
+<p><span class="math display">
+W_t = \nabla^d X_t = (1-B)^d X_t.
+</span></p>
+<p>Let’s apply the difference operator once to the time series plotted above, and then apply the ADF test.</p>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb7-2"><a href="#cb7-2"></a>ax.plot(arima_112_diff)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"time"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>       ylabel<span class="op">=</span><span class="st">"signal"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>       title<span class="op">=</span><span class="st">"the same time series as above, after one differencing"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6"></a>plt.show()</span>
+<span id="cb7-7"><a href="#cb7-7"></a></span>
+<span id="cb7-8"><a href="#cb7-8"></a>result <span class="op">=</span> adfuller(arima_112_diff)</span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="bu">print</span>(<span class="st">'p-value: '</span>, result[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="from_AR_to_ARIMA_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>p-value:  4.7341140554650393e-14</code></pre>
+</div>
+</div>
+</section>
+<section id="arimapdq" class="level2" data-number="28.6">
+<h2 data-number="28.6" class="anchored" data-anchor-id="arimapdq"><span class="header-section-number">28.6</span> ARIMA(p,d,q)</h2>
+<p>We are ready to describe an Autoregressive (AR) Integrated (I) Moving Average (MA) process:</p>
+<p><span class="math display">
+\begin{split}
+W_t &amp;= \phi_1 W_{t-1} + \phi_2 W_{t-2}+\cdots \phi_q W_{t-q} \\
+    &amp;+ \varepsilon_t + \theta_1 \varepsilon_{t-1} + \theta_2 \varepsilon_{t-2}+\cdots \theta_q \varepsilon_{t-q}
+\end{split}
+</span></p>
+<p>Rearranging the terms in this equation, we can also express an ARIMA(p,d,q) process as</p>
+<p><span class="math display">
+\phi(B)(1-B)^d X_t = \theta(B)\epsilon_t.
+</span></p>
+<p>Let’s try to put this in a context we already know. We saw that a random walk is the integrated version of a white noise. The random walk can be interpreted as a special case of an AR(1) process for <span class="math inline">\phi=1</span>. However, an AR process is usually called as such when it is stationary. Because a white noise can be understood as an ARMA(0,0) process, and because differencing the random walk yields a white noise, we can say that the white noise is an ARIMA(0,1,0) process.</p>
+<p>Let’s see two examples of ARIMA processes.</p>
+<div class="cell" data-execution_count="7">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co"># Generate ARIMA(2,2,1) process with differencing</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>arima_221_diff <span class="op">=</span> sm.tsa.arma_generate_sample(ar<span class="op">=</span>[<span class="dv">1</span>, <span class="op">-</span><span class="fl">0.18</span>, <span class="fl">0.06</span>], ma<span class="op">=</span>[<span class="dv">1</span>, <span class="op">-</span><span class="fl">0.5</span>], nsample<span class="op">=</span>N)</span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co"># arima_221 = np.cumsum(arima_221_diff) </span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>arima_221 <span class="op">=</span> np.cumsum(np.cumsum(arima_221_diff)) <span class="co"># </span></span>
+<span id="cb9-7"><a href="#cb9-7"></a></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="co"># Plot the ARIMA(1,1,2) process</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb9-10"><a href="#cb9-10"></a>ax.plot(arima_112)</span>
+<span id="cb9-11"><a href="#cb9-11"></a>ax.set_title(<span class="st">'ARIMA(1,1,2) process'</span>)</span>
+<span id="cb9-12"><a href="#cb9-12"></a>plt.show()</span>
+<span id="cb9-13"><a href="#cb9-13"></a></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="co"># Plot the ARIMA(2,2,1) process</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb9-16"><a href="#cb9-16"></a>ax.plot(arima_221)</span>
+<span id="cb9-17"><a href="#cb9-17"></a>ax.set_title(<span class="st">'ARIMA(2,2,1) process'</span>)</span>
+<span id="cb9-18"><a href="#cb9-18"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="from_AR_to_ARIMA_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="from_AR_to_ARIMA_files/figure-html/cell-8-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>We will not fully delve into forecasting right now, but it would be nice to see a real application of ARIMA. If we can reasonably well estimate the parameters associated with a given ARIMA(p,d,q) process, we can use this knowledge to predict future states within a confidence interval. In the simulations below, we see forecasts an ARIMA(2,2,0) process.</p>
+<div class="cell" data-execution_count="8">
+<details>
+<summary>write function to forecast</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">def</span> arima_forecast(series, ar_coeff):</span>
+<span id="cb10-2"><a href="#cb10-2"></a>    s <span class="op">=</span> series.copy()</span>
+<span id="cb10-3"><a href="#cb10-3"></a>    phi1 <span class="op">=</span> <span class="op">-</span>ar_coeff[<span class="dv">1</span>]</span>
+<span id="cb10-4"><a href="#cb10-4"></a>    phi2 <span class="op">=</span> <span class="op">-</span>ar_coeff[<span class="dv">2</span>]</span>
+<span id="cb10-5"><a href="#cb10-5"></a>    start_index <span class="op">=</span> np.argmax(np.isnan(s))</span>
+<span id="cb10-6"><a href="#cb10-6"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(start_index,<span class="bu">len</span>(series)):</span>
+<span id="cb10-7"><a href="#cb10-7"></a>        s[i] <span class="op">=</span> phi1 <span class="op">*</span> s[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> phi2 <span class="op">*</span> s[i<span class="op">-</span><span class="dv">2</span>] <span class="op">+</span> np.random.normal()</span>
+<span id="cb10-8"><a href="#cb10-8"></a>    <span class="cf">return</span> s</span>
+<span id="cb10-9"><a href="#cb10-9"></a></span>
+<span id="cb10-10"><a href="#cb10-10"></a>np.random.seed(<span class="dv">1998</span>)</span>
+<span id="cb10-11"><a href="#cb10-11"></a>arima_220_diff <span class="op">=</span> sm.tsa.arma_generate_sample(ar<span class="op">=</span>[<span class="dv">1</span>, <span class="op">-</span><span class="fl">0.18</span>, <span class="fl">0.06</span>], ma<span class="op">=</span>[<span class="dv">1</span>], nsample<span class="op">=</span>N)</span>
+<span id="cb10-12"><a href="#cb10-12"></a>arima_220 <span class="op">=</span> np.cumsum(np.cumsum(arima_220_diff)) <span class="co"># </span></span>
+<span id="cb10-13"><a href="#cb10-13"></a></span>
+<span id="cb10-14"><a href="#cb10-14"></a></span>
+<span id="cb10-15"><a href="#cb10-15"></a>l <span class="op">=</span> <span class="dv">380</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a>missing <span class="op">=</span> arima_220_diff.copy()</span>
+<span id="cb10-17"><a href="#cb10-17"></a>missing[l:] <span class="op">=</span> np.nan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="9">
+<details>
+<summary>plot forecasts</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
+<span id="cb11-2"><a href="#cb11-2"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb11-3"><a href="#cb11-3"></a></span>
+<span id="cb11-4"><a href="#cb11-4"></a>xlim <span class="op">=</span> [<span class="dv">0</span>, <span class="bu">len</span>(missing)]</span>
+<span id="cb11-5"><a href="#cb11-5"></a>ylim <span class="op">=</span> [<span class="op">-</span><span class="dv">1000</span>,<span class="dv">10000</span>]</span>
+<span id="cb11-6"><a href="#cb11-6"></a></span>
+<span id="cb11-7"><a href="#cb11-7"></a>ax0 <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb11-8"><a href="#cb11-8"></a>ntries <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(ntries):</span>
+<span id="cb11-10"><a href="#cb11-10"></a>    np.random.seed(i)</span>
+<span id="cb11-11"><a href="#cb11-11"></a>    try_diff <span class="op">=</span> arima_forecast(missing, [<span class="dv">1</span>, <span class="op">-</span><span class="fl">0.18</span>, <span class="fl">0.06</span>])</span>
+<span id="cb11-12"><a href="#cb11-12"></a>    t <span class="op">=</span> np.cumsum(np.cumsum(try_diff))</span>
+<span id="cb11-13"><a href="#cb11-13"></a>    ax0.plot(t, color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb11-14"><a href="#cb11-14"></a>ax0.plot(arima_220, color<span class="op">=</span><span class="st">"xkcd:hot pink"</span>, lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"data"</span>)</span>
+<span id="cb11-15"><a href="#cb11-15"></a>ax0.plot([<span class="bu">len</span>(missing),<span class="bu">len</span>(missing)<span class="op">+</span><span class="dv">1</span>], [<span class="dv">0</span>]<span class="op">*</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, label<span class="op">=</span><span class="st">"forecast"</span>)</span>
+<span id="cb11-16"><a href="#cb11-16"></a>ax0.<span class="bu">set</span>(xticklabels<span class="op">=</span>[],</span>
+<span id="cb11-17"><a href="#cb11-17"></a>        xlim<span class="op">=</span>xlim,</span>
+<span id="cb11-18"><a href="#cb11-18"></a>        ylim<span class="op">=</span>ylim)</span>
+<span id="cb11-19"><a href="#cb11-19"></a>ax0.text(<span class="fl">0.5</span>, <span class="fl">0.98</span>, <span class="ss">f"</span><span class="sc">{</span>ntries<span class="sc">}</span><span class="ss"> forecasts"</span>,</span>
+<span id="cb11-20"><a href="#cb11-20"></a>         transform<span class="op">=</span>ax0.transAxes, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"top"</span>)</span>
+<span id="cb11-21"><a href="#cb11-21"></a>ax0.legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb11-22"><a href="#cb11-22"></a>ax0.plot([<span class="dv">380</span>]<span class="op">*</span><span class="dv">2</span>, ylim, color<span class="op">=</span><span class="st">"black"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb11-23"><a href="#cb11-23"></a></span>
+<span id="cb11-24"><a href="#cb11-24"></a>ax1 <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb11-25"><a href="#cb11-25"></a>ntries <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb11-26"><a href="#cb11-26"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(ntries):</span>
+<span id="cb11-27"><a href="#cb11-27"></a>    np.random.seed(i)</span>
+<span id="cb11-28"><a href="#cb11-28"></a>    try_diff <span class="op">=</span> arima_forecast(missing, [<span class="dv">1</span>, <span class="op">-</span><span class="fl">0.18</span>, <span class="fl">0.06</span>])</span>
+<span id="cb11-29"><a href="#cb11-29"></a>    t <span class="op">=</span> np.cumsum(np.cumsum(try_diff))</span>
+<span id="cb11-30"><a href="#cb11-30"></a>    ax1.plot(t, color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb11-31"><a href="#cb11-31"></a>ax1.plot(arima_220, color<span class="op">=</span><span class="st">"xkcd:hot pink"</span>, lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb11-32"><a href="#cb11-32"></a>ax1.<span class="bu">set</span>(xticklabels<span class="op">=</span>[],</span>
+<span id="cb11-33"><a href="#cb11-33"></a>        ylabel<span class="op">=</span><span class="st">"signal"</span>,</span>
+<span id="cb11-34"><a href="#cb11-34"></a>        xlim<span class="op">=</span>xlim,</span>
+<span id="cb11-35"><a href="#cb11-35"></a>        ylim<span class="op">=</span>ylim)</span>
+<span id="cb11-36"><a href="#cb11-36"></a>ax1.text(<span class="fl">0.5</span>, <span class="fl">0.98</span>, <span class="ss">f"</span><span class="sc">{</span>ntries<span class="sc">}</span><span class="ss"> forecasts"</span>,</span>
+<span id="cb11-37"><a href="#cb11-37"></a>         transform<span class="op">=</span>ax1.transAxes, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"top"</span>)</span>
+<span id="cb11-38"><a href="#cb11-38"></a>ax1.plot([<span class="dv">380</span>]<span class="op">*</span><span class="dv">2</span>, ylim, color<span class="op">=</span><span class="st">"black"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb11-39"><a href="#cb11-39"></a></span>
+<span id="cb11-40"><a href="#cb11-40"></a></span>
+<span id="cb11-41"><a href="#cb11-41"></a>ax2 <span class="op">=</span> axes[<span class="dv">2</span>]</span>
+<span id="cb11-42"><a href="#cb11-42"></a>ntries <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb11-43"><a href="#cb11-43"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(ntries):</span>
+<span id="cb11-44"><a href="#cb11-44"></a>    np.random.seed(i)</span>
+<span id="cb11-45"><a href="#cb11-45"></a>    try_diff <span class="op">=</span> arima_forecast(missing, [<span class="dv">1</span>, <span class="op">-</span><span class="fl">0.18</span>, <span class="fl">0.06</span>])</span>
+<span id="cb11-46"><a href="#cb11-46"></a>    t <span class="op">=</span> np.cumsum(np.cumsum(try_diff))</span>
+<span id="cb11-47"><a href="#cb11-47"></a>    ax2.plot(t, color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.03</span>)</span>
+<span id="cb11-48"><a href="#cb11-48"></a>ax2.plot(arima_220, color<span class="op">=</span><span class="st">"xkcd:hot pink"</span>, lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb11-49"><a href="#cb11-49"></a>ax2.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'time'</span>,</span>
+<span id="cb11-50"><a href="#cb11-50"></a>        xlim<span class="op">=</span>xlim,</span>
+<span id="cb11-51"><a href="#cb11-51"></a>        ylim<span class="op">=</span>ylim)</span>
+<span id="cb11-52"><a href="#cb11-52"></a>ax2.text(<span class="fl">0.5</span>, <span class="fl">0.98</span>, <span class="ss">f"</span><span class="sc">{</span>ntries<span class="sc">}</span><span class="ss"> forecasts"</span>,</span>
+<span id="cb11-53"><a href="#cb11-53"></a>         transform<span class="op">=</span>ax2.transAxes, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"top"</span>)</span>
+<span id="cb11-54"><a href="#cb11-54"></a>ax2.plot([<span class="dv">380</span>]<span class="op">*</span><span class="dv">2</span>, ylim, color<span class="op">=</span><span class="st">"black"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="from_AR_to_ARIMA_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>We will discuss this later in the course, but estimating the parameters is quite easy:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="im">from</span> statsmodels.tsa.arima.model <span class="im">import</span> ARIMA</span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a>arima_model <span class="op">=</span> ARIMA(arima_220, order<span class="op">=</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb12-4"><a href="#cb12-4"></a>model <span class="op">=</span> arima_model.fit()</span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                  500
+Model:                 ARIMA(2, 2, 0)   Log Likelihood                -703.606
+Date:                Tue, 06 Feb 2024   AIC                           1413.212
+Time:                        13:12:24   BIC                           1425.844
+Sample:                             0   HQIC                          1418.170
+                                - 500                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ar.L1          0.2171      0.045      4.782      0.000       0.128       0.306
+ar.L2          0.0636      0.045      1.401      0.161      -0.025       0.153
+sigma2         0.9878      0.072     13.739      0.000       0.847       1.129
+===================================================================================
+Ljung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):                 5.16
+Prob(Q):                              0.99   Prob(JB):                         0.08
+Heteroskedasticity (H):               1.08   Skew:                             0.05
+Prob(H) (two-sided):                  0.62   Kurtosis:                         2.51
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step).</code></pre>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
@@ -1089,13 +1327,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../stationarity/practice.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">practice</span></span>
+      <a href="../stationarity/ACF_and_PACF_graphs.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">ACF and PACF graphs</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../lags/motivation.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">motivation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../stationarity/practice.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">practice</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
