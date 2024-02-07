@@ -127,6 +127,8 @@ format:
     highlight-style: breezedark # monokai # breezedark # espresso
     include-in-header:
       - includes.html
+      - back-to-top.html
+      - progressbar.html
     code-line-numbers: true
     code-tools:
       source: repo  # https://quarto.org/docs/output-formats/html-code.html#code-tools
