@@ -128,7 +128,7 @@ format:
     include-in-header:
       - includes.html
       # progress bar and back to top button. solution from here: https://github.com/quarto-dev/quarto-cli/discussions/3842#discussioncomment-4591721
-      - back-to-top.html
+      # - back-to-top.html
       - progressbar.html
     code-line-numbers: true
     code-tools:

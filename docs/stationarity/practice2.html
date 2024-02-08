@@ -97,34 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-</head><body class="nav-sidebar floating slimcontent"><button type="button" class="btn btn-primary btn-lg bi bi-arrow-up" id="btn-back-to-top"></button>
-
-<style>
-#btn-back-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  display: none;
-}
-</style>
-
-<script id="backtotop" type="application/javascript">
-let backToTopButton = document.getElementById("btn-back-to-top");
-
-window.addEventListener('scroll', () => {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            backToTopButton.style.display = "block";
-        } else {
-            backToTopButton.style.display = "none";
-        }
-    });
-
-backToTopButton.addEventListener("click", function () {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
-});
-</script>
-<div id="progress-bar" style="width: 0%; height:4px; background-color: rgb(89 127 235);; position: fixed; top: 0px; z-index: 2000;"></div>
+</head><body class="nav-sidebar floating slimcontent"><div id="progress-bar" style="width: 0%; height:4px; background-color: rgb(89 127 235);; position: fixed; top: 0px; z-index: 2000;"></div>
 
 <script id="progressbar" type="text/javascript">
 
@@ -137,8 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const height = post.scrollHeight + post.offsetTop;
     
     window.addEventListener('scroll', () => {
-        // bar.style.width = (html.scrollTop / (height- html.clientHeight)) * 100 + '%';
-        bar.style.width = (html.scrollTop / (height- 0*html.clientHeight)) * 100 + '%';
+        bar.style.width = (html.scrollTop / (height- html.clientHeight)) * 100 + '%';
     });
 });
 </script>
@@ -726,6 +698,7 @@ document.addEventListener("DOMContentLoaded", function() {
   </ul></li>
   <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest"><span class="header-section-number">30.4</span> random forest</a></li>
   <li><a href="#sarimax" id="toc-sarimax" class="nav-link" data-scroll-target="#sarimax"><span class="header-section-number">31</span> SARIMAX</a></li>
+  <li><a href="#sarimax-cross-fade" id="toc-sarimax-cross-fade" class="nav-link" data-scroll-target="#sarimax-cross-fade"><span class="header-section-number">32</span> SARIMAX cross fade</a></li>
   </ul>
 </nav>
     </div>
@@ -1094,7 +1067,10 @@ document.addEventListener("DOMContentLoaded", function() {
 <p><img src="practice2_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<p>The above looks good at the begining of the gap but at the end of the gap it looks bad. That is because we are forcasting and not filling in between the lines… # forward - reverse combination</p>
+<p>The above looks good at the begining of the gap but at the end of the gap it looks bad. That is because we are forcasting and not filling in between the lines…</p>
+</section>
+<section id="sarimax-cross-fade" class="level1" data-number="32">
+<h1 data-number="32"><span class="header-section-number">32</span> SARIMAX cross fade</h1>
 <div class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">def</span> find_nan_gaps_indexes_datetime(series):</span>
 <span id="cb18-2"><a href="#cb18-2"></a>    <span class="co">"""</span></span>
