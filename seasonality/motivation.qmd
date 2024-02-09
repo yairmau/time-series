@@ -1,1 +1,8 @@
 ## motivation
+
+https://climate.copernicus.eu/record-high-global-sea-surface-temperatures-continue-august
+
+https://climatereanalyzer.org/clim/sst_daily/
+export chart > download json
+
+https://climatereanalyzer.org/clim/sst_daily/json/oisst2.1_natlan1_sst_day.json

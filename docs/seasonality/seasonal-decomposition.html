@@ -117,6 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -706,7 +707,8 @@ document.addEventListener("DOMContentLoaded", function() {
    
   <ul>
   <li><a href="#trends-in-atmospheric-carbon-dioxide" id="toc-trends-in-atmospheric-carbon-dioxide" class="nav-link active" data-scroll-target="#trends-in-atmospheric-carbon-dioxide"><span class="header-section-number">40.1</span> trends in atmospheric carbon dioxide</a></li>
-  <li><a href="#decompose-data" id="toc-decompose-data" class="nav-link" data-scroll-target="#decompose-data"><span class="header-section-number">40.2</span> decompose data</a></li>
+  <li><a href="#trend" id="toc-trend" class="nav-link" data-scroll-target="#trend"><span class="header-section-number">40.2</span> trend</a></li>
+  <li><a href="#decompose-data" id="toc-decompose-data" class="nav-link" data-scroll-target="#decompose-data"><span class="header-section-number">40.3</span> decompose data</a></li>
   </ul>
 </nav>
     </div>
@@ -715,7 +717,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/seasonality/seasonal-decomposition.ipynb"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/seasonality/seasonal-decomposition.ipynb">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -730,7 +732,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </header>
 
-<div class="cell" data-execution_count="1">
+<div class="cell" data-execution_count="30">
+<details>
+<summary>import stuff</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -740,185 +744,33 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb1-7"><a href="#cb1-7"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)</span>
 <span id="cb1-8"><a href="#cb1-8"></a><span class="im">from</span> statsmodels.tsa.seasonal <span class="im">import</span> seasonal_decompose</span>
 <span id="cb1-9"><a href="#cb1-9"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="im">from</span> datetime <span class="im">import</span> datetime <span class="im">as</span> dt</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="im">import</span> time</span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="op">%</span>matplotlib widget</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <section id="trends-in-atmospheric-carbon-dioxide" class="level2" data-number="40.1">
 <h2 data-number="40.1" class="anchored" data-anchor-id="trends-in-atmospheric-carbon-dioxide"><span class="header-section-number">40.1</span> trends in atmospheric carbon dioxide</h2>
 <p>Mauna Loa CO2 concentration.<br>
 data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
-<div class="cell" data-execution_count="3">
+<div class="cell" data-execution_count="63">
+<details>
+<summary>load csv</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>url <span class="op">=</span> <span class="st">"https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_weekly_mlo.csv"</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="co"># df = pd.read_csv(url, header=47, na_values=[-999.99])</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
 <span id="cb2-4"><a href="#cb2-4"></a><span class="co"># you can first download, and then read the csv</span></span>
 <span id="cb2-5"><a href="#cb2-5"></a>filename <span class="op">=</span> <span class="st">"co2_weekly_mlo.csv"</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>df <span class="op">=</span> pd.read_csv(filename, header<span class="op">=</span><span class="dv">35</span>, na_values<span class="op">=</span>[<span class="op">-</span><span class="fl">999.99</span>])</span>
-<span id="cb2-7"><a href="#cb2-7"></a></span>
-<span id="cb2-8"><a href="#cb2-8"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">1974</th>
-<th data-quarto-table-cell-role="th">5</th>
-<th data-quarto-table-cell-role="th">19</th>
-<th data-quarto-table-cell-role="th">1974.3795</th>
-<th data-quarto-table-cell-role="th">333.37</th>
-<th data-quarto-table-cell-role="th">5.1</th>
-<th data-quarto-table-cell-role="th">-999.99</th>
-<th data-quarto-table-cell-role="th">-999.99.1</th>
-<th data-quarto-table-cell-role="th">50.39</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>1974</td>
-<td>5</td>
-<td>26</td>
-<td>1974.3986</td>
-<td>332.95</td>
-<td>6</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>50.05</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>1974</td>
-<td>6</td>
-<td>2</td>
-<td>1974.4178</td>
-<td>332.35</td>
-<td>5</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>49.59</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>1974</td>
-<td>6</td>
-<td>9</td>
-<td>1974.4370</td>
-<td>332.20</td>
-<td>7</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>49.64</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>1974</td>
-<td>6</td>
-<td>16</td>
-<td>1974.4562</td>
-<td>332.37</td>
-<td>7</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>50.06</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>1974</td>
-<td>6</td>
-<td>23</td>
-<td>1974.4753</td>
-<td>331.73</td>
-<td>5</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>49.72</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2565</td>
-<td>2023</td>
-<td>7</td>
-<td>23</td>
-<td>2023.5575</td>
-<td>421.28</td>
-<td>4</td>
-<td>418.03</td>
-<td>397.30</td>
-<td>141.60</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2566</td>
-<td>2023</td>
-<td>7</td>
-<td>30</td>
-<td>2023.5767</td>
-<td>420.83</td>
-<td>6</td>
-<td>418.10</td>
-<td>396.80</td>
-<td>141.69</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2567</td>
-<td>2023</td>
-<td>8</td>
-<td>6</td>
-<td>2023.5959</td>
-<td>420.02</td>
-<td>6</td>
-<td>417.36</td>
-<td>395.65</td>
-<td>141.41</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2568</td>
-<td>2023</td>
-<td>8</td>
-<td>13</td>
-<td>2023.6151</td>
-<td>418.98</td>
-<td>4</td>
-<td>417.25</td>
-<td>395.24</td>
-<td>140.89</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2569</td>
-<td>2023</td>
-<td>8</td>
-<td>20</td>
-<td>2023.6342</td>
-<td>419.31</td>
-<td>2</td>
-<td>416.64</td>
-<td>395.22</td>
-<td>141.71</td>
-</tr>
-</tbody>
-</table>
-
-<p>2570 rows × 9 columns</p>
-</div>
-</div>
-</div>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>df[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(df[[<span class="st">'year'</span>, <span class="st">'month'</span>, <span class="st">'day'</span>]])</span>
-<span id="cb3-2"><a href="#cb3-2"></a>df <span class="op">=</span> df.set_index(<span class="st">'date'</span>)</span>
-<span id="cb3-3"><a href="#cb3-3"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<span id="cb2-6"><a href="#cb2-6"></a>df <span class="op">=</span> pd.read_csv(filename,</span>
+<span id="cb2-7"><a href="#cb2-7"></a>                 comment<span class="op">=</span><span class="st">'#'</span>,  <span class="co"># will ignore rows starting with #</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>                 na_values<span class="op">=</span>[<span class="op">-</span><span class="fl">999.99</span>]  <span class="co"># substitute -999.99 for NaN (Not a Number), data not available</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>                 )</span>
+<span id="cb2-10"><a href="#cb2-10"></a>df[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(df[[<span class="st">'year'</span>, <span class="st">'month'</span>, <span class="st">'day'</span>]])</span>
+<span id="cb2-11"><a href="#cb2-11"></a>df <span class="op">=</span> df.set_index(<span class="st">'date'</span>)</span>
+<span id="cb2-12"><a href="#cb2-12"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="63">
 <div>
 
 
@@ -960,7 +812,7 @@ data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
 <td>5</td>
 <td>NaN</td>
 <td>NaN</td>
-<td>50.40</td>
+<td>50.39</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1974-05-26</td>
@@ -972,7 +824,7 @@ data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
 <td>6</td>
 <td>NaN</td>
 <td>NaN</td>
-<td>50.06</td>
+<td>50.05</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1974-06-02</td>
@@ -984,7 +836,7 @@ data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
 <td>5</td>
 <td>NaN</td>
 <td>NaN</td>
-<td>49.60</td>
+<td>49.59</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1974-06-09</td>
@@ -996,7 +848,7 @@ data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
 <td>7</td>
 <td>NaN</td>
 <td>NaN</td>
-<td>49.65</td>
+<td>49.64</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1974-06-16</td>
@@ -1023,95 +875,592 @@ data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2022-06-26</td>
-<td>2022</td>
-<td>6</td>
-<td>26</td>
-<td>2022.4836</td>
-<td>420.31</td>
+<td data-quarto-table-cell-role="th">2023-07-23</td>
+<td>2023</td>
 <td>7</td>
-<td>418.14</td>
-<td>395.36</td>
-<td>138.71</td>
+<td>23</td>
+<td>2023.5575</td>
+<td>421.28</td>
+<td>4</td>
+<td>418.03</td>
+<td>397.30</td>
+<td>141.60</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2022-07-03</td>
-<td>2022</td>
+<td data-quarto-table-cell-role="th">2023-07-30</td>
+<td>2023</td>
 <td>7</td>
-<td>3</td>
-<td>2022.5027</td>
-<td>419.73</td>
+<td>30</td>
+<td>2023.5767</td>
+<td>420.83</td>
 <td>6</td>
-<td>417.49</td>
-<td>395.15</td>
-<td>138.64</td>
+<td>418.10</td>
+<td>396.80</td>
+<td>141.69</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2022-07-10</td>
-<td>2022</td>
-<td>7</td>
-<td>10</td>
-<td>2022.5219</td>
-<td>419.08</td>
+<td data-quarto-table-cell-role="th">2023-08-06</td>
+<td>2023</td>
+<td>8</td>
 <td>6</td>
+<td>2023.5959</td>
+<td>420.02</td>
+<td>6</td>
+<td>417.36</td>
+<td>395.65</td>
+<td>141.41</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-08-13</td>
+<td>2023</td>
+<td>8</td>
+<td>13</td>
+<td>2023.6151</td>
+<td>418.98</td>
+<td>4</td>
 <td>417.25</td>
-<td>394.59</td>
-<td>138.52</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2022-07-17</td>
-<td>2022</td>
-<td>7</td>
-<td>17</td>
-<td>2022.5411</td>
-<td>418.43</td>
-<td>6</td>
-<td>417.14</td>
-<td>394.64</td>
-<td>138.41</td>
+<td>395.24</td>
+<td>140.89</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2022-07-24</td>
-<td>2022</td>
-<td>7</td>
-<td>24</td>
-<td>2022.5603</td>
-<td>417.84</td>
-<td>6</td>
-<td>415.68</td>
-<td>394.11</td>
-<td>138.36</td>
+<td data-quarto-table-cell-role="th">2023-08-20</td>
+<td>2023</td>
+<td>8</td>
+<td>20</td>
+<td>2023.6342</td>
+<td>419.31</td>
+<td>2</td>
+<td>416.64</td>
+<td>395.22</td>
+<td>141.71</td>
 </tr>
 </tbody>
 </table>
 
-<p>2515 rows × 9 columns</p>
+<p>2571 rows × 9 columns</p>
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># %matplotlib widget</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
-<span id="cb4-4"><a href="#cb4-4"></a>ax.plot(df[<span class="st">'average'</span>])</span>
-<span id="cb4-5"><a href="#cb4-5"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"date"</span>,</span>
-<span id="cb4-6"><a href="#cb4-6"></a>       ylabel<span class="op">=</span><span class="st">"CO2 concentration (ppm)"</span>,</span>
-<span id="cb4-7"><a href="#cb4-7"></a>       <span class="co"># ylim=[0, 430],</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>       title<span class="op">=</span><span class="st">"Mauna Loa CO2 concentration"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>KeyError: 'average'</code></pre>
+<p>The original data has a <code>decimal</code> column, showing the date as a decimal number instead of <code>YYYY-MM-DD</code>. This will turn out to be very useful to us in a little while. The code below calculates our own column with the decimal representation of the date, it is nice to know how to compute it.</p>
+<div class="cell" data-execution_count="64">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">def</span> toYearFraction(date):</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="co">"""</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">    source: https://stackoverflow.com/a/6451892</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">    This function accepts one date and returns its decimal representation</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">    This works also with leap years.</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">    """</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="kw">def</span> sinceEpoch(date): <span class="co"># returns seconds since epoch (1970-01-01)</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>        <span class="cf">return</span> time.mktime(date.timetuple())</span>
+<span id="cb3-9"><a href="#cb3-9"></a>    s <span class="op">=</span> sinceEpoch  <span class="co"># renaming of the function for convenience</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a></span>
+<span id="cb3-11"><a href="#cb3-11"></a>    year <span class="op">=</span> date.year</span>
+<span id="cb3-12"><a href="#cb3-12"></a>    startOfThisYear <span class="op">=</span> dt(year<span class="op">=</span>year, month<span class="op">=</span><span class="dv">1</span>, day<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-13"><a href="#cb3-13"></a>    startOfNextYear <span class="op">=</span> dt(year<span class="op">=</span>year<span class="op">+</span><span class="dv">1</span>, month<span class="op">=</span><span class="dv">1</span>, day<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a>    yearElapsed <span class="op">=</span> s(date) <span class="op">-</span> s(startOfThisYear)</span>
+<span id="cb3-16"><a href="#cb3-16"></a>    yearDuration <span class="op">=</span> s(startOfNextYear) <span class="op">-</span> s(startOfThisYear)</span>
+<span id="cb3-17"><a href="#cb3-17"></a>    fraction <span class="op">=</span> yearElapsed<span class="op">/</span>yearDuration</span>
+<span id="cb3-18"><a href="#cb3-18"></a></span>
+<span id="cb3-19"><a href="#cb3-19"></a>    <span class="cf">return</span> date.year <span class="op">+</span> fraction</span>
+<span id="cb3-20"><a href="#cb3-20"></a></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co"># add new column to df</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>df[<span class="st">'decimal_date'</span>] <span class="op">=</span> [toYearFraction(x) <span class="cf">for</span> x <span class="kw">in</span> df.index]</span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co"># we have too many columns, keep only average and decimal_date</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a>columns_to_keep <span class="op">=</span> [<span class="st">'average'</span>, <span class="st">'decimal_date'</span>]  <span class="co"># Add the column names you want to keep here</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a>df <span class="op">=</span> df.drop(columns<span class="op">=</span>df.columns.difference(columns_to_keep))</span>
+<span id="cb3-26"><a href="#cb3-26"></a>df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">'average'</span>: <span class="st">'co2'</span>})</span>
+<span id="cb3-27"><a href="#cb3-27"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="64">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">co2</th>
+<th data-quarto-table-cell-role="th">decimal_date</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1974-05-19</td>
+<td>333.37</td>
+<td>1974.378082</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1974-05-26</td>
+<td>332.95</td>
+<td>1974.397260</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1974-06-02</td>
+<td>332.35</td>
+<td>1974.416438</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1974-06-09</td>
+<td>332.20</td>
+<td>1974.435616</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1974-06-16</td>
+<td>332.37</td>
+<td>1974.454795</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-07-23</td>
+<td>421.28</td>
+<td>2023.556050</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-07-30</td>
+<td>420.83</td>
+<td>2023.575228</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-08-06</td>
+<td>420.02</td>
+<td>2023.594406</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-08-13</td>
+<td>418.98</td>
+<td>2023.613584</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-08-20</td>
+<td>419.31</td>
+<td>2023.632763</td>
+</tr>
+</tbody>
+</table>
+
+<p>2571 rows × 2 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="65">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb4-2"><a href="#cb4-2"></a>ax.plot(df[<span class="st">'co2'</span>])</span>
+<span id="cb4-3"><a href="#cb4-3"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"CO2 concentration (ppm)"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>       title<span class="op">=</span><span class="st">"Mauna Loa CO2 concentration"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"b0c2900b7f284b369992a2b0acc96574","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+</div>
+</section>
+<section id="trend" class="level2" data-number="40.2">
+<h2 data-number="40.2" class="anchored" data-anchor-id="trend"><span class="header-section-number">40.2</span> trend</h2>
+<div class="cell" data-execution_count="66">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>df[<span class="st">'trend365D'</span>] <span class="op">=</span> df[<span class="st">'co2'</span>].rolling(<span class="st">'365D'</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span>
+<span id="cb5-2"><a href="#cb5-2"></a>df[<span class="st">'co2_detrended'</span>] <span class="op">=</span> df[<span class="st">'co2'</span>] <span class="op">-</span> df[<span class="st">'trend365D'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="67">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="67">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">co2</th>
+<th data-quarto-table-cell-role="th">decimal_date</th>
+<th data-quarto-table-cell-role="th">trend365D</th>
+<th data-quarto-table-cell-role="th">co2_detrended</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1974-05-19</td>
+<td>333.37</td>
+<td>1974.378082</td>
+<td>329.511111</td>
+<td>3.858889</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1974-05-26</td>
+<td>332.95</td>
+<td>1974.397260</td>
+<td>329.473571</td>
+<td>3.476429</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1974-06-02</td>
+<td>332.35</td>
+<td>1974.416438</td>
+<td>329.450345</td>
+<td>2.899655</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1974-06-09</td>
+<td>332.20</td>
+<td>1974.435616</td>
+<td>329.448333</td>
+<td>2.751667</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1974-06-16</td>
+<td>332.37</td>
+<td>1974.454795</td>
+<td>329.459032</td>
+<td>2.910968</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-07-23</td>
+<td>421.28</td>
+<td>2023.556050</td>
+<td>421.939032</td>
+<td>-0.659032</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-07-30</td>
+<td>420.83</td>
+<td>2023.575228</td>
+<td>422.012667</td>
+<td>-1.182667</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-08-06</td>
+<td>420.02</td>
+<td>2023.594406</td>
+<td>422.088621</td>
+<td>-2.068621</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-08-13</td>
+<td>418.98</td>
+<td>2023.613584</td>
+<td>422.156071</td>
+<td>-3.176071</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-08-20</td>
+<td>419.31</td>
+<td>2023.632763</td>
+<td>422.205926</td>
+<td>-2.895926</td>
+</tr>
+</tbody>
+</table>
+
+<p>2571 rows × 4 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="68">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb7-2"><a href="#cb7-2"></a>ax.plot(df[<span class="st">'co2'</span>])</span>
+<span id="cb7-3"><a href="#cb7-3"></a>ax.plot(df[<span class="st">'trend365D'</span>])</span>
+<span id="cb7-4"><a href="#cb7-4"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"CO2 concentration (ppm)"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>       title<span class="op">=</span><span class="st">"Mauna Loa CO2 concentration"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"ac53644067634ff7a744322b25533308","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+</div>
+<div class="cell" data-execution_count="69">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb8-2"><a href="#cb8-2"></a>ax.plot(df[<span class="st">'co2_detrended'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"3cd8bf59af7845f0a67d4ad97ce06395","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+</div>
+<div class="cell" data-execution_count="95">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>gb_year <span class="op">=</span> df.groupby(df.index.year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="96">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># %matplotlib widget</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
+<span id="cb10-4"><a href="#cb10-4"></a></span>
+<span id="cb10-5"><a href="#cb10-5"></a>colors <span class="op">=</span> plt.cm.hot_r(np.linspace(<span class="fl">0.3</span>, <span class="fl">0.8</span>, <span class="bu">len</span>(gb_year)))</span>
+<span id="cb10-6"><a href="#cb10-6"></a></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co"># Plot 'co2' for each year</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="cf">for</span> i, (year, data) <span class="kw">in</span> <span class="bu">enumerate</span>(gb_year):</span>
+<span id="cb10-9"><a href="#cb10-9"></a>    ax.plot(data.index.day_of_year, data[<span class="st">'co2'</span>].values, color<span class="op">=</span>colors[i])</span>
+<span id="cb10-10"><a href="#cb10-10"></a></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="cf">for</span> y <span class="kw">in</span> [<span class="dv">1974</span>, <span class="dv">1984</span>, <span class="dv">1994</span>, <span class="dv">2004</span>, <span class="dv">2014</span>, <span class="dv">2023</span>]:</span>
+<span id="cb10-12"><a href="#cb10-12"></a>    this_year <span class="op">=</span> gb_year.get_group(y)</span>
+<span id="cb10-13"><a href="#cb10-13"></a>    ax.text(<span class="dv">370</span>, this_year[<span class="st">'co2'</span>][<span class="op">-</span><span class="dv">1</span>], <span class="ss">f"</span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-14"><a href="#cb10-14"></a></span>
+<span id="cb10-15"><a href="#cb10-15"></a>ax.spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb10-16"><a href="#cb10-16"></a>ax.spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/c3/7hp0d36n6vv8jc9hm2440__00000gn/T/ipykernel_57919/1560271468.py:3: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`). Consider using `matplotlib.pyplot.close()`.
+  fig, ax = plt.subplots(1, figsize=(8,4))</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="seasonal-decomposition_files/figure-html/cell-5-output-2.png" class="img-fluid"></p>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"84dfd6e0c8e84edab8bdbadb48f4ff3c","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+</div>
+<div class="cell" data-execution_count="97">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="97">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">co2</th>
+<th data-quarto-table-cell-role="th">decimal_date</th>
+<th data-quarto-table-cell-role="th">trend365D</th>
+<th data-quarto-table-cell-role="th">co2_detrended</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1974-05-19</td>
+<td>333.37</td>
+<td>1974.378082</td>
+<td>329.511111</td>
+<td>3.858889</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1974-05-26</td>
+<td>332.95</td>
+<td>1974.397260</td>
+<td>329.473571</td>
+<td>3.476429</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1974-06-02</td>
+<td>332.35</td>
+<td>1974.416438</td>
+<td>329.450345</td>
+<td>2.899655</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1974-06-09</td>
+<td>332.20</td>
+<td>1974.435616</td>
+<td>329.448333</td>
+<td>2.751667</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1974-06-16</td>
+<td>332.37</td>
+<td>1974.454795</td>
+<td>329.459032</td>
+<td>2.910968</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-07-23</td>
+<td>421.28</td>
+<td>2023.556050</td>
+<td>421.939032</td>
+<td>-0.659032</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-07-30</td>
+<td>420.83</td>
+<td>2023.575228</td>
+<td>422.012667</td>
+<td>-1.182667</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-08-06</td>
+<td>420.02</td>
+<td>2023.594406</td>
+<td>422.088621</td>
+<td>-2.068621</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-08-13</td>
+<td>418.98</td>
+<td>2023.613584</td>
+<td>422.156071</td>
+<td>-3.176071</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-08-20</td>
+<td>419.31</td>
+<td>2023.632763</td>
+<td>422.205926</td>
+<td>-2.895926</td>
+</tr>
+</tbody>
+</table>
+
+<p>2571 rows × 4 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="100">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># %matplotlib widget</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
+<span id="cb13-4"><a href="#cb13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5"></a>colors <span class="op">=</span> plt.cm.hot_r(np.linspace(<span class="fl">0.3</span>, <span class="fl">0.8</span>, <span class="bu">len</span>(gb_year)))</span>
+<span id="cb13-6"><a href="#cb13-6"></a></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="cf">for</span> i, (year, data) <span class="kw">in</span> <span class="bu">enumerate</span>(gb_year):</span>
+<span id="cb13-8"><a href="#cb13-8"></a>    ax.plot(data.index.day_of_year, data[<span class="st">'co2_detrended'</span>], color<span class="op">=</span>colors[i])</span>
+<span id="cb13-9"><a href="#cb13-9"></a></span>
+<span id="cb13-10"><a href="#cb13-10"></a>gb_year[<span class="st">'co2_detrended'</span>].mean()</span>
+<span id="cb13-11"><a href="#cb13-11"></a></span>
+<span id="cb13-12"><a href="#cb13-12"></a>ax.spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb13-13"><a href="#cb13-13"></a>ax.spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"677ef15be40942c188090dfda03a09b2","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+</div>
+<div class="cell" data-execution_count="99">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>gb_year[<span class="st">'co2_detrended'</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="99">
+<pre><code>date
+1974   -0.476982
+1975    0.064737
+1976   -0.116782
+1977    0.029913
+1978   -0.013859
+1979   -0.005189
+1980    0.011223
+1981    0.026028
+1982   -0.023990
+1983    0.078191
+1984   -0.080780
+1985    0.046252
+1986   -0.029126
+1987   -0.064448
+1988    0.055911
+1989   -0.011047
+1990   -0.002645
+1991   -0.006328
+1992    0.012398
+1993   -0.049829
+1994    0.009176
+1995   -0.007031
+1996    0.066807
+1997   -0.103806
+1998    0.075729
+1999    0.017072
+2000   -0.008864
+2001   -0.032983
+2002   -0.011691
+2003    0.011651
+2004   -0.044648
+2005    0.036898
+2006   -0.024881
+2007    0.053930
+2008   -0.014578
+2009   -0.073423
+2010    0.082605
+2011   -0.021455
+2012   -0.057198
+2013    0.048984
+2014    0.010033
+2015   -0.106415
+2016    0.072221
+2017    0.047932
+2018   -0.091430
+2019    0.018229
+2020    0.028360
+2021    0.015207
+2022    0.048922
+2023    0.811328
+Name: co2_detrended, dtype: float64</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="90">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>ty[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="90">
+<pre><code>330.38</code></pre>
 </div>
 </div>
 <p>fill missing data. interpolate method: ‘time’<br>
 <a href="https://thepythonyouneed.com/how-to-interpolate-values-with-pandas/">interpolation methods visualized</a></p>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>df[<span class="st">'co2'</span>] <span class="op">=</span> (df[<span class="st">'average'</span>].resample(<span class="st">"D"</span>) <span class="co">#resample daily</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>                          .interpolate(method<span class="op">=</span><span class="st">'time'</span>) <span class="co">#interpolate by time</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>            )</span>
-<span id="cb6-4"><a href="#cb6-4"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>df[<span class="st">'co2'</span>] <span class="op">=</span> (df[<span class="st">'average'</span>].resample(<span class="st">"D"</span>) <span class="co">#resample daily</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>                          .interpolate(method<span class="op">=</span><span class="st">'time'</span>) <span class="co">#interpolate by time</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>            )</span>
+<span id="cb18-4"><a href="#cb18-4"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
@@ -1297,8 +1646,8 @@ data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
 </div>
 </div>
 </section>
-<section id="decompose-data" class="level2" data-number="40.2">
-<h2 data-number="40.2" class="anchored" data-anchor-id="decompose-data"><span class="header-section-number">40.2</span> decompose data</h2>
+<section id="decompose-data" class="level2" data-number="40.3">
+<h2 data-number="40.3" class="anchored" data-anchor-id="decompose-data"><span class="header-section-number">40.3</span> decompose data</h2>
 <p><code>seasonal_decompose</code> returns an object with four components:</p>
 <ul>
 <li>observed: <span class="math inline">Y(t)</span></li>
@@ -1312,15 +1661,18 @@ Y(t) = T(t) + S(t) + e(t)
 <p>Multiplicative model: <span class="math display">
 Y(t) = T(t) \times S(t) \times e(t)
 </span></p>
-<section id="interlude" class="level4" data-number="40.2.0.1">
-<h4 data-number="40.2.0.1" class="anchored" data-anchor-id="interlude"><span class="header-section-number">40.2.0.1</span> Interlude</h4>
+<section id="interlude" class="level4" data-number="40.3.0.1">
+<h4 data-number="40.3.0.1" class="anchored" data-anchor-id="interlude"><span class="header-section-number">40.3.0.1</span> Interlude</h4>
 <p>learn how to use <code>zip</code> in a loop</p>
 <div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>letters <span class="op">=</span> [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span>]</span>
-<span id="cb7-2"><a href="#cb7-2"></a>numbers <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="co"># zip let's us iterate over to lists at the same time</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="cf">for</span> l, n <span class="kw">in</span> <span class="bu">zip</span>(letters, numbers):</span>
-<span id="cb7-5"><a href="#cb7-5"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>l<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>letters <span class="op">=</span> [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span>]</span>
+<span id="cb19-2"><a href="#cb19-2"></a>numbers <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="co"># zip let's us iterate over to lists at the same time</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="cf">for</span> l, n <span class="kw">in</span> <span class="bu">zip</span>(letters, numbers):</span>
+<span id="cb19-5"><a href="#cb19-5"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>l<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>a = 1
 b = 2
@@ -1331,51 +1683,57 @@ e = 5</code></pre>
 </div>
 <p>Plot each component separately.</p>
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># %matplotlib widget</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a></span>
-<span id="cb9-3"><a href="#cb9-3"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">4</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb9-4"><a href="#cb9-4"></a>decomposed_m <span class="op">=</span> seasonal_decompose(df[<span class="st">'co2'</span>], model<span class="op">=</span><span class="st">'multiplicative'</span>)</span>
-<span id="cb9-5"><a href="#cb9-5"></a>decomposed_a <span class="op">=</span> seasonal_decompose(df[<span class="st">'co2'</span>], model<span class="op">=</span><span class="st">'additive'</span>)</span>
-<span id="cb9-6"><a href="#cb9-6"></a>decomposed <span class="op">=</span> decomposed_m</span>
-<span id="cb9-7"><a href="#cb9-7"></a>pos <span class="op">=</span> (<span class="fl">0.5</span>, <span class="fl">0.9</span>)</span>
-<span id="cb9-8"><a href="#cb9-8"></a>components <span class="op">=</span>[<span class="st">"observed"</span>, <span class="st">"trend"</span>, <span class="st">"seasonal"</span>, <span class="st">"resid"</span>]</span>
-<span id="cb9-9"><a href="#cb9-9"></a>colors <span class="op">=</span> [<span class="st">"tab:blue"</span>, <span class="st">"tab:orange"</span>, <span class="st">"tab:green"</span>, <span class="st">"tab:red"</span>]</span>
-<span id="cb9-10"><a href="#cb9-10"></a><span class="cf">for</span> axx, component, color <span class="kw">in</span> <span class="bu">zip</span>(ax, components, colors):</span>
-<span id="cb9-11"><a href="#cb9-11"></a>    data <span class="op">=</span> <span class="bu">getattr</span>(decomposed, component)</span>
-<span id="cb9-12"><a href="#cb9-12"></a>    axx.plot(data, color<span class="op">=</span>color)</span>
-<span id="cb9-13"><a href="#cb9-13"></a>    axx.text(<span class="op">*</span>pos, component, bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'white'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>),</span>
-<span id="cb9-14"><a href="#cb9-14"></a>           transform<span class="op">=</span>axx.transAxes, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'top'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># %matplotlib widget</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a></span>
+<span id="cb21-3"><a href="#cb21-3"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">4</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-4"><a href="#cb21-4"></a>decomposed_m <span class="op">=</span> seasonal_decompose(df[<span class="st">'co2'</span>], model<span class="op">=</span><span class="st">'multiplicative'</span>)</span>
+<span id="cb21-5"><a href="#cb21-5"></a>decomposed_a <span class="op">=</span> seasonal_decompose(df[<span class="st">'co2'</span>], model<span class="op">=</span><span class="st">'additive'</span>)</span>
+<span id="cb21-6"><a href="#cb21-6"></a>decomposed <span class="op">=</span> decomposed_m</span>
+<span id="cb21-7"><a href="#cb21-7"></a>pos <span class="op">=</span> (<span class="fl">0.5</span>, <span class="fl">0.9</span>)</span>
+<span id="cb21-8"><a href="#cb21-8"></a>components <span class="op">=</span>[<span class="st">"observed"</span>, <span class="st">"trend"</span>, <span class="st">"seasonal"</span>, <span class="st">"resid"</span>]</span>
+<span id="cb21-9"><a href="#cb21-9"></a>colors <span class="op">=</span> [<span class="st">"tab:blue"</span>, <span class="st">"tab:orange"</span>, <span class="st">"tab:green"</span>, <span class="st">"tab:red"</span>]</span>
+<span id="cb21-10"><a href="#cb21-10"></a><span class="cf">for</span> axx, component, color <span class="kw">in</span> <span class="bu">zip</span>(ax, components, colors):</span>
+<span id="cb21-11"><a href="#cb21-11"></a>    data <span class="op">=</span> <span class="bu">getattr</span>(decomposed, component)</span>
+<span id="cb21-12"><a href="#cb21-12"></a>    axx.plot(data, color<span class="op">=</span>color)</span>
+<span id="cb21-13"><a href="#cb21-13"></a>    axx.text(<span class="op">*</span>pos, component, bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'white'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>),</span>
+<span id="cb21-14"><a href="#cb21-14"></a>           transform<span class="op">=</span>axx.transAxes, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'top'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
-<p><img src="seasonal-decomposition_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+<p><img src="seasonal-decomposition_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># %matplotlib widget</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a></span>
-<span id="cb10-3"><a href="#cb10-3"></a>decomposed <span class="op">=</span> decomposed_m</span>
-<span id="cb10-4"><a href="#cb10-4"></a></span>
-<span id="cb10-5"><a href="#cb10-5"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
-<span id="cb10-6"><a href="#cb10-6"></a>ax[<span class="dv">0</span>].plot(df[<span class="st">'co2'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"observed"</span>)</span>
-<span id="cb10-7"><a href="#cb10-7"></a>ax[<span class="dv">0</span>].plot(decomposed.trend <span class="op">*</span> decomposed.resid, color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"trend*resid"</span>)</span>
-<span id="cb10-8"><a href="#cb10-8"></a>ax[<span class="dv">0</span>].plot(decomposed.trend <span class="op">*</span> decomposed.seasonal, color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">"trend*seasonal"</span>)</span>
-<span id="cb10-9"><a href="#cb10-9"></a>ax[<span class="dv">0</span>].plot(decomposed.trend, color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"trend"</span>)</span>
-<span id="cb10-10"><a href="#cb10-10"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"CO$_2$ concentration (ppm)"</span>,</span>
-<span id="cb10-11"><a href="#cb10-11"></a>          title<span class="op">=</span><span class="st">"Mauna Loa CO$_2$ concentration"</span>)</span>
-<span id="cb10-12"><a href="#cb10-12"></a>ax[<span class="dv">0</span>].legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb10-13"><a href="#cb10-13"></a></span>
-<span id="cb10-14"><a href="#cb10-14"></a>start <span class="op">=</span> <span class="st">"2000-01-01"</span></span>
-<span id="cb10-15"><a href="#cb10-15"></a>end <span class="op">=</span> <span class="st">"2003-01-01"</span></span>
-<span id="cb10-16"><a href="#cb10-16"></a>zoom <span class="op">=</span> <span class="bu">slice</span>(start, end)</span>
-<span id="cb10-17"><a href="#cb10-17"></a>ax[<span class="dv">1</span>].plot(df.loc[zoom, <span class="st">'co2'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"observed"</span>)</span>
-<span id="cb10-18"><a href="#cb10-18"></a>ax[<span class="dv">1</span>].plot((decomposed.trend <span class="op">*</span> decomposed.resid)[zoom], color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"trend*resid"</span>)</span>
-<span id="cb10-19"><a href="#cb10-19"></a>ax[<span class="dv">1</span>].plot((decomposed.trend <span class="op">*</span> decomposed.seasonal)[zoom], color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">"trend*seasonal"</span>)</span>
-<span id="cb10-20"><a href="#cb10-20"></a>ax[<span class="dv">1</span>].plot(decomposed.trend[zoom], color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"trend"</span>)</span>
-<span id="cb10-21"><a href="#cb10-21"></a>date_form <span class="op">=</span> DateFormatter(<span class="st">"%Y"</span>)</span>
-<span id="cb10-22"><a href="#cb10-22"></a>ax[<span class="dv">1</span>].xaxis.set_major_formatter(date_form)</span>
-<span id="cb10-23"><a href="#cb10-23"></a>ax[<span class="dv">1</span>].xaxis.set_major_locator(mdates.YearLocator(<span class="dv">1</span>))</span>
-<span id="cb10-24"><a href="#cb10-24"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"Components, 2000--2003"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># %matplotlib widget</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a></span>
+<span id="cb22-3"><a href="#cb22-3"></a>decomposed <span class="op">=</span> decomposed_m</span>
+<span id="cb22-4"><a href="#cb22-4"></a></span>
+<span id="cb22-5"><a href="#cb22-5"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb22-6"><a href="#cb22-6"></a>ax[<span class="dv">0</span>].plot(df[<span class="st">'co2'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"observed"</span>)</span>
+<span id="cb22-7"><a href="#cb22-7"></a>ax[<span class="dv">0</span>].plot(decomposed.trend <span class="op">*</span> decomposed.resid, color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"trend*resid"</span>)</span>
+<span id="cb22-8"><a href="#cb22-8"></a>ax[<span class="dv">0</span>].plot(decomposed.trend <span class="op">*</span> decomposed.seasonal, color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">"trend*seasonal"</span>)</span>
+<span id="cb22-9"><a href="#cb22-9"></a>ax[<span class="dv">0</span>].plot(decomposed.trend, color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"trend"</span>)</span>
+<span id="cb22-10"><a href="#cb22-10"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"CO$_2$ concentration (ppm)"</span>,</span>
+<span id="cb22-11"><a href="#cb22-11"></a>          title<span class="op">=</span><span class="st">"Mauna Loa CO$_2$ concentration"</span>)</span>
+<span id="cb22-12"><a href="#cb22-12"></a>ax[<span class="dv">0</span>].legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb22-13"><a href="#cb22-13"></a></span>
+<span id="cb22-14"><a href="#cb22-14"></a>start <span class="op">=</span> <span class="st">"2000-01-01"</span></span>
+<span id="cb22-15"><a href="#cb22-15"></a>end <span class="op">=</span> <span class="st">"2003-01-01"</span></span>
+<span id="cb22-16"><a href="#cb22-16"></a>zoom <span class="op">=</span> <span class="bu">slice</span>(start, end)</span>
+<span id="cb22-17"><a href="#cb22-17"></a>ax[<span class="dv">1</span>].plot(df.loc[zoom, <span class="st">'co2'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"observed"</span>)</span>
+<span id="cb22-18"><a href="#cb22-18"></a>ax[<span class="dv">1</span>].plot((decomposed.trend <span class="op">*</span> decomposed.resid)[zoom], color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"trend*resid"</span>)</span>
+<span id="cb22-19"><a href="#cb22-19"></a>ax[<span class="dv">1</span>].plot((decomposed.trend <span class="op">*</span> decomposed.seasonal)[zoom], color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">"trend*seasonal"</span>)</span>
+<span id="cb22-20"><a href="#cb22-20"></a>ax[<span class="dv">1</span>].plot(decomposed.trend[zoom], color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"trend"</span>)</span>
+<span id="cb22-21"><a href="#cb22-21"></a>date_form <span class="op">=</span> DateFormatter(<span class="st">"%Y"</span>)</span>
+<span id="cb22-22"><a href="#cb22-22"></a>ax[<span class="dv">1</span>].xaxis.set_major_formatter(date_form)</span>
+<span id="cb22-23"><a href="#cb22-23"></a>ax[<span class="dv">1</span>].xaxis.set_major_locator(mdates.YearLocator(<span class="dv">1</span>))</span>
+<span id="cb22-24"><a href="#cb22-24"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"Components, 2000--2003"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
-<p><img src="seasonal-decomposition_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+<p><img src="seasonal-decomposition_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 
