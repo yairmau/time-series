@@ -1,8 +1,32 @@
-## motivation
+# motivation
 
+This is a bit grim for *motivation*, but it is super important.
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">This is mind-blowingly bad.Most up-to-date study on Atlantic Ocean currents system shows signals of collapse.This could happen in 2025-2095 with 95% probability. Land to grow wheat may drop by half. Winter temperatures in North Europe could drop between 10 and 30 °C. 1/🧵 <a href="https://t.co/W1uPEEWus3">https://t.co/W1uPEEWus3</a> <a href="https://t.co/yUKoae9b6S">pic.twitter.com/yUKoae9b6S</a></p>&mdash; dr. gianluca grimalda (@GGrimalda) <a href="https://twitter.com/GGrimalda/status/1756278025103024214?ref_src=twsrc%5Etfw">February 10, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Let's discuss what's going on by looking at [these interactive graphs](https://climatereanalyzer.org/clim/sst_daily/).
+
+![](800px-Thermohaline_Circulation_2.png)
+
+::: {.column-margin}
+Source: [Wikimedia](https://commons.wikimedia.org/wiki/File:Thermohaline_Circulation_2.png)
+:::
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LkRQjTdTvFE?si=FU8znGJAf2F87rC3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+From @westen2024physics:
+
+> Classical early warning indicators, such as the increase in the variance and/or the (lag-1) autocorrelation, when applied to sea surface temperature-based time series, suggest that the present-day Atlantic meridional overturning circulation approaches a tipping point before the end of this century (11, 12). 
+
+## questions
+
+* disconsidering the expected annual cycle, how fast is the ocean warming up?
+* what is a *typical* annual oscillation in temperature?
+* how can I model processes such as this, where there are both a clear trend and a seasonal component?
+<!-- 
 https://climate.copernicus.eu/record-high-global-sea-surface-temperatures-continue-august
 
 https://climatereanalyzer.org/clim/sst_daily/
 export chart > download json
 
-https://climatereanalyzer.org/clim/sst_daily/json/oisst2.1_natlan1_sst_day.json
+https://climatereanalyzer.org/clim/sst_daily/json/oisst2.1_natlan1_sst_day.json -->

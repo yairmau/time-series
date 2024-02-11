@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Time Series Analysis - 32&nbsp; seasonal decomposition from scratch</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../seasonality/seasonal-decomposition.html" rel="next">
+<link href="../seasonality/motivation.html" rel="prev">
+<link href="../archive/clock-history.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+</head><body class="nav-sidebar floating"><div id="progress-bar" style="width: 0%; height:4px; background-color: rgb(89 127 235);; position: fixed; top: 0px; z-index: 2000;"></div>
+
+<script id="progressbar" type="text/javascript">
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const bar = document.querySelector('#progress-bar');
+    const post = document.querySelector('#quarto-content');
+    const html = document.documentElement;
+    
+    const height = post.scrollHeight + post.offsetTop;
+    
+    window.addEventListener('scroll', () => {
+        bar.style.width = (html.scrollTop / (height- html.clientHeight)) * 100 + '%';
+    });
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+
+
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../seasonality/motivation.html">seasonality</a></li><li class="breadcrumb-item"><a href="../seasonality/seasonal-decomposition-from-scratch.html"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">seasonal decomposition from scratch</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../archive/clock-history.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Time Series Analysis</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://yairmau.com/" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-house-fill"></i></a>
+    <a href="../sources.html" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-bookmark-fill"></i></a>
+    <a href="../things-to-remember.html" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-asterisk"></i></a>
+    <a href="https://github.com/yairmau/time-series/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">about</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../who-cares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">who cares?</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">start here</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/boring.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">the boring stuff you absolutely need to do</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/numpy-pandas-matplotlib.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">numpy, pandas, matplotlib</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">learn by example</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/AI-policy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AI policy</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">resampling</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/resampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">resampling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/upsampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">upsampling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/interpolation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">interpolation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/FAQ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">FAQ</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">smoothing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/sliding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">sliding window</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/not-only-averages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">not only averages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/fit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">fit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/savgol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">outliers and gaps</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/outlier-identification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">outlier identification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/robust-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">robust analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/sliding-algorithms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">sliding algorithms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/substituting-outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">substituting outliers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/outliers_challenge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">challenge</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/outliers_challenge_part2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">challenge part 2</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">stationarity</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/random.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">random variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/AR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">autoregressive processes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/autocorrelation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/stationarity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">stationarity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/ACF_and_PACF_graphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">ACF and PACF graphs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/from_AR_to_ARIMA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">practice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/practice2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">filling missing values</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">seasonality</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../seasonality/seasonal-decomposition-from-scratch.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">seasonal decomposition from scratch</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../seasonality/seasonal-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text">time lags</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">dynamic time warp</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/LDTW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">LDTW</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+ <span class="menu-text">frequency</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+ <span class="menu-text">rates of change</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/derivatives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">derivatives</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">finite differences</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
+ <span class="menu-text">forecasting</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+ <span class="menu-text">assignments</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">assignment 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">assignment 2</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
+ <span class="menu-text">technical stuff</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">sources</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">
+ <span class="menu-text">behind-the-scenes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/consecutive_sequence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/outliers_graphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/make_your_own_website.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">make your own website</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sea-surface-temperature" id="toc-sea-surface-temperature" class="nav-link active" data-scroll-target="#sea-surface-temperature"><span class="header-section-number">32.1</span> sea surface temperature</a></li>
+  <li><a href="#trend" id="toc-trend" class="nav-link" data-scroll-target="#trend"><span class="header-section-number">32.2</span> trend</a></li>
+  <li><a href="#detrend" id="toc-detrend" class="nav-link" data-scroll-target="#detrend"><span class="header-section-number">32.3</span> detrend</a></li>
+  <li><a href="#seasonal-component" id="toc-seasonal-component" class="nav-link" data-scroll-target="#seasonal-component"><span class="header-section-number">32.4</span> seasonal component</a>
+  <ul class="collapse">
+  <li><a href="#group-by" id="toc-group-by" class="nav-link" data-scroll-target="#group-by"><span class="header-section-number">32.4.1</span> group by</a></li>
+  </ul></li>
+  <li><a href="#residual" id="toc-residual" class="nav-link" data-scroll-target="#residual"><span class="header-section-number">32.5</span> residual</a></li>
+  <li><a href="#seasonal-decomposition" id="toc-seasonal-decomposition" class="nav-link" data-scroll-target="#seasonal-decomposition"><span class="header-section-number">32.6</span> seasonal decomposition</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">seasonal decomposition from scratch</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/seasonality/seasonal-decomposition-from-scratch.ipynb">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-execution_count="135">
+<details>
+<summary>import stuff</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> pandas.plotting <span class="im">import</span> register_matplotlib_converters</span>
+<span id="cb1-6"><a href="#cb1-6"></a>register_matplotlib_converters()  <span class="co"># datetime converter for a matplotlib</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-8"><a href="#cb1-8"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="im">from</span> statsmodels.tsa.seasonal <span class="im">import</span> seasonal_decompose</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="im">from</span> datetime <span class="im">import</span> datetime <span class="im">as</span> dt</span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="im">import</span> time</span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="im">from</span> statsmodels.tsa.stattools <span class="im">import</span> adfuller</span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="sea-surface-temperature" class="level2" data-number="32.1">
+<h2 data-number="32.1" class="anchored" data-anchor-id="sea-surface-temperature"><span class="header-section-number">32.1</span> sea surface temperature</h2>
+<div class="cell" data-execution_count="35">
+<details>
+<summary>load and plot data</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>df_north <span class="op">=</span> pd.read_csv(<span class="st">"sst_daily_north_atl.csv"</span>, index_col<span class="op">=</span><span class="st">'date'</span>, parse_dates<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>df_world <span class="op">=</span> pd.read_csv(<span class="st">"sst_daily_world.csv"</span>, index_col<span class="op">=</span><span class="st">'date'</span>, parse_dates<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.1</span>)  <span class="co"># increase vertical space between panels</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>ax[<span class="dv">0</span>].plot(df_world[<span class="st">'sst'</span>], color<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>ax[<span class="dv">1</span>].plot(df_north[<span class="st">'sst'</span>], color<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>fig.text(<span class="fl">0.02</span>, <span class="fl">0.5</span>, <span class="st">'sea surface temperature (°C)'</span>, va<span class="op">=</span><span class="st">'center'</span>, rotation<span class="op">=</span><span class="st">'vertical'</span>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(yticks<span class="op">=</span>[<span class="dv">20</span>, <span class="dv">25</span>])</span>
+<span id="cb2-10"><a href="#cb2-10"></a>ax[<span class="dv">0</span>].text(<span class="fl">0.5</span>, <span class="fl">0.97</span>, <span class="vs">r"world average"</span>, transform<span class="op">=</span>ax[<span class="dv">0</span>].transAxes,</span>
+<span id="cb2-11"><a href="#cb2-11"></a>           horizontalalignment<span class="op">=</span><span class="st">'center'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)</span>
+<span id="cb2-12"><a href="#cb2-12"></a>ax[<span class="dv">1</span>].text(<span class="fl">0.5</span>, <span class="fl">0.97</span>, <span class="vs">r"north atlantic"</span>, transform<span class="op">=</span>ax[<span class="dv">1</span>].transAxes,</span>
+<span id="cb2-13"><a href="#cb2-13"></a>           horizontalalignment<span class="op">=</span><span class="st">'center'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)</span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="seasonal-decomposition-from-scratch_files/figure-html/cell-3-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="trend" class="level2" data-number="32.2">
+<h2 data-number="32.2" class="anchored" data-anchor-id="trend"><span class="header-section-number">32.2</span> trend</h2>
+<div class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>df_north[<span class="st">'trend'</span>] <span class="op">=</span> df_north[<span class="st">'sst'</span>].rolling(<span class="st">'365D'</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span>
+<span id="cb3-2"><a href="#cb3-2"></a>df_world[<span class="st">'trend'</span>] <span class="op">=</span> df_world[<span class="st">'sst'</span>].rolling(<span class="st">'365D'</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="34">
+<details>
+<summary>plot trend</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.1</span>)  <span class="co"># increase vertical space between panels</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>ax[<span class="dv">0</span>].plot(df_world[<span class="st">'sst'</span>], color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"daily"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>ax[<span class="dv">0</span>].plot(df_world[<span class="st">'trend'</span>], color<span class="op">=</span><span class="st">"xkcd:hot pink"</span>, label<span class="op">=</span><span class="st">"365-day mean"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>ax[<span class="dv">1</span>].plot(df_north[<span class="st">'sst'</span>], color<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>ax[<span class="dv">1</span>].plot(df_north[<span class="st">'trend'</span>], color<span class="op">=</span><span class="st">"xkcd:hot pink"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7"></a>fig.text(<span class="fl">0.02</span>, <span class="fl">0.5</span>, <span class="st">'sea surface temperature (°C)'</span>, va<span class="op">=</span><span class="st">'center'</span>, rotation<span class="op">=</span><span class="st">'vertical'</span>)</span>
+<span id="cb4-8"><a href="#cb4-8"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(title<span class="op">=</span><span class="st">"trend  = 365-day rolling mean"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(yticks<span class="op">=</span>[<span class="dv">20</span>, <span class="dv">25</span>])</span>
+<span id="cb4-10"><a href="#cb4-10"></a>ax[<span class="dv">0</span>].text(<span class="fl">0.5</span>, <span class="fl">0.97</span>, <span class="vs">r"world average"</span>, transform<span class="op">=</span>ax[<span class="dv">0</span>].transAxes,</span>
+<span id="cb4-11"><a href="#cb4-11"></a>           horizontalalignment<span class="op">=</span><span class="st">'center'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)</span>
+<span id="cb4-12"><a href="#cb4-12"></a>ax[<span class="dv">1</span>].text(<span class="fl">0.5</span>, <span class="fl">0.97</span>, <span class="vs">r"north atlantic"</span>, transform<span class="op">=</span>ax[<span class="dv">1</span>].transAxes,</span>
+<span id="cb4-13"><a href="#cb4-13"></a>           horizontalalignment<span class="op">=</span><span class="st">'center'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)</span>
+<span id="cb4-14"><a href="#cb4-14"></a>ax[<span class="dv">0</span>].legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="seasonal-decomposition-from-scratch_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="detrend" class="level2" data-number="32.3">
+<h2 data-number="32.3" class="anchored" data-anchor-id="detrend"><span class="header-section-number">32.3</span> detrend</h2>
+<p><span class="math display">
+\text{detrended} = \text{signal} - \text{trend}
+</span></p>
+<div class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>df_north[<span class="st">'detrended'</span>] <span class="op">=</span> df_north[<span class="st">'sst'</span>] <span class="op">-</span> df_north[<span class="st">'trend'</span>]</span>
+<span id="cb5-2"><a href="#cb5-2"></a>df_world[<span class="st">'detrended'</span>] <span class="op">=</span> df_world[<span class="st">'sst'</span>] <span class="op">-</span> df_world[<span class="st">'trend'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="60">
+<details>
+<summary>plot trend</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.1</span>)  <span class="co"># increase vertical space between panels</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>ax[<span class="dv">0</span>].plot(df_world[<span class="st">'detrended'</span>])</span>
+<span id="cb6-4"><a href="#cb6-4"></a>ax[<span class="dv">1</span>].plot(df_north[<span class="st">'detrended'</span>])</span>
+<span id="cb6-5"><a href="#cb6-5"></a>fig.text(<span class="fl">0.02</span>, <span class="fl">0.5</span>, <span class="st">'detrended sst temperature (°C)'</span>, va<span class="op">=</span><span class="st">'center'</span>, rotation<span class="op">=</span><span class="st">'vertical'</span>)</span>
+<span id="cb6-6"><a href="#cb6-6"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">0.4</span>,<span class="fl">0.4</span>],</span>
+<span id="cb6-7"><a href="#cb6-7"></a>          title<span class="op">=</span><span class="st">"detrended"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>],)</span>
+<span id="cb6-9"><a href="#cb6-9"></a>ax[<span class="dv">0</span>].text(<span class="fl">0.5</span>, <span class="fl">0.97</span>, <span class="vs">r"world average"</span>, transform<span class="op">=</span>ax[<span class="dv">0</span>].transAxes,</span>
+<span id="cb6-10"><a href="#cb6-10"></a>           horizontalalignment<span class="op">=</span><span class="st">'center'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)</span>
+<span id="cb6-11"><a href="#cb6-11"></a>ax[<span class="dv">1</span>].text(<span class="fl">0.5</span>, <span class="fl">0.97</span>, <span class="vs">r"north atlantic"</span>, transform<span class="op">=</span>ax[<span class="dv">1</span>].transAxes,</span>
+<span id="cb6-12"><a href="#cb6-12"></a>           horizontalalignment<span class="op">=</span><span class="st">'center'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)</span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="seasonal-decomposition-from-scratch_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="seasonal-component" class="level2" data-number="32.4">
+<h2 data-number="32.4" class="anchored" data-anchor-id="seasonal-component"><span class="header-section-number">32.4</span> seasonal component</h2>
+<p>It is useful to add two new columns to our dataframes: day of year and year:</p>
+<div class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>df_north[<span class="st">'doy'</span>] <span class="op">=</span> df_north.index.day_of_year</span>
+<span id="cb7-2"><a href="#cb7-2"></a>df_north[<span class="st">'year'</span>] <span class="op">=</span> df_north.index.year</span>
+<span id="cb7-3"><a href="#cb7-3"></a>df_world[<span class="st">'doy'</span>] <span class="op">=</span> df_world.index.day_of_year</span>
+<span id="cb7-4"><a href="#cb7-4"></a>df_world[<span class="st">'year'</span>] <span class="op">=</span> df_world.index.year</span>
+<span id="cb7-5"><a href="#cb7-5"></a>df_world</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="61">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">sst</th>
+<th data-quarto-table-cell-role="th">trend</th>
+<th data-quarto-table-cell-role="th">doy</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">detrended</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1981-09-01</td>
+<td>20.15</td>
+<td>20.006721</td>
+<td>244</td>
+<td>1981</td>
+<td>0.143279</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1981-09-02</td>
+<td>20.14</td>
+<td>20.007717</td>
+<td>245</td>
+<td>1981</td>
+<td>0.132283</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1981-09-03</td>
+<td>20.13</td>
+<td>20.008703</td>
+<td>246</td>
+<td>1981</td>
+<td>0.121297</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1981-09-04</td>
+<td>20.13</td>
+<td>20.009624</td>
+<td>247</td>
+<td>1981</td>
+<td>0.120376</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1981-09-05</td>
+<td>20.12</td>
+<td>20.010481</td>
+<td>248</td>
+<td>1981</td>
+<td>0.109519</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2024-02-04</td>
+<td>21.12</td>
+<td>20.932460</td>
+<td>35</td>
+<td>2024</td>
+<td>0.187540</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2024-02-05</td>
+<td>21.11</td>
+<td>20.931882</td>
+<td>36</td>
+<td>2024</td>
+<td>0.178118</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2024-02-06</td>
+<td>21.13</td>
+<td>20.931297</td>
+<td>37</td>
+<td>2024</td>
+<td>0.198703</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2024-02-07</td>
+<td>21.12</td>
+<td>20.930707</td>
+<td>38</td>
+<td>2024</td>
+<td>0.189293</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2024-02-08</td>
+<td>21.12</td>
+<td>20.930164</td>
+<td>39</td>
+<td>2024</td>
+<td>0.189836</td>
+</tr>
+</tbody>
+</table>
+
+<p>15501 rows × 5 columns</p>
+</div>
+</div>
+</div>
+<section id="group-by" class="level3" data-number="32.4.1">
+<h3 data-number="32.4.1" class="anchored" data-anchor-id="group-by"><span class="header-section-number">32.4.1</span> group by</h3>
+<p>This is an extremely useful method. As the name suggests, it groups data according to some criterion.</p>
+<div class="cell" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>gb_year_north <span class="op">=</span> df_north.groupby(<span class="st">'year'</span>)</span>
+<span id="cb8-2"><a href="#cb8-2"></a>gb_year_world <span class="op">=</span> df_world.groupby(<span class="st">'year'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Just like <code>resample</code> and <code>rolling</code>, <code>groupby</code> doesn’t do anything after grouping the data, it waits for further instructions.</p>
+<div class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>gb_year_world[<span class="st">'sst'</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="63">
+<pre><code>year
+1981    19.953197
+1982    20.051671
+1983    20.133260
+1984    20.029809
+1985    19.924055
+1986    19.994055
+1987    20.148712
+1988    20.108087
+1989    20.039863
+1990    20.152932
+1991    20.145781
+1992    20.069454
+1993    20.080877
+1994    20.098274
+1995    20.170959
+1996    20.118716
+1997    20.269945
+1998    20.328575
+1999    20.117973
+2000    20.151940
+2001    20.286356
+2002    20.321699
+2003    20.370849
+2004    20.328962
+2005    20.412548
+2006    20.374110
+2007    20.321068
+2008    20.312814
+2009    20.432301
+2010    20.436411
+2011    20.314192
+2012    20.369317
+2013    20.403918
+2014    20.525260
+2015    20.647151
+2016    20.671257
+2017    20.607507
+2018    20.567808
+2019    20.652603
+2020    20.678388
+2021    20.630658
+2022    20.648521
+2023    20.889671
+2024    21.042564
+Name: sst, dtype: float64</code></pre>
+</div>
+</div>
+<p>If all you need is the average by years, then the most common way of writing the command would be in one single line:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>df_world.groupby(<span class="st">'year'</span>)[<span class="st">'sst'</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s use <code>groupby</code> to plot world SST for all years, see how handy this method is. Also note that groupby return an object that can be iterated upon, as we do below.</p>
+<div class="cell" data-execution_count="64">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="cf">for</span> year, data <span class="kw">in</span> gb_year_world:</span>
+<span id="cb12-3"><a href="#cb12-3"></a>    ax.plot(data[<span class="st">'doy'</span>], data[<span class="st">'sst'</span>], color<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"DOY"</span>, ylabel<span class="op">=</span><span class="st">"SST"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="seasonal-decomposition-from-scratch_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>With a few more lines of code we can make this look pretty.</p>
+<div class="cell" data-execution_count="98">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-2"><a href="#cb13-2"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb13-3"><a href="#cb13-3"></a></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="co"># define the segment of the colormap to use</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>start, end <span class="op">=</span> <span class="fl">0.3</span>, <span class="fl">0.8</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>base_cmap <span class="op">=</span> plt.cm.hot_r</span>
+<span id="cb13-7"><a href="#cb13-7"></a>new_colors <span class="op">=</span> base_cmap(np.linspace(start, end, <span class="dv">256</span>))</span>
+<span id="cb13-8"><a href="#cb13-8"></a>new_cmap <span class="op">=</span> mpl.colors.LinearSegmentedColormap.from_list(<span class="st">"trunc(</span><span class="sc">{n}</span><span class="st">,</span><span class="sc">{a:.2f}</span><span class="st">,</span><span class="sc">{b:.2f}</span><span class="st">)"</span>.<span class="bu">format</span>(n<span class="op">=</span>base_cmap.name, a<span class="op">=</span>start, b<span class="op">=</span>end), new_colors)</span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="co"># defining the years for plotting</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a>years <span class="op">=</span> [year <span class="cf">for</span> year, _ <span class="kw">in</span> gb_year_world] <span class="op">+</span> [year <span class="cf">for</span> year, _ <span class="kw">in</span> gb_year_north]</span>
+<span id="cb13-11"><a href="#cb13-11"></a>min_year, max_year <span class="op">=</span> <span class="bu">min</span>(years), <span class="bu">max</span>(years)</span>
+<span id="cb13-12"><a href="#cb13-12"></a><span class="co"># create a new normalization that matches the years to the new colormap</span></span>
+<span id="cb13-13"><a href="#cb13-13"></a>norm <span class="op">=</span> mpl.colors.Normalize(vmin<span class="op">=</span>min_year, vmax<span class="op">=</span>max_year)</span>
+<span id="cb13-14"><a href="#cb13-14"></a><span class="co"># plotting the data with year-specific colors from the new colormap</span></span>
+<span id="cb13-15"><a href="#cb13-15"></a><span class="cf">for</span> year, data <span class="kw">in</span> gb_year_world:</span>
+<span id="cb13-16"><a href="#cb13-16"></a>    ax[<span class="dv">0</span>].plot(data.index.day_of_year, data[<span class="st">'sst'</span>], color<span class="op">=</span>new_cmap(norm(year)))</span>
+<span id="cb13-17"><a href="#cb13-17"></a><span class="cf">for</span> year, data <span class="kw">in</span> gb_year_north:</span>
+<span id="cb13-18"><a href="#cb13-18"></a>    ax[<span class="dv">1</span>].plot(data.index.day_of_year, data[<span class="st">'sst'</span>], color<span class="op">=</span>new_cmap(norm(year)))</span>
+<span id="cb13-19"><a href="#cb13-19"></a></span>
+<span id="cb13-20"><a href="#cb13-20"></a><span class="co"># colorbar setup</span></span>
+<span id="cb13-21"><a href="#cb13-21"></a>sm <span class="op">=</span> mpl.cm.ScalarMappable(cmap<span class="op">=</span>new_cmap, norm<span class="op">=</span>norm)</span>
+<span id="cb13-22"><a href="#cb13-22"></a>sm.set_array([])</span>
+<span id="cb13-23"><a href="#cb13-23"></a>cbar <span class="op">=</span> fig.colorbar(sm, ax<span class="op">=</span>ax.ravel().tolist(), orientation<span class="op">=</span><span class="st">'vertical'</span>, fraction<span class="op">=</span><span class="fl">0.046</span>, pad<span class="op">=</span><span class="fl">0.04</span>)</span>
+<span id="cb13-24"><a href="#cb13-24"></a>ticks_years <span class="op">=</span> [<span class="dv">1981</span>, <span class="dv">1991</span>, <span class="dv">2001</span>, <span class="dv">2011</span>, <span class="dv">2024</span>]  <span class="co"># Specify years for colorbar ticks</span></span>
+<span id="cb13-25"><a href="#cb13-25"></a>cbar.set_ticks(np.linspace(min_year, max_year, num<span class="op">=</span><span class="bu">len</span>(ticks_years)))</span>
+<span id="cb13-26"><a href="#cb13-26"></a>cbar.set_ticklabels(ticks_years)</span>
+<span id="cb13-27"><a href="#cb13-27"></a><span class="co"># adding shared ylabel and xlabel</span></span>
+<span id="cb13-28"><a href="#cb13-28"></a>fig.text(<span class="fl">0.02</span>, <span class="fl">0.5</span>, <span class="st">'SST temperature (°C)'</span>, va<span class="op">=</span><span class="st">'center'</span>, rotation<span class="op">=</span><span class="st">'vertical'</span>)</span>
+<span id="cb13-29"><a href="#cb13-29"></a>ax[<span class="dv">1</span>].set_xlabel(<span class="st">"day of year"</span>)</span>
+<span id="cb13-30"><a href="#cb13-30"></a>ax[<span class="dv">0</span>].text(<span class="fl">0.97</span>, <span class="fl">0.97</span>, <span class="vs">r"world average"</span>, transform<span class="op">=</span>ax[<span class="dv">0</span>].transAxes,</span>
+<span id="cb13-31"><a href="#cb13-31"></a>           horizontalalignment<span class="op">=</span><span class="st">'right'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)</span>
+<span id="cb13-32"><a href="#cb13-32"></a>ax[<span class="dv">1</span>].text(<span class="fl">0.97</span>, <span class="fl">0.97</span>, <span class="vs">r"north atlantic"</span>, transform<span class="op">=</span>ax[<span class="dv">1</span>].transAxes,</span>
+<span id="cb13-33"><a href="#cb13-33"></a>           horizontalalignment<span class="op">=</span><span class="st">'right'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="seasonal-decomposition-from-scratch_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Now let’s do the same for the detrended SST:</p>
+<div class="cell" data-execution_count="66">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-2"><a href="#cb14-2"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb14-3"><a href="#cb14-3"></a></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="co"># define the segment of the colormap to use</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a>start, end <span class="op">=</span> <span class="fl">0.3</span>, <span class="fl">0.8</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a>base_cmap <span class="op">=</span> plt.cm.hot_r</span>
+<span id="cb14-7"><a href="#cb14-7"></a>new_colors <span class="op">=</span> base_cmap(np.linspace(start, end, <span class="dv">256</span>))</span>
+<span id="cb14-8"><a href="#cb14-8"></a>new_cmap <span class="op">=</span> mpl.colors.LinearSegmentedColormap.from_list(<span class="st">"trunc(</span><span class="sc">{n}</span><span class="st">,</span><span class="sc">{a:.2f}</span><span class="st">,</span><span class="sc">{b:.2f}</span><span class="st">)"</span>.<span class="bu">format</span>(n<span class="op">=</span>base_cmap.name, a<span class="op">=</span>start, b<span class="op">=</span>end), new_colors)</span>
+<span id="cb14-9"><a href="#cb14-9"></a><span class="co"># defining the years for plotting</span></span>
+<span id="cb14-10"><a href="#cb14-10"></a>years <span class="op">=</span> [year <span class="cf">for</span> year, _ <span class="kw">in</span> gb_year_world] <span class="op">+</span> [year <span class="cf">for</span> year, _ <span class="kw">in</span> gb_year_north]</span>
+<span id="cb14-11"><a href="#cb14-11"></a>min_year, max_year <span class="op">=</span> <span class="bu">min</span>(years), <span class="bu">max</span>(years)</span>
+<span id="cb14-12"><a href="#cb14-12"></a><span class="co"># create a new normalization that matches the years to the new colormap</span></span>
+<span id="cb14-13"><a href="#cb14-13"></a>norm <span class="op">=</span> mpl.colors.Normalize(vmin<span class="op">=</span>min_year, vmax<span class="op">=</span>max_year)</span>
+<span id="cb14-14"><a href="#cb14-14"></a><span class="co"># plotting the data with year-specific colors from the new colormap</span></span>
+<span id="cb14-15"><a href="#cb14-15"></a><span class="cf">for</span> year, data <span class="kw">in</span> gb_year_world:</span>
+<span id="cb14-16"><a href="#cb14-16"></a>    ax[<span class="dv">0</span>].plot(data.index.day_of_year, data[<span class="st">'detrended'</span>], color<span class="op">=</span>new_cmap(norm(year)))</span>
+<span id="cb14-17"><a href="#cb14-17"></a><span class="cf">for</span> year, data <span class="kw">in</span> gb_year_north:</span>
+<span id="cb14-18"><a href="#cb14-18"></a>    ax[<span class="dv">1</span>].plot(data.index.day_of_year, data[<span class="st">'detrended'</span>], color<span class="op">=</span>new_cmap(norm(year)))</span>
+<span id="cb14-19"><a href="#cb14-19"></a><span class="co"># colorbar setup</span></span>
+<span id="cb14-20"><a href="#cb14-20"></a>sm <span class="op">=</span> mpl.cm.ScalarMappable(cmap<span class="op">=</span>new_cmap, norm<span class="op">=</span>norm)</span>
+<span id="cb14-21"><a href="#cb14-21"></a>sm.set_array([])</span>
+<span id="cb14-22"><a href="#cb14-22"></a>cbar <span class="op">=</span> fig.colorbar(sm, ax<span class="op">=</span>ax.ravel().tolist(), orientation<span class="op">=</span><span class="st">'vertical'</span>, fraction<span class="op">=</span><span class="fl">0.046</span>, pad<span class="op">=</span><span class="fl">0.04</span>)</span>
+<span id="cb14-23"><a href="#cb14-23"></a>ticks_years <span class="op">=</span> [<span class="dv">1981</span>, <span class="dv">1991</span>, <span class="dv">2001</span>, <span class="dv">2011</span>, <span class="dv">2024</span>]  <span class="co"># Specify years for colorbar ticks</span></span>
+<span id="cb14-24"><a href="#cb14-24"></a>cbar.set_ticks(np.linspace(min_year, max_year, num<span class="op">=</span><span class="bu">len</span>(ticks_years)))</span>
+<span id="cb14-25"><a href="#cb14-25"></a>cbar.set_ticklabels(ticks_years)</span>
+<span id="cb14-26"><a href="#cb14-26"></a><span class="co"># adding shared ylabel and xlabel</span></span>
+<span id="cb14-27"><a href="#cb14-27"></a>fig.text(<span class="fl">0.02</span>, <span class="fl">0.5</span>, <span class="st">'detrended SST temperature (°C)'</span>, va<span class="op">=</span><span class="st">'center'</span>, rotation<span class="op">=</span><span class="st">'vertical'</span>)</span>
+<span id="cb14-28"><a href="#cb14-28"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(yticks<span class="op">=</span>[<span class="op">-</span><span class="fl">0.4</span>,<span class="dv">0</span>,<span class="fl">0.4</span>])</span>
+<span id="cb14-29"><a href="#cb14-29"></a>ax[<span class="dv">1</span>].set_xlabel(<span class="st">"day of year"</span>)</span>
+<span id="cb14-30"><a href="#cb14-30"></a>ax[<span class="dv">0</span>].text(<span class="fl">0.97</span>, <span class="fl">0.97</span>, <span class="vs">r"world average"</span>, transform<span class="op">=</span>ax[<span class="dv">0</span>].transAxes,</span>
+<span id="cb14-31"><a href="#cb14-31"></a>           horizontalalignment<span class="op">=</span><span class="st">'right'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)</span>
+<span id="cb14-32"><a href="#cb14-32"></a>ax[<span class="dv">1</span>].text(<span class="fl">0.97</span>, <span class="fl">0.97</span>, <span class="vs">r"north atlantic"</span>, transform<span class="op">=</span>ax[<span class="dv">1</span>].transAxes,</span>
+<span id="cb14-33"><a href="#cb14-33"></a>           horizontalalignment<span class="op">=</span><span class="st">'right'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="seasonal-decomposition-from-scratch_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>In order to determine what is the seasonal component, we need to calculate the average of the detrended data across all years. Again, <code>groupby</code> comes to rescue in a most elegant way:</p>
+<div class="cell" data-execution_count="68">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>avg_north <span class="op">=</span> df_north.groupby(<span class="st">'doy'</span>)[<span class="st">'detrended'</span>].mean()</span>
+<span id="cb15-2"><a href="#cb15-2"></a>avg_world <span class="op">=</span> df_world.groupby(<span class="st">'doy'</span>)[<span class="st">'detrended'</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s incorporate the averages in the same graphs we saw above:</p>
+<div class="cell" data-execution_count="99">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb16-2"><a href="#cb16-2"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="co"># define the segment of the colormap to use</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>start, end <span class="op">=</span> <span class="fl">0.3</span>, <span class="fl">0.8</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>base_cmap <span class="op">=</span> plt.cm.hot_r</span>
+<span id="cb16-7"><a href="#cb16-7"></a>new_colors <span class="op">=</span> base_cmap(np.linspace(start, end, <span class="dv">256</span>))</span>
+<span id="cb16-8"><a href="#cb16-8"></a>new_cmap <span class="op">=</span> mpl.colors.LinearSegmentedColormap.from_list(<span class="st">"trunc(</span><span class="sc">{n}</span><span class="st">,</span><span class="sc">{a:.2f}</span><span class="st">,</span><span class="sc">{b:.2f}</span><span class="st">)"</span>.<span class="bu">format</span>(n<span class="op">=</span>base_cmap.name, a<span class="op">=</span>start, b<span class="op">=</span>end), new_colors)</span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="co"># defining the years for plotting</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a>years <span class="op">=</span> [year <span class="cf">for</span> year, _ <span class="kw">in</span> gb_year_world] <span class="op">+</span> [year <span class="cf">for</span> year, _ <span class="kw">in</span> gb_year_north]</span>
+<span id="cb16-11"><a href="#cb16-11"></a>min_year, max_year <span class="op">=</span> <span class="bu">min</span>(years), <span class="bu">max</span>(years)</span>
+<span id="cb16-12"><a href="#cb16-12"></a><span class="co"># create a new normalization that matches the years to the new colormap</span></span>
+<span id="cb16-13"><a href="#cb16-13"></a>norm <span class="op">=</span> mpl.colors.Normalize(vmin<span class="op">=</span>min_year, vmax<span class="op">=</span>max_year)</span>
+<span id="cb16-14"><a href="#cb16-14"></a><span class="co"># plotting the data with year-specific colors from the new colormap</span></span>
+<span id="cb16-15"><a href="#cb16-15"></a><span class="cf">for</span> year, data <span class="kw">in</span> gb_year_world:</span>
+<span id="cb16-16"><a href="#cb16-16"></a>    ax[<span class="dv">0</span>].plot(data.index.day_of_year, data[<span class="st">'detrended'</span>], color<span class="op">=</span>new_cmap(norm(year)))</span>
+<span id="cb16-17"><a href="#cb16-17"></a><span class="cf">for</span> year, data <span class="kw">in</span> gb_year_north:</span>
+<span id="cb16-18"><a href="#cb16-18"></a>    ax[<span class="dv">1</span>].plot(data.index.day_of_year, data[<span class="st">'detrended'</span>], color<span class="op">=</span>new_cmap(norm(year)))</span>
+<span id="cb16-19"><a href="#cb16-19"></a></span>
+<span id="cb16-20"><a href="#cb16-20"></a>ax[<span class="dv">0</span>].plot(avg_world, color<span class="op">=</span><span class="st">'dodgerblue'</span>, lw<span class="op">=</span><span class="dv">2</span>, ls<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb16-21"><a href="#cb16-21"></a>ax[<span class="dv">1</span>].plot(avg_north, color<span class="op">=</span><span class="st">'dodgerblue'</span>, lw<span class="op">=</span><span class="dv">2</span>, ls<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">"mean across years"</span>)</span>
+<span id="cb16-22"><a href="#cb16-22"></a>ax[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="st">"upper left"</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb16-23"><a href="#cb16-23"></a></span>
+<span id="cb16-24"><a href="#cb16-24"></a><span class="co"># colorbar setup</span></span>
+<span id="cb16-25"><a href="#cb16-25"></a>sm <span class="op">=</span> mpl.cm.ScalarMappable(cmap<span class="op">=</span>new_cmap, norm<span class="op">=</span>norm)</span>
+<span id="cb16-26"><a href="#cb16-26"></a>sm.set_array([])</span>
+<span id="cb16-27"><a href="#cb16-27"></a>cbar <span class="op">=</span> fig.colorbar(sm, ax<span class="op">=</span>ax.ravel().tolist(), orientation<span class="op">=</span><span class="st">'vertical'</span>, fraction<span class="op">=</span><span class="fl">0.046</span>, pad<span class="op">=</span><span class="fl">0.04</span>)</span>
+<span id="cb16-28"><a href="#cb16-28"></a>ticks_years <span class="op">=</span> [<span class="dv">1981</span>, <span class="dv">1991</span>, <span class="dv">2001</span>, <span class="dv">2011</span>, <span class="dv">2024</span>]  <span class="co"># Specify years for colorbar ticks</span></span>
+<span id="cb16-29"><a href="#cb16-29"></a>cbar.set_ticks(np.linspace(min_year, max_year, num<span class="op">=</span><span class="bu">len</span>(ticks_years)))</span>
+<span id="cb16-30"><a href="#cb16-30"></a>cbar.set_ticklabels(ticks_years)</span>
+<span id="cb16-31"><a href="#cb16-31"></a><span class="co"># adding shared ylabel and xlabel</span></span>
+<span id="cb16-32"><a href="#cb16-32"></a>fig.text(<span class="fl">0.02</span>, <span class="fl">0.5</span>, <span class="st">'detrended SST temperature (°C)'</span>, va<span class="op">=</span><span class="st">'center'</span>, rotation<span class="op">=</span><span class="st">'vertical'</span>)</span>
+<span id="cb16-33"><a href="#cb16-33"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(yticks<span class="op">=</span>[<span class="op">-</span><span class="fl">0.4</span>,<span class="dv">0</span>,<span class="fl">0.4</span>])</span>
+<span id="cb16-34"><a href="#cb16-34"></a>ax[<span class="dv">1</span>].set_xlabel(<span class="st">"day of year"</span>)</span>
+<span id="cb16-35"><a href="#cb16-35"></a>ax[<span class="dv">0</span>].text(<span class="fl">0.97</span>, <span class="fl">0.97</span>, <span class="vs">r"world average"</span>, transform<span class="op">=</span>ax[<span class="dv">0</span>].transAxes,</span>
+<span id="cb16-36"><a href="#cb16-36"></a>           horizontalalignment<span class="op">=</span><span class="st">'right'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)</span>
+<span id="cb16-37"><a href="#cb16-37"></a>ax[<span class="dv">1</span>].text(<span class="fl">0.97</span>, <span class="fl">0.97</span>, <span class="vs">r"north atlantic"</span>, transform<span class="op">=</span>ax[<span class="dv">1</span>].transAxes,</span>
+<span id="cb16-38"><a href="#cb16-38"></a>           horizontalalignment<span class="op">=</span><span class="st">'right'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="seasonal-decomposition-from-scratch_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>The seasonal component is the average across all years, repeated over and over.</p>
+<div class="cell" data-execution_count="111">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>df_north[<span class="st">'seasonal'</span>] <span class="op">=</span> df_north[<span class="st">'doy'</span>].<span class="bu">map</span>(avg_north)</span>
+<span id="cb17-2"><a href="#cb17-2"></a>df_world[<span class="st">'seasonal'</span>] <span class="op">=</span> df_world[<span class="st">'doy'</span>].<span class="bu">map</span>(avg_world)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="118">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-2"><a href="#cb18-2"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb18-3"><a href="#cb18-3"></a>ax[<span class="dv">0</span>].plot(df_world.loc[<span class="st">'2000'</span>:<span class="st">'2004'</span>, <span class="st">'seasonal'</span>])</span>
+<span id="cb18-4"><a href="#cb18-4"></a>ax[<span class="dv">1</span>].plot(df_north.loc[<span class="st">'2000'</span>:<span class="st">'2004'</span>, <span class="st">'seasonal'</span>])</span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="co"># adding shared ylabel and xlabel</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a>fig.text(<span class="fl">0.02</span>, <span class="fl">0.5</span>, <span class="st">'seasonal component (°C)'</span>, va<span class="op">=</span><span class="st">'center'</span>, rotation<span class="op">=</span><span class="st">'vertical'</span>)</span>
+<span id="cb18-7"><a href="#cb18-7"></a>ax[<span class="dv">0</span>].text(<span class="fl">0.97</span>, <span class="fl">0.97</span>, <span class="vs">r"world average"</span>, transform<span class="op">=</span>ax[<span class="dv">0</span>].transAxes,</span>
+<span id="cb18-8"><a href="#cb18-8"></a>           horizontalalignment<span class="op">=</span><span class="st">'right'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)</span>
+<span id="cb18-9"><a href="#cb18-9"></a>ax[<span class="dv">1</span>].text(<span class="fl">0.97</span>, <span class="fl">0.97</span>, <span class="vs">r"north atlantic"</span>, transform<span class="op">=</span>ax[<span class="dv">1</span>].transAxes,</span>
+<span id="cb18-10"><a href="#cb18-10"></a>           horizontalalignment<span class="op">=</span><span class="st">'right'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="seasonal-decomposition-from-scratch_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="residual" class="level2" data-number="32.5">
+<h2 data-number="32.5" class="anchored" data-anchor-id="residual"><span class="header-section-number">32.5</span> residual</h2>
+<p><span class="math display">
+\text{residual} = \text{signal} - \text{trend} - \text{seasonal}
+</span></p>
+<div class="cell" data-execution_count="119">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>df_world[<span class="st">'resid'</span>] <span class="op">=</span> df_world[<span class="st">'detrended'</span>] <span class="op">-</span> df_world[<span class="st">'seasonal'</span>]</span>
+<span id="cb19-2"><a href="#cb19-2"></a>df_north[<span class="st">'resid'</span>] <span class="op">=</span> df_north[<span class="st">'detrended'</span>] <span class="op">-</span> df_north[<span class="st">'seasonal'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="122">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb20-2"><a href="#cb20-2"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb20-3"><a href="#cb20-3"></a>ax[<span class="dv">0</span>].plot(df_world[<span class="st">'resid'</span>])</span>
+<span id="cb20-4"><a href="#cb20-4"></a>ax[<span class="dv">1</span>].plot(df_north[<span class="st">'resid'</span>])</span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="co"># adding shared ylabel and xlabel</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a>fig.text(<span class="fl">0.02</span>, <span class="fl">0.5</span>, <span class="st">'residual (°C)'</span>, va<span class="op">=</span><span class="st">'center'</span>, rotation<span class="op">=</span><span class="st">'vertical'</span>)</span>
+<span id="cb20-7"><a href="#cb20-7"></a>ax[<span class="dv">0</span>].text(<span class="fl">0.97</span>, <span class="fl">0.97</span>, <span class="vs">r"world average"</span>, transform<span class="op">=</span>ax[<span class="dv">0</span>].transAxes,</span>
+<span id="cb20-8"><a href="#cb20-8"></a>           horizontalalignment<span class="op">=</span><span class="st">'right'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)</span>
+<span id="cb20-9"><a href="#cb20-9"></a>ax[<span class="dv">1</span>].text(<span class="fl">0.97</span>, <span class="fl">0.97</span>, <span class="vs">r"north atlantic"</span>, transform<span class="op">=</span>ax[<span class="dv">1</span>].transAxes,</span>
+<span id="cb20-10"><a href="#cb20-10"></a>           horizontalalignment<span class="op">=</span><span class="st">'right'</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>,)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="seasonal-decomposition-from-scratch_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>How do we know we have properly decomposed our signal into <code>trend</code>, <code>seasonal</code> and <code>residual</code>? The residual should be stationary. Let’s check using the ADF test:</p>
+<div class="cell" data-execution_count="136">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>result <span class="op">=</span> adfuller(df_world[<span class="st">'resid'</span>])</span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="bu">print</span>(<span class="st">'World-average residual</span><span class="ch">\n</span><span class="st">ADF test p-value: '</span>, result[<span class="dv">1</span>])</span>
+<span id="cb21-3"><a href="#cb21-3"></a></span>
+<span id="cb21-4"><a href="#cb21-4"></a>result <span class="op">=</span> adfuller(df_north[<span class="st">'resid'</span>])</span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="bu">print</span>(<span class="st">'North-Atlantic residual</span><span class="ch">\n</span><span class="st">ADF test p-value: '</span>, result[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>World-average residual p-value:  1.5673285788450947e-25
+North-Atlantic residual p-value:  5.228578937187669e-18</code></pre>
+</div>
+</div>
+</section>
+<section id="seasonal-decomposition" class="level2" data-number="32.6">
+<h2 data-number="32.6" class="anchored" data-anchor-id="seasonal-decomposition"><span class="header-section-number">32.6</span> seasonal decomposition</h2>
+<p>It is customary to plot each component in its own panel:</p>
+<div class="cell" data-execution_count="125">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">4</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb23-2"><a href="#cb23-2"></a>pos <span class="op">=</span> (<span class="fl">0.5</span>, <span class="fl">0.9</span>)</span>
+<span id="cb23-3"><a href="#cb23-3"></a>components <span class="op">=</span>[<span class="st">"sst"</span>, <span class="st">"trend"</span>, <span class="st">"seasonal"</span>, <span class="st">"resid"</span>]</span>
+<span id="cb23-4"><a href="#cb23-4"></a>colors <span class="op">=</span> [<span class="st">"tab:blue"</span>, <span class="st">"tab:orange"</span>, <span class="st">"tab:green"</span>, <span class="st">"tab:red"</span>]</span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="cf">for</span> axx, component, color <span class="kw">in</span> <span class="bu">zip</span>(ax, components, colors):</span>
+<span id="cb23-6"><a href="#cb23-6"></a>    data <span class="op">=</span> <span class="bu">getattr</span>(df_world, component)</span>
+<span id="cb23-7"><a href="#cb23-7"></a>    axx.plot(data, color<span class="op">=</span>color)</span>
+<span id="cb23-8"><a href="#cb23-8"></a>    axx.text(<span class="op">*</span>pos, component, bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'white'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>),</span>
+<span id="cb23-9"><a href="#cb23-9"></a>           transform<span class="op">=</span>axx.transAxes, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'top'</span>)</span>
+<span id="cb23-10"><a href="#cb23-10"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(title<span class="op">=</span><span class="st">"world average"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="125">
+<pre><code>[Text(0.5, 1.0, 'world average')]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="seasonal-decomposition-from-scratch_files/figure-html/cell-21-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="126">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">4</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb25-2"><a href="#cb25-2"></a>pos <span class="op">=</span> (<span class="fl">0.5</span>, <span class="fl">0.9</span>)</span>
+<span id="cb25-3"><a href="#cb25-3"></a>components <span class="op">=</span>[<span class="st">"sst"</span>, <span class="st">"trend"</span>, <span class="st">"seasonal"</span>, <span class="st">"resid"</span>]</span>
+<span id="cb25-4"><a href="#cb25-4"></a>colors <span class="op">=</span> [<span class="st">"tab:blue"</span>, <span class="st">"tab:orange"</span>, <span class="st">"tab:green"</span>, <span class="st">"tab:red"</span>]</span>
+<span id="cb25-5"><a href="#cb25-5"></a><span class="cf">for</span> axx, component, color <span class="kw">in</span> <span class="bu">zip</span>(ax, components, colors):</span>
+<span id="cb25-6"><a href="#cb25-6"></a>    data <span class="op">=</span> <span class="bu">getattr</span>(df_north, component)</span>
+<span id="cb25-7"><a href="#cb25-7"></a>    axx.plot(data, color<span class="op">=</span>color)</span>
+<span id="cb25-8"><a href="#cb25-8"></a>    axx.text(<span class="op">*</span>pos, component, bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'white'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>),</span>
+<span id="cb25-9"><a href="#cb25-9"></a>           transform<span class="op">=</span>axx.transAxes, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'top'</span>)</span>
+<span id="cb25-10"><a href="#cb25-10"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(title<span class="op">=</span><span class="st">"north atlantic"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="seasonal-decomposition-from-scratch_files/figure-html/cell-22-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="134">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb26-2"><a href="#cb26-2"></a>ax[<span class="dv">0</span>].plot(df_world[<span class="st">'sst'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"sst"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3"></a>ax[<span class="dv">0</span>].plot(df_world[<span class="st">'trend'</span>] <span class="op">+</span> df_world[<span class="st">'resid'</span>], color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"trend+resid"</span>)</span>
+<span id="cb26-4"><a href="#cb26-4"></a>ax[<span class="dv">0</span>].plot(df_world[<span class="st">'trend'</span>] <span class="op">+</span> df_world[<span class="st">'seasonal'</span>], color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">"trend+seasonal"</span>)</span>
+<span id="cb26-5"><a href="#cb26-5"></a>ax[<span class="dv">0</span>].plot(df_world[<span class="st">'trend'</span>], color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"trend"</span>)</span>
+<span id="cb26-6"><a href="#cb26-6"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"SST (°C)"</span>,</span>
+<span id="cb26-7"><a href="#cb26-7"></a>          title<span class="op">=</span><span class="st">"world average"</span>)</span>
+<span id="cb26-8"><a href="#cb26-8"></a>date_form <span class="op">=</span> DateFormatter(<span class="st">"%Y"</span>)</span>
+<span id="cb26-9"><a href="#cb26-9"></a>ax[<span class="dv">0</span>].xaxis.set_major_formatter(date_form)</span>
+<span id="cb26-10"><a href="#cb26-10"></a>ax[<span class="dv">0</span>].xaxis.set_major_locator(mdates.YearLocator(<span class="dv">10</span>))</span>
+<span id="cb26-11"><a href="#cb26-11"></a>ax[<span class="dv">0</span>].legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb26-12"><a href="#cb26-12"></a></span>
+<span id="cb26-13"><a href="#cb26-13"></a>start <span class="op">=</span> <span class="st">"2013-01-01"</span></span>
+<span id="cb26-14"><a href="#cb26-14"></a>end <span class="op">=</span> <span class="st">"2016-01-01"</span></span>
+<span id="cb26-15"><a href="#cb26-15"></a>zoom <span class="op">=</span> <span class="bu">slice</span>(start, end)</span>
+<span id="cb26-16"><a href="#cb26-16"></a>ax[<span class="dv">1</span>].plot(df_world.loc[zoom, <span class="st">'sst'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"sst"</span>)</span>
+<span id="cb26-17"><a href="#cb26-17"></a>ax[<span class="dv">1</span>].plot(df_world.loc[zoom, <span class="st">'trend'</span>] <span class="op">+</span> df_world.loc[zoom, <span class="st">'resid'</span>], color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"trend+resid"</span>)</span>
+<span id="cb26-18"><a href="#cb26-18"></a>ax[<span class="dv">1</span>].plot(df_world.loc[zoom, <span class="st">'trend'</span>] <span class="op">+</span> df_world.loc[zoom, <span class="st">'seasonal'</span>], color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">"trend+seasonal"</span>)</span>
+<span id="cb26-19"><a href="#cb26-19"></a>ax[<span class="dv">1</span>].plot(df_world.loc[zoom, <span class="st">'trend'</span>], color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"trend"</span>)</span>
+<span id="cb26-20"><a href="#cb26-20"></a>date_form <span class="op">=</span> DateFormatter(<span class="st">"%Y"</span>)</span>
+<span id="cb26-21"><a href="#cb26-21"></a>ax[<span class="dv">1</span>].xaxis.set_major_formatter(date_form)</span>
+<span id="cb26-22"><a href="#cb26-22"></a>ax[<span class="dv">1</span>].xaxis.set_major_locator(mdates.YearLocator(<span class="dv">1</span>))</span>
+<span id="cb26-23"><a href="#cb26-23"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"components, 2013--2016"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="seasonal-decomposition-from-scratch_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../seasonality/motivation.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">motivation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../seasonality/seasonal-decomposition.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

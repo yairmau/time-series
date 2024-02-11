@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series Analysis - 40&nbsp; seasonal decomposition</title>
+<title>Time Series Analysis - 33&nbsp; seasonal decomposition</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../seasonality/hilbert.html" rel="next">
-<link href="../seasonality/motivation.html" rel="prev">
+<link href="../lags/motivation.html" rel="next">
+<link href="../seasonality/seasonal-decomposition-from-scratch.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../seasonality/motivation.html">seasonality</a></li><li class="breadcrumb-item"><a href="../seasonality/seasonal-decomposition.html"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../seasonality/motivation.html">seasonality</a></li><li class="breadcrumb-item"><a href="../seasonality/seasonal-decomposition.html"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -431,7 +431,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
- <span class="menu-text">time lags</span></a>
+ <span class="menu-text">seasonality</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -439,26 +439,20 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link">
+  <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
+  <a href="../seasonality/seasonal-decomposition-from-scratch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">seasonal decomposition from scratch</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">dynamic time warp</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lags/LDTW.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">LDTW</span></span></a>
+  <a href="../seasonality/seasonal-decomposition.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></span></a>
   </div>
 </li>
       </ul>
@@ -466,7 +460,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
- <span class="menu-text">frequency</span></a>
+ <span class="menu-text">time lags</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -474,26 +468,26 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
+  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
+  <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">dynamic time warp</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></span></a>
+  <a href="../lags/LDTW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">LDTW</span></span></a>
   </div>
 </li>
       </ul>
@@ -501,7 +495,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
- <span class="menu-text">seasonality</span></a>
+ <span class="menu-text">frequency</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -509,20 +503,26 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../seasonality/seasonal-decomposition.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></span></a>
+  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../seasonality/hilbert.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Hilbert transform</span></span></a>
+  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></span></a>
   </div>
 </li>
       </ul>
@@ -706,9 +706,9 @@ document.addEventListener("DOMContentLoaded", function() {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#trends-in-atmospheric-carbon-dioxide" id="toc-trends-in-atmospheric-carbon-dioxide" class="nav-link active" data-scroll-target="#trends-in-atmospheric-carbon-dioxide"><span class="header-section-number">40.1</span> trends in atmospheric carbon dioxide</a></li>
-  <li><a href="#trend" id="toc-trend" class="nav-link" data-scroll-target="#trend"><span class="header-section-number">40.2</span> trend</a></li>
-  <li><a href="#decompose-data" id="toc-decompose-data" class="nav-link" data-scroll-target="#decompose-data"><span class="header-section-number">40.3</span> decompose data</a></li>
+  <li><a href="#trends-in-atmospheric-carbon-dioxide" id="toc-trends-in-atmospheric-carbon-dioxide" class="nav-link active" data-scroll-target="#trends-in-atmospheric-carbon-dioxide"><span class="header-section-number">33.1</span> trends in atmospheric carbon dioxide</a></li>
+  <li><a href="#trend" id="toc-trend" class="nav-link" data-scroll-target="#trend"><span class="header-section-number">33.2</span> trend</a></li>
+  <li><a href="#decompose-data" id="toc-decompose-data" class="nav-link" data-scroll-target="#decompose-data"><span class="header-section-number">33.3</span> decompose data</a></li>
   </ul>
 </nav>
     </div>
@@ -717,7 +717,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/seasonality/seasonal-decomposition.ipynb">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/seasonality/seasonal-decomposition.ipynb">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -750,8 +750,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb1-13"><a href="#cb1-13"></a><span class="op">%</span>matplotlib widget</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="trends-in-atmospheric-carbon-dioxide" class="level2" data-number="40.1">
-<h2 data-number="40.1" class="anchored" data-anchor-id="trends-in-atmospheric-carbon-dioxide"><span class="header-section-number">40.1</span> trends in atmospheric carbon dioxide</h2>
+<section id="trends-in-atmospheric-carbon-dioxide" class="level2" data-number="33.1">
+<h2 data-number="33.1" class="anchored" data-anchor-id="trends-in-atmospheric-carbon-dioxide"><span class="header-section-number">33.1</span> trends in atmospheric carbon dioxide</h2>
 <p>Mauna Loa CO2 concentration.<br>
 data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
 <div class="cell" data-execution_count="63">
@@ -1065,8 +1065,8 @@ data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
 </div>
 </div>
 </section>
-<section id="trend" class="level2" data-number="40.2">
-<h2 data-number="40.2" class="anchored" data-anchor-id="trend"><span class="header-section-number">40.2</span> trend</h2>
+<section id="trend" class="level2" data-number="33.2">
+<h2 data-number="33.2" class="anchored" data-anchor-id="trend"><span class="header-section-number">33.2</span> trend</h2>
 <div class="cell" data-execution_count="66">
 <details>
 <summary>Code</summary>
@@ -1442,10 +1442,70 @@ data from <a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA</a></p>
 Name: co2_detrended, dtype: float64</code></pre>
 </div>
 </div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>gb_year[<span class="st">'co2_detrended'</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>date
+1974   -0.476982
+1975    0.064737
+1976   -0.116782
+1977    0.029913
+1978   -0.013859
+1979   -0.005189
+1980    0.011223
+1981    0.026028
+1982   -0.023990
+1983    0.078191
+1984   -0.080780
+1985    0.046252
+1986   -0.029126
+1987   -0.064448
+1988    0.055911
+1989   -0.011047
+1990   -0.002645
+1991   -0.006328
+1992    0.012398
+1993   -0.049829
+1994    0.009176
+1995   -0.007031
+1996    0.066807
+1997   -0.103806
+1998    0.075729
+1999    0.017072
+2000   -0.008864
+2001   -0.032983
+2002   -0.011691
+2003    0.011651
+2004   -0.044648
+2005    0.036898
+2006   -0.024881
+2007    0.053930
+2008   -0.014578
+2009   -0.073423
+2010    0.082605
+2011   -0.021455
+2012   -0.057198
+2013    0.048984
+2014    0.010033
+2015   -0.106415
+2016    0.072221
+2017    0.047932
+2018   -0.091430
+2019    0.018229
+2020    0.028360
+2021    0.015207
+2022    0.048922
+2023    0.811328
+Name: co2_detrended, dtype: float64</code></pre>
+</div>
+</div>
 <div class="cell" data-execution_count="90">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>ty[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>ty[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="90">
 <pre><code>330.38</code></pre>
@@ -1456,10 +1516,10 @@ Name: co2_detrended, dtype: float64</code></pre>
 <div class="cell" data-execution_count="9">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>df[<span class="st">'co2'</span>] <span class="op">=</span> (df[<span class="st">'average'</span>].resample(<span class="st">"D"</span>) <span class="co">#resample daily</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a>                          .interpolate(method<span class="op">=</span><span class="st">'time'</span>) <span class="co">#interpolate by time</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a>            )</span>
-<span id="cb18-4"><a href="#cb18-4"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>df[<span class="st">'co2'</span>] <span class="op">=</span> (df[<span class="st">'average'</span>].resample(<span class="st">"D"</span>) <span class="co">#resample daily</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>                          .interpolate(method<span class="op">=</span><span class="st">'time'</span>) <span class="co">#interpolate by time</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>            )</span>
+<span id="cb20-4"><a href="#cb20-4"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
@@ -1646,8 +1706,8 @@ Name: co2_detrended, dtype: float64</code></pre>
 </div>
 </div>
 </section>
-<section id="decompose-data" class="level2" data-number="40.3">
-<h2 data-number="40.3" class="anchored" data-anchor-id="decompose-data"><span class="header-section-number">40.3</span> decompose data</h2>
+<section id="decompose-data" class="level2" data-number="33.3">
+<h2 data-number="33.3" class="anchored" data-anchor-id="decompose-data"><span class="header-section-number">33.3</span> decompose data</h2>
 <p><code>seasonal_decompose</code> returns an object with four components:</p>
 <ul>
 <li>observed: <span class="math inline">Y(t)</span></li>
@@ -1661,17 +1721,17 @@ Y(t) = T(t) + S(t) + e(t)
 <p>Multiplicative model: <span class="math display">
 Y(t) = T(t) \times S(t) \times e(t)
 </span></p>
-<section id="interlude" class="level4" data-number="40.3.0.1">
-<h4 data-number="40.3.0.1" class="anchored" data-anchor-id="interlude"><span class="header-section-number">40.3.0.1</span> Interlude</h4>
+<section id="interlude" class="level4" data-number="33.3.0.1">
+<h4 data-number="33.3.0.1" class="anchored" data-anchor-id="interlude"><span class="header-section-number">33.3.0.1</span> Interlude</h4>
 <p>learn how to use <code>zip</code> in a loop</p>
 <div class="cell" data-execution_count="10">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>letters <span class="op">=</span> [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span>]</span>
-<span id="cb19-2"><a href="#cb19-2"></a>numbers <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="co"># zip let's us iterate over to lists at the same time</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="cf">for</span> l, n <span class="kw">in</span> <span class="bu">zip</span>(letters, numbers):</span>
-<span id="cb19-5"><a href="#cb19-5"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>l<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>letters <span class="op">=</span> [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span>]</span>
+<span id="cb21-2"><a href="#cb21-2"></a>numbers <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="co"># zip let's us iterate over to lists at the same time</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="cf">for</span> l, n <span class="kw">in</span> <span class="bu">zip</span>(letters, numbers):</span>
+<span id="cb21-5"><a href="#cb21-5"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>l<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>a = 1
@@ -1685,55 +1745,55 @@ e = 5</code></pre>
 <div class="cell" data-execution_count="11">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># %matplotlib widget</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a></span>
-<span id="cb21-3"><a href="#cb21-3"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">4</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb21-4"><a href="#cb21-4"></a>decomposed_m <span class="op">=</span> seasonal_decompose(df[<span class="st">'co2'</span>], model<span class="op">=</span><span class="st">'multiplicative'</span>)</span>
-<span id="cb21-5"><a href="#cb21-5"></a>decomposed_a <span class="op">=</span> seasonal_decompose(df[<span class="st">'co2'</span>], model<span class="op">=</span><span class="st">'additive'</span>)</span>
-<span id="cb21-6"><a href="#cb21-6"></a>decomposed <span class="op">=</span> decomposed_m</span>
-<span id="cb21-7"><a href="#cb21-7"></a>pos <span class="op">=</span> (<span class="fl">0.5</span>, <span class="fl">0.9</span>)</span>
-<span id="cb21-8"><a href="#cb21-8"></a>components <span class="op">=</span>[<span class="st">"observed"</span>, <span class="st">"trend"</span>, <span class="st">"seasonal"</span>, <span class="st">"resid"</span>]</span>
-<span id="cb21-9"><a href="#cb21-9"></a>colors <span class="op">=</span> [<span class="st">"tab:blue"</span>, <span class="st">"tab:orange"</span>, <span class="st">"tab:green"</span>, <span class="st">"tab:red"</span>]</span>
-<span id="cb21-10"><a href="#cb21-10"></a><span class="cf">for</span> axx, component, color <span class="kw">in</span> <span class="bu">zip</span>(ax, components, colors):</span>
-<span id="cb21-11"><a href="#cb21-11"></a>    data <span class="op">=</span> <span class="bu">getattr</span>(decomposed, component)</span>
-<span id="cb21-12"><a href="#cb21-12"></a>    axx.plot(data, color<span class="op">=</span>color)</span>
-<span id="cb21-13"><a href="#cb21-13"></a>    axx.text(<span class="op">*</span>pos, component, bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'white'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>),</span>
-<span id="cb21-14"><a href="#cb21-14"></a>           transform<span class="op">=</span>axx.transAxes, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'top'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># %matplotlib widget</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a></span>
+<span id="cb23-3"><a href="#cb23-3"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">4</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb23-4"><a href="#cb23-4"></a>decomposed_m <span class="op">=</span> seasonal_decompose(df[<span class="st">'co2'</span>], model<span class="op">=</span><span class="st">'multiplicative'</span>)</span>
+<span id="cb23-5"><a href="#cb23-5"></a>decomposed_a <span class="op">=</span> seasonal_decompose(df[<span class="st">'co2'</span>], model<span class="op">=</span><span class="st">'additive'</span>)</span>
+<span id="cb23-6"><a href="#cb23-6"></a>decomposed <span class="op">=</span> decomposed_m</span>
+<span id="cb23-7"><a href="#cb23-7"></a>pos <span class="op">=</span> (<span class="fl">0.5</span>, <span class="fl">0.9</span>)</span>
+<span id="cb23-8"><a href="#cb23-8"></a>components <span class="op">=</span>[<span class="st">"observed"</span>, <span class="st">"trend"</span>, <span class="st">"seasonal"</span>, <span class="st">"resid"</span>]</span>
+<span id="cb23-9"><a href="#cb23-9"></a>colors <span class="op">=</span> [<span class="st">"tab:blue"</span>, <span class="st">"tab:orange"</span>, <span class="st">"tab:green"</span>, <span class="st">"tab:red"</span>]</span>
+<span id="cb23-10"><a href="#cb23-10"></a><span class="cf">for</span> axx, component, color <span class="kw">in</span> <span class="bu">zip</span>(ax, components, colors):</span>
+<span id="cb23-11"><a href="#cb23-11"></a>    data <span class="op">=</span> <span class="bu">getattr</span>(decomposed, component)</span>
+<span id="cb23-12"><a href="#cb23-12"></a>    axx.plot(data, color<span class="op">=</span>color)</span>
+<span id="cb23-13"><a href="#cb23-13"></a>    axx.text(<span class="op">*</span>pos, component, bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'white'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>),</span>
+<span id="cb23-14"><a href="#cb23-14"></a>           transform<span class="op">=</span>axx.transAxes, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'top'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="seasonal-decomposition_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+<p><img src="seasonal-decomposition_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-execution_count="34">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># %matplotlib widget</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a></span>
-<span id="cb22-3"><a href="#cb22-3"></a>decomposed <span class="op">=</span> decomposed_m</span>
-<span id="cb22-4"><a href="#cb22-4"></a></span>
-<span id="cb22-5"><a href="#cb22-5"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
-<span id="cb22-6"><a href="#cb22-6"></a>ax[<span class="dv">0</span>].plot(df[<span class="st">'co2'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"observed"</span>)</span>
-<span id="cb22-7"><a href="#cb22-7"></a>ax[<span class="dv">0</span>].plot(decomposed.trend <span class="op">*</span> decomposed.resid, color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"trend*resid"</span>)</span>
-<span id="cb22-8"><a href="#cb22-8"></a>ax[<span class="dv">0</span>].plot(decomposed.trend <span class="op">*</span> decomposed.seasonal, color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">"trend*seasonal"</span>)</span>
-<span id="cb22-9"><a href="#cb22-9"></a>ax[<span class="dv">0</span>].plot(decomposed.trend, color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"trend"</span>)</span>
-<span id="cb22-10"><a href="#cb22-10"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"CO$_2$ concentration (ppm)"</span>,</span>
-<span id="cb22-11"><a href="#cb22-11"></a>          title<span class="op">=</span><span class="st">"Mauna Loa CO$_2$ concentration"</span>)</span>
-<span id="cb22-12"><a href="#cb22-12"></a>ax[<span class="dv">0</span>].legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb22-13"><a href="#cb22-13"></a></span>
-<span id="cb22-14"><a href="#cb22-14"></a>start <span class="op">=</span> <span class="st">"2000-01-01"</span></span>
-<span id="cb22-15"><a href="#cb22-15"></a>end <span class="op">=</span> <span class="st">"2003-01-01"</span></span>
-<span id="cb22-16"><a href="#cb22-16"></a>zoom <span class="op">=</span> <span class="bu">slice</span>(start, end)</span>
-<span id="cb22-17"><a href="#cb22-17"></a>ax[<span class="dv">1</span>].plot(df.loc[zoom, <span class="st">'co2'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"observed"</span>)</span>
-<span id="cb22-18"><a href="#cb22-18"></a>ax[<span class="dv">1</span>].plot((decomposed.trend <span class="op">*</span> decomposed.resid)[zoom], color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"trend*resid"</span>)</span>
-<span id="cb22-19"><a href="#cb22-19"></a>ax[<span class="dv">1</span>].plot((decomposed.trend <span class="op">*</span> decomposed.seasonal)[zoom], color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">"trend*seasonal"</span>)</span>
-<span id="cb22-20"><a href="#cb22-20"></a>ax[<span class="dv">1</span>].plot(decomposed.trend[zoom], color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"trend"</span>)</span>
-<span id="cb22-21"><a href="#cb22-21"></a>date_form <span class="op">=</span> DateFormatter(<span class="st">"%Y"</span>)</span>
-<span id="cb22-22"><a href="#cb22-22"></a>ax[<span class="dv">1</span>].xaxis.set_major_formatter(date_form)</span>
-<span id="cb22-23"><a href="#cb22-23"></a>ax[<span class="dv">1</span>].xaxis.set_major_locator(mdates.YearLocator(<span class="dv">1</span>))</span>
-<span id="cb22-24"><a href="#cb22-24"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"Components, 2000--2003"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># %matplotlib widget</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a></span>
+<span id="cb24-3"><a href="#cb24-3"></a>decomposed <span class="op">=</span> decomposed_m</span>
+<span id="cb24-4"><a href="#cb24-4"></a></span>
+<span id="cb24-5"><a href="#cb24-5"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb24-6"><a href="#cb24-6"></a>ax[<span class="dv">0</span>].plot(df[<span class="st">'co2'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"observed"</span>)</span>
+<span id="cb24-7"><a href="#cb24-7"></a>ax[<span class="dv">0</span>].plot(decomposed.trend <span class="op">*</span> decomposed.resid, color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"trend*resid"</span>)</span>
+<span id="cb24-8"><a href="#cb24-8"></a>ax[<span class="dv">0</span>].plot(decomposed.trend <span class="op">*</span> decomposed.seasonal, color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">"trend*seasonal"</span>)</span>
+<span id="cb24-9"><a href="#cb24-9"></a>ax[<span class="dv">0</span>].plot(decomposed.trend, color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"trend"</span>)</span>
+<span id="cb24-10"><a href="#cb24-10"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"CO$_2$ concentration (ppm)"</span>,</span>
+<span id="cb24-11"><a href="#cb24-11"></a>          title<span class="op">=</span><span class="st">"Mauna Loa CO$_2$ concentration"</span>)</span>
+<span id="cb24-12"><a href="#cb24-12"></a>ax[<span class="dv">0</span>].legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb24-13"><a href="#cb24-13"></a></span>
+<span id="cb24-14"><a href="#cb24-14"></a>start <span class="op">=</span> <span class="st">"2000-01-01"</span></span>
+<span id="cb24-15"><a href="#cb24-15"></a>end <span class="op">=</span> <span class="st">"2003-01-01"</span></span>
+<span id="cb24-16"><a href="#cb24-16"></a>zoom <span class="op">=</span> <span class="bu">slice</span>(start, end)</span>
+<span id="cb24-17"><a href="#cb24-17"></a>ax[<span class="dv">1</span>].plot(df.loc[zoom, <span class="st">'co2'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"observed"</span>)</span>
+<span id="cb24-18"><a href="#cb24-18"></a>ax[<span class="dv">1</span>].plot((decomposed.trend <span class="op">*</span> decomposed.resid)[zoom], color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"trend*resid"</span>)</span>
+<span id="cb24-19"><a href="#cb24-19"></a>ax[<span class="dv">1</span>].plot((decomposed.trend <span class="op">*</span> decomposed.seasonal)[zoom], color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">"trend*seasonal"</span>)</span>
+<span id="cb24-20"><a href="#cb24-20"></a>ax[<span class="dv">1</span>].plot(decomposed.trend[zoom], color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"trend"</span>)</span>
+<span id="cb24-21"><a href="#cb24-21"></a>date_form <span class="op">=</span> DateFormatter(<span class="st">"%Y"</span>)</span>
+<span id="cb24-22"><a href="#cb24-22"></a>ax[<span class="dv">1</span>].xaxis.set_major_formatter(date_form)</span>
+<span id="cb24-23"><a href="#cb24-23"></a>ax[<span class="dv">1</span>].xaxis.set_major_locator(mdates.YearLocator(<span class="dv">1</span>))</span>
+<span id="cb24-24"><a href="#cb24-24"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"Components, 2000--2003"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="seasonal-decomposition_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
+<p><img src="seasonal-decomposition_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 
@@ -2028,13 +2088,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../seasonality/motivation.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">motivation</span></span>
+      <a href="../seasonality/seasonal-decomposition-from-scratch.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">seasonal decomposition from scratch</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../seasonality/hilbert.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Hilbert transform</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../lags/motivation.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">motivation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -55,6 +55,12 @@ book:
         - stationarity/from_AR_to_ARIMA.ipynb
         - stationarity/practice.ipynb
         - stationarity/practice2.ipynb
+    - part: "seasonality"
+      chapters:
+        - seasonality/motivation.qmd
+        - seasonality/seasonal-decomposition-from-scratch.ipynb
+        - seasonality/seasonal-decomposition.ipynb
+        # - seasonality/hilbert.qmd
     - part: "time lags"
       chapters:
         - lags/motivation.qmd
@@ -67,11 +73,6 @@ book:
         - frequency/fourier.qmd
         - frequency/filtering.qmd
         - frequency/nyquist.qmd
-    - part: "seasonality"
-      chapters:
-        - seasonality/motivation.qmd
-        - seasonality/seasonal-decomposition.ipynb
-        - seasonality/hilbert.qmd
     - part: "rates of change"
       chapters:
         - rates-of-change/motivation.ipynb
