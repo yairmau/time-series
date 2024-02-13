@@ -83,6 +83,25 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -93,7 +112,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../seasonality/seasonal-decomposition.html" rel="next">
+<link href="../lags/motivation.html" rel="next">
 <link href="../seasonality/seasonal-decomposition-from-scratch.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -433,11 +452,6 @@ document.addEventListener("DOMContentLoaded", function() {
   <a href="../seasonality/theory.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">theory</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../seasonality/seasonal-decomposition.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -450,22 +464,22 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">cross-correlation</span></a>
+  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">cross-correlation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">dynamic time warp</span></a>
+  <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">dynamic time warp</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/LDTW.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">LDTW</span></a>
+  <a href="../lags/LDTW.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">LDTW</span></a>
   </div>
 </li>
       </ul>
@@ -480,22 +494,22 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Fourier transform</span></a>
+  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Fourier transform</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">filtering</span></a>
+  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">filtering</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></a>
+  <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></a>
   </div>
 </li>
       </ul>
@@ -510,27 +524,27 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">derivatives</span></a>
+  <a href="../rates-of-change/derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">derivatives</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">finite differences</span></a>
+  <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">finite differences</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></a>
+  <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></a>
+  <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></a>
   </div>
 </li>
       </ul>
@@ -545,12 +559,12 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">motivation</span></a>
+  <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">ARIMA</span></a>
+  <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">ARIMA</span></a>
   </div>
 </li>
       </ul>
@@ -565,12 +579,17 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../assignments/assignment1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">assignment 1</span></a>
+  <a href="../assignments/assignment1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">assignment 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../assignments/assignment2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">assignment 2</span></a>
+  <a href="../assignments/assignment2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">assignment 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">assignment 3</span></a>
   </div>
 </li>
       </ul>
@@ -681,7 +700,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </header>
 
 <p>You might remember that even before this course started, I gave you an <a href="../basics/example.html">example</a> of how to load data with pandas and how to plot it. Here we will be using the same data, namely, a time series for atmospheric CO<span class="math inline">_2</span> measured throughout the years in an obesevatory in Hawaii.</p>
-<div class="cell" data-execution_count="29">
+<div class="cell" data-execution_count="3">
 <details>
 <summary>import stuff</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -698,10 +717,11 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb1-12"><a href="#cb1-12"></a><span class="im">import</span> time</span>
 <span id="cb1-13"><a href="#cb1-13"></a><span class="im">from</span> statsmodels.tsa.seasonal <span class="im">import</span> seasonal_decompose</span>
 <span id="cb1-14"><a href="#cb1-14"></a><span class="im">from</span> statsmodels.tsa.stattools <span class="im">import</span> adfuller</span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="im">from</span> statsmodels.tsa.seasonal <span class="im">import</span> STL</span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="2">
+<div class="cell" data-execution_count="4">
 <details>
 <summary>load csv and process data</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>url <span class="op">=</span> <span class="st">"https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_weekly_mlo.csv"</span></span>
@@ -734,7 +754,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div>
 <p>We can use <code>statsmodels.tsa.seasonal.seasonal_decompose</code> decompose this time series.</p>
-<div class="cell" data-execution_count="7">
+<div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>result <span class="op">=</span> seasonal_decompose(df[<span class="st">'co2'</span>], period<span class="op">=</span><span class="dv">365</span>)</span>
 <span id="cb4-2"><a href="#cb4-2"></a>result.plot()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -742,7 +762,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div>
 <p>The default plot is a bit ugly, we can make it better.</p>
-<div class="cell" data-execution_count="19">
+<div class="cell" data-execution_count="7">
 <details>
 <summary>plot again</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">4</span>,<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
@@ -781,7 +801,7 @@ Y(t) = T(t) + S(t) + e(t)
 <h2 data-number="33.2" class="anchored" data-anchor-id="multiplicative-model"><span class="header-section-number">33.2</span> multiplicative model</h2>
 <p><code>seasonal_decompose</code> returns an object with four components:</p>
 <p>Not all time series seem to behave well when decomposed assuming an additive model. See, for instance, the famous time series for passengers of a US airline between 1949 to 1960.</p>
-<div class="cell" data-execution_count="26">
+<div class="cell" data-execution_count="8">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>df_air <span class="op">=</span> pd.read_csv(<span class="st">"airline-passengers.csv"</span>)</span>
@@ -796,7 +816,7 @@ Y(t) = T(t) + S(t) + e(t)
 <p><img src="theory_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="32">
+<div class="cell" data-execution_count="9">
 <details>
 <summary>plot</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>result <span class="op">=</span> seasonal_decompose(df_air[<span class="st">'Passengers'</span>], period<span class="op">=</span><span class="dv">12</span>)</span>
@@ -824,13 +844,13 @@ Y(t) = T(t) + S(t) + e(t)
 Y(t) = T(t) \times S(t) \times e(t)
 </span></p>
 <p>The components are now <strong>multiplied</strong> together to yield the observed time series. Let’s test it:</p>
-<div class="cell" data-execution_count="43">
+<div class="cell" data-execution_count="10">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>result <span class="op">=</span> seasonal_decompose(df_air[<span class="st">'Passengers'</span>], period<span class="op">=</span><span class="dv">12</span>, model<span class="op">=</span><span class="st">"multiplicative"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="44">
+<div class="cell" data-execution_count="11">
 <details>
 <summary>plot</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">4</span>,<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
@@ -854,9 +874,37 @@ Y(t) = T(t) \times S(t) \times e(t)
 </section>
 <section id="stl" class="level2" data-number="33.3">
 <h2 data-number="33.3" class="anchored" data-anchor-id="stl"><span class="header-section-number">33.3</span> STL</h2>
-<p>STL stands for “Seasonal and Trend decomposition using LOESS”. LOESS, in turn means “locally estimated scatterplot smoothing”, and it is simply another name for the Savitzky-Golay smoothing filter we saw earlier in this course.</p>
+<p>STL stands for “Seasonal and Trend decomposition using LOESS”. LOESS, in turn means “locally estimated scatterplot smoothing”, and it is a spiced up version of the Savitzky-Golay smoothing filter we saw earlier in this course. The method is not trivially understood as the <em>naive</em> seasonal decompostion we build together, and the full method is described by <span class="citation" data-cites="cleveland1990stl">Cleveland et al. (<a href="../technical-stuff/sources.html#ref-cleveland1990stl" role="doc-biblioref">1990</a>)</span> <a href="cleveland-1990-STL.pdf">here</a>. See in this video how the smoothing method works.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/b7oryuMP3r8?si=3evBaDAm7JfHSXej&amp;start=309" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
+</iframe>
+<p>They the most striking difference with the plain seasonal decompose method is that the <code>seasonal</code> component is not constant in time, it can stlightly change and evolve over time.</p>
+<div class="cell" data-execution_count="22">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>data <span class="op">=</span> df[<span class="st">'co2'</span>]</span>
+<span id="cb10-2"><a href="#cb10-2"></a>res <span class="op">=</span> STL(data, period<span class="op">=</span><span class="dv">365</span>).fit()</span>
+<span id="cb10-3"><a href="#cb10-3"></a>res.plot()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="theory_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>A possible downside of STL is the fact that it assumes an additive model. If the seasonal oscillations in your data increase with the value of the series, then most probably a multiplicative model would be best for you. How to use STL then? One can take the logarithm of the series, since for a multiplicative model</p>
+<p><span class="math display">
+Y(t) = T(t) \times S(t) \times e(t)
+</span></p>
+<p>taking the logarithms yields</p>
+<p><span class="math display">
+\log(Y) = \log(T) + \log(S) + \log(e).
+</span></p>
+<p>We can now use STL since our model looks like additive now. After using STL, one can exponentiate the results to reverse the logarithm operation.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-cleveland1990stl" class="csl-entry" role="doc-biblioentry">
+Cleveland, Robert B, William S Cleveland, Jean E McRae, and Irma Terpenning. 1990. <span>“STL: A Seasonal-Trend Decomposition.”</span> <em>J. Off. Stat</em> 6 (1): 3–73.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -1051,8 +1099,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../seasonality/seasonal-decomposition.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">seasonal decomposition</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../lags/motivation.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">motivation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
