@@ -60,6 +60,7 @@ book:
         - seasonality/motivation.qmd
         - seasonality/seasonal-decomposition-from-scratch.ipynb
         - seasonality/theory.ipynb
+        - seasonality/widget.ipynb
         # - seasonality/seasonal-decomposition.ipynb
         # - seasonality/hilbert.qmd
     - part: "time lags"
