@@ -67,8 +67,7 @@ book:
       chapters:
         - lags/motivation.qmd
         - lags/cross-correlation.ipynb
-        - lags/dynamic-time-warp.qmd
-        - lags/LDTW.ipynb
+        - lags/DTW.ipynb
     - part: "frequency"
       chapters:
         - frequency/motivation.qmd
