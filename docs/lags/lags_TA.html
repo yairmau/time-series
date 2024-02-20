@@ -697,8 +697,12 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb1-17"><a href="#cb1-17"></a></span>
 <span id="cb1-18"><a href="#cb1-18"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The dataset we will work with has two columns: 1. <code>tree</code> - dendrometer data of a Jerusalem pine tree 1. <code>solar_elevation</code> - solar elevation at the site of the tree. As the sun rises the elevation increases and it sets as the elevation decreses. When elevation is negative then the sun is below the horizon.</p>
-<p>The samplerate of the data 30min per row.</p>
+<p>The dataset we will work with has two columns:</p>
+<ol type="1">
+<li><code>tree</code> - dendrometer data of a Jerusalem pine tree</li>
+<li><code>solar_elevation</code> - solar elevation at the site of the tree. As the sun rises the elevation increases and it sets as the elevation decreses. When elevation is negative then the sun is below the horizon.</li>
+</ol>
+<p>The sample rate of the data 30min per row.</p>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'dendrometer.csv'</span>, index_col<span class="op">=</span><span class="st">'time'</span>, parse_dates<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -798,8 +802,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <p><img src="lags_TA_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<p>The tree contracts as water is leaving the trunk for transpiration. This usually happens during the day. Then the tree expands back at night when there is no transpiration. This is a slow process and there is some lag between the atmospheric conditions and the tree movement. We will quantify this lag.<br>
-The first thing we will do is multiply the dendrometer data by -1 so it will move in the same direction as the sun elevation. This is just to make things more intuitive when applying cross correlation.</p>
+<p>The tree contracts as water is leaving the trunk for transpiration. This usually happens during the day. Then the tree expands back at night when there is no transpiration. This is a slow process and there is some lag between the atmospheric conditions and the tree movement. We will quantify this lag.</p>
+<p>The first thing we will do is multiply the dendrometer data by -1 so it will move in the same direction as the sun elevation. This is just to make things more intuitive when applying cross correlation.</p>
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>,<span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb4-2"><a href="#cb4-2"></a></span>
@@ -817,8 +821,8 @@ The first thing we will do is multiply the dendrometer data by -1 so it will mov
 <p><img src="lags_TA_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<p>The dendrometer gives us the tree’s circumference, but in this case we care more about the rate of change - is the tree expanding or contracting? how fast is it moving?<br>
-We can answer these questions by computing the derivative of the dendrometer. A simple way to get a derivative from a time series is to compute the differences, as we learned before using the function <code>.diff()</code>. Another thing worth mentioning is that the original time series is not stationary, as we learned, differencing can aid in making it stationary.</p>
+<p>The dendrometer gives us the tree’s circumference, but in this case we care more about the rate of change - is the tree expanding or contracting? how fast is it moving?</p>
+<p>We can answer these questions by computing the derivative of the dendrometer. A simple way to get a derivative from a time series is to compute the differences, as we learned before using the function <code>.diff()</code>. Another thing worth mentioning is that the original time series is not stationary, as we learned, differencing can aid in making it stationary.</p>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>df[<span class="st">'tree_diff'</span>] <span class="op">=</span> df[<span class="st">'tree'</span>].diff()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
