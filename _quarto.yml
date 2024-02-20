@@ -68,6 +68,7 @@ book:
         - lags/motivation.qmd
         - lags/cross-correlation.ipynb
         - lags/DTW.ipynb
+        - lags/lags_TA.ipynb
     - part: "frequency"
       chapters:
         - frequency/motivation.qmd

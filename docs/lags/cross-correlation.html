@@ -93,7 +93,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../lags/dynamic-time-warp.html" rel="next">
+<link href="../lags/DTW.html" rel="next">
 <link href="../lags/motivation.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -147,6 +147,22 @@ document.addEventListener("DOMContentLoaded", function() {
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
 
 
 
@@ -448,12 +464,12 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/dynamic-time-warp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">dynamic time warp</span></a>
+  <a href="../lags/DTW.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">dynamic time warping</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/LDTW.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">LDTW</span></a>
+  <a href="../lags/lags_TA.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">time lags practice</span></a>
   </div>
 </li>
       </ul>
@@ -650,7 +666,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">cross-correlation</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/lags/cross-correlation.ipynb"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">cross-correlation</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/lags/cross-correlation.ipynb">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -665,7 +681,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </header>
 
-<div class="cell" data-execution_count="57">
+<div class="cell" data-execution_count="1">
+<details>
+<summary>import stuff</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
@@ -687,8 +705,11 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb1-19"><a href="#cb1-19"></a></span>
 <span id="cb1-20"><a href="#cb1-20"></a></span>
 <span id="cb1-21"><a href="#cb1-21"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell" data-execution_count="2">
+<details>
+<summary>create synthetic data</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>delta_t <span class="op">=</span> <span class="fl">0.1</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>time <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">50</span>, delta_t)</span>
 <span id="cb2-3"><a href="#cb2-3"></a>N <span class="op">=</span> <span class="bu">len</span>(time)</span>
@@ -697,204 +718,146 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb2-6"><a href="#cb2-6"></a>omega <span class="op">=</span> math.tau <span class="op">/</span> period</span>
 <span id="cb2-7"><a href="#cb2-7"></a>signal1 <span class="op">=</span> <span class="fl">3.0</span> <span class="op">+</span> np.sin(omega<span class="op">*</span>time) <span class="op">+</span> <span class="fl">0.1</span> <span class="op">*</span> np.random.random(N)</span>
 <span id="cb2-8"><a href="#cb2-8"></a>signal2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.2</span> <span class="op">*</span> np.sin(omega<span class="op">*</span>time <span class="op">-</span> math.tau <span class="op">*</span> (time_offset<span class="op">/</span>period)) <span class="op">+</span> <span class="fl">0.2</span> <span class="op">*</span> np.random.random(N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>time.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>(500,)</code></pre>
+<details>
+<summary>plot data</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb3-2"><a href="#cb3-2"></a>ax.plot(time, signal1, label<span class="op">=</span><span class="st">"signal1"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>ax.plot(time, signal2, label<span class="op">=</span><span class="st">"signal2"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"time"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5"></a>       ylabel<span class="op">=</span><span class="st">"signal"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="cross-correlation_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
 </div>
 </div>
+<p>Let’s normalize our data:</p>
+<p><span class="math display">
+x_n = \frac{x-\mu}{\sigma}.
+</span></p>
+<p>This is identical to the Z-score we learned before. Effectively, our data now has zero mean and unit standard deviation.</p>
 <div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> norm_data(data):</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    <span class="co"># normalize data to have mean=0 and standard_deviation=1</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>    <span class="cf">return</span> (data <span class="op">-</span> data.mean())<span class="op">/</span> data.std()</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a>s1 <span class="op">=</span> norm_data(signal1)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>s2 <span class="op">=</span> norm_data(signal2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>plot normalized data</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb5-2"><a href="#cb5-2"></a>ax.plot(time, signal1, label<span class="op">=</span><span class="st">"signal1"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3"></a>ax.plot(time, signal2, label<span class="op">=</span><span class="st">"signal2"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>ax.plot(time, s1, label<span class="op">=</span><span class="st">"normalized 1"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>ax.plot(time, s2, label<span class="op">=</span><span class="st">"normalized 2"</span>, zorder<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb5-4"><a href="#cb5-4"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"time"</span>,</span>
 <span id="cb5-5"><a href="#cb5-5"></a>       ylabel<span class="op">=</span><span class="st">"signal"</span>)</span>
 <span id="cb5-6"><a href="#cb5-6"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>&lt;matplotlib.legend.Legend at 0x7fdff0c16680&gt;</code></pre>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>&lt;matplotlib.legend.Legend at 0x7fe410252410&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="cross-correlation_files/figure-html/cell-5-output-2.png" class="img-fluid"></p>
+<p><img src="cross-correlation_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">def</span> norm_data(data):</span>
-<span id="cb7-2"><a href="#cb7-2"></a>    <span class="co">"""</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="co">    normalize data to have mean=0 and standard_deviation=1</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co">    """</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>    <span class="cf">return</span> (data <span class="op">-</span> data.mean())<span class="op">/</span> data.std()</span>
-<span id="cb7-6"><a href="#cb7-6"></a></span>
-<span id="cb7-7"><a href="#cb7-7"></a>s1 <span class="op">=</span> norm_data(signal1)</span>
-<span id="cb7-8"><a href="#cb7-8"></a>s2 <span class="op">=</span> norm_data(signal2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>The definition of cross correlation is very similar to autocorrelation:</p>
+<p><span class="math display">
+\rho_{XY}(\tau) = \frac{E\left[ (X_t - \mu)(Y_{t+\tau} - \mu) \right]}{\sigma_X \sigma_Y}
+</span></p>
+<p>If the autocorrelation helps us check how similar a signal is to a lagged version of itself, the cross correlation measures how a signal <span class="math inline">X</span> is similar to a lagged version of another signal <span class="math inline">Y</span>.</p>
+<p>Let’s write this ourselves:</p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb8-2"><a href="#cb8-2"></a>ax.plot(time, s1, label<span class="op">=</span><span class="st">"normalized 1"</span>)</span>
-<span id="cb8-3"><a href="#cb8-3"></a>ax.plot(time, s2, label<span class="op">=</span><span class="st">"normalized 2"</span>, zorder<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb8-4"><a href="#cb8-4"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"time"</span>,</span>
-<span id="cb8-5"><a href="#cb8-5"></a>       ylabel<span class="op">=</span><span class="st">"signal"</span>)</span>
-<span id="cb8-6"><a href="#cb8-6"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>&lt;matplotlib.legend.Legend at 0x7fdfe234f970&gt;</code></pre>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">def</span> cross_corr(s1, s2):</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="co">"""</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co">    we assume s1 and s2 to have the same length</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co">    """</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>    N <span class="op">=</span> <span class="bu">len</span>(s1)</span>
+<span id="cb7-6"><a href="#cb7-6"></a>    lags_left <span class="op">=</span> np.arange(<span class="op">-</span>(N<span class="op">-</span><span class="dv">1</span>), <span class="dv">1</span>)</span>
+<span id="cb7-7"><a href="#cb7-7"></a>    lags_right <span class="op">=</span> np.arange(<span class="dv">1</span>, N)</span>
+<span id="cb7-8"><a href="#cb7-8"></a>    cc_left <span class="op">=</span> np.array( [np.<span class="bu">sum</span>(s2[<span class="op">-</span>i:]<span class="op">*</span>s1[:i]) <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">1</span>, <span class="bu">len</span>(lags_left)<span class="op">+</span><span class="dv">1</span>)] )</span>
+<span id="cb7-9"><a href="#cb7-9"></a>    cc_right <span class="op">=</span> np.array( [np.<span class="bu">sum</span>(s2[:<span class="op">-</span>i]<span class="op">*</span>s1[i:]) <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">1</span>, <span class="bu">len</span>(lags_right)<span class="op">+</span><span class="dv">1</span>)] )</span>
+<span id="cb7-10"><a href="#cb7-10"></a>    lags <span class="op">=</span> np.hstack([lags_left, lags_right])</span>
+<span id="cb7-11"><a href="#cb7-11"></a>    cc <span class="op">=</span> np.hstack([cc_left, cc_right]) <span class="op">/</span> N</span>
+<span id="cb7-12"><a href="#cb7-12"></a>    <span class="cf">return</span> lags, cc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-display">
-<p><img src="cross-correlation_files/figure-html/cell-7-output-2.png" class="img-fluid"></p>
-</div>
-</div>
+<p>Of course, there are available functions that accomplish the same, let’s compare them with our code:</p>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">def</span> ncc(data0, data1):</span>
-<span id="cb10-3"><a href="#cb10-3"></a>    <span class="co">"""</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">    normalized cross-correlation coefficient between two data sets</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">    Parameters</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="co">    ----------</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="co">    data0, data1 :  numpy arrays of same size</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="co">    """</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a>    <span class="cf">return</span> (<span class="fl">1.0</span><span class="op">/</span>(data0.size<span class="op">-</span><span class="dv">1</span>)) <span class="op">*</span> np.<span class="bu">sum</span>(norm_data(data0)<span class="op">*</span>norm_data(data1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>cross correlation plot</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>corr_np <span class="op">=</span> signal.correlate(s1, s2) <span class="op">/</span> N</span>
+<span id="cb8-2"><a href="#cb8-2"></a>lags <span class="op">=</span> signal.correlation_lags(<span class="bu">len</span>(s1), <span class="bu">len</span>(s2))</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a>my_lag, my_cc <span class="op">=</span> cross_corr(s1, s2)</span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a>max_index <span class="op">=</span> np.argmax(corr_np)</span>
+<span id="cb8-7"><a href="#cb8-7"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb8-8"><a href="#cb8-8"></a>ax.plot(lags, corr_np, color<span class="op">=</span><span class="st">"tab:blue"</span>, label <span class="op">=</span> <span class="st">"scipy.signal.correlate"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9"></a>ax.plot(my_lag, my_cc, <span class="st">'tab:orange'</span>, dashes<span class="op">=</span>[<span class="dv">7</span>, <span class="dv">10</span>], label <span class="op">=</span> <span class="st">"our version"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10"></a>ax.legend(loc<span class="op">=</span><span class="st">"lower left"</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb8-11"><a href="#cb8-11"></a></span>
+<span id="cb8-12"><a href="#cb8-12"></a>ax.plot([lags[max_index]], [corr_np[max_index]], ls<span class="op">=</span><span class="st">"None"</span>, marker<span class="op">=</span><span class="st">"o"</span>, mfc<span class="op">=</span><span class="st">"None"</span>, mew<span class="op">=</span><span class="dv">3</span>, ms<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb8-13"><a href="#cb8-13"></a>ax.text(lags[max_index], corr_np[max_index],</span>
+<span id="cb8-14"><a href="#cb8-14"></a>        <span class="ss">f"lag = </span><span class="sc">{</span>lags[max_index]<span class="sc">}</span><span class="ss">"</span>, va<span class="op">=</span><span class="st">"top"</span>, ha<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb8-15"><a href="#cb8-15"></a>ax.grid(<span class="va">True</span>)</span>
+<span id="cb8-16"><a href="#cb8-16"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"lag (pts)"</span>,</span>
+<span id="cb8-17"><a href="#cb8-17"></a>       ylabel<span class="op">=</span><span class="st">"cross correlation function"</span>,</span>
+<span id="cb8-18"><a href="#cb8-18"></a>       title<span class="op">=</span><span class="ss">f"s2 is best correlated with s1 when shifted by </span><span class="sc">{</span>lags[max_index]<span class="sc">}</span><span class="ss"> pts"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="cross-correlation_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
 </div>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># corr_np = signal.correlate(signal1-signal1.mean(), signal2-signal2.mean())</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>corr_np <span class="op">=</span> signal.correlate(s1, s2) <span class="op">/</span> N</span>
-<span id="cb11-3"><a href="#cb11-3"></a>lags <span class="op">=</span> signal.correlation_lags(<span class="bu">len</span>(s1), <span class="bu">len</span>(s2))</span>
-<span id="cb11-4"><a href="#cb11-4"></a>lags_time <span class="op">=</span> lags <span class="op">*</span> delta_t</span>
-<span id="cb11-5"><a href="#cb11-5"></a>max_index <span class="op">=</span> np.argmax(corr_np)</span>
-<span id="cb11-6"><a href="#cb11-6"></a><span class="co"># print(lags_time[max_index])</span></span>
-<span id="cb11-7"><a href="#cb11-7"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb11-8"><a href="#cb11-8"></a>ax.plot(lags_time, corr_np)</span>
-<span id="cb11-9"><a href="#cb11-9"></a>ax.plot([lags_time[max_index]], [corr_np[max_index]], ls<span class="op">=</span><span class="st">"None"</span>, marker<span class="op">=</span><span class="st">"o"</span>, mfc<span class="op">=</span><span class="st">"None"</span>, mew<span class="op">=</span><span class="dv">3</span>, ms<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb11-10"><a href="#cb11-10"></a>ax.text(lags_time[max_index], corr_np[max_index],</span>
-<span id="cb11-11"><a href="#cb11-11"></a>        <span class="ss">f"lag = </span><span class="sc">{</span>lags_time[max_index]<span class="sc">}</span><span class="ss">"</span>, va<span class="op">=</span><span class="st">"top"</span>, ha<span class="op">=</span><span class="st">"left"</span>)</span>
-<span id="cb11-12"><a href="#cb11-12"></a>ax.grid(<span class="va">True</span>)</span>
-<span id="cb11-13"><a href="#cb11-13"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"lag"</span>,</span>
-<span id="cb11-14"><a href="#cb11-14"></a>       ylabel<span class="op">=</span><span class="st">"cross correlation function"</span>,</span>
-<span id="cb11-15"><a href="#cb11-15"></a>       title<span class="op">=</span><span class="ss">f"s2 is best correlated with s1 when shifted by </span><span class="sc">{</span>lags_time[max_index]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>[Text(0.5, 0, 'lag'),
- Text(0, 0.5, 'cross correlation function'),
- Text(0.5, 1.0, 's2 is best correlated with s1 when shifted by -1.6')]</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="cross-correlation_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># corr_np = signal.correlate(signal1-signal1.mean(), signal2-signal2.mean())</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>corr_np <span class="op">=</span> signal.correlate(s1, s2) <span class="op">/</span> N</span>
-<span id="cb13-3"><a href="#cb13-3"></a>lags <span class="op">=</span> signal.correlation_lags(<span class="bu">len</span>(s1), <span class="bu">len</span>(s2))</span>
-<span id="cb13-4"><a href="#cb13-4"></a>lags_time <span class="op">=</span> lags <span class="op">*</span> <span class="dv">1</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a>max_index <span class="op">=</span> np.argmax(corr_np)</span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="co"># print(lags_time[max_index])</span></span>
-<span id="cb13-7"><a href="#cb13-7"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb13-8"><a href="#cb13-8"></a>ax.plot(lags_time, corr_np)</span>
-<span id="cb13-9"><a href="#cb13-9"></a>ax.plot([lags_time[max_index]], [corr_np[max_index]], ls<span class="op">=</span><span class="st">"None"</span>, marker<span class="op">=</span><span class="st">"o"</span>, mfc<span class="op">=</span><span class="st">"None"</span>, mew<span class="op">=</span><span class="dv">3</span>, ms<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb13-10"><a href="#cb13-10"></a>ax.text(lags_time[max_index], corr_np[max_index],</span>
-<span id="cb13-11"><a href="#cb13-11"></a>        <span class="ss">f"lag = </span><span class="sc">{</span>lags_time[max_index]<span class="sc">}</span><span class="ss">"</span>, va<span class="op">=</span><span class="st">"top"</span>, ha<span class="op">=</span><span class="st">"left"</span>)</span>
-<span id="cb13-12"><a href="#cb13-12"></a>ax.grid(<span class="va">True</span>)</span>
-<span id="cb13-13"><a href="#cb13-13"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"lag"</span>,</span>
-<span id="cb13-14"><a href="#cb13-14"></a>       ylabel<span class="op">=</span><span class="st">"cross correlation function"</span>,</span>
-<span id="cb13-15"><a href="#cb13-15"></a>       title<span class="op">=</span><span class="ss">f"s2 is best correlated with s1 when shifted by </span><span class="sc">{</span>lags_time[max_index]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="48">
-<pre><code>[Text(0.5, 0, 'lag'),
- Text(0, 0.5, 'cross correlation function'),
- Text(0.5, 1.0, 's2 is best correlated with s1 when shifted by -16')]</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="cross-correlation_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
-</div>
+<details>
+<summary>prepare padded versions of the array</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>nann <span class="op">=</span> np.zeros(N) <span class="op">*</span> np.nan</span>
+<span id="cb9-2"><a href="#cb9-2"></a>s1_padded <span class="op">=</span> np.hstack([nann, s1, nann])</span>
+<span id="cb9-3"><a href="#cb9-3"></a>N_padded <span class="op">=</span> <span class="bu">len</span>(s1_padded)</span>
+<span id="cb9-4"><a href="#cb9-4"></a>lag_padded <span class="op">=</span> np.arange(N_padded) <span class="op">-</span> N</span>
+<span id="cb9-5"><a href="#cb9-5"></a>s2_padded <span class="op">=</span> np.hstack([nann, nann, s2, nann, nann])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># corr_np = signal.correlate(signal1-signal1.mean(), signal2-signal2.mean())</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a>corr_np <span class="op">=</span> signal.correlate(s1, s2<span class="op">+</span><span class="dv">50</span>) <span class="op">/</span> N</span>
-<span id="cb15-3"><a href="#cb15-3"></a>lags <span class="op">=</span> signal.correlation_lags(<span class="bu">len</span>(s1), <span class="bu">len</span>(s2))</span>
-<span id="cb15-4"><a href="#cb15-4"></a>lags_time <span class="op">=</span> lags <span class="op">*</span> delta_t</span>
-<span id="cb15-5"><a href="#cb15-5"></a>max_index <span class="op">=</span> np.argmax(corr_np)</span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="co"># print(lags_time[max_index])</span></span>
-<span id="cb15-7"><a href="#cb15-7"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb15-8"><a href="#cb15-8"></a>ax.plot(lags_time, corr_np)</span>
-<span id="cb15-9"><a href="#cb15-9"></a>ax.plot([lags_time[max_index]], [corr_np[max_index]], ls<span class="op">=</span><span class="st">"None"</span>, marker<span class="op">=</span><span class="st">"o"</span>, mfc<span class="op">=</span><span class="st">"None"</span>, mew<span class="op">=</span><span class="dv">3</span>, ms<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb15-10"><a href="#cb15-10"></a>ax.text(lags_time[max_index], corr_np[max_index],</span>
-<span id="cb15-11"><a href="#cb15-11"></a>        <span class="ss">f"lag = </span><span class="sc">{</span>lags_time[max_index]<span class="sc">}</span><span class="ss">"</span>, va<span class="op">=</span><span class="st">"top"</span>, ha<span class="op">=</span><span class="st">"left"</span>)</span>
-<span id="cb15-12"><a href="#cb15-12"></a>ax.grid(<span class="va">True</span>)</span>
-<span id="cb15-13"><a href="#cb15-13"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"lag"</span>,</span>
-<span id="cb15-14"><a href="#cb15-14"></a>       ylabel<span class="op">=</span><span class="st">"cross correlation function"</span>,</span>
-<span id="cb15-15"><a href="#cb15-15"></a>       title<span class="op">=</span><span class="ss">f"s2 is best correlated with s1 when shifted by </span><span class="sc">{</span>lags_time[max_index]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>[Text(0.5, 0, 'lag'),
- Text(0, 0.5, 'cross correlation function'),
- Text(0.5, 1.0, 's2 is best correlated with s1 when shifted by -45.0')]</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="cross-correlation_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>nann <span class="op">=</span> np.zeros(N) <span class="op">*</span> np.nan</span>
-<span id="cb17-2"><a href="#cb17-2"></a>s1_padded <span class="op">=</span> np.hstack([nann, s1, nann])</span>
-<span id="cb17-3"><a href="#cb17-3"></a>N_padded <span class="op">=</span> <span class="bu">len</span>(s1_padded)</span>
-<span id="cb17-4"><a href="#cb17-4"></a>lag_padded <span class="op">=</span> np.arange(N_padded) <span class="op">-</span> N</span>
-<span id="cb17-5"><a href="#cb17-5"></a>s2_padded <span class="op">=</span> np.hstack([nann, nann, s2, nann, nann])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>lag_padded</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="43">
-<pre><code>array([-500, -499, -498, ...,  997,  998,  999])</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb20-2"><a href="#cb20-2"></a>ax.plot(lag_padded, s1_padded, label<span class="op">=</span><span class="st">"normalized 1"</span>)</span>
-<span id="cb20-3"><a href="#cb20-3"></a>l <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb20-4"><a href="#cb20-4"></a>ax.plot(lag_padded, s2_padded[<span class="dv">2</span><span class="op">*</span>N<span class="op">-</span>l:<span class="op">-</span>l], label<span class="op">=</span><span class="st">"normalized 2"</span>, zorder<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb20-5"><a href="#cb20-5"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"time"</span>,</span>
-<span id="cb20-6"><a href="#cb20-6"></a>       ylabel<span class="op">=</span><span class="st">"signal"</span>,</span>
-<span id="cb20-7"><a href="#cb20-7"></a>       xlim<span class="op">=</span>[lag_padded.<span class="bu">min</span>(), lag_padded.<span class="bu">max</span>()])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="44">
-<pre><code>[Text(0.5, 0, 'time'), Text(0, 0.5, 'signal'), (-500.0, 999.0)]</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="cross-correlation_files/figure-html/cell-14-output-2.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="59">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Generate some sample data</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="co"># x = np.linspace(0, 10, 100)</span></span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="co"># y1 = np.sin(x)</span></span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="co"># y2_base = np.cos(x)</span></span>
-<span id="cb22-5"><a href="#cb22-5"></a></span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="co"># Define a function to plot the time series with a shift</span></span>
-<span id="cb22-7"><a href="#cb22-7"></a><span class="kw">def</span> plot_time_series(shift<span class="op">=-</span><span class="dv">500</span>):</span>
-<span id="cb22-8"><a href="#cb22-8"></a>    sh <span class="op">=</span> shift <span class="op">+</span> N <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb22-9"><a href="#cb22-9"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb22-10"><a href="#cb22-10"></a>    ax[<span class="dv">0</span>].plot(lag_padded, s1_padded, label<span class="op">=</span><span class="st">"normalized 1"</span>)</span>
-<span id="cb22-11"><a href="#cb22-11"></a>    ax[<span class="dv">0</span>].plot(lag_padded, s2_padded[<span class="dv">2</span><span class="op">*</span>N<span class="op">-</span>sh:<span class="op">-</span>sh], label<span class="op">=</span><span class="st">"normalized 2"</span>, zorder<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb22-12"><a href="#cb22-12"></a>    ax[<span class="dv">0</span>].<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"time"</span>,</span>
-<span id="cb22-13"><a href="#cb22-13"></a>           ylabel<span class="op">=</span><span class="st">"signal"</span>,</span>
-<span id="cb22-14"><a href="#cb22-14"></a>           xlim<span class="op">=</span>[lag_padded.<span class="bu">min</span>(), lag_padded.<span class="bu">max</span>()])</span>
-<span id="cb22-15"><a href="#cb22-15"></a>    ax[<span class="dv">1</span>].plot(lags_time, corr_np, color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb22-16"><a href="#cb22-16"></a>    ax[<span class="dv">1</span>].plot(lags_time[:sh], corr_np[:sh], lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"xkcd:hot pink"</span>)</span>
-<span id="cb22-17"><a href="#cb22-17"></a>    ax[<span class="dv">1</span>].<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"time"</span>,</span>
-<span id="cb22-18"><a href="#cb22-18"></a>           ylabel<span class="op">=</span><span class="st">"signal"</span>,</span>
-<span id="cb22-19"><a href="#cb22-19"></a>           xlim<span class="op">=</span>[lags_time.<span class="bu">min</span>(), lags_time.<span class="bu">max</span>()],</span>
-<span id="cb22-20"><a href="#cb22-20"></a>           ylim<span class="op">=</span>[<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>])</span>
-<span id="cb22-21"><a href="#cb22-21"></a></span>
-<span id="cb22-22"><a href="#cb22-22"></a>    plt.show()</span>
-<span id="cb22-23"><a href="#cb22-23"></a></span>
-<span id="cb22-24"><a href="#cb22-24"></a><span class="co"># Use interact to create the widget</span></span>
-<span id="cb22-25"><a href="#cb22-25"></a>interact(plot_time_series, shift<span class="op">=</span>IntSlider(<span class="bu">min</span><span class="op">=-</span><span class="dv">500</span>, <span class="bu">max</span><span class="op">=</span><span class="dv">499</span>, step<span class="op">=</span><span class="dv">1</span>, value<span class="op">=-</span><span class="dv">500</span>))</span>
-<span id="cb22-26"><a href="#cb22-26"></a></span>
-<span id="cb22-27"><a href="#cb22-27"></a><span class="co"># Add custom CSS to change the length of the slider</span></span>
-<span id="cb22-28"><a href="#cb22-28"></a>display(HTML(<span class="st">"""</span></span>
-<span id="cb22-29"><a href="#cb22-29"></a><span class="st">&lt;style&gt;</span></span>
-<span id="cb22-30"><a href="#cb22-30"></a><span class="st">.widget-slider {</span></span>
-<span id="cb22-31"><a href="#cb22-31"></a><span class="st">    width: 100%;</span></span>
-<span id="cb22-32"><a href="#cb22-32"></a><span class="st">}</span></span>
-<span id="cb22-33"><a href="#cb22-33"></a><span class="st">&lt;/style&gt;</span></span>
-<span id="cb22-34"><a href="#cb22-34"></a><span class="st">"""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Widget, should work in VSCode, not on the website</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Define a function to plot the time series with a shift</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">def</span> plot_time_series(shift<span class="op">=-</span><span class="dv">500</span>):</span>
+<span id="cb10-3"><a href="#cb10-3"></a>    sh <span class="op">=</span> shift <span class="op">+</span> N <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb10-5"><a href="#cb10-5"></a>    fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.3</span>)  <span class="co"># increase vertical space between panels</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>    ax[<span class="dv">0</span>].plot(lag_padded <span class="op">*</span> delta_t, s1_padded, label<span class="op">=</span><span class="st">"normalized 1"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7"></a>    ax[<span class="dv">0</span>].plot(lag_padded <span class="op">*</span> delta_t, s2_padded[<span class="dv">2</span><span class="op">*</span>N<span class="op">-</span>sh:<span class="op">-</span>sh], label<span class="op">=</span><span class="st">"normalized 2"</span>, zorder<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb10-8"><a href="#cb10-8"></a>    ax[<span class="dv">0</span>].<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"time"</span>,</span>
+<span id="cb10-9"><a href="#cb10-9"></a>           ylabel<span class="op">=</span><span class="st">"normalized signal"</span>,</span>
+<span id="cb10-10"><a href="#cb10-10"></a>           xlim<span class="op">=</span>[delta_t<span class="op">*</span>lag_padded.<span class="bu">min</span>(), delta_t<span class="op">*</span>lag_padded.<span class="bu">max</span>()])</span>
+<span id="cb10-11"><a href="#cb10-11"></a>    ax[<span class="dv">1</span>].plot(lags, corr_np, color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb10-12"><a href="#cb10-12"></a>    ax[<span class="dv">1</span>].plot(lags[:sh], corr_np[:sh], lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"xkcd:hot pink"</span>)</span>
+<span id="cb10-13"><a href="#cb10-13"></a>    ax[<span class="dv">1</span>].<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"lag (pts)"</span>,</span>
+<span id="cb10-14"><a href="#cb10-14"></a>           ylabel<span class="op">=</span><span class="st">"CCF"</span>,</span>
+<span id="cb10-15"><a href="#cb10-15"></a>           xlim<span class="op">=</span>[lags.<span class="bu">min</span>(), lags.<span class="bu">max</span>()],</span>
+<span id="cb10-16"><a href="#cb10-16"></a>           ylim<span class="op">=</span>[<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb10-17"><a href="#cb10-17"></a></span>
+<span id="cb10-18"><a href="#cb10-18"></a>    plt.show()</span>
+<span id="cb10-19"><a href="#cb10-19"></a></span>
+<span id="cb10-20"><a href="#cb10-20"></a><span class="co"># Use interact to create the widget</span></span>
+<span id="cb10-21"><a href="#cb10-21"></a>interact(plot_time_series, shift<span class="op">=</span>IntSlider(<span class="bu">min</span><span class="op">=-</span><span class="dv">500</span>, <span class="bu">max</span><span class="op">=</span><span class="dv">499</span>, step<span class="op">=</span><span class="dv">1</span>, value<span class="op">=-</span><span class="dv">500</span>))</span>
+<span id="cb10-22"><a href="#cb10-22"></a></span>
+<span id="cb10-23"><a href="#cb10-23"></a><span class="co"># Add custom CSS to change the length of the slider</span></span>
+<span id="cb10-24"><a href="#cb10-24"></a>display(HTML(<span class="st">"""</span></span>
+<span id="cb10-25"><a href="#cb10-25"></a><span class="st">&lt;style&gt;</span></span>
+<span id="cb10-26"><a href="#cb10-26"></a><span class="st">.widget-slider {</span></span>
+<span id="cb10-27"><a href="#cb10-27"></a><span class="st">    width: 100%;</span></span>
+<span id="cb10-28"><a href="#cb10-28"></a><span class="st">}</span></span>
+<span id="cb10-29"><a href="#cb10-29"></a><span class="st">&lt;/style&gt;</span></span>
+<span id="cb10-30"><a href="#cb10-30"></a><span class="st">"""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"5b6803777dc14629820e24323d5b3b70","version_major":2,"version_minor":0}
+{"model_id":"ce83b66dafba489194979b8fb618b8df","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-display">
@@ -904,12 +867,6 @@ document.addEventListener("DOMContentLoaded", function() {
     width: 100%;
 }
 </style>
-</div>
-</div>
-<div class="cell" data-execution_count="47">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>corr_np.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="47">
-<pre><code>(999,)</code></pre>
 </div>
 </div>
 
@@ -1107,8 +1064,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../lags/dynamic-time-warp.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">dynamic time warp</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../lags/DTW.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">dynamic time warping</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
