@@ -73,6 +73,8 @@ book:
       chapters:
         - frequency/motivation.qmd
         - frequency/fourier.qmd
+        - frequency/dft-and-fft.ipynb
+        - frequency/sound.ipynb
         - frequency/filtering.qmd
         - frequency/nyquist.qmd
     - part: "rates of change"
