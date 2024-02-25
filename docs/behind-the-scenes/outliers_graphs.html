@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series Analysis - 63&nbsp; outliers graphs</title>
+<title>Time Series Analysis - outliers graphs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -17,12 +17,11 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -47,17 +46,47 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -82,13 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -97,10 +120,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
@@ -122,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
@@ -133,16 +154,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../behind-the-scenes/sliding-window-video.html">behind-the-scenes</a></li><li class="breadcrumb-item"><a href="../behind-the-scenes/outliers_graphs.html"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">outliers graphs</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">outliers graphs</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
       </button>
     </div>
   </nav>
@@ -150,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="../archive/clock-history.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -158,555 +174,476 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Time Series Analysis</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://yairmau.com/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-house-fill"></i></a>
-    <a href="../sources.html" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-bookmark-fill"></i></a>
-    <a href="../things-to-remember.html" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-asterisk"></i></a>
-    <a href="https://github.com/yairmau/time-series/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://yairmau.com/" title="" class="sidebar-tool px-1"><i class="bi bi-house-fill"></i></a>
+    <a href="../sources.html" title="" class="sidebar-tool px-1"><i class="bi bi-bookmark-fill"></i></a>
+    <a href="../things-to-remember.html" title="" class="sidebar-tool px-1"><i class="bi bi-asterisk"></i></a>
+    <a href="https://github.com/yairmau/time-series/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
+      <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-        </div>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">about</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link">about</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../who-cares.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">who cares?</span></a>
+  <a href="../who-cares.html" class="sidebar-item-text sidebar-link">who cares?</a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">start here</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">start here</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basics/boring.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">the boring stuff you absolutely need to do</span></span></a>
+  <a href="../basics/boring.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">the boring stuff you absolutely need to do</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basics/numpy-pandas-matplotlib.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">numpy, pandas, matplotlib</span></span></a>
+  <a href="../basics/numpy-pandas-matplotlib.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">numpy, pandas, matplotlib</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basics/example.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">learn by example</span></span></a>
+  <a href="../basics/example.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">learn by example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basics/AI-policy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AI policy</span></span></a>
+  <a href="../basics/AI-policy.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AI policy</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">resampling</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">resampling</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../resampling/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../resampling/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../resampling/resampling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">resampling</span></span></a>
+  <a href="../resampling/resampling.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">resampling</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../resampling/upsampling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">upsampling</span></span></a>
+  <a href="../resampling/upsampling.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">upsampling</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../resampling/interpolation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">interpolation</span></span></a>
+  <a href="../resampling/interpolation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">interpolation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../resampling/FAQ.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">FAQ</span></span></a>
+  <a href="../resampling/FAQ.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">FAQ</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text">smoothing</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">smoothing</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../smoothing/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../smoothing/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../smoothing/sliding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">sliding window</span></span></a>
+  <a href="../smoothing/sliding.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">sliding window</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../smoothing/not-only-averages.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">not only averages</span></span></a>
+  <a href="../smoothing/not-only-averages.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">not only averages</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../smoothing/fit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">fit</span></span></a>
+  <a href="../smoothing/fit.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">fit</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../smoothing/savgol.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></span></a>
+  <a href="../smoothing/savgol.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
- <span class="menu-text">outliers and gaps</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">outliers and gaps</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../outliers/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../outliers/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../outliers/outlier-identification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">outlier identification</span></span></a>
+  <a href="../outliers/outlier-identification.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">outlier identification</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../outliers/robust-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">robust analysis</span></span></a>
+  <a href="../outliers/robust-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">robust analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../outliers/sliding-algorithms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">sliding algorithms</span></span></a>
+  <a href="../outliers/sliding-algorithms.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">sliding algorithms</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../outliers/substituting-outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">substituting outliers</span></span></a>
+  <a href="../outliers/substituting-outliers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">substituting outliers</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../outliers/outliers_challenge.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">challenge</span></span></a>
+  <a href="../outliers/outliers_challenge.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">challenge</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../outliers/outliers_challenge_part2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">challenge part 2</span></span></a>
+  <a href="../outliers/outliers_challenge_part2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">challenge part 2</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
- <span class="menu-text">stationarity</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">stationarity</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stationarity/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../stationarity/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stationarity/random.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">random variables</span></span></a>
+  <a href="../stationarity/random.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">random variables</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stationarity/AR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">autoregressive processes</span></span></a>
+  <a href="../stationarity/AR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">autoregressive processes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stationarity/autocorrelation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
+  <a href="../stationarity/autocorrelation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">autocorrelation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stationarity/stationarity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">stationarity</span></span></a>
+  <a href="../stationarity/stationarity.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">stationarity</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stationarity/ACF_and_PACF_graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">ACF and PACF graphs</span></span></a>
+  <a href="../stationarity/ACF_and_PACF_graphs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">ACF and PACF graphs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stationarity/from_AR_to_ARIMA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></span></a>
+  <a href="../stationarity/from_AR_to_ARIMA.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stationarity/practice.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">practice</span></span></a>
+  <a href="../stationarity/practice.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">practice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stationarity/practice2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">filling missing values</span></span></a>
+  <a href="../stationarity/practice2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">filling missing values</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
- <span class="menu-text">seasonality</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">seasonality</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../seasonality/seasonal-decomposition-from-scratch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">seasonal decomposition from scratch</span></span></a>
+  <a href="../seasonality/seasonal-decomposition-from-scratch.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">seasonal decomposition from scratch</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../seasonality/theory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">theory</span></span></a>
+  <a href="../seasonality/theory.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">theory</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../seasonality/widget.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">widgets</span></span></a>
+  <a href="../seasonality/widget.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">widgets</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
- <span class="menu-text">time lags</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">time lags</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
+  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">cross-correlation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/DTW.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">dynamic time warping</span></span></a>
+  <a href="../lags/DTW.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">dynamic time warping</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/lags_TA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">time lags practice</span></span></a>
+  <a href="../lags/lags_TA.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">time lags practice</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
- <span class="menu-text">frequency</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">frequency</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
+  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Fourier transform</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/dft-and-fft.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">DFT and FFT</span></span></a>
+  <a href="../frequency/dft-and-fft.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">DFT and FFT</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/sound.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">sound</span></span></a>
+  <a href="../frequency/sound.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">sound</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
+  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">filtering</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></span></a>
+  <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
- <span class="menu-text">rates of change</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">rates of change</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">derivatives</span></span></a>
+  <a href="../rates-of-change/derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">derivatives</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">finite differences</span></span></a>
+  <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">finite differences</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
+  <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
+  <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
- <span class="menu-text">forecasting</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">forecasting</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">motivation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
+  <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">ARIMA</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
- <span class="menu-text">assignments</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">assignments</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../assignments/assignment1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">assignment 1</span></span></a>
+  <a href="../assignments/assignment1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">assignment 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../assignments/assignment2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">assignment 2</span></span></a>
+  <a href="../assignments/assignment2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">assignment 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../assignments/assignment3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">assignment 3</span></span></a>
+  <a href="../assignments/assignment3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">assignment 3</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
- <span class="menu-text">technical stuff</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">technical stuff</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
+  <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">technical stuff</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
+  <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">datasets</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
+  <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">date formatting</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">sources</span></span></a>
+  <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">sources</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">
- <span class="menu-text">behind-the-scenes</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">behind-the-scenes</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
+  <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">sliding window video</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
+  <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">savgol video</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
+  <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">API to download data from IMS</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../behind-the-scenes/consecutive_sequence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
+  <a href="../behind-the-scenes/consecutive_sequence.html" class="sidebar-item-text sidebar-link">remove consecutive values</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../behind-the-scenes/outliers_graphs.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
+  <a href="../behind-the-scenes/outliers_graphs.html" class="sidebar-item-text sidebar-link active">outliers graphs</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../behind-the-scenes/make_your_own_website.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">make your own website</span></a>
+  <a href="../behind-the-scenes/make_your_own_website.html" class="sidebar-item-text sidebar-link">make your own website</a>
   </div>
 </li>
       </ul>
@@ -714,35 +651,34 @@ document.addEventListener("DOMContentLoaded", function() {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#define-functions" id="toc-define-functions" class="nav-link active" data-scroll-target="#define-functions"><span class="header-section-number">63.1</span> define functions</a></li>
-  <li><a href="#load-and-process-data" id="toc-load-and-process-data" class="nav-link" data-scroll-target="#load-and-process-data"><span class="header-section-number">63.2</span> load and process data</a></li>
-  <li><a href="#stationary-signal" id="toc-stationary-signal" class="nav-link" data-scroll-target="#stationary-signal"><span class="header-section-number">63.3</span> stationary signal</a></li>
-  <li><a href="#visual-inspection" id="toc-visual-inspection" class="nav-link" data-scroll-target="#visual-inspection"><span class="header-section-number">63.4</span> visual inspection</a></li>
-  <li><a href="#mean---3-std" id="toc-mean---3-std" class="nav-link" data-scroll-target="#mean---3-std"><span class="header-section-number">63.5</span> mean +- 3 std</a></li>
-  <li><a href="#iqr" id="toc-iqr" class="nav-link" data-scroll-target="#iqr"><span class="header-section-number">63.6</span> IQR</a></li>
-  <li><a href="#non-stationary-signal" id="toc-non-stationary-signal" class="nav-link" data-scroll-target="#non-stationary-signal"><span class="header-section-number">63.7</span> non stationary signal</a></li>
-  <li><a href="#running---3-std" id="toc-running---3-std" class="nav-link" data-scroll-target="#running---3-std"><span class="header-section-number">63.8</span> running +- 3 std</a></li>
-  <li><a href="#running-q---iqr" id="toc-running-q---iqr" class="nav-link" data-scroll-target="#running-q---iqr"><span class="header-section-number">63.9</span> running: Q +- IQR</a></li>
-  <li><a href="#hampel-running-mad" id="toc-hampel-running-mad" class="nav-link" data-scroll-target="#hampel-running-mad"><span class="header-section-number">63.10</span> Hampel, running MAD</a></li>
-  <li><a href="#stationary-mad" id="toc-stationary-mad" class="nav-link" data-scroll-target="#stationary-mad"><span class="header-section-number">63.11</span> stationary MAD</a></li>
-  <li><a href="#save-data-as-csv-for-later-usage" id="toc-save-data-as-csv-for-later-usage" class="nav-link" data-scroll-target="#save-data-as-csv-for-later-usage"><span class="header-section-number">63.12</span> save data as csv for later usage</a></li>
-  <li><a href="#generate-datasets" id="toc-generate-datasets" class="nav-link" data-scroll-target="#generate-datasets"><span class="header-section-number">63.13</span> generate datasets</a></li>
+  <li><a href="#define-functions" id="toc-define-functions" class="nav-link active" data-scroll-target="#define-functions">define functions</a></li>
+  <li><a href="#load-and-process-data" id="toc-load-and-process-data" class="nav-link" data-scroll-target="#load-and-process-data">load and process data</a></li>
+  <li><a href="#stationary-signal" id="toc-stationary-signal" class="nav-link" data-scroll-target="#stationary-signal">stationary signal</a></li>
+  <li><a href="#visual-inspection" id="toc-visual-inspection" class="nav-link" data-scroll-target="#visual-inspection">visual inspection</a></li>
+  <li><a href="#mean---3-std" id="toc-mean---3-std" class="nav-link" data-scroll-target="#mean---3-std">mean +- 3 std</a></li>
+  <li><a href="#iqr" id="toc-iqr" class="nav-link" data-scroll-target="#iqr">IQR</a></li>
+  <li><a href="#non-stationary-signal" id="toc-non-stationary-signal" class="nav-link" data-scroll-target="#non-stationary-signal">non stationary signal</a></li>
+  <li><a href="#running---3-std" id="toc-running---3-std" class="nav-link" data-scroll-target="#running---3-std">running +- 3 std</a></li>
+  <li><a href="#running-q---iqr" id="toc-running-q---iqr" class="nav-link" data-scroll-target="#running-q---iqr">running: Q +- IQR</a></li>
+  <li><a href="#hampel-running-mad" id="toc-hampel-running-mad" class="nav-link" data-scroll-target="#hampel-running-mad">Hampel, running MAD</a></li>
+  <li><a href="#stationary-mad" id="toc-stationary-mad" class="nav-link" data-scroll-target="#stationary-mad">stationary MAD</a></li>
+  <li><a href="#save-data-as-csv-for-later-usage" id="toc-save-data-as-csv-for-later-usage" class="nav-link" data-scroll-target="#save-data-as-csv-for-later-usage">save data as csv for later usage</a></li>
+  <li><a href="#generate-datasets" id="toc-generate-datasets" class="nav-link" data-scroll-target="#generate-datasets">generate datasets</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../behind-the-scenes/sliding-window-video.html">behind-the-scenes</a></li><li class="breadcrumb-item"><a href="../behind-the-scenes/outliers_graphs.html"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">outliers graphs</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">outliers graphs</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/behind-the-scenes/outliers_graphs.ipynb"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block">outliers graphs</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/behind-the-scenes/outliers_graphs.ipynb"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -755,11 +691,9 @@ document.addEventListener("DOMContentLoaded", function() {
   </div>
   
 
-
 </header>
 
-
-<div id="cell-1" class="cell" data-execution_count="1">
+<div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> warnings</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -774,9 +708,9 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 <p>https://www.google.com/imgres?imgurl=https%3A%2F%2Fcxl.com%2Fwp-content%2Fuploads%2F2017%2F01%2Fchart-1.png&amp;tbnid=RClfEFYNWm0WWM&amp;vet=12ahUKEwjsx9KiqtKDAxXwh_0HHQR0CPoQMygSegQIARB1..i&amp;imgrefurl=https%3A%2F%2Fcxl.com%2Fblog%2Foutliers%2F&amp;docid=EVGldozQCNsxLM&amp;w=1662&amp;h=722&amp;q=outliers%20different%20distributions&amp;client=safari&amp;ved=2ahUKEwjsx9KiqtKDAxXwh_0HHQR0CPoQMygSegQIARB1</p>
 <p>source: https://github.com/erykml/medium_articles/blob/master/Machine%20Learning/outlier_detection_hampel_filter.ipynb</p>
-<section id="define-functions" class="level2" data-number="63.1">
-<h2 data-number="63.1" class="anchored" data-anchor-id="define-functions"><span class="header-section-number">63.1</span> define functions</h2>
-<div id="cell-4" class="cell" data-execution_count="2">
+<section id="define-functions" class="level2">
+<h2 class="anchored" data-anchor-id="define-functions">define functions</h2>
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> random_walk_with_outliers(origin, n_steps, perc_outliers<span class="op">=</span><span class="fl">0.0</span>, outlier_mult<span class="op">=</span><span class="dv">10</span>, seed<span class="op">=</span><span class="dv">42</span>):</span>
 <span id="cb2-2"><a href="#cb2-2"></a>    <span class="co">'''</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="co">    Function for generating a random time series based on random walk.</span></span>
@@ -828,9 +762,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb2-49"><a href="#cb2-49"></a>    ax.xaxis.set_major_formatter(formatter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="load-and-process-data" class="level2" data-number="63.2">
-<h2 data-number="63.2" class="anchored" data-anchor-id="load-and-process-data"><span class="header-section-number">63.2</span> load and process data</h2>
-<div id="cell-6" class="cell" data-execution_count="4">
+<section id="load-and-process-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-and-process-data">load and process data</h2>
+<div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>start <span class="op">=</span> <span class="st">'2023-01-10 00:00:00'</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>n_steps <span class="op">=</span> <span class="dv">1000</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>rw39, outlier_ind39 <span class="op">=</span> random_walk_with_outliers(origin<span class="op">=</span><span class="dv">0</span>,</span>
@@ -843,7 +777,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb3-10"><a href="#cb3-10"></a>start <span class="op">=</span> df.index[<span class="dv">0</span>]</span>
 <span id="cb3-11"><a href="#cb3-11"></a>end <span class="op">=</span> df.index[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="5">
+<div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>rw40, outlier_ind40 <span class="op">=</span> random_walk_with_outliers(origin<span class="op">=</span><span class="dv">0</span>,</span>
 <span id="cb4-2"><a href="#cb4-2"></a>                                            n_steps<span class="op">=</span>n_steps,</span>
 <span id="cb4-3"><a href="#cb4-3"></a>                                            perc_outliers<span class="op">=</span><span class="fl">0.0031</span>,</span>
@@ -853,7 +787,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb4-7"><a href="#cb4-7"></a></span>
 <span id="cb4-8"><a href="#cb4-8"></a>df.loc[<span class="st">'2023-01-10 04:40:00'</span>, <span class="st">'signal40'</span>] <span class="op">=</span> <span class="fl">43.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="5">
+<div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># rw41, outlier_ind41 = random_walk_with_outliers(origin=0,</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="co">#                                             n_steps=n_steps,</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="co">#                                             perc_outliers=0.0031,</span></span>
@@ -862,9 +796,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb5-6"><a href="#cb5-6"></a><span class="co"># df['signal41'] = rw41</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="stationary-signal" class="level2" data-number="63.3">
-<h2 data-number="63.3" class="anchored" data-anchor-id="stationary-signal"><span class="header-section-number">63.3</span> stationary signal</h2>
-<div id="cell-10" class="cell" data-execution_count="6">
+<section id="stationary-signal" class="level2">
+<h2 class="anchored" data-anchor-id="stationary-signal">stationary signal</h2>
+<div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="co"># plot signal</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a>ax.plot(df[<span class="st">'signal'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>)</span>
@@ -876,17 +810,13 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb6-9"><a href="#cb6-9"></a>concise(ax)</span>
 <span id="cb6-10"><a href="#cb6-10"></a>fig.savefig(<span class="st">"signal_39_stationary.png"</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="outliers_graphs_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<p><img src="outliers_graphs_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
-<section id="visual-inspection" class="level2" data-number="63.4">
-<h2 data-number="63.4" class="anchored" data-anchor-id="visual-inspection"><span class="header-section-number">63.4</span> visual inspection</h2>
-<div id="cell-12" class="cell" data-execution_count="7">
+<section id="visual-inspection" class="level2">
+<h2 class="anchored" data-anchor-id="visual-inspection">visual inspection</h2>
+<div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="co"># plot signal</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a>ax.plot(df[<span class="st">'signal'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>)</span>
@@ -908,17 +838,13 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb7-19"><a href="#cb7-19"></a>concise(ax)</span>
 <span id="cb7-20"><a href="#cb7-20"></a>fig.savefig(<span class="st">"outliers_visual_inspection.png"</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="outliers_graphs_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<p><img src="outliers_graphs_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
-<section id="mean---3-std" class="level2" data-number="63.5">
-<h2 data-number="63.5" class="anchored" data-anchor-id="mean---3-std"><span class="header-section-number">63.5</span> mean +- 3 std</h2>
-<div id="cell-14" class="cell" data-execution_count="8">
+<section id="mean---3-std" class="level2">
+<h2 class="anchored" data-anchor-id="mean---3-std">mean +- 3 std</h2>
+<div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb8-2"><a href="#cb8-2"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">1</span>, <span class="dv">2</span>, width_ratios<span class="op">=</span>[<span class="dv">1</span>, <span class="fl">0.2</span>], height_ratios<span class="op">=</span>[<span class="dv">1</span>])</span>
 <span id="cb8-3"><a href="#cb8-3"></a>gs.update(left<span class="op">=</span><span class="fl">0.10</span>, right<span class="op">=</span><span class="fl">0.90</span>, top<span class="op">=</span><span class="fl">0.95</span>, bottom<span class="op">=</span><span class="fl">0.13</span>,</span>
@@ -987,17 +913,13 @@ document.addEventListener("DOMContentLoaded", function() {
   ax0 = plt.subplot(gs[0, 0])</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="outliers_graphs_files/figure-html/cell-9-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<p><img src="outliers_graphs_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
-<section id="iqr" class="level2" data-number="63.6">
-<h2 data-number="63.6" class="anchored" data-anchor-id="iqr"><span class="header-section-number">63.6</span> IQR</h2>
-<div id="cell-16" class="cell" data-execution_count="9">
+<section id="iqr" class="level2">
+<h2 class="anchored" data-anchor-id="iqr">IQR</h2>
+<div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># get kdeplot data</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb10-3"><a href="#cb10-3"></a>my_kde <span class="op">=</span> sns.kdeplot(df[<span class="st">'signal'</span>], bw_adjust<span class="op">=</span><span class="fl">0.5</span>)</span>
@@ -1015,14 +937,10 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb10-15"><a href="#cb10-15"></a>Q3_boundary <span class="op">=</span> kde_vals[Q3_index]</span>
 <span id="cb10-16"><a href="#cb10-16"></a>IQR <span class="op">=</span> Q3_boundary <span class="op">-</span> Q1_boundary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="outliers_graphs_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="outliers_graphs_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-</div>
-<div id="cell-17" class="cell" data-execution_count="10">
+<div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb11-2"><a href="#cb11-2"></a></span>
 <span id="cb11-3"><a href="#cb11-3"></a>sns.kdeplot(df[<span class="st">'signal'</span>], ax<span class="op">=</span>ax, shade<span class="op">=</span><span class="va">True</span>, bw_adjust<span class="op">=</span><span class="fl">0.5</span>)</span>
@@ -1117,14 +1035,10 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb11-92"><a href="#cb11-92"></a>       ylabel<span class="op">=</span><span class="st">"pdf"</span>,)</span>
 <span id="cb11-93"><a href="#cb11-93"></a>fig.savefig(<span class="st">"IQR_pdf.png"</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="outliers_graphs_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="outliers_graphs_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-</div>
-<div id="cell-18" class="cell" data-execution_count="11">
+<div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb12-2"><a href="#cb12-2"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">1</span>, <span class="dv">2</span>, width_ratios<span class="op">=</span>[<span class="dv">1</span>, <span class="fl">0.2</span>], height_ratios<span class="op">=</span>[<span class="dv">1</span>])</span>
 <span id="cb12-3"><a href="#cb12-3"></a>gs.update(left<span class="op">=</span><span class="fl">0.10</span>, right<span class="op">=</span><span class="fl">0.90</span>, top<span class="op">=</span><span class="fl">0.95</span>, bottom<span class="op">=</span><span class="fl">0.13</span>,</span>
@@ -1186,17 +1100,13 @@ document.addEventListener("DOMContentLoaded", function() {
   ax0 = plt.subplot(gs[0, 0])</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="outliers_graphs_files/figure-html/cell-12-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<p><img src="outliers_graphs_files/figure-html/cell-12-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
-<section id="non-stationary-signal" class="level2" data-number="63.7">
-<h2 data-number="63.7" class="anchored" data-anchor-id="non-stationary-signal"><span class="header-section-number">63.7</span> non stationary signal</h2>
-<div id="cell-20" class="cell" data-execution_count="12">
+<section id="non-stationary-signal" class="level2">
+<h2 class="anchored" data-anchor-id="non-stationary-signal">non stationary signal</h2>
+<div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="co"># plot signal</span></span>
 <span id="cb14-3"><a href="#cb14-3"></a>ax.plot(df[<span class="st">'signal40'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>)</span>
@@ -1208,17 +1118,13 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb14-9"><a href="#cb14-9"></a>concise(ax)</span>
 <span id="cb14-10"><a href="#cb14-10"></a>fig.savefig(<span class="st">"signal_40_non_stationary.png"</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="outliers_graphs_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<p><img src="outliers_graphs_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
-<section id="running---3-std" class="level2" data-number="63.8">
-<h2 data-number="63.8" class="anchored" data-anchor-id="running---3-std"><span class="header-section-number">63.8</span> running +- 3 std</h2>
-<div id="cell-22" class="cell" data-execution_count="13">
+<section id="running---3-std" class="level2">
+<h2 class="anchored" data-anchor-id="running---3-std">running +- 3 std</h2>
+<div class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb15-2"><a href="#cb15-2"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">1</span>, <span class="dv">2</span>, width_ratios<span class="op">=</span>[<span class="dv">1</span>, <span class="fl">0.2</span>], height_ratios<span class="op">=</span>[<span class="dv">1</span>])</span>
 <span id="cb15-3"><a href="#cb15-3"></a>gs.update(left<span class="op">=</span><span class="fl">0.10</span>, right<span class="op">=</span><span class="fl">0.90</span>, top<span class="op">=</span><span class="fl">0.95</span>, bottom<span class="op">=</span><span class="fl">0.13</span>,</span>
@@ -1287,18 +1193,14 @@ document.addEventListener("DOMContentLoaded", function() {
   ax0 = plt.subplot(gs[0, 0])</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="outliers_graphs_files/figure-html/cell-14-output-2.png" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="outliers_graphs_files/figure-html/cell-14-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-</div>
-<div id="cell-23" class="cell" data-execution_count="14">
+<div class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>df[<span class="st">'signal40_rol_mean'</span>] <span class="op">=</span> df[<span class="st">'signal40'</span>].rolling(<span class="st">'60min'</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span>
 <span id="cb17-2"><a href="#cb17-2"></a>df[<span class="st">'signal40_rol_std'</span>] <span class="op">=</span> df[<span class="st">'signal40'</span>].rolling(<span class="st">'60min'</span>, center<span class="op">=</span><span class="va">True</span>).std()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb18-2"><a href="#cb18-2"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">1</span>, <span class="dv">2</span>, width_ratios<span class="op">=</span>[<span class="dv">1</span>, <span class="fl">0.2</span>], height_ratios<span class="op">=</span>[<span class="dv">1</span>])</span>
 <span id="cb18-3"><a href="#cb18-3"></a>gs.update(left<span class="op">=</span><span class="fl">0.10</span>, right<span class="op">=</span><span class="fl">0.90</span>, top<span class="op">=</span><span class="fl">0.95</span>, bottom<span class="op">=</span><span class="fl">0.13</span>,</span>
@@ -1352,17 +1254,13 @@ document.addEventListener("DOMContentLoaded", function() {
   ax0 = plt.subplot(gs[0, 0])</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="outliers_graphs_files/figure-html/cell-16-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<p><img src="outliers_graphs_files/figure-html/cell-16-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
-<section id="running-q---iqr" class="level2" data-number="63.9">
-<h2 data-number="63.9" class="anchored" data-anchor-id="running-q---iqr"><span class="header-section-number">63.9</span> running: Q +- IQR</h2>
-<div id="cell-26" class="cell" data-execution_count="16">
+<section id="running-q---iqr" class="level2">
+<h2 class="anchored" data-anchor-id="running-q---iqr">running: Q +- IQR</h2>
+<div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb20-2"><a href="#cb20-2"></a></span>
 <span id="cb20-3"><a href="#cb20-3"></a>my_kde <span class="op">=</span> sns.kdeplot(df[<span class="st">'signal40'</span>], bw_adjust<span class="op">=</span><span class="fl">0.5</span>)</span>
@@ -1370,14 +1268,10 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb20-5"><a href="#cb20-5"></a>kde_vals, kde_pdf <span class="op">=</span> line.get_data()</span>
 <span id="cb20-6"><a href="#cb20-6"></a>kde_cdf <span class="op">=</span> np.cumsum(kde_pdf) <span class="op">/</span> np.<span class="bu">sum</span>(kde_pdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="outliers_graphs_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="outliers_graphs_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-</div>
-<div id="cell-27" class="cell" data-execution_count="17">
+<div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb21-2"><a href="#cb21-2"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">1</span>, <span class="dv">2</span>, width_ratios<span class="op">=</span>[<span class="dv">1</span>, <span class="fl">0.2</span>], height_ratios<span class="op">=</span>[<span class="dv">1</span>])</span>
 <span id="cb21-3"><a href="#cb21-3"></a>gs.update(left<span class="op">=</span><span class="fl">0.10</span>, right<span class="op">=</span><span class="fl">0.90</span>, top<span class="op">=</span><span class="fl">0.95</span>, bottom<span class="op">=</span><span class="fl">0.13</span>,</span>
@@ -1439,25 +1333,21 @@ document.addEventListener("DOMContentLoaded", function() {
   ax0 = plt.subplot(gs[0, 0])</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="outliers_graphs_files/figure-html/cell-18-output-2.png" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="outliers_graphs_files/figure-html/cell-18-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-</div>
-<div id="cell-28" class="cell" data-execution_count="18">
+<div class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">def</span> Q1(window):</span>
 <span id="cb23-2"><a href="#cb23-2"></a>    <span class="cf">return</span> window.quantile(<span class="fl">0.25</span>)</span>
 <span id="cb23-3"><a href="#cb23-3"></a><span class="kw">def</span> Q3(window):</span>
 <span id="cb23-4"><a href="#cb23-4"></a>    <span class="cf">return</span> window.quantile(<span class="fl">0.75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-29" class="cell" data-execution_count="19">
+<div class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>df[<span class="st">'signal40_rol_Q1'</span>] <span class="op">=</span> df[<span class="st">'signal40'</span>].rolling(<span class="st">'60min'</span>, center<span class="op">=</span><span class="va">True</span>).<span class="bu">apply</span>(Q1)</span>
 <span id="cb24-2"><a href="#cb24-2"></a>df[<span class="st">'signal40_rol_Q3'</span>] <span class="op">=</span> df[<span class="st">'signal40'</span>].rolling(<span class="st">'60min'</span>, center<span class="op">=</span><span class="va">True</span>).<span class="bu">apply</span>(Q3)</span>
 <span id="cb24-3"><a href="#cb24-3"></a>df[<span class="st">'signal40_rol_IQR'</span>] <span class="op">=</span> df[<span class="st">'signal40_rol_Q3'</span>] <span class="op">-</span> df[<span class="st">'signal40_rol_Q1'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-30" class="cell" data-execution_count="20">
+<div class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb25-2"><a href="#cb25-2"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">1</span>, <span class="dv">2</span>, width_ratios<span class="op">=</span>[<span class="dv">1</span>, <span class="fl">0.2</span>], height_ratios<span class="op">=</span>[<span class="dv">1</span>])</span>
 <span id="cb25-3"><a href="#cb25-3"></a>gs.update(left<span class="op">=</span><span class="fl">0.10</span>, right<span class="op">=</span><span class="fl">0.90</span>, top<span class="op">=</span><span class="fl">0.95</span>, bottom<span class="op">=</span><span class="fl">0.13</span>,</span>
@@ -1515,17 +1405,13 @@ document.addEventListener("DOMContentLoaded", function() {
 No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="outliers_graphs_files/figure-html/cell-21-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<p><img src="outliers_graphs_files/figure-html/cell-21-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
-<section id="hampel-running-mad" class="level2" data-number="63.10">
-<h2 data-number="63.10" class="anchored" data-anchor-id="hampel-running-mad"><span class="header-section-number">63.10</span> Hampel, running MAD</h2>
-<div id="cell-32" class="cell" data-execution_count="21">
+<section id="hampel-running-mad" class="level2">
+<h2 class="anchored" data-anchor-id="hampel-running-mad">Hampel, running MAD</h2>
+<div class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># def MAD(window):</span></span>
 <span id="cb27-2"><a href="#cb27-2"></a><span class="co">#     return np.median(                                # 3. compute median</span></span>
 <span id="cb27-3"><a href="#cb27-3"></a><span class="co">#                      np.abs(                         # 2. take absolute values</span></span>
@@ -1537,11 +1423,11 @@ No artists with labels found to put in legend.  Note that artists whose label st
 <span id="cb27-9"><a href="#cb27-9"></a><span class="kw">def</span> MAD(window):</span>
 <span id="cb27-10"><a href="#cb27-10"></a>    <span class="cf">return</span> (window <span class="op">-</span> np.median(window)).<span class="bu">abs</span>().median()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="22">
+<div class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>df[<span class="st">'signal40_rol_mad'</span>] <span class="op">=</span> k <span class="op">*</span> df[<span class="st">'signal40'</span>].rolling(<span class="st">'60min'</span>, center<span class="op">=</span><span class="va">True</span>).<span class="bu">apply</span>(MAD)</span>
 <span id="cb28-2"><a href="#cb28-2"></a>df[<span class="st">'signal40_rol_median'</span>] <span class="op">=</span> df[<span class="st">'signal40'</span>].rolling(<span class="st">'60min'</span>, center<span class="op">=</span><span class="va">True</span>).median()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-34" class="cell" data-execution_count="23">
+<div class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb29-2"><a href="#cb29-2"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">1</span>, <span class="dv">2</span>, width_ratios<span class="op">=</span>[<span class="dv">1</span>, <span class="fl">0.2</span>], height_ratios<span class="op">=</span>[<span class="dv">1</span>])</span>
 <span id="cb29-3"><a href="#cb29-3"></a>gs.update(left<span class="op">=</span><span class="fl">0.10</span>, right<span class="op">=</span><span class="fl">0.90</span>, top<span class="op">=</span><span class="fl">0.95</span>, bottom<span class="op">=</span><span class="fl">0.13</span>,</span>
@@ -1596,17 +1482,13 @@ No artists with labels found to put in legend.  Note that artists whose label st
 No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="outliers_graphs_files/figure-html/cell-24-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<p><img src="outliers_graphs_files/figure-html/cell-24-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
-<section id="stationary-mad" class="level2" data-number="63.11">
-<h2 data-number="63.11" class="anchored" data-anchor-id="stationary-mad"><span class="header-section-number">63.11</span> stationary MAD</h2>
-<div id="cell-36" class="cell" data-execution_count="35">
+<section id="stationary-mad" class="level2">
+<h2 class="anchored" data-anchor-id="stationary-mad">stationary MAD</h2>
+<div class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb31-2"><a href="#cb31-2"></a><span class="co"># plot signal</span></span>
 <span id="cb31-3"><a href="#cb31-3"></a>ax.plot(df[<span class="st">'signal'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>)</span>
@@ -1650,14 +1532,10 @@ No artists with labels found to put in legend.  Note that artists whose label st
 <span id="cb31-41"><a href="#cb31-41"></a>concise(ax)</span>
 <span id="cb31-42"><a href="#cb31-42"></a>fig.savefig(<span class="st">"outliers_MAD_stationary.png"</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="outliers_graphs_files/figure-html/cell-25-output-1.png" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="outliers_graphs_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-</div>
-<div id="cell-37" class="cell" data-execution_count="32">
+<div class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>outliers_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
 <pre><code>DatetimeIndex(['2023-01-10 04:09:00', '2023-01-10 14:05:00',
@@ -1666,9 +1544,9 @@ No artists with labels found to put in legend.  Note that artists whose label st
 </div>
 </div>
 </section>
-<section id="save-data-as-csv-for-later-usage" class="level2" data-number="63.12">
-<h2 data-number="63.12" class="anchored" data-anchor-id="save-data-as-csv-for-later-usage"><span class="header-section-number">63.12</span> save data as csv for later usage</h2>
-<div id="cell-40" class="cell" data-execution_count="15">
+<section id="save-data-as-csv-for-later-usage" class="level2">
+<h2 class="anchored" data-anchor-id="save-data-as-csv-for-later-usage">save data as csv for later usage</h2>
+<div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>start <span class="op">=</span> <span class="st">'2023-01-01 00:00:00'</span></span>
 <span id="cb34-2"><a href="#cb34-2"></a>end <span class="op">=</span> <span class="st">'2023-12-31 23:55:00'</span></span>
 <span id="cb34-3"><a href="#cb34-3"></a><span class="co"># date_range = pd.date_range(start, end, freq='5min')</span></span>
@@ -1682,21 +1560,21 @@ No artists with labels found to put in legend.  Note that artists whose label st
 <span id="cb34-11"><a href="#cb34-11"></a><span class="co"># date_range = pd.date_range(start, periods=n_steps, freq='1min')</span></span>
 <span id="cb34-12"><a href="#cb34-12"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'date'</span>: date_range, <span class="st">'A'</span>: rw39}).set_index(<span class="st">'date'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-41" class="cell" data-execution_count="16">
+<div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a><span class="op">%</span>matplotlib widget</span>
 <span id="cb35-2"><a href="#cb35-2"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb35-3"><a href="#cb35-3"></a></span>
 <span id="cb35-4"><a href="#cb35-4"></a>ax.plot(df[<span class="st">'A'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"7f96008c88fd4284a7d087260c32f041","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"7f96008c88fd4284a7d087260c32f041","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
-<div id="cell-42" class="cell" data-execution_count="21">
+<div class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>df.loc[<span class="st">'2023-03-02'</span>:<span class="st">'2023-03-10'</span>, <span class="st">'A'</span>] <span class="op">=</span> <span class="op">-</span><span class="fl">20.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-43" class="cell" data-execution_count="22">
+<div class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="op">%</span>matplotlib widget</span>
 <span id="cb37-2"><a href="#cb37-2"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb37-3"><a href="#cb37-3"></a>df[<span class="st">'Adiff'</span>] <span class="op">=</span> df[<span class="st">'A'</span>].diff()</span>
@@ -1704,17 +1582,17 @@ No artists with labels found to put in legend.  Note that artists whose label st
 <span id="cb37-5"><a href="#cb37-5"></a>ax.plot(df[<span class="st">'Adiff'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"6fb1d654f15342649853af893623a668","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"6fb1d654f15342649853af893623a668","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
-<div id="cell-44" class="cell" data-execution_count="33">
+<div class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>(df.loc[<span class="st">'2023-03-03'</span>:<span class="st">'2023-03-06'</span>, <span class="st">'Adiff'</span>] <span class="op">==</span> np.zeros(<span class="dv">4</span>)).<span class="bu">all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="33">
 <pre><code>True</code></pre>
 </div>
 </div>
-<div id="cell-45" class="cell" data-execution_count="29">
+<div class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a>df.loc[<span class="st">'2023-03-03'</span>:<span class="st">'2023-03-06'</span>, <span class="st">'Adiff'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="29">
 <pre><code>date
@@ -1725,13 +1603,13 @@ No artists with labels found to put in legend.  Note that artists whose label st
 Name: Adiff, dtype: float64</code></pre>
 </div>
 </div>
-<div id="cell-46" class="cell" data-execution_count="28">
+<div class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a>np.zeros(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
 <pre><code>array([0., 0., 0., 0.])</code></pre>
 </div>
 </div>
-<div id="cell-47" class="cell" data-execution_count="34">
+<div class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a>n_consecutive <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb44-2"><a href="#cb44-2"></a></span>
 <span id="cb44-3"><a href="#cb44-3"></a><span class="kw">def</span> n_zeros(series, N):</span>
@@ -1741,7 +1619,7 @@ Name: Adiff, dtype: float64</code></pre>
 <span id="cb44-7"><a href="#cb44-7"></a><span class="co">    """</span></span>
 <span id="cb44-8"><a href="#cb44-8"></a>    <span class="cf">return</span> (series <span class="op">==</span> np.zeros(N)).<span class="bu">all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-48" class="cell" data-execution_count="55">
+<div class="cell" data-execution_count="55">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a>df[<span class="st">'mask1'</span>] <span class="op">=</span> df[<span class="st">'Adiff'</span>].rolling(n_consecutive).<span class="bu">apply</span>(n_zeros, args<span class="op">=</span>(n_consecutive,))</span>
 <span id="cb45-2"><a href="#cb45-2"></a>df[<span class="st">'mask'</span>] <span class="op">=</span> <span class="fl">0.0</span></span>
 <span id="cb45-3"><a href="#cb45-3"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df)):</span>
@@ -1755,18 +1633,18 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
   df['mask'][i-n_consecutive:i+1] = 1.0</code></pre>
 </div>
 </div>
-<div id="cell-49" class="cell" data-execution_count="56">
+<div class="cell" data-execution_count="56">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="op">%</span>matplotlib widget</span>
 <span id="cb47-2"><a href="#cb47-2"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb47-3"><a href="#cb47-3"></a>ax.plot(df[<span class="st">'mask1'</span>])</span>
 <span id="cb47-4"><a href="#cb47-4"></a>ax.plot(df[<span class="st">'mask'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"bd157e4be435441fb3204aa2ba2bc809","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"bd157e4be435441fb3204aa2ba2bc809","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
-<div id="cell-50" class="cell" data-execution_count="60">
+<div class="cell" data-execution_count="60">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a>df[<span class="st">'mask'</span>] <span class="op">=</span> <span class="fl">0.0</span></span>
 <span id="cb48-2"><a href="#cb48-2"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df)<span class="op">-</span>n_consecutive):</span>
 <span id="cb48-3"><a href="#cb48-3"></a>    <span class="cf">if</span> (df[<span class="st">'Adiff'</span>][j:j<span class="op">+</span>n_consecutive] <span class="op">==</span> np.zeros(n_consecutive)).<span class="bu">all</span>():</span>
@@ -1779,7 +1657,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
   df['mask'][j:j+n_consecutive] = 1.0</code></pre>
 </div>
 </div>
-<div id="cell-51" class="cell" data-execution_count="64">
+<div class="cell" data-execution_count="64">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a><span class="op">%</span>matplotlib widget</span>
 <span id="cb50-2"><a href="#cb50-2"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb50-3"><a href="#cb50-3"></a><span class="co"># ax.plot(df['mask1'])</span></span>
@@ -1788,14 +1666,14 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span id="cb50-6"><a href="#cb50-6"></a>ax.plot(df[<span class="st">'A'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"7bb82949cfd046cfa09ed6d7217d4978","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"7bb82949cfd046cfa09ed6d7217d4978","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
 </section>
-<section id="generate-datasets" class="level2" data-number="63.13">
-<h2 data-number="63.13" class="anchored" data-anchor-id="generate-datasets"><span class="header-section-number">63.13</span> generate datasets</h2>
-<div id="cell-53" class="cell" data-execution_count="3">
+<section id="generate-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="generate-datasets">generate datasets</h2>
+<div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1"></a><span class="kw">def</span> random_walk_with_outliers2(origin, steps_dist, outlier_dist, n_steps, perc_outliers<span class="op">=</span><span class="fl">0.0</span>, outlier_mult<span class="op">=</span><span class="dv">10</span>, seed<span class="op">=</span><span class="dv">42</span>):</span>
 <span id="cb51-2"><a href="#cb51-2"></a>    <span class="co">'''</span></span>
 <span id="cb51-3"><a href="#cb51-3"></a><span class="co">    Function for generating a random time series based on random walk.</span></span>
@@ -1846,7 +1724,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span id="cb51-48"><a href="#cb51-48"></a>    </span>
 <span id="cb51-49"><a href="#cb51-49"></a>    <span class="cf">return</span> rw, indices</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-54" class="cell" data-execution_count="66">
+<div class="cell" data-execution_count="66">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a>rw39test, _ <span class="op">=</span> random_walk_with_outliers2(origin<span class="op">=</span><span class="dv">0</span>,</span>
 <span id="cb52-2"><a href="#cb52-2"></a>                                       steps_dist<span class="op">=</span>np.random.normal(size<span class="op">=</span><span class="dv">1000</span>),</span>
 <span id="cb52-3"><a href="#cb52-3"></a>                                       outlier_dist<span class="op">=</span><span class="dv">10</span><span class="op">*</span>np.random.normal(loc<span class="op">=</span><span class="fl">5.0</span>, size<span class="op">=</span><span class="dv">100</span>),</span>
@@ -1855,179 +1733,173 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span id="cb52-6"><a href="#cb52-6"></a>                                       outlier_mult<span class="op">=</span><span class="dv">50</span>,</span>
 <span id="cb52-7"><a href="#cb52-7"></a>                                       seed<span class="op">=</span><span class="dv">206</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-55" class="cell" data-execution_count="46">
+<div class="cell" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a>df[<span class="st">'B'</span>] <span class="op">=</span> rw39test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-56" class="cell" data-execution_count="65">
+<div class="cell" data-execution_count="65">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1"></a>start <span class="op">=</span> <span class="st">'2023-01-01 00:00:00'</span></span>
 <span id="cb54-2"><a href="#cb54-2"></a>end <span class="op">=</span> <span class="st">'2023-12-31 23:00:00'</span></span>
 <span id="cb54-3"><a href="#cb54-3"></a><span class="co"># date_range = pd.date_range(start, end, freq='5min')</span></span>
 <span id="cb54-4"><a href="#cb54-4"></a>date_range <span class="op">=</span> pd.date_range(start, end, freq<span class="op">=</span><span class="st">'1D'</span>)</span>
 <span id="cb54-5"><a href="#cb54-5"></a>n_steps <span class="op">=</span> <span class="bu">len</span>(date_range)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-57" class="cell" data-execution_count="68">
+<div class="cell" data-execution_count="68">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1"></a><span class="co"># date_range = pd.date_range(start, periods=n_steps, freq='1min')</span></span>
 <span id="cb55-2"><a href="#cb55-2"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'date'</span>: date_range, <span class="st">'A'</span>: rw39test}).set_index(<span class="st">'date'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-58" class="cell" data-execution_count="71">
+<div class="cell" data-execution_count="71">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="71">
-<div>
+
 <div>
 
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">A</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">date</th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-01-01</td>
-<td>0.000000</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-01-02</td>
-<td>-0.032027</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-01-03</td>
-<td>-0.586351</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-01-04</td>
-<td>-1.575972</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-01-05</td>
-<td>-2.726800</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-12-27</td>
-<td>6.651301</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-12-28</td>
-<td>6.415175</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-12-29</td>
-<td>7.603140</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-12-30</td>
-<td>8.668182</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-12-31</td>
-<td>8.472768</td>
-</tr>
-</tbody>
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>A</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2023-01-01</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>2023-01-02</th>
+      <td>-0.032027</td>
+    </tr>
+    <tr>
+      <th>2023-01-03</th>
+      <td>-0.586351</td>
+    </tr>
+    <tr>
+      <th>2023-01-04</th>
+      <td>-1.575972</td>
+    </tr>
+    <tr>
+      <th>2023-01-05</th>
+      <td>-2.726800</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2023-12-27</th>
+      <td>6.651301</td>
+    </tr>
+    <tr>
+      <th>2023-12-28</th>
+      <td>6.415175</td>
+    </tr>
+    <tr>
+      <th>2023-12-29</th>
+      <td>7.603140</td>
+    </tr>
+    <tr>
+      <th>2023-12-30</th>
+      <td>8.668182</td>
+    </tr>
+    <tr>
+      <th>2023-12-31</th>
+      <td>8.472768</td>
+    </tr>
+  </tbody>
 </table>
-
 <p>365 rows × 1 columns</p>
 </div>
 </div>
 </div>
-</div>
-<div id="cell-59" class="cell" data-execution_count="70">
+<div class="cell" data-execution_count="70">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1"></a>df[<span class="st">'unix_time'</span>] <span class="op">=</span> df.index.timestamp()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>AttributeError: 'DatetimeIndex' object has no attribute 'timestamp'</code></pre>
 </div>
 </div>
-<div id="cell-60" class="cell" data-execution_count="69">
+<div class="cell" data-execution_count="69">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="69">
-<div>
+
 <div>
 
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">A</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">date</th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-01-01</td>
-<td>0.000000</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-01-02</td>
-<td>-0.032027</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-01-03</td>
-<td>-0.586351</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-01-04</td>
-<td>-1.575972</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-01-05</td>
-<td>-2.726800</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-12-27</td>
-<td>6.651301</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-12-28</td>
-<td>6.415175</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-12-29</td>
-<td>7.603140</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-12-30</td>
-<td>8.668182</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-12-31</td>
-<td>8.472768</td>
-</tr>
-</tbody>
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>A</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2023-01-01</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>2023-01-02</th>
+      <td>-0.032027</td>
+    </tr>
+    <tr>
+      <th>2023-01-03</th>
+      <td>-0.586351</td>
+    </tr>
+    <tr>
+      <th>2023-01-04</th>
+      <td>-1.575972</td>
+    </tr>
+    <tr>
+      <th>2023-01-05</th>
+      <td>-2.726800</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2023-12-27</th>
+      <td>6.651301</td>
+    </tr>
+    <tr>
+      <th>2023-12-28</th>
+      <td>6.415175</td>
+    </tr>
+    <tr>
+      <th>2023-12-29</th>
+      <td>7.603140</td>
+    </tr>
+    <tr>
+      <th>2023-12-30</th>
+      <td>8.668182</td>
+    </tr>
+    <tr>
+      <th>2023-12-31</th>
+      <td>8.472768</td>
+    </tr>
+  </tbody>
 </table>
-
 <p>365 rows × 1 columns</p>
 </div>
 </div>
 </div>
-</div>
-<div id="cell-61" class="cell" data-execution_count="73">
+<div class="cell" data-execution_count="73">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1"></a>rw02, outlier_ind02 <span class="op">=</span> random_walk_with_outliers(origin<span class="op">=</span><span class="dv">0</span>,</span>
 <span id="cb60-2"><a href="#cb60-2"></a>                                            n_steps<span class="op">=</span>n_steps,</span>
 <span id="cb60-3"><a href="#cb60-3"></a>                                            perc_outliers<span class="op">=</span><span class="fl">0.0001</span>,</span>
 <span id="cb60-4"><a href="#cb60-4"></a>                                            outlier_mult<span class="op">=</span><span class="dv">500</span>,</span>
 <span id="cb60-5"><a href="#cb60-5"></a>                                            seed<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-62" class="cell" data-execution_count="31">
+<div class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1"></a>df.loc[<span class="st">'2023-01-02 23:00:00'</span>:<span class="st">'2023-01-03 03:00:00'</span>, <span class="st">'E'</span>] <span class="op">=</span> np.nan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-63" class="cell" data-execution_count="34">
+<div class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1"></a>df.iloc[np.random.randint(<span class="dv">0</span>, high<span class="op">=</span><span class="bu">len</span>(df), size<span class="op">=</span><span class="dv">600</span>)][<span class="st">'E'</span>] <span class="op">=</span> np.nan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/var/folders/kv/9cqw3y_s6c75xmgqm9n0t5d40000gn/T/ipykernel_9222/2255542716.py:1: SettingWithCopyWarning: 
@@ -2038,211 +1910,205 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
   df.iloc[np.random.randint(0, high=len(df), size=600)]['E'] = np.nan</code></pre>
 </div>
 </div>
-<div id="cell-64" class="cell" data-execution_count="67">
+<div class="cell" data-execution_count="67">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1"></a><span class="op">%</span>matplotlib widget</span>
 <span id="cb64-2"><a href="#cb64-2"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
 <span id="cb64-3"><a href="#cb64-3"></a><span class="co"># ax.plot(df['B'])</span></span>
 <span id="cb64-4"><a href="#cb64-4"></a>ax.plot(rw39test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"00b0226346f245ccbae1496ce6026a58","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"00b0226346f245ccbae1496ce6026a58","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
-<div id="cell-65" class="cell" data-execution_count="52">
+<div class="cell" data-execution_count="52">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1"></a>df[<span class="st">'date'</span>] <span class="op">=</span> df.index.strftime(<span class="st">'</span><span class="sc">%d</span><span class="st">%m%Y'</span>)</span>
 <span id="cb65-2"><a href="#cb65-2"></a>df[<span class="st">'time'</span>] <span class="op">=</span> df.index.strftime(<span class="st">'%H:%M:%S'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-66" class="cell" data-execution_count="103">
+<div class="cell" data-execution_count="103">
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1"></a>df[<span class="st">'unix time (s)'</span>] <span class="op">=</span> df.index.view(<span class="st">'int64'</span>) <span class="op">/</span> <span class="fl">1e9</span></span>
 <span id="cb66-2"><a href="#cb66-2"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="103">
-<div>
+
 <div>
 
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">A</th>
-<th data-quarto-table-cell-role="th">date</th>
-<th data-quarto-table-cell-role="th">unix time (s)</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">date</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-01-01</td>
-<td>0.000000</td>
-<td>2023-01-01</td>
-<td>1.672531e+09</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-01-02</td>
-<td>-0.032027</td>
-<td>2023-01-02</td>
-<td>1.672618e+09</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-01-03</td>
-<td>-0.586351</td>
-<td>2023-01-03</td>
-<td>1.672704e+09</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-01-04</td>
-<td>-1.575972</td>
-<td>2023-01-04</td>
-<td>1.672790e+09</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-01-05</td>
-<td>-2.726800</td>
-<td>2023-01-05</td>
-<td>1.672877e+09</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-12-27</td>
-<td>6.651301</td>
-<td>2023-12-27</td>
-<td>1.703635e+09</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-12-28</td>
-<td>6.415175</td>
-<td>2023-12-28</td>
-<td>1.703722e+09</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-12-29</td>
-<td>7.603140</td>
-<td>2023-12-29</td>
-<td>1.703808e+09</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-12-30</td>
-<td>8.668182</td>
-<td>2023-12-30</td>
-<td>1.703894e+09</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-12-31</td>
-<td>8.472768</td>
-<td>2023-12-31</td>
-<td>1.703981e+09</td>
-</tr>
-</tbody>
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>A</th>
+      <th>date</th>
+      <th>unix time (s)</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2023-01-01</th>
+      <td>0.000000</td>
+      <td>2023-01-01</td>
+      <td>1.672531e+09</td>
+    </tr>
+    <tr>
+      <th>2023-01-02</th>
+      <td>-0.032027</td>
+      <td>2023-01-02</td>
+      <td>1.672618e+09</td>
+    </tr>
+    <tr>
+      <th>2023-01-03</th>
+      <td>-0.586351</td>
+      <td>2023-01-03</td>
+      <td>1.672704e+09</td>
+    </tr>
+    <tr>
+      <th>2023-01-04</th>
+      <td>-1.575972</td>
+      <td>2023-01-04</td>
+      <td>1.672790e+09</td>
+    </tr>
+    <tr>
+      <th>2023-01-05</th>
+      <td>-2.726800</td>
+      <td>2023-01-05</td>
+      <td>1.672877e+09</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2023-12-27</th>
+      <td>6.651301</td>
+      <td>2023-12-27</td>
+      <td>1.703635e+09</td>
+    </tr>
+    <tr>
+      <th>2023-12-28</th>
+      <td>6.415175</td>
+      <td>2023-12-28</td>
+      <td>1.703722e+09</td>
+    </tr>
+    <tr>
+      <th>2023-12-29</th>
+      <td>7.603140</td>
+      <td>2023-12-29</td>
+      <td>1.703808e+09</td>
+    </tr>
+    <tr>
+      <th>2023-12-30</th>
+      <td>8.668182</td>
+      <td>2023-12-30</td>
+      <td>1.703894e+09</td>
+    </tr>
+    <tr>
+      <th>2023-12-31</th>
+      <td>8.472768</td>
+      <td>2023-12-31</td>
+      <td>1.703981e+09</td>
+    </tr>
+  </tbody>
 </table>
-
 <p>365 rows × 3 columns</p>
 </div>
 </div>
 </div>
-</div>
-<div id="cell-67" class="cell" data-execution_count="104">
+<div class="cell" data-execution_count="104">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1"></a>df.drop(columns<span class="op">=</span>[<span class="st">'date'</span>], inplace<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb67-2"><a href="#cb67-2"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="104">
-<div>
+
 <div>
 
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">A</th>
-<th data-quarto-table-cell-role="th">unix time (s)</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">date</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-01-01</td>
-<td>0.000000</td>
-<td>1.672531e+09</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-01-02</td>
-<td>-0.032027</td>
-<td>1.672618e+09</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-01-03</td>
-<td>-0.586351</td>
-<td>1.672704e+09</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-01-04</td>
-<td>-1.575972</td>
-<td>1.672790e+09</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-01-05</td>
-<td>-2.726800</td>
-<td>1.672877e+09</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-12-27</td>
-<td>6.651301</td>
-<td>1.703635e+09</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-12-28</td>
-<td>6.415175</td>
-<td>1.703722e+09</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-12-29</td>
-<td>7.603140</td>
-<td>1.703808e+09</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-12-30</td>
-<td>8.668182</td>
-<td>1.703894e+09</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-12-31</td>
-<td>8.472768</td>
-<td>1.703981e+09</td>
-</tr>
-</tbody>
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>A</th>
+      <th>unix time (s)</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2023-01-01</th>
+      <td>0.000000</td>
+      <td>1.672531e+09</td>
+    </tr>
+    <tr>
+      <th>2023-01-02</th>
+      <td>-0.032027</td>
+      <td>1.672618e+09</td>
+    </tr>
+    <tr>
+      <th>2023-01-03</th>
+      <td>-0.586351</td>
+      <td>1.672704e+09</td>
+    </tr>
+    <tr>
+      <th>2023-01-04</th>
+      <td>-1.575972</td>
+      <td>1.672790e+09</td>
+    </tr>
+    <tr>
+      <th>2023-01-05</th>
+      <td>-2.726800</td>
+      <td>1.672877e+09</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2023-12-27</th>
+      <td>6.651301</td>
+      <td>1.703635e+09</td>
+    </tr>
+    <tr>
+      <th>2023-12-28</th>
+      <td>6.415175</td>
+      <td>1.703722e+09</td>
+    </tr>
+    <tr>
+      <th>2023-12-29</th>
+      <td>7.603140</td>
+      <td>1.703808e+09</td>
+    </tr>
+    <tr>
+      <th>2023-12-30</th>
+      <td>8.668182</td>
+      <td>1.703894e+09</td>
+    </tr>
+    <tr>
+      <th>2023-12-31</th>
+      <td>8.472768</td>
+      <td>1.703981e+09</td>
+    </tr>
+  </tbody>
 </table>
-
 <p>365 rows × 2 columns</p>
 </div>
 </div>
 </div>
-</div>
-<div id="cell-68" class="cell" data-execution_count="60">
+<div class="cell" data-execution_count="60">
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1"></a>df.loc[<span class="st">'2023-10-11 03:00:00'</span>, <span class="st">'B'</span>] <span class="op">=</span> <span class="st">'-'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-69" class="cell" data-execution_count="105">
+<div class="cell" data-execution_count="105">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1"></a>df.to_csv(<span class="st">'cleaning3.csv'</span>, index<span class="op">=</span><span class="va">False</span>, sep<span class="op">=</span><span class="st">' '</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-70" class="cell" data-execution_count="64">
+<div class="cell" data-execution_count="64">
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1"></a>df[<span class="st">'A'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="64">
 <pre><code>date
@@ -2260,7 +2126,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 Name: A, Length: 8760, dtype: float64</code></pre>
 </div>
 </div>
-<div id="cell-71" class="cell" data-execution_count="72">
+<div class="cell" data-execution_count="72">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1"></a><span class="im">import</span> datetime</span>
 <span id="cb72-2"><a href="#cb72-2"></a><span class="im">import</span> time</span>
 <span id="cb72-3"><a href="#cb72-3"></a></span>
@@ -2271,46 +2137,46 @@ Name: A, Length: 8760, dtype: float64</code></pre>
 <pre><code>1705330442.0</code></pre>
 </div>
 </div>
-<div id="cell-72" class="cell" data-execution_count="73">
+<div class="cell" data-execution_count="73">
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1"></a>timestamp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="73">
 <pre><code>1705330442.0</code></pre>
 </div>
 </div>
-<div id="cell-73" class="cell" data-execution_count="74">
+<div class="cell" data-execution_count="74">
 <div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1"></a>dt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="74">
 <pre><code>datetime.datetime(2024, 1, 15, 16, 54, 2, 420872)</code></pre>
 </div>
 </div>
-<div id="cell-74" class="cell" data-execution_count="76">
+<div class="cell" data-execution_count="76">
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1"></a>dt.timetuple()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="76">
 <pre><code>time.struct_time(tm_year=2024, tm_mon=1, tm_mday=15, tm_hour=16, tm_min=54, tm_sec=2, tm_wday=0, tm_yday=15, tm_isdst=-1)</code></pre>
 </div>
 </div>
-<div id="cell-75" class="cell" data-execution_count="75">
+<div class="cell" data-execution_count="75">
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1"></a>pd.to_datetime(<span class="fl">1705330442.0</span>, unit<span class="op">=</span><span class="st">'s'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="75">
 <pre><code>Timestamp('2024-01-15 14:54:02')</code></pre>
 </div>
 </div>
-<div id="cell-76" class="cell" data-execution_count="83">
+<div class="cell" data-execution_count="83">
 <div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1"></a>(df.index.values).<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.timetuple())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>AttributeError: 'numpy.ndarray' object has no attribute 'apply'</code></pre>
 </div>
 </div>
-<div id="cell-77" class="cell" data-execution_count="85">
+<div class="cell" data-execution_count="85">
 <div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1"></a>df[<span class="st">'date'</span>] <span class="op">=</span> df.index.strftime(<span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-78" class="cell" data-execution_count="87">
+<div class="cell" data-execution_count="87">
 <div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1"></a>df[<span class="st">'date'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.timetuple())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>AttributeError: 'str' object has no attribute 'timetuple'</code></pre>
 </div>
 </div>
-<div id="cell-79" class="cell" data-execution_count="90">
+<div class="cell" data-execution_count="90">
 <div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1"></a>df.index.to_pydatetime()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="90">
 <pre><code>array([datetime.datetime(2023, 1, 1, 0, 0),
@@ -2680,16 +2546,16 @@ Name: A, Length: 8760, dtype: float64</code></pre>
        datetime.datetime(2023, 12, 31, 0, 0)], dtype=object)</code></pre>
 </div>
 </div>
-<div id="cell-80" class="cell" data-execution_count="98">
+<div class="cell" data-execution_count="98">
 <div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1"></a>unix <span class="op">=</span> df.index.view(<span class="st">'int64'</span>) <span class="op">/</span> <span class="fl">1e9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-81" class="cell" data-execution_count="101">
+<div class="cell" data-execution_count="101">
 <div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1"></a>unix[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="101">
 <pre><code>1672531200.0</code></pre>
 </div>
 </div>
-<div id="cell-82" class="cell" data-execution_count="99">
+<div class="cell" data-execution_count="99">
 <div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1"></a>pd.to_datetime(unix, unit<span class="op">=</span><span class="st">'s'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="99">
 <pre><code>DatetimeIndex(['2023-01-01', '2023-01-02', '2023-01-03', '2023-01-04',
@@ -2734,23 +2600,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -2837,9 +2689,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -2849,17 +2702,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -2874,238 +2718,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -3147,18 +2759,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../behind-the-scenes/consecutive_sequence.html" class="pagination-link" aria-label="remove consecutive values">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span>
+      <a href="../behind-the-scenes/consecutive_sequence.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">remove consecutive values</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../behind-the-scenes/make_your_own_website.html" class="pagination-link" aria-label="make your own website">
+      <a href="../behind-the-scenes/make_your_own_website.html" class="pagination-link">
         <span class="nav-page-text">make your own website</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-
 
 
 
