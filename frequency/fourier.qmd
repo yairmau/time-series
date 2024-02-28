@@ -54,6 +54,81 @@ Fourier's theorem states that
 
 > Any periodic signal is composed of a superposition of pure sine waves, with suitably chosen amplitudes and phases, whose frequencies are harmonics of the fundamental frequency of the signal.
 
+## Fourier series
+
+> a periodic function can be described as a sum of sines and cosines.
+
+The most common way of representing the Fourier series is
+$$
+f(t) = \frac{1}{2}a_0 + \sum_{n=1}^{\infty}a_n\cos(nt) + \sum_{n=1}^{\infty}b_n\sin(nt)
+$$
+
+::: {.column-margin}
+for a periodic function $f(t)$ in the interval $-\pi<t<\pi$, where
+
+$$
+\begin{split}
+a_0 &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)dt\\
+a_n &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)\cos(nt)dt\\
+b_n &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)\sin(nt)dt\\
+\end{split}
+$$
+
+Not any function, but certainly most functions we will deal with in this course. The function has to fullful the [Dirichlet conditions](https://en.wikipedia.org/wiki/Dirichlet–Jordan_test)
+:::
+
+Let's see some excellent visual demonstrations.
+The classic examples are usually the square function and the sawtooth function:
+
+Source: <https://www.geogebra.org/m/tkajbzmg>
+<iframe scrolling="no" title="Fourier Series" src="https://www.geogebra.org/material/iframe/id/yd2qcp97/width/791/height/469/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false" width="791px" height="469px" style="border:0px;"> </iframe>
+
+Source: <https://www.geogebra.org/m/k4eq4fkr> 
+<iframe scrolling="no" title="2.2.2. Fourier-Reihe periodischer Funktionen" src="https://www.geogebra.org/material/iframe/id/wzawveyr/width/1117/height/560/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/true/sdz/true/ctl/false" width="1117px" height="560px" style="border:0px;"> </iframe>
+
+We can take advantage of complex numbers to rewrite the Fourier series in a more compact and elegant way:
+
+$$
+f(t) = \sum_{n=-\infty}^{\infty} c_n e^{2\pi i \frac{n}{P} t}
+$$
+
+for a periodic function between $-\frac{P}{2}\le t \le\frac{P}{2}$, and the coefficients are given by
+
+$$
+c_n = \frac{1}{P}\int_{-\frac{P}{2}}^{\frac{P}{2}}f(t) e^{- 2\pi i \frac{n}{P} t}dt.
+$$
+
+If you are not familiar with complex numbers, or you need a refresher, visit [Dennis Sun's excellent "Introduction to Probability" webpage](https://dlsun.github.io/probability/complex.html){target="_blank"}.
+
+The series expressed as a sum of sines and cosines could be translated into an expression of a complex exponential by taking advantage of Euler's formula:
+
+$$
+e^{ix} = \cos(x) + i\sin(x)
+$$
+
+## Fourier transform
+
+This is a generalization of a Fourier series, but for non-periodic signals. If we take the limit $P\rightarrow\infty$ in the equations above, we have that
+
+$$
+f(t) = \int_{-\infty}^{\infty} F(k) e^{2\pi i k t}dk,
+$$
+
+where $F(k)$ now takes the role of the coefficients from before, and it is given by
+
+$$
+F(k) = \int_{-\infty}^{\infty} f(t) e^{-2\pi i k t}dk.
+$$
+
+If $t$ is in seconds, the frequency $k$ is given in Hertz (Hz).
+
+
+<https://dibsmethodsmeetings.github.io/fourier-transforms/>
+
+
+<https://www.jezzamon.com/fourier/index.html>
+
+
 See the following animations to visualize the theorem in action.
 
 <a href="https://commons.wikimedia.org/wiki/File:Fourier_series_and_transform.gif#/media/File:Fourier_series_and_transform.gif"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Fourier_series_and_transform.gif" alt="Fourier series and transform.gif" height="480" width="600"></a>  
@@ -70,36 +145,3 @@ Source: <https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif>
 <a href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"><img width="512" alt="Continuous Fourier transform of rect and sinc functions" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"></a>  
 Source: <https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif>
 
-
-
-## Fourier series
-
-> a periodic function can be described as a sum of sines and cosines.
-
-::: {.column-margin}
-Not any function, but certainly most functions we will deal with in this course. The function has to fullful the [Dirichlet conditions](https://en.wikipedia.org/wiki/Dirichlet–Jordan_test)
-:::
-
-The classic examples are usually the square function and the sawtooth function:
-
-<iframe scrolling="no" title="Fourier Series" src="https://www.geogebra.org/material/iframe/id/yd2qcp97/width/791/height/469/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false" width="791px" height="469px" style="border:0px;"> </iframe>
-[Source: <https://www.geogebra.org/m/tkajbzmg>]
-
-
-
-<https://www.geogebra.org/m/k4eq4fkr>  
-
-<iframe scrolling="no" title="2.2.2. Fourier-Reihe periodischer Funktionen" src="https://www.geogebra.org/material/iframe/id/wzawveyr/width/1117/height/560/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/true/sdz/true/ctl/false" width="1117px" height="560px" style="border:0px;"> </iframe>
-
-$$
-F[x(t)] = F(f) = \int_{-\infty}^{\infty}x(t)e^{-2\pi i f t}dt
-$$
-
-$$
-f(t) = \int_{-\infty}^{\infty}F(f)e^{2\pi i f t}df
-$$
-
-<https://dibsmethodsmeetings.github.io/fourier-transforms/>
-
-
-<https://www.jezzamon.com/fourier/index.html>
