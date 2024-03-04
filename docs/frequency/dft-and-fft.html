@@ -818,7 +818,7 @@ x(t) = 3 \sin(2\pi k_1 t) + \tfrac{1}{2} \cos(2\pi k_2 t) + 2
 <span id="cb1-19"><a href="#cb1-19"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-3" class="cell" data-execution_count="2">
+<div id="cell-3" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>define functions for calculating DTW</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>,<span class="dv">1</span>)</span>
@@ -835,28 +835,24 @@ x(t) = 3 \sin(2\pi k_1 t) + \tfrac{1}{2} \cos(2\pi k_2 t) + 2
 <span id="cb2-12"><a href="#cb2-12"></a>ax[<span class="dv">0</span>].set_title(<span class="vs">r"$x(t) = 3 \sin(2\pi k_1 t) + \frac</span><span class="sc">{1}{2}</span><span class="vs"> \cos(2\pi k_2 t) + 2$"</span>, pad<span class="op">=</span><span class="dv">20</span>)</span>
 <span id="cb2-13"><a href="#cb2-13"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(xlabel<span class="op">=</span><span class="vs">r"time (s)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="dft-and-fft_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>[Text(0.5, 0, 'time (s)')]</code></pre>
 </div>
 </div>
 <div id="cell-4" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>fft <span class="op">=</span> scipy.fft.fft(x) <span class="op">/</span> N</span>
-<span id="cb3-2"><a href="#cb3-2"></a>k <span class="op">=</span> scipy.fft.fftfreq(N, dt)</span>
-<span id="cb3-3"><a href="#cb3-3"></a>fft_abs <span class="op">=</span> np.<span class="bu">abs</span>(fft)</span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># [:N//2]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>fft <span class="op">=</span> scipy.fft.fft(x) <span class="op">/</span> N</span>
+<span id="cb4-2"><a href="#cb4-2"></a>k <span class="op">=</span> scipy.fft.fftfreq(N, dt)</span>
+<span id="cb4-3"><a href="#cb4-3"></a>fft_abs <span class="op">=</span> np.<span class="bu">abs</span>(fft)</span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co"># [:N//2]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-5" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>plot power spectrum</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb4-2"><a href="#cb4-2"></a>ax.plot(k, fft_abs)</span>
-<span id="cb4-3"><a href="#cb4-3"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"k (Hz)"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4"></a>       ylabel<span class="op">=</span><span class="vs">r"$|F|$"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5"></a>       title<span class="op">=</span><span class="vs">r"sqrt of power spectrum of $x(t)$"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb5-2"><a href="#cb5-2"></a>ax.plot(k, fft_abs)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"k (Hz)"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>       ylabel<span class="op">=</span><span class="vs">r"$|F|$"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>       title<span class="op">=</span><span class="vs">r"sqrt of power spectrum of $x(t)$"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>[Text(0.5, 0, 'k (Hz)'),
@@ -874,14 +870,14 @@ x(t) = 3 \sin(2\pi k_1 t) + \tfrac{1}{2} \cos(2\pi k_2 t) + 2
 <div id="cell-6" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>plot power spectrum</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>dk <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (t.<span class="bu">max</span>() <span class="op">-</span> t.<span class="bu">min</span>())</span>
-<span id="cb6-2"><a href="#cb6-2"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="dv">10</span><span class="op">/</span>dk)</span>
-<span id="cb6-3"><a href="#cb6-3"></a></span>
-<span id="cb6-4"><a href="#cb6-4"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb6-5"><a href="#cb6-5"></a>ax.plot(k[:n], fft_abs[:n])</span>
-<span id="cb6-6"><a href="#cb6-6"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"k (Hz)"</span>,</span>
-<span id="cb6-7"><a href="#cb6-7"></a>       ylabel<span class="op">=</span><span class="vs">r"$|F|$"</span>,</span>
-<span id="cb6-8"><a href="#cb6-8"></a>       title<span class="op">=</span><span class="vs">r"sqrt of power spectrum of $x(t)$"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>dk <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (t.<span class="bu">max</span>() <span class="op">-</span> t.<span class="bu">min</span>())</span>
+<span id="cb7-2"><a href="#cb7-2"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="dv">10</span><span class="op">/</span>dk)</span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb7-5"><a href="#cb7-5"></a>ax.plot(k[:n], fft_abs[:n])</span>
+<span id="cb7-6"><a href="#cb7-6"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"k (Hz)"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7"></a>       ylabel<span class="op">=</span><span class="vs">r"$|F|$"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8"></a>       title<span class="op">=</span><span class="vs">r"sqrt of power spectrum of $x(t)$"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>[Text(0.5, 0, 'k (Hz)'),
@@ -899,32 +895,32 @@ x(t) = 3 \sin(2\pi k_1 t) + \tfrac{1}{2} \cos(2\pi k_2 t) + 2
 <div id="cell-8" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">def</span> compute_acf(series):</span>
-<span id="cb8-2"><a href="#cb8-2"></a>    N <span class="op">=</span> <span class="bu">len</span>(series)</span>
-<span id="cb8-3"><a href="#cb8-3"></a>    lags <span class="op">=</span> np.arange(N)</span>
-<span id="cb8-4"><a href="#cb8-4"></a>    acf <span class="op">=</span> np.zeros_like(lags)</span>
-<span id="cb8-5"><a href="#cb8-5"></a>    series <span class="op">=</span> (series <span class="op">-</span> series.mean()) <span class="op">/</span> series.std()</span>
-<span id="cb8-6"><a href="#cb8-6"></a>    <span class="cf">for</span> i <span class="kw">in</span> lags:</span>
-<span id="cb8-7"><a href="#cb8-7"></a>        acf[i] <span class="op">=</span> np.<span class="bu">sum</span>(series[i:] <span class="op">*</span> series[:N<span class="op">-</span>i])</span>
-<span id="cb8-8"><a href="#cb8-8"></a>    acf <span class="op">=</span> acf <span class="op">/</span> N</span>
-<span id="cb8-9"><a href="#cb8-9"></a>    <span class="cf">return</span> lags, acf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">def</span> compute_acf(series):</span>
+<span id="cb9-2"><a href="#cb9-2"></a>    N <span class="op">=</span> <span class="bu">len</span>(series)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>    lags <span class="op">=</span> np.arange(N)</span>
+<span id="cb9-4"><a href="#cb9-4"></a>    acf <span class="op">=</span> np.zeros_like(lags)</span>
+<span id="cb9-5"><a href="#cb9-5"></a>    series <span class="op">=</span> (series <span class="op">-</span> series.mean()) <span class="op">/</span> series.std()</span>
+<span id="cb9-6"><a href="#cb9-6"></a>    <span class="cf">for</span> i <span class="kw">in</span> lags:</span>
+<span id="cb9-7"><a href="#cb9-7"></a>        acf[i] <span class="op">=</span> np.<span class="bu">sum</span>(series[i:] <span class="op">*</span> series[:N<span class="op">-</span>i])</span>
+<span id="cb9-8"><a href="#cb9-8"></a>    acf <span class="op">=</span> acf <span class="op">/</span> N</span>
+<span id="cb9-9"><a href="#cb9-9"></a>    <span class="cf">return</span> lags, acf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div id="cell-9" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>lags, acf <span class="op">=</span> compute_acf(x)</span>
-<span id="cb9-2"><a href="#cb9-2"></a>lags <span class="op">=</span> lags <span class="op">*</span> dt</span>
-<span id="cb9-3"><a href="#cb9-3"></a></span>
-<span id="cb9-4"><a href="#cb9-4"></a>fft_acf <span class="op">=</span> scipy.fft.fft(acf) <span class="op">/</span> N</span>
-<span id="cb9-5"><a href="#cb9-5"></a>freq_fft_acf <span class="op">=</span> scipy.fft.fftfreq(<span class="bu">len</span>(acf), dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>lags, acf <span class="op">=</span> compute_acf(x)</span>
+<span id="cb10-2"><a href="#cb10-2"></a>lags <span class="op">=</span> lags <span class="op">*</span> dt</span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a>fft_acf <span class="op">=</span> scipy.fft.fft(acf) <span class="op">/</span> N</span>
+<span id="cb10-5"><a href="#cb10-5"></a>freq_fft_acf <span class="op">=</span> scipy.fft.fftfreq(<span class="bu">len</span>(acf), dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div id="cell-10" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb10-2"><a href="#cb10-2"></a>ax.plot(freq_fft_acf,np.<span class="bu">abs</span>(fft_acf))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb11-2"><a href="#cb11-2"></a>ax.plot(freq_fft_acf,np.<span class="bu">abs</span>(fft_acf))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -937,20 +933,20 @@ x(t) = 3 \sin(2\pi k_1 t) + \tfrac{1}{2} \cos(2\pi k_2 t) + 2
 <div id="cell-11" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>plot power spectrum</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb11-2"><a href="#cb11-2"></a></span>
-<span id="cb11-3"><a href="#cb11-3"></a>dk <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (t.<span class="bu">max</span>() <span class="op">-</span> t.<span class="bu">min</span>())</span>
-<span id="cb11-4"><a href="#cb11-4"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="dv">10</span><span class="op">/</span>dk)</span>
-<span id="cb11-5"><a href="#cb11-5"></a>ax.plot(k[:n], fft_abs[:n], label<span class="op">=</span><span class="st">"power spect"</span>)</span>
-<span id="cb11-6"><a href="#cb11-6"></a></span>
-<span id="cb11-7"><a href="#cb11-7"></a>dk <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (lags.<span class="bu">max</span>() <span class="op">-</span> lags.<span class="bu">min</span>())</span>
-<span id="cb11-8"><a href="#cb11-8"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="dv">10</span><span class="op">/</span>dk)</span>
-<span id="cb11-9"><a href="#cb11-9"></a>ax.plot(freq_fft_acf[:n], np.sqrt(np.<span class="bu">abs</span>(fft_acf))[:n], label<span class="op">=</span><span class="st">"abs fft acf"</span>)</span>
-<span id="cb11-10"><a href="#cb11-10"></a></span>
-<span id="cb11-11"><a href="#cb11-11"></a></span>
-<span id="cb11-12"><a href="#cb11-12"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"k (Hz)"</span>,</span>
-<span id="cb11-13"><a href="#cb11-13"></a>       ylabel<span class="op">=</span><span class="vs">r"$|F|$"</span>,</span>
-<span id="cb11-14"><a href="#cb11-14"></a>       title<span class="op">=</span><span class="vs">r"sqrt of power spectrum of $x(t)$"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a>dk <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (t.<span class="bu">max</span>() <span class="op">-</span> t.<span class="bu">min</span>())</span>
+<span id="cb12-4"><a href="#cb12-4"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="dv">10</span><span class="op">/</span>dk)</span>
+<span id="cb12-5"><a href="#cb12-5"></a>ax.plot(k[:n], fft_abs[:n], label<span class="op">=</span><span class="st">"power spect"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6"></a></span>
+<span id="cb12-7"><a href="#cb12-7"></a>dk <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (lags.<span class="bu">max</span>() <span class="op">-</span> lags.<span class="bu">min</span>())</span>
+<span id="cb12-8"><a href="#cb12-8"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="dv">10</span><span class="op">/</span>dk)</span>
+<span id="cb12-9"><a href="#cb12-9"></a>ax.plot(freq_fft_acf[:n], np.sqrt(np.<span class="bu">abs</span>(fft_acf))[:n], label<span class="op">=</span><span class="st">"abs fft acf"</span>)</span>
+<span id="cb12-10"><a href="#cb12-10"></a></span>
+<span id="cb12-11"><a href="#cb12-11"></a></span>
+<span id="cb12-12"><a href="#cb12-12"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"k (Hz)"</span>,</span>
+<span id="cb12-13"><a href="#cb12-13"></a>       ylabel<span class="op">=</span><span class="vs">r"$|F|$"</span>,</span>
+<span id="cb12-14"><a href="#cb12-14"></a>       title<span class="op">=</span><span class="vs">r"sqrt of power spectrum of $x(t)$"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>[Text(0.5, 0, 'k (Hz)'),

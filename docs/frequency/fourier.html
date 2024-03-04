@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -738,7 +772,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../frequency/motivation.html">frequency</a></li><li class="breadcrumb-item"><a href="../frequency/fourier.html"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Fourier transform</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Fourier transform</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/frequency/fourier.qmd"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Fourier transform</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/frequency/fourier.ipynb">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -762,14 +796,152 @@ window.Quarto = {
 f(t) = B\sin(2\pi f t)
 \tag{40.1}</span></span></p>
 <p>has two basic characteristics, its amplitude <span class="math inline">B</span> and frequency <span class="math inline">f</span>.</p>
-<p><img src="sine1.png" class="img-fluid"></p>
+<div id="cell-2" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>import stuff</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
+<span id="cb1-5"><a href="#cb1-5"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># %matplotlib widget</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># Configure Matplotlib to use LaTeX font</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>plt.rcParams.update({</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    <span class="st">"xtick.labelsize"</span>: <span class="dv">14</span>,</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="st">"text.usetex"</span>: <span class="va">True</span>,</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    <span class="st">"font.family"</span>: <span class="st">"serif"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="st">"font.serif"</span>: [<span class="st">"Computer Modern Roman"</span>]</span>
+<span id="cb1-15"><a href="#cb1-15"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-3" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>data to plot</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>T <span class="op">=</span> <span class="fl">2.0</span>  <span class="co"># s</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>f <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> T</span>
+<span id="cb2-3"><a href="#cb2-3"></a>n_periods <span class="op">=</span> <span class="fl">2.5</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>dt <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>B <span class="op">=</span> <span class="fl">0.6</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>t <span class="op">=</span> np.arange(<span class="dv">0</span>, T<span class="op">*</span>n_periods <span class="op">+</span> dt, dt)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>s <span class="op">=</span> B <span class="op">*</span> np.sin(<span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">*</span> f <span class="op">*</span> t)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>c <span class="op">=</span> B <span class="op">*</span> np.cos(<span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">*</span> f <span class="op">*</span> t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-4" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>plot</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
+<span id="cb3-2"><a href="#cb3-2"></a>ax.plot(t, s, color<span class="op">=</span><span class="st">"magenta"</span>, lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>ax.plot(t, <span class="dv">0</span><span class="op">*</span>t, color<span class="op">=</span><span class="st">"black"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>ax.annotate(<span class="st">""</span>,</span>
+<span id="cb3-5"><a href="#cb3-5"></a>            xy<span class="op">=</span>(<span class="fl">1.9</span>, <span class="fl">0.0</span>), xycoords<span class="op">=</span><span class="st">'data'</span>,</span>
+<span id="cb3-6"><a href="#cb3-6"></a>            xytext<span class="op">=</span>(<span class="fl">1.9</span>, <span class="fl">0.6</span>), textcoords<span class="op">=</span><span class="st">'data'</span>,</span>
+<span id="cb3-7"><a href="#cb3-7"></a>            color<span class="op">=</span><span class="st">"black"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8"></a>            arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">"&lt;-&gt;"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9"></a>                            connectionstyle<span class="op">=</span><span class="st">"arc3"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10"></a>                            color<span class="op">=</span><span class="st">"black"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11"></a>                            lw<span class="op">=</span><span class="fl">1.5</span>),</span>
+<span id="cb3-12"><a href="#cb3-12"></a>            )</span>
+<span id="cb3-13"><a href="#cb3-13"></a>ax.annotate(<span class="st">""</span>,</span>
+<span id="cb3-14"><a href="#cb3-14"></a>            xy<span class="op">=</span>(<span class="fl">1.5</span>, <span class="op">-</span><span class="fl">0.62</span>), xycoords<span class="op">=</span><span class="st">'data'</span>,</span>
+<span id="cb3-15"><a href="#cb3-15"></a>            xytext<span class="op">=</span>(<span class="fl">3.5</span>, <span class="op">-</span><span class="fl">0.62</span>), textcoords<span class="op">=</span><span class="st">'data'</span>,</span>
+<span id="cb3-16"><a href="#cb3-16"></a>            color<span class="op">=</span><span class="st">"black"</span>,</span>
+<span id="cb3-17"><a href="#cb3-17"></a>            arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">"&lt;-&gt;"</span>,</span>
+<span id="cb3-18"><a href="#cb3-18"></a>                            connectionstyle<span class="op">=</span><span class="st">"arc3"</span>,</span>
+<span id="cb3-19"><a href="#cb3-19"></a>                            color<span class="op">=</span><span class="st">"black"</span>,</span>
+<span id="cb3-20"><a href="#cb3-20"></a>                            lw<span class="op">=</span><span class="fl">1.5</span>),</span>
+<span id="cb3-21"><a href="#cb3-21"></a>            )</span>
+<span id="cb3-22"><a href="#cb3-22"></a>ax.text(<span class="fl">1.7</span>, <span class="fl">0.62</span>, <span class="vs">r"amplitude $B$"</span>, ha<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb3-23"><a href="#cb3-23"></a>ax.text(<span class="fl">2.5</span>, <span class="op">-</span><span class="fl">0.73</span>, <span class="vs">r"period"</span>, ha<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb3-24"><a href="#cb3-24"></a>ax.text(<span class="fl">2.5</span>, <span class="op">-</span><span class="fl">0.48</span>, <span class="vs">r"$T=\displaystyle\frac</span><span class="sc">{1}{f}</span><span class="vs">$"</span>, ha<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb3-25"><a href="#cb3-25"></a>ax.text(<span class="fl">4.0</span>, <span class="fl">0.62</span>, <span class="vs">r"$B\sin(2\pi ft)$"</span>, ha<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb3-26"><a href="#cb3-26"></a>ax.<span class="bu">set</span>(xlim<span class="op">=</span>[t[<span class="dv">0</span>], t[<span class="op">-</span><span class="dv">1</span>]],</span>
+<span id="cb3-27"><a href="#cb3-27"></a>       ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">0.8</span>, <span class="fl">0.8</span>],</span>
+<span id="cb3-28"><a href="#cb3-28"></a>       title<span class="op">=</span><span class="st">"a sine wave"</span>,</span>
+<span id="cb3-29"><a href="#cb3-29"></a>       xlabel<span class="op">=</span><span class="st">"time (s)"</span>,</span>
+<span id="cb3-30"><a href="#cb3-30"></a>       ylabel<span class="op">=</span><span class="st">"signal"</span>)<span class="op">;</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a><span class="co"># fig.savefig("sine1.png", dpi=300, bbox_inches="tight")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="fourier_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>In the figure above, the amplitude <span class="math inline">B=0.6</span> and we see that the distance between two peaks is called period, <span class="math inline">T=2</span> s. The frequency is defined as the inverse of the period:</p>
 <p><span id="eq-fT"><span class="math display">
 f = \frac{1}{T}.
 \tag{40.2}</span></span></p>
 <p>When time is in seconds, then the frequency is measured in Hertz (Hz). For the graph above, therefore, we see a wave whose frequency is <span class="math inline">f = 1/(2 \text{ s}) = 0.5</span> Hz.</p>
 <p>In the figure below, we see what happens when we vary the values of the frequency and amplitude.</p>
-<p><img src="sine2.png" class="img-fluid"></p>
+<div id="cell-6" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>t20b <span class="op">=</span> mpl.colormaps[<span class="st">'tab20b'</span>]</span>
+<span id="cb4-2"><a href="#cb4-2"></a>t20c <span class="op">=</span> mpl.colormaps[<span class="st">'tab20c'</span>]</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>fig.subplots_adjust(</span>
+<span id="cb4-6"><a href="#cb4-6"></a>                    hspace<span class="op">=</span><span class="fl">0.0</span>, wspace<span class="op">=</span><span class="fl">0.02</span>)</span>
+<span id="cb4-7"><a href="#cb4-7"></a>A <span class="op">=</span> <span class="fl">0.4</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a>s <span class="op">=</span> A <span class="op">*</span> np.sin(<span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">*</span> (<span class="dv">1</span><span class="op">/</span><span class="fl">2.0</span>) <span class="op">*</span> t)</span>
+<span id="cb4-10"><a href="#cb4-10"></a>ax[<span class="dv">0</span>].plot(t, s, color<span class="op">=</span>t20b.colors[<span class="dv">16</span>], lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb4-11"><a href="#cb4-11"></a>s <span class="op">=</span> A <span class="op">*</span> np.sin(<span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">*</span> (<span class="dv">1</span><span class="op">/</span><span class="fl">0.8</span>) <span class="op">*</span> t) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>ax[<span class="dv">0</span>].plot(t, s, color<span class="op">=</span>t20b.colors[<span class="dv">17</span>], lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb4-13"><a href="#cb4-13"></a>s <span class="op">=</span> A <span class="op">*</span> np.sin(<span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">*</span> (<span class="dv">1</span><span class="op">/</span><span class="fl">0.3</span>) <span class="op">*</span> t) <span class="op">-</span> <span class="dv">2</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a>ax[<span class="dv">0</span>].plot(t, s, color<span class="op">=</span>t20b.colors[<span class="dv">18</span>], lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb4-15"><a href="#cb4-15"></a></span>
+<span id="cb4-16"><a href="#cb4-16"></a>s <span class="op">=</span> <span class="dv">1</span> <span class="op">*</span> np.sin(<span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">*</span> (<span class="dv">1</span><span class="op">/</span><span class="fl">0.8</span>) <span class="op">*</span> t)</span>
+<span id="cb4-17"><a href="#cb4-17"></a>ax[<span class="dv">1</span>].plot(t, s, color<span class="op">=</span>t20c.colors[<span class="dv">4</span>], lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb4-18"><a href="#cb4-18"></a>s <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> np.sin(<span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">*</span> (<span class="dv">1</span><span class="op">/</span><span class="fl">0.8</span>) <span class="op">*</span> t) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>ax[<span class="dv">1</span>].plot(t, s, color<span class="op">=</span>t20c.colors[<span class="dv">5</span>], lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb4-20"><a href="#cb4-20"></a>s <span class="op">=</span> <span class="fl">0.2</span> <span class="op">*</span> np.sin(<span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">*</span> (<span class="dv">1</span><span class="op">/</span><span class="fl">0.8</span>) <span class="op">*</span> t) <span class="op">-</span> <span class="fl">1.5</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a>ax[<span class="dv">1</span>].plot(t, s, color<span class="op">=</span>t20c.colors[<span class="dv">6</span>], lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb4-22"><a href="#cb4-22"></a></span>
+<span id="cb4-23"><a href="#cb4-23"></a>s <span class="op">=</span> A <span class="op">*</span> np.sin(<span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">*</span> (<span class="dv">1</span><span class="op">/</span><span class="fl">0.8</span>) <span class="op">*</span> t)</span>
+<span id="cb4-24"><a href="#cb4-24"></a>ax[<span class="dv">2</span>].plot(t, s, color<span class="op">=</span>t20c.colors[<span class="dv">0</span>], lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb4-25"><a href="#cb4-25"></a>s <span class="op">=</span> A <span class="op">*</span> np.sin(<span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">*</span> (<span class="dv">1</span><span class="op">/</span><span class="fl">0.8</span>) <span class="op">*</span> t <span class="op">-</span> np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">-</span> <span class="fl">0.5</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a>ax[<span class="dv">2</span>].plot(t, s, color<span class="op">=</span>t20c.colors[<span class="dv">1</span>], lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb4-27"><a href="#cb4-27"></a>s <span class="op">=</span> A <span class="op">*</span> np.sin(<span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">*</span> (<span class="dv">1</span><span class="op">/</span><span class="fl">0.8</span>) <span class="op">*</span> t <span class="op">-</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a>ax[<span class="dv">2</span>].plot(t, s, color<span class="op">=</span>t20c.colors[<span class="dv">2</span>], lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb4-29"><a href="#cb4-29"></a></span>
+<span id="cb4-30"><a href="#cb4-30"></a>ax[<span class="dv">0</span>].text(<span class="fl">1.02</span>, <span class="fl">0.5</span>, <span class="st">"frequency"</span>, transform<span class="op">=</span>ax[<span class="dv">0</span>].transAxes,</span>
+<span id="cb4-31"><a href="#cb4-31"></a>         horizontalalignment<span class="op">=</span><span class="st">'center'</span>, verticalalignment<span class="op">=</span><span class="st">'center'</span>,</span>
+<span id="cb4-32"><a href="#cb4-32"></a>         fontweight<span class="op">=</span><span class="st">"bold"</span>, fontsize<span class="op">=</span><span class="dv">14</span>,</span>
+<span id="cb4-33"><a href="#cb4-33"></a>         rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb4-34"><a href="#cb4-34"></a>ax[<span class="dv">1</span>].text(<span class="fl">1.02</span>, <span class="fl">0.5</span>, <span class="st">"amplitude"</span>, transform<span class="op">=</span>ax[<span class="dv">1</span>].transAxes,</span>
+<span id="cb4-35"><a href="#cb4-35"></a>         horizontalalignment<span class="op">=</span><span class="st">'center'</span>, verticalalignment<span class="op">=</span><span class="st">'center'</span>,</span>
+<span id="cb4-36"><a href="#cb4-36"></a>         fontweight<span class="op">=</span><span class="st">"bold"</span>, fontsize<span class="op">=</span><span class="dv">14</span>,</span>
+<span id="cb4-37"><a href="#cb4-37"></a>         rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb4-38"><a href="#cb4-38"></a>ax[<span class="dv">2</span>].text(<span class="fl">1.02</span>, <span class="fl">0.5</span>, <span class="st">"phase"</span>, transform<span class="op">=</span>ax[<span class="dv">2</span>].transAxes,</span>
+<span id="cb4-39"><a href="#cb4-39"></a>         horizontalalignment<span class="op">=</span><span class="st">'center'</span>, verticalalignment<span class="op">=</span><span class="st">'center'</span>,</span>
+<span id="cb4-40"><a href="#cb4-40"></a>         fontweight<span class="op">=</span><span class="st">"bold"</span>, fontsize<span class="op">=</span><span class="dv">14</span>,</span>
+<span id="cb4-41"><a href="#cb4-41"></a>         rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb4-42"><a href="#cb4-42"></a></span>
+<span id="cb4-43"><a href="#cb4-43"></a></span>
+<span id="cb4-44"><a href="#cb4-44"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(title<span class="op">=</span><span class="vs">r"$B\sin(2\pi ft+\phi)$"</span>,</span>
+<span id="cb4-45"><a href="#cb4-45"></a>          yticks<span class="op">=</span>[],</span>
+<span id="cb4-46"><a href="#cb4-46"></a>          ylabel<span class="op">=</span><span class="vs">r"higher $f$"</span><span class="op">+</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span><span class="op">+</span><span class="vs">r"$\longleftarrow$"</span>)</span>
+<span id="cb4-47"><a href="#cb4-47"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(yticks<span class="op">=</span>[],</span>
+<span id="cb4-48"><a href="#cb4-48"></a>          ylabel<span class="op">=</span><span class="vs">r"lower $B$"</span><span class="op">+</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span><span class="op">+</span><span class="vs">r"$\longleftarrow$"</span>)</span>
+<span id="cb4-49"><a href="#cb4-49"></a>ax[<span class="dv">2</span>].<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"time (s)"</span>,</span>
+<span id="cb4-50"><a href="#cb4-50"></a>          yticks<span class="op">=</span>[],</span>
+<span id="cb4-51"><a href="#cb4-51"></a>          ylabel<span class="op">=</span><span class="vs">r"lower $\phi$"</span><span class="op">+</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span><span class="op">+</span><span class="vs">r"$\longleftarrow$"</span>)<span class="op">;</span></span>
+<span id="cb4-52"><a href="#cb4-52"></a><span class="co"># fig.savefig("sine2.png", dpi=300, bbox_inches="tight")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="fourier_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>The graph above introduces two new characteristics of a wave, its phase <span class="math inline">\phi</span>, and its offset <span class="math inline">B</span>. A more general description of a sine wave is</p>
 <p><span id="eq-sin-Bf-phi"><span class="math display">
 f(t) = B\sin(2\pi f t + \phi) + B_0.
@@ -778,7 +950,7 @@ f(t) = B\sin(2\pi f t + \phi) + B_0.
 <p><span id="eq-sin-Bf-phi-2pi"><span class="math display">
 B\sin(2\pi f t) = B\sin(2\pi f t + 2\pi).
 \tag{40.4}</span></span></p>
-<p>All the above can also be said about a cosine, whose general for can be given as</p>
+<p>All the above can also be said about a cosine, whose general form can be given as</p>
 <p><span id="eq-sin-Af-phi"><span class="math display">
 A\cos(2\pi f t + \phi) + A_0
 \tag{40.5}</span></span></p>
@@ -786,6 +958,28 @@ A\cos(2\pi f t + \phi) + A_0
 <p><span class="math display">
 \cos\left(2\pi f t + \frac{\pi}{2}\right) = \sin\left(2\pi f t\right)
 </span></p>
+<div id="cell-8" class="cell" data-execution_count="20">
+<details class="code-fold">
+<summary>plot sine and cosine</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
+<span id="cb5-2"><a href="#cb5-2"></a>ax.plot(t, s, color<span class="op">=</span><span class="st">"magenta"</span>, lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>ax.plot(t, c, color<span class="op">=</span><span class="st">"goldenrod"</span>, lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>ax.plot(t, <span class="dv">0</span><span class="op">*</span>t, color<span class="op">=</span><span class="st">"black"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5"></a>ax.text(<span class="fl">2.5</span>, <span class="fl">0.64</span>, <span class="st">"sine"</span>, ha<span class="op">=</span><span class="st">"center"</span>, color<span class="op">=</span><span class="st">"magenta"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6"></a>ax.text(<span class="fl">2.0</span>, <span class="fl">0.64</span>, <span class="st">"cosine"</span>, ha<span class="op">=</span><span class="st">"center"</span>, color<span class="op">=</span><span class="st">"goldenrod"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7"></a>ax.<span class="bu">set</span>(xlim<span class="op">=</span>[t[<span class="dv">0</span>], t[<span class="op">-</span><span class="dv">1</span>]],</span>
+<span id="cb5-8"><a href="#cb5-8"></a>       ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">0.8</span>, <span class="fl">0.8</span>],</span>
+<span id="cb5-9"><a href="#cb5-9"></a>       xlabel<span class="op">=</span><span class="st">"time (s)"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10"></a>       ylabel<span class="op">=</span><span class="st">"signal"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="fourier_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="fouriers-theorem" class="level2" data-number="40.2">
 <h2 data-number="40.2" class="anchored" data-anchor-id="fouriers-theorem"><span class="header-section-number">40.2</span> Fourier’s theorem</h2>
@@ -812,7 +1006,7 @@ a_n &amp;= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)\cos(nt)dt\\
 b_n &amp;= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)\sin(nt)dt\\
 \end{split}
 </span></p>
-<p>Not any function, but certainly most functions we will deal with in this course. The function has to fullful the <a href="https://en.wikipedia.org/wiki/Dirichlet–Jordan_test">Dirichlet conditions</a></p>
+<!-- Not any function, but certainly most functions we will deal with in this course. The function has to fullful the [Dirichlet conditions](https://en.wikipedia.org/wiki/Dirichlet–Jordan_test) -->
 </div></div><p>Let’s see some excellent visual demonstrations. The classic examples are usually the square function and the sawtooth function:</p>
 <p>Source: <a href="https://www.geogebra.org/m/tkajbzmg" class="uri">https://www.geogebra.org/m/tkajbzmg</a> <iframe scrolling="no" title="Fourier Series" src="https://www.geogebra.org/material/iframe/id/yd2qcp97/width/791/height/469/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false" width="791px" height="469px" style="border:0px;"> </iframe></p>
 <p>Source: <a href="https://www.geogebra.org/m/k4eq4fkr" class="uri">https://www.geogebra.org/m/k4eq4fkr</a> <iframe scrolling="no" title="2.2.2. Fourier-Reihe periodischer Funktionen" src="https://www.geogebra.org/material/iframe/id/wzawveyr/width/1117/height/560/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/true/sdz/true/ctl/false" width="1117px" height="560px" style="border:0px;"> </iframe></p>
@@ -829,6 +1023,8 @@ c_n = \frac{1}{P}\int_{-\frac{P}{2}}^{\frac{P}{2}}f(t) e^{- 2\pi i \frac{n}{P} t
 <p><span class="math display">
 e^{ix} = \cos(x) + i\sin(x)
 </span></p>
+<iframe src="https://www.geogebra.org/classic/n9mjgqps?embed" width="800" height="600" allowfullscreen="" style="border: 1px solid #e4e4e4;border-radius: 4px;" frameborder="0">
+</iframe>
 </section>
 <section id="fourier-transform" class="level2" data-number="40.4">
 <h2 data-number="40.4" class="anchored" data-anchor-id="fourier-transform"><span class="header-section-number">40.4</span> Fourier transform</h2>
@@ -841,8 +1037,6 @@ f(t) = \int_{-\infty}^{\infty} F(k) e^{2\pi i k t}dk,
 F(k) = \int_{-\infty}^{\infty} f(t) e^{-2\pi i k t}dk.
 </span></p>
 <p>If <span class="math inline">t</span> is in seconds, the frequency <span class="math inline">k</span> is given in Hertz (Hz).</p>
-<p><a href="https://dibsmethodsmeetings.github.io/fourier-transforms/" class="uri">https://dibsmethodsmeetings.github.io/fourier-transforms/</a></p>
-<p><a href="https://www.jezzamon.com/fourier/index.html" class="uri">https://www.jezzamon.com/fourier/index.html</a></p>
 <p>See the following animations to visualize the theorem in action.</p>
 <p><a href="https://commons.wikimedia.org/wiki/File:Fourier_series_and_transform.gif#/media/File:Fourier_series_and_transform.gif"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Fourier_series_and_transform.gif" alt="Fourier series and transform.gif" height="480" width="600"></a><br>
 Source: <a href="https://en.wikipedia.org/wiki/File:Fourier_series_and_transform.gif" class="uri">https://en.wikipedia.org/wiki/File:Fourier_series_and_transform.gif</a></p>
@@ -851,7 +1045,7 @@ Source: <a href="https://commons.wikimedia.org/wiki/File:Fourier_synthesis_squar
 <p><a href="https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif"><img width="512" alt="Sawtooth Fourier Animation" src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Sawtooth_Fourier_Animation.gif"></a><br>
 Source: <a href="https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif" class="uri">https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif</a></p>
 <p><a href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"><img width="512" alt="Continuous Fourier transform of rect and sinc functions" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"></a><br>
-Source: <a href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif" class="uri">https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif</a></p>
+Source: <a href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif">Wikimedia</a></p>
 
 
 </section>

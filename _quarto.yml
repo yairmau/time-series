@@ -72,7 +72,7 @@ book:
     - part: "frequency"
       chapters:
         - frequency/motivation.qmd
-        - frequency/fourier.qmd
+        - frequency/fourier.ipynb
         - frequency/dft-and-fft.ipynb
         - frequency/sound.ipynb
         - frequency/filtering.qmd
