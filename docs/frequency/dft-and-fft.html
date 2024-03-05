@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../frequency/sound.html" rel="next">
+<link href="../frequency/filtering.html" rel="next">
 <link href="../frequency/fourier.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -557,20 +557,32 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/sound.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">sound</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/fft_practice_temperature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">practice 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/fft_practice_stomata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">practice 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/fft_practice_stayin_alive.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">practice 3</span></span></a>
   </div>
 </li>
       </ul>
@@ -587,31 +599,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">finite differences</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">finite differences</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
   </div>
 </li>
       </ul>
@@ -628,13 +640,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
   </div>
 </li>
       </ul>
@@ -651,19 +663,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../assignments/assignment1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">assignment 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">assignment 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../assignments/assignment2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">assignment 2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">assignment 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../assignments/assignment3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">assignment 3</span></span></a>
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">assignment 3</span></span></a>
   </div>
 </li>
       </ul>
@@ -680,25 +692,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">sources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">sources</span></span></a>
   </div>
 </li>
       </ul>
@@ -715,31 +727,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/consecutive_sequence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/outliers_graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -756,7 +768,14 @@ window.Quarto = {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#dft" id="toc-dft" class="nav-link active" data-scroll-target="#dft"><span class="header-section-number">41.1</span> DFT</a></li>
+  <li><a href="#fft" id="toc-fft" class="nav-link" data-scroll-target="#fft"><span class="header-section-number">41.2</span> FFT</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -780,6 +799,8 @@ window.Quarto = {
 </header>
 
 
+<section id="dft" class="level2" data-number="41.1">
+<h2 data-number="41.1" class="anchored" data-anchor-id="dft"><span class="header-section-number">41.1</span> DFT</h2>
 <p>When studying the frequencies of a time series, we don’t actually calculate the Fourier transform, but the Discrete Fourier Transform (DFT).</p>
 <p><span class="math display">
 \begin{split}
@@ -794,7 +815,7 @@ F_k &amp;= \sum_{n=0}^{N-1} x_n e^{-2\pi i \frac{k}{N} n}
 <p><span class="math display">
 x(t) = 3 \sin(2\pi k_1 t) + \tfrac{1}{2} \cos(2\pi k_2 t) + 2
 </span></p>
-<div id="cell-2" class="cell" data-execution_count="1">
+<div id="cell-3" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>import stuff</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -818,7 +839,7 @@ x(t) = 3 \sin(2\pi k_1 t) + \tfrac{1}{2} \cos(2\pi k_2 t) + 2
 <span id="cb1-19"><a href="#cb1-19"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-3" class="cell" data-execution_count="3">
+<div id="cell-4" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>define functions for calculating DTW</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>,<span class="dv">1</span>)</span>
@@ -843,88 +864,113 @@ x(t) = 3 \sin(2\pi k_1 t) + \tfrac{1}{2} \cos(2\pi k_2 t) + 2
 </div>
 </div>
 </div>
-<div id="cell-4" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>fft <span class="op">=</span> scipy.fft.fft(x) <span class="op">/</span> N</span>
-<span id="cb3-2"><a href="#cb3-2"></a>k <span class="op">=</span> scipy.fft.fftfreq(N, dt)</span>
-<span id="cb3-3"><a href="#cb3-3"></a>fft_abs <span class="op">=</span> np.<span class="bu">abs</span>(fft)</span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># [:N//2]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-5" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">def</span> my_dft(signal, dt):</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    N <span class="op">=</span> <span class="bu">len</span>(signal)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>    k_index <span class="op">=</span> np.arange(N)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    n <span class="op">=</span> np.arange(N)</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    F <span class="op">=</span> []</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="cf">for</span> ki <span class="kw">in</span> k_index:</span>
+<span id="cb3-7"><a href="#cb3-7"></a>        expon <span class="op">=</span> np.exp(<span class="op">-</span><span class="fl">2.0</span><span class="op">*</span>np.pi<span class="op">*</span><span class="ot">1j</span> <span class="op">*</span> ki <span class="op">*</span> n <span class="op">/</span> N)</span>
+<span id="cb3-8"><a href="#cb3-8"></a>        Fk <span class="op">=</span> np.<span class="bu">sum</span>(signal <span class="op">*</span> expon)</span>
+<span id="cb3-9"><a href="#cb3-9"></a>        F.append(Fk)</span>
+<span id="cb3-10"><a href="#cb3-10"></a>    k <span class="op">=</span> build_k(N, dt)</span>
+<span id="cb3-11"><a href="#cb3-11"></a>    <span class="cf">return</span> k, np.array(F)<span class="op">/</span>N</span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="kw">def</span> build_k(N, dt):</span>
+<span id="cb3-14"><a href="#cb3-14"></a>    <span class="cf">if</span> N<span class="op">%</span><span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb3-15"><a href="#cb3-15"></a>        k <span class="op">=</span> np.hstack([np.arange(<span class="dv">0</span>,N<span class="op">//</span><span class="dv">2</span>),</span>
+<span id="cb3-16"><a href="#cb3-16"></a>                       np.arange(<span class="op">-</span>N<span class="op">//</span><span class="dv">2</span>,<span class="dv">0</span>)])</span>
+<span id="cb3-17"><a href="#cb3-17"></a>    <span class="cf">else</span>:</span>
+<span id="cb3-18"><a href="#cb3-18"></a>        k <span class="op">=</span> np.hstack([np.arange(<span class="dv">0</span>,(N<span class="op">-</span><span class="dv">1</span>)<span class="op">//</span><span class="dv">2</span><span class="op">+</span><span class="dv">1</span>),</span>
+<span id="cb3-19"><a href="#cb3-19"></a>                       np.arange(<span class="op">-</span>(N<span class="op">-</span><span class="dv">1</span>)<span class="op">//</span><span class="dv">2</span>,<span class="dv">0</span>)])</span>
+<span id="cb3-20"><a href="#cb3-20"></a>    <span class="cf">return</span> k <span class="op">/</span> (dt<span class="op">*</span>N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="4">
+<div id="cell-6" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>k_dft, dft <span class="op">=</span> my_dft(x, dt)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>dft_abs <span class="op">=</span> np.<span class="bu">abs</span>(dft)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-7" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>plot power spectrum</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb4-2"><a href="#cb4-2"></a>ax.plot(k, fft_abs)</span>
-<span id="cb4-3"><a href="#cb4-3"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"k (Hz)"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4"></a>       ylabel<span class="op">=</span><span class="vs">r"$|F|$"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5"></a>       title<span class="op">=</span><span class="vs">r"sqrt of power spectrum of $x(t)$"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb5-2"><a href="#cb5-2"></a>ax.plot(k_dft, dft_abs)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"k (Hz)"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>       ylabel<span class="op">=</span><span class="vs">r"$|F|$"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>       title<span class="op">=</span><span class="vs">r"sqrt of power spectrum of $x(t)$"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>[Text(0.5, 0, 'k (Hz)'),
- Text(0, 0.5, '$|F|$'),
- Text(0.5, 1.0, 'sqrt of power spectrum of $x(t)$')]</code></pre>
-</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dft-and-fft_files/figure-html/cell-5-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="dft-and-fft_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="5">
+<p>Why does this work the way it does?</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/spUNpyF58BY?si=aaS6qgDLfFeakmwx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
+</iframe>
+<p>The power spectrum of any real-valued signal is symmetric between positive and negative frequencies, so let’s plot only the positive frequencies:</p>
+<div id="cell-10" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>plot power spectrum</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>dk <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (t.<span class="bu">max</span>() <span class="op">-</span> t.<span class="bu">min</span>())</span>
-<span id="cb6-2"><a href="#cb6-2"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="dv">10</span><span class="op">/</span>dk)</span>
-<span id="cb6-3"><a href="#cb6-3"></a></span>
-<span id="cb6-4"><a href="#cb6-4"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb6-5"><a href="#cb6-5"></a>ax.plot(k[:n], fft_abs[:n])</span>
-<span id="cb6-6"><a href="#cb6-6"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"k (Hz)"</span>,</span>
-<span id="cb6-7"><a href="#cb6-7"></a>       ylabel<span class="op">=</span><span class="vs">r"$|F|$"</span>,</span>
-<span id="cb6-8"><a href="#cb6-8"></a>       title<span class="op">=</span><span class="vs">r"sqrt of power spectrum of $x(t)$"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>halfN <span class="op">=</span> N<span class="op">//</span><span class="dv">2</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb6-3"><a href="#cb6-3"></a>ax.plot(k_dft[:halfN], dft_abs[:halfN])</span>
+<span id="cb6-4"><a href="#cb6-4"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"k (Hz)"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>       ylabel<span class="op">=</span><span class="vs">r"$|F|$"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6"></a>       title<span class="op">=</span><span class="vs">r"sqrt of power spectrum of $x(t)$"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>[Text(0.5, 0, 'k (Hz)'),
- Text(0, 0.5, '$|F|$'),
- Text(0.5, 1.0, 'sqrt of power spectrum of $x(t)$')]</code></pre>
-</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dft-and-fft_files/figure-html/cell-6-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="dft-and-fft_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="6">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">def</span> compute_acf(series):</span>
-<span id="cb8-2"><a href="#cb8-2"></a>    N <span class="op">=</span> <span class="bu">len</span>(series)</span>
-<span id="cb8-3"><a href="#cb8-3"></a>    lags <span class="op">=</span> np.arange(N)</span>
-<span id="cb8-4"><a href="#cb8-4"></a>    acf <span class="op">=</span> np.zeros_like(lags)</span>
-<span id="cb8-5"><a href="#cb8-5"></a>    series <span class="op">=</span> (series <span class="op">-</span> series.mean()) <span class="op">/</span> series.std()</span>
-<span id="cb8-6"><a href="#cb8-6"></a>    <span class="cf">for</span> i <span class="kw">in</span> lags:</span>
-<span id="cb8-7"><a href="#cb8-7"></a>        acf[i] <span class="op">=</span> np.<span class="bu">sum</span>(series[i:] <span class="op">*</span> series[:N<span class="op">-</span>i])</span>
-<span id="cb8-8"><a href="#cb8-8"></a>    acf <span class="op">=</span> acf <span class="op">/</span> N</span>
-<span id="cb8-9"><a href="#cb8-9"></a>    <span class="cf">return</span> lags, acf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+</section>
+<section id="fft" class="level2" data-number="41.2">
+<h2 data-number="41.2" class="anchored" data-anchor-id="fft"><span class="header-section-number">41.2</span> FFT</h2>
+<p>The Fast Fourier Transform is a very efficient algorithm to calculate the DFT. Derek Muller (Veritasium) made a great video on this topic.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/nmgFG7PUHfo?si=C8Cm1p2wMqDWrtxT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
+</iframe>
+<p>We can from now on use <code>scipy</code>’s implementation of the FFT.</p>
+<div id="cell-12" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>fft <span class="op">=</span> scipy.fft.fft(x) <span class="op">/</span> N</span>
+<span id="cb7-2"><a href="#cb7-2"></a>k_fft <span class="op">=</span> scipy.fft.fftfreq(N, dt)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>fft_abs <span class="op">=</span> np.<span class="bu">abs</span>(fft)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="7">
+<div id="cell-13" class="cell" data-execution_count="8">
 <details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>lags, acf <span class="op">=</span> compute_acf(x)</span>
-<span id="cb9-2"><a href="#cb9-2"></a>lags <span class="op">=</span> lags <span class="op">*</span> dt</span>
+<summary>plot power spectrum</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb8-2"><a href="#cb8-2"></a>ax.plot(k_fft, fft_abs)</span>
+<span id="cb8-3"><a href="#cb8-3"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"k (Hz)"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4"></a>       ylabel<span class="op">=</span><span class="vs">r"$|F|$"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5"></a>       title<span class="op">=</span><span class="vs">r"sqrt of power spectrum of $x(t)$"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dft-and-fft_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We have the exact same result as before :)</p>
+<p>Let’s zoom in.</p>
+<div id="cell-15" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>plot power spectrum</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>dk <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (t.<span class="bu">max</span>() <span class="op">-</span> t.<span class="bu">min</span>())</span>
+<span id="cb9-2"><a href="#cb9-2"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="dv">10</span><span class="op">/</span>dk)</span>
 <span id="cb9-3"><a href="#cb9-3"></a></span>
-<span id="cb9-4"><a href="#cb9-4"></a>fft_acf <span class="op">=</span> scipy.fft.fft(acf) <span class="op">/</span> N</span>
-<span id="cb9-5"><a href="#cb9-5"></a>freq_fft_acf <span class="op">=</span> scipy.fft.fftfreq(<span class="bu">len</span>(acf), dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div id="cell-10" class="cell" data-execution_count="8">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb10-2"><a href="#cb10-2"></a>ax.plot(freq_fft_acf,np.<span class="bu">abs</span>(fft_acf))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a href="#cb9-4"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb9-5"><a href="#cb9-5"></a>ax.plot(k_fft[:n], fft_abs[:n])</span>
+<span id="cb9-6"><a href="#cb9-6"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"k (Hz)"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7"></a>       ylabel<span class="op">=</span><span class="vs">r"$|F|$"</span>,</span>
+<span id="cb9-8"><a href="#cb9-8"></a>       title<span class="op">=</span><span class="vs">r"sqrt of power spectrum of $x(t)$"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -934,39 +980,9 @@ x(t) = 3 \sin(2\pi k_1 t) + \tfrac{1}{2} \cos(2\pi k_2 t) + 2
 </div>
 </div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="9">
-<details class="code-fold">
-<summary>plot power spectrum</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb11-2"><a href="#cb11-2"></a></span>
-<span id="cb11-3"><a href="#cb11-3"></a>dk <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (t.<span class="bu">max</span>() <span class="op">-</span> t.<span class="bu">min</span>())</span>
-<span id="cb11-4"><a href="#cb11-4"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="dv">10</span><span class="op">/</span>dk)</span>
-<span id="cb11-5"><a href="#cb11-5"></a>ax.plot(k[:n], fft_abs[:n], label<span class="op">=</span><span class="st">"power spect"</span>)</span>
-<span id="cb11-6"><a href="#cb11-6"></a></span>
-<span id="cb11-7"><a href="#cb11-7"></a>dk <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (lags.<span class="bu">max</span>() <span class="op">-</span> lags.<span class="bu">min</span>())</span>
-<span id="cb11-8"><a href="#cb11-8"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="dv">10</span><span class="op">/</span>dk)</span>
-<span id="cb11-9"><a href="#cb11-9"></a>ax.plot(freq_fft_acf[:n], np.sqrt(np.<span class="bu">abs</span>(fft_acf))[:n], label<span class="op">=</span><span class="st">"abs fft acf"</span>)</span>
-<span id="cb11-10"><a href="#cb11-10"></a></span>
-<span id="cb11-11"><a href="#cb11-11"></a></span>
-<span id="cb11-12"><a href="#cb11-12"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"k (Hz)"</span>,</span>
-<span id="cb11-13"><a href="#cb11-13"></a>       ylabel<span class="op">=</span><span class="vs">r"$|F|$"</span>,</span>
-<span id="cb11-14"><a href="#cb11-14"></a>       title<span class="op">=</span><span class="vs">r"sqrt of power spectrum of $x(t)$"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>[Text(0.5, 0, 'k (Hz)'),
- Text(0, 0.5, '$|F|$'),
- Text(0.5, 1.0, 'sqrt of power spectrum of $x(t)$')]</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="dft-and-fft_files/figure-html/cell-11-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1414,8 +1430,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../frequency/sound.html" class="pagination-link" aria-label="sound">
-        <span class="nav-page-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">sound</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../frequency/filtering.html" class="pagination-link" aria-label="filtering">
+        <span class="nav-page-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">filtering</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

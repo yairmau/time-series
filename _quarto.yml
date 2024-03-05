@@ -74,9 +74,12 @@ book:
         - frequency/motivation.qmd
         - frequency/fourier.ipynb
         - frequency/dft-and-fft.ipynb
-        - frequency/sound.ipynb
+        # - frequency/sound.ipynb
         - frequency/filtering.qmd
         - frequency/nyquist.qmd
+        - frequency/fft_practice_temperature.ipynb
+        - frequency/fft_practice_stomata.ipynb
+        - frequency/fft_practice_stayin_alive.ipynb
     - part: "rates of change"
       chapters:
         - rates-of-change/motivation.ipynb
