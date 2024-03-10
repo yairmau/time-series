@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series Analysis - 43&nbsp; filtering</title>
+<title>Time Series Analysis - 44&nbsp; filtering</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../frequency/nyquist.html" rel="next">
-<link href="../frequency/sound.html" rel="prev">
+<link href="../frequency/fft_practice_temperature.html" rel="next">
+<link href="../frequency/frequencies.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../frequency/motivation.html">frequency</a></li><li class="breadcrumb-item"><a href="../frequency/filtering.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">filtering</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../frequency/motivation.html">frequency</a></li><li class="breadcrumb-item"><a href="../frequency/filtering.html"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">filtering</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -481,19 +481,19 @@ document.addEventListener("DOMContentLoaded", function() {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/sound.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">sound</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">sound &amp; music</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/frequencies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">frequencies</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -702,9 +702,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../frequency/motivation.html">frequency</a></li><li class="breadcrumb-item"><a href="../frequency/filtering.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">filtering</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../frequency/motivation.html">frequency</a></li><li class="breadcrumb-item"><a href="../frequency/filtering.html"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">filtering</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">filtering</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/frequency/filtering.qmd"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">filtering</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/frequency/filtering.ipynb"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -1165,13 +1165,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../frequency/sound.html" class="pagination-link" aria-label="sound">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">sound</span></span>
+      <a href="../frequency/frequencies.html" class="pagination-link" aria-label="frequencies">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">frequencies</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../frequency/nyquist.html" class="pagination-link" aria-label="Nyquist-Shannon sampling theorem">
-        <span class="nav-page-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../frequency/fft_practice_temperature.html" class="pagination-link" aria-label="practice 1">
+        <span class="nav-page-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">practice 1</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

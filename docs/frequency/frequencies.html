@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series Analysis - 44&nbsp; Nyquist-Shannon sampling theorem</title>
+<title>Time Series Analysis - 43&nbsp; frequencies</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../frequency/fft_practice_temperature.html" rel="next">
-<link href="../frequency/filtering.html" rel="prev">
+<link href="../frequency/filtering.html" rel="next">
+<link href="../frequency/sound.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -70,7 +104,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-</head><body class="nav-sidebar floating"><div id="progress-bar" style="width: 0%; height:4px; background-color: rgb(89 127 235);; position: fixed; top: 0px; z-index: 2000;"></div>
+</head><body class="nav-sidebar floating slimcontent"><div id="progress-bar" style="width: 0%; height:4px; background-color: rgb(89 127 235);; position: fixed; top: 0px; z-index: 2000;"></div>
 
 <script id="progressbar" type="text/javascript">
 
@@ -88,6 +122,49 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 
 
@@ -100,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../frequency/motivation.html">frequency</a></li><li class="breadcrumb-item"><a href="../frequency/nyquist.html"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../frequency/motivation.html">frequency</a></li><li class="breadcrumb-item"><a href="../frequency/frequencies.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">frequencies</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -481,19 +558,19 @@ document.addEventListener("DOMContentLoaded", function() {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/sound.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">sound</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">sound &amp; music</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/frequencies.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">frequencies</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../frequency/nyquist.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -697,14 +774,22 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#spectrum" id="toc-spectrum" class="nav-link active" data-scroll-target="#spectrum"><span class="header-section-number">43.1</span> spectrum</a></li>
+  <li><a href="#resolution" id="toc-resolution" class="nav-link" data-scroll-target="#resolution"><span class="header-section-number">43.2</span> resolution</a></li>
+  <li><a href="#nyquistshannon-sampling-theorem" id="toc-nyquistshannon-sampling-theorem" class="nav-link" data-scroll-target="#nyquistshannon-sampling-theorem"><span class="header-section-number">43.3</span> Nyquist–Shannon sampling theorem</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../frequency/motivation.html">frequency</a></li><li class="breadcrumb-item"><a href="../frequency/nyquist.html"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../frequency/motivation.html">frequency</a></li><li class="breadcrumb-item"><a href="../frequency/frequencies.html"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">frequencies</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Nyquist-Shannon sampling theorem</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/frequency/nyquist.qmd"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">frequencies</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/frequency/frequencies.ipynb">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -721,8 +806,294 @@ document.addEventListener("DOMContentLoaded", function() {
 </header>
 
 
+<section id="spectrum" class="level2 page-columns page-full" data-number="43.1">
+<h2 data-number="43.1" class="anchored" data-anchor-id="spectrum"><span class="header-section-number">43.1</span> spectrum</h2>
+<p>In the 17th century, Isaac Newton studied how white light can be decomposed into the colors of the rainbow. He called the decomposed colors “<strong>spectrum</strong>”, after the latin word for image. Later, the word spectrum started to be used in other contexts involving a range of frequencies, even when not related to light or colors.</p>
+<p><img src="newton_prism.jpg" class="img-fluid"></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Source: <a href="https://library.si.edu/exhibition/color-in-a-new-light/science">Smithsonian Libraries</a></p>
+</div></div></section>
+<section id="resolution" class="level2" data-number="43.2">
+<h2 data-number="43.2" class="anchored" data-anchor-id="resolution"><span class="header-section-number">43.2</span> resolution</h2>
+<p>The Discrete Fourier Transform helps us decompose a discrete time series into a list of (complex) weights for a range of frequencies, or spectrum. Its formula is given by</p>
+<p><span class="math display">
+F_k = \sum_{n=0}^{N-1} x_n e^{-2\pi i \frac{k}{N}n},
+</span></p>
+<p>where <span class="math inline">F_k</span> is the array representing the Fourier transform <span class="math inline">F(\xi)</span>, and <span class="math inline">x_n</span> is the array representing the time series <span class="math inline">f(t)</span>. All the information contained in <span class="math inline">f(t)</span> is fully preserved in <span class="math inline">F(\xi)</span>.</p>
+<p>What are the lowest and highest frequencies that can be measured?</p>
+<div id="cell-3" class="cell" data-execution_count="36">
+<details class="code-fold">
+<summary>import stuff</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> pandas.plotting <span class="im">import</span> register_matplotlib_converters</span>
+<span id="cb1-6"><a href="#cb1-6"></a>register_matplotlib_converters()  <span class="co"># datetime converter for a matplotlib</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-8"><a href="#cb1-8"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="im">import</span> matplotlib.gridspec <span class="im">as</span> gridspec</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="im">import</span> math</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="im">import</span> scipy</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-4" class="cell" data-execution_count="37">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a>N <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>dt <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>T1 <span class="op">=</span> N <span class="op">*</span> dt</span>
+<span id="cb2-6"><a href="#cb2-6"></a>T2 <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> dt</span>
+<span id="cb2-7"><a href="#cb2-7"></a>time <span class="op">=</span> dt <span class="op">*</span> np.arange(N)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>f1 <span class="op">=</span> np.cos(<span class="fl">2.0</span><span class="op">*</span>np.pi<span class="op">*</span>time<span class="op">/</span>T1)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>f2 <span class="op">=</span> np.cos(<span class="fl">2.0</span><span class="op">*</span>np.pi<span class="op">*</span>time<span class="op">/</span>T2)</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a>ax[<span class="dv">0</span>].plot(time, f1, <span class="st">'-o'</span>)</span>
+<span id="cb2-12"><a href="#cb2-12"></a>ax[<span class="dv">1</span>].plot(time, f2, <span class="st">'-o'</span>)</span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>],</span>
+<span id="cb2-15"><a href="#cb2-15"></a>          ylabel<span class="op">=</span><span class="st">"longest period"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16"></a>          title<span class="op">=</span><span class="st">"$N=8$, $\quad \Delta t=0.2$"</span>)</span>
+<span id="cb2-17"><a href="#cb2-17"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(xticks<span class="op">=</span>time,</span>
+<span id="cb2-18"><a href="#cb2-18"></a>          xlabel<span class="op">=</span><span class="st">"time (s)"</span>,</span>
+<span id="cb2-19"><a href="#cb2-19"></a>          ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>],</span>
+<span id="cb2-20"><a href="#cb2-20"></a>          ylabel<span class="op">=</span><span class="st">"shortest period"</span>)</span>
+<span id="cb2-21"><a href="#cb2-21"></a>ax[<span class="dv">0</span>].grid()</span>
+<span id="cb2-22"><a href="#cb2-22"></a>ax[<span class="dv">1</span>].grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="frequencies_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The longest possible period that we can measure is the length of the time series itself:</p>
+<p><span class="math display">
+T_\text{long} = N\times \Delta t
+</span></p>
+<p>The shortest possible period is twice the time resolution:</p>
+<p><span class="math display">
+T_\text{short} = 2\times \Delta t
+</span></p>
+<p>Let’s translate this into frequency. Because frequency is the inverse of period <span class="math inline">(\xi = \frac{1}{T})</span>, the smallest possible frequency is the inverse of the longest possible period, and vice versa.</p>
+<p><span class="math display">
+\begin{split}
+\xi_\text{small} &amp;= \frac{1}{T_\text{long}} = \frac{1}{N\times \Delta t}\\
+\xi_\text{large} &amp;= \frac{1}{T_\text{short}} = \frac{1}{2\times \Delta t}
+\end{split}
+</span></p>
+<p>There is a duality between the variables time (<span class="math inline">t</span>) and frequency (<span class="math inline">\xi</span>). It is important to understand how to convert from one the the other in the context of DFTs:</p>
+<div id="cell-7" class="cell" data-execution_count="38">
+<details class="code-fold">
+<summary>plot t and xi</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>fig <span class="op">=</span> plt.figure(<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">2</span>, <span class="dv">1</span>, width_ratios<span class="op">=</span>[<span class="dv">1</span>], height_ratios<span class="op">=</span>[<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb3-4"><a href="#cb3-4"></a>gs.update(left<span class="op">=</span><span class="fl">0.10</span>, right<span class="op">=</span><span class="fl">0.90</span>,top<span class="op">=</span><span class="fl">0.90</span>, bottom<span class="op">=</span><span class="fl">0.10</span>,</span>
+<span id="cb3-5"><a href="#cb3-5"></a>          hspace<span class="op">=</span><span class="fl">0.05</span>, wspace<span class="op">=</span><span class="fl">0.05</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>         )</span>
+<span id="cb3-7"><a href="#cb3-7"></a>ax_t <span class="op">=</span> plt.subplot(gs[<span class="dv">0</span>, <span class="dv">0</span>])</span>
+<span id="cb3-8"><a href="#cb3-8"></a>ax_k <span class="op">=</span> plt.subplot(gs[<span class="dv">1</span>, <span class="dv">0</span>])</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a>text_dict <span class="op">=</span> {<span class="st">'ha'</span>:<span class="st">'center'</span>, <span class="st">'va'</span>:<span class="st">'center'</span>, <span class="st">'color'</span>:<span class="st">"orangered"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11"></a>                <span class="st">'fontsize'</span>:<span class="dv">24</span>, <span class="st">'weight'</span>:<span class="st">'bold'</span>}</span>
+<span id="cb3-12"><a href="#cb3-12"></a>N <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>t_vector <span class="op">=</span> np.arange(N)</span>
+<span id="cb3-14"><a href="#cb3-14"></a>k_vector <span class="op">=</span> np.fft.fftfreq(N, d<span class="op">=</span><span class="fl">1.0</span>)</span>
+<span id="cb3-15"><a href="#cb3-15"></a>t_vector <span class="op">=</span> t_vector.reshape(<span class="dv">1</span>, <span class="bu">len</span>(t_vector))</span>
+<span id="cb3-16"><a href="#cb3-16"></a>k_vector <span class="op">=</span> N <span class="op">*</span> k_vector.reshape(<span class="dv">1</span>, <span class="bu">len</span>(k_vector))</span>
+<span id="cb3-17"><a href="#cb3-17"></a></span>
+<span id="cb3-18"><a href="#cb3-18"></a>ax_t.imshow(t_vector, cmap<span class="op">=</span><span class="st">'Greys'</span>, vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">20</span>, origin<span class="op">=</span><span class="st">"lower"</span>)</span>
+<span id="cb3-19"><a href="#cb3-19"></a>ax_k.imshow(t_vector, cmap<span class="op">=</span><span class="st">'Greys'</span>, vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">20</span>, origin<span class="op">=</span><span class="st">"lower"</span>)</span>
+<span id="cb3-20"><a href="#cb3-20"></a></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="cf">for</span> (j,i),label <span class="kw">in</span> np.ndenumerate(t_vector):</span>
+<span id="cb3-22"><a href="#cb3-22"></a>    ax_t.text(i, j, <span class="vs">fr"$t_</span><span class="sc">{</span>label<span class="sc">:.0f}</span><span class="vs">$"</span>, <span class="op">**</span>text_dict)</span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="cf">for</span> (j,i),label <span class="kw">in</span> np.ndenumerate(k_vector):</span>
+<span id="cb3-24"><a href="#cb3-24"></a>    ax_k.text(i, j, <span class="vs">fr"$</span><span class="sc">{</span>label<span class="sc">:.0f}</span><span class="vs">$"</span>, <span class="op">**</span>text_dict)</span>
+<span id="cb3-25"><a href="#cb3-25"></a>ax_t.<span class="bu">set</span>(yticks<span class="op">=</span>[], xticks<span class="op">=</span>np.arange(N), title<span class="op">=</span><span class="st">"time"</span>)</span>
+<span id="cb3-26"><a href="#cb3-26"></a><span class="co"># ax_t.set_ylabel(r"$t_n$", rotation="horizontal", ha="center")</span></span>
+<span id="cb3-27"><a href="#cb3-27"></a>ax_t.text(<span class="op">-</span><span class="fl">0.7</span>, <span class="dv">0</span>, <span class="vs">r"$t_n$"</span>, ha<span class="op">=</span><span class="st">"right"</span>, va<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">24</span>)</span>
+<span id="cb3-28"><a href="#cb3-28"></a>ax_t.text(<span class="op">-</span><span class="fl">0.7</span>, <span class="op">-</span><span class="fl">1.0</span>, <span class="vs">r"$n$"</span>, ha<span class="op">=</span><span class="st">"right"</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb3-29"><a href="#cb3-29"></a>ax_k.text(<span class="op">-</span><span class="fl">0.7</span>, <span class="dv">0</span>, <span class="vs">r"$\xi_k$"</span>, ha<span class="op">=</span><span class="st">"right"</span>, va<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">24</span>)</span>
+<span id="cb3-30"><a href="#cb3-30"></a>ax_k.text(<span class="op">-</span><span class="fl">0.7</span>, <span class="op">-</span><span class="fl">1.0</span>, <span class="vs">r"$k$"</span>, ha<span class="op">=</span><span class="st">"right"</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb3-31"><a href="#cb3-31"></a></span>
+<span id="cb3-32"><a href="#cb3-32"></a>ax_k.<span class="bu">set</span>(yticks<span class="op">=</span>[], xticks<span class="op">=</span>np.arange(N), title<span class="op">=</span><span class="st">"frequency"</span>)</span>
+<span id="cb3-33"><a href="#cb3-33"></a><span class="co"># ax_k.yaxis.set_label_position("right")</span></span>
+<span id="cb3-34"><a href="#cb3-34"></a><span class="co"># ax_k.set_ylabel(r"$\times\frac{1}{N\Delta t}$", rotation="horizontal", labelpad=20)</span></span>
+<span id="cb3-35"><a href="#cb3-35"></a>ax_k.text(<span class="fl">8.3</span>, <span class="dv">0</span>, <span class="vs">r"$\times\frac</span><span class="sc">{1}</span><span class="vs">{N\Delta t}$"</span>, <span class="op">**</span>text_dict)</span>
+<span id="cb3-36"><a href="#cb3-36"></a>ax_t.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, which<span class="op">=</span><span class="st">'both'</span>, bottom<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-37"><a href="#cb3-37"></a>ax_k.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, which<span class="op">=</span><span class="st">'both'</span>, bottom<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-38"><a href="#cb3-38"></a>ax_t.text(<span class="dv">0</span>, <span class="fl">0.6</span>, <span class="vs">r"$\Delta t = t_1 - t_0$"</span>)</span>
+<span id="cb3-39"><a href="#cb3-39"></a>ax_k.text(<span class="dv">0</span>, <span class="fl">0.6</span>, <span class="vs">r"$\Delta \xi = \xi_1 - \xi_0$"</span>)</span>
+<span id="cb3-40"><a href="#cb3-40"></a><span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="frequencies_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Why is there such a weird pattern for <span class="math inline">\xi</span>, where first we have the positive values, and after that the negative? Let’s see again the equation for the DFT:</p>
+<p><span class="math display">
+F_k = \sum_{n=0}^{N-1} x_n e^{-2\pi i \frac{k}{N}n},
+</span></p>
+<p>What happens to the location of <span class="math inline">x_1</span> as we increase the index <span class="math inline">k</span>?</p>
+<div id="cell-9" class="cell" data-execution_count="49">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">6</span>), subplot_kw<span class="op">=</span><span class="bu">dict</span>(polar<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>N <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>k <span class="op">=</span> np.arange(<span class="dv">8</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>angles <span class="op">=</span> <span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">*</span> k <span class="op">*</span> <span class="dv">1</span> <span class="op">/</span> N </span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co"># for i in range(N):</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#     ax[i].plot([theta[i]]*2, [0, 1], lw=2, color="tab:red")</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co"># stems = ax.stem(theta, r)</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co"># for artist in stems.get_children():</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#     artist.set_clip_on(False)</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a>theta_ticks <span class="op">=</span> <span class="fl">2.0</span><span class="op">*</span>np.pi <span class="op">*</span> np.arange(<span class="dv">8</span>)<span class="op">/</span><span class="dv">8</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>theta_tick_labels <span class="op">=</span> [<span class="vs">r"$0,2\pi$"</span>,</span>
+<span id="cb4-16"><a href="#cb4-16"></a>                     <span class="vs">r"$\frac</span><span class="sc">{1}{8}</span><span class="vs">2\pi$"</span>,</span>
+<span id="cb4-17"><a href="#cb4-17"></a>                     <span class="vs">r"$\frac</span><span class="sc">{2}{8}</span><span class="vs">2\pi$"</span>,</span>
+<span id="cb4-18"><a href="#cb4-18"></a>                     <span class="vs">r"$\frac</span><span class="sc">{3}{8}</span><span class="vs">2\pi$"</span>,</span>
+<span id="cb4-19"><a href="#cb4-19"></a>                     <span class="vs">r"$\frac</span><span class="sc">{4}{8}</span><span class="vs">2\pi$"</span>,</span>
+<span id="cb4-20"><a href="#cb4-20"></a>                     <span class="vs">r"$\frac</span><span class="sc">{5}{8}</span><span class="vs">2\pi$"</span>,</span>
+<span id="cb4-21"><a href="#cb4-21"></a>                     <span class="vs">r"$\frac</span><span class="sc">{6}{8}</span><span class="vs">2\pi$"</span>,</span>
+<span id="cb4-22"><a href="#cb4-22"></a>                     <span class="vs">r"$\frac</span><span class="sc">{7}{8}</span><span class="vs">2\pi$"</span>,</span>
+<span id="cb4-23"><a href="#cb4-23"></a>                    ]</span>
+<span id="cb4-24"><a href="#cb4-24"></a></span>
+<span id="cb4-25"><a href="#cb4-25"></a>ax.<span class="bu">set</span>(yticks<span class="op">=</span>[],</span>
+<span id="cb4-26"><a href="#cb4-26"></a>       xticks<span class="op">=</span>theta_ticks,</span>
+<span id="cb4-27"><a href="#cb4-27"></a>       xticklabels<span class="op">=</span>theta_tick_labels,</span>
+<span id="cb4-28"><a href="#cb4-28"></a>       ylim<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="co"># # ax.set_xticks(theta_ticks, theta_tick_labels, pad=10)</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, which<span class="op">=</span><span class="st">'major'</span>, pad<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb4-31"><a href="#cb4-31"></a><span class="co"># ax.grid(False)</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="co"># # ax.set_clip_on(False)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="frequencies_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-10" class="cell" data-execution_count="56">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>N <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>r <span class="op">=</span> [<span class="dv">1</span>] <span class="op">*</span> N</span>
+<span id="cb5-3"><a href="#cb5-3"></a>k <span class="op">=</span> np.arange(<span class="dv">8</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>theta <span class="op">=</span> <span class="op">-</span><span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">*</span> k <span class="op">*</span> <span class="dv">1</span> <span class="op">/</span> N <span class="co">#np.arange(1,N+1) * 2.0 * np.pi / N</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a>fig, ax <span class="op">=</span> plt.subplots(N, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">30</span>, <span class="dv">10</span>), subplot_kw<span class="op">=</span><span class="bu">dict</span>(polar<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N):</span>
+<span id="cb5-9"><a href="#cb5-9"></a>    ax[i].plot([theta[i]]<span class="op">*</span><span class="dv">2</span>, [<span class="dv">0</span>, <span class="dv">1</span>], lw<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">"tab:red"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10"></a>    ax[i].<span class="bu">set</span>(yticks<span class="op">=</span>[],</span>
+<span id="cb5-11"><a href="#cb5-11"></a>              xticks<span class="op">=</span>theta_ticks,</span>
+<span id="cb5-12"><a href="#cb5-12"></a>              xticklabels<span class="op">=</span>[],</span>
+<span id="cb5-13"><a href="#cb5-13"></a>              ylim<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb5-14"><a href="#cb5-14"></a>    ax[i].text(np.pi, <span class="fl">1.5</span>, <span class="vs">fr"$k=</span><span class="sc">{</span>i<span class="sc">}</span><span class="vs">$"</span>, ha<span class="op">=</span><span class="st">"right"</span>, va<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb5-15"><a href="#cb5-15"></a></span>
+<span id="cb5-16"><a href="#cb5-16"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(title<span class="op">=</span><span class="vs">r"location of $x_1$"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17"></a></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>,<span class="dv">8</span>):</span>
+<span id="cb5-19"><a href="#cb5-19"></a>    ax[i].text(<span class="dv">0</span>, <span class="fl">1.5</span>, <span class="vs">fr"also $k=</span><span class="sc">{</span>i<span class="op">-</span><span class="dv">8</span><span class="sc">}</span><span class="vs">$"</span>, ha<span class="op">=</span><span class="st">"left"</span>, va<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb5-20"><a href="#cb5-20"></a></span>
+<span id="cb5-21"><a href="#cb5-21"></a></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co"># stems = ax.stem(theta, r)</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a><span class="co"># for artist in stems.get_children():</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#     artist.set_clip_on(False)</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="co"># theta_ticks = 2.0*np.pi * np.arange(8)/8</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a><span class="co"># theta_tick_labels = [r"$0,2\pi$",</span></span>
+<span id="cb5-28"><a href="#cb5-28"></a><span class="co">#                      r"$\frac{1}{8}2\pi$",</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#                      r"$\frac{2}{8}2\pi$",</span></span>
+<span id="cb5-30"><a href="#cb5-30"></a><span class="co">#                      r"$\frac{3}{8}2\pi$",</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#                      r"$\frac{4}{8}2\pi$",</span></span>
+<span id="cb5-32"><a href="#cb5-32"></a><span class="co">#                      r"$\frac{5}{8}2\pi$",</span></span>
+<span id="cb5-33"><a href="#cb5-33"></a><span class="co">#                      r"$\frac{6}{8}2\pi$",</span></span>
+<span id="cb5-34"><a href="#cb5-34"></a><span class="co">#                      r"$\frac{7}{8}2\pi$",</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a><span class="co">#                     ]</span></span>
+<span id="cb5-36"><a href="#cb5-36"></a></span>
+<span id="cb5-37"><a href="#cb5-37"></a></span>
+<span id="cb5-38"><a href="#cb5-38"></a><span class="co"># # ax.set_xticks(theta_ticks, theta_tick_labels, pad=10)</span></span>
+<span id="cb5-39"><a href="#cb5-39"></a><span class="co"># ax.tick_params(axis='x', which='major', pad=15)</span></span>
+<span id="cb5-40"><a href="#cb5-40"></a><span class="co"># ax.grid(False)</span></span>
+<span id="cb5-41"><a href="#cb5-41"></a><span class="co"># # ax.set_clip_on(False)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="frequencies_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="nyquistshannon-sampling-theorem" class="level2" data-number="43.3">
+<h2 data-number="43.3" class="anchored" data-anchor-id="nyquistshannon-sampling-theorem"><span class="header-section-number">43.3</span> Nyquist–Shannon sampling theorem</h2>
+<p>This part is partially based on <a href="https://www.allaboutcircuits.com/technical-articles/nyquist-shannon-theorem-understanding-sampled-systems/">All About Circuits</a>.</p>
+<p>We saw above that when sampling at a <span class="math inline">\Delta t</span>, the shortest possible period is <span class="math inline">2\Delta t</span>. This is the Nyquist rate.</p>
+<div class="alert alert-info">
+<p><strong>Theorem</strong></p>
+<p>If a system uniformly samples an analog signal at a rate that exceeds the signal’s highest frequency by at least a factor of two, the original analog signal can be perfectly recovered from the discrete values produced by sampling.</p>
+</div>
+<p>Conversely, we can negate the statement above, saying that:</p>
+<blockquote class="blockquote">
+<p>If we sample an analog signal at a frequency that is lower than the Nyquist rate, we will not be able to perfectly reconstruct the original signal.</p>
+</blockquote>
+<p>As an example, let’s sample a cosine wave whose frequency is 1 Hz at various sampling rates.</p>
+<div id="cell-12" class="cell" data-execution_count="92">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>dt_list <span class="op">=</span> [<span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.53</span>, <span class="fl">1.0</span>, <span class="fl">1.2</span>, <span class="fl">1.5</span>]</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="bu">len</span>(dt_list), <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">15</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a>T_total <span class="op">=</span> <span class="fl">6.0</span> <span class="co"># seconds</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a>func <span class="op">=</span> <span class="kw">lambda</span> t: np.cos(<span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">*</span> t)</span>
+<span id="cb6-8"><a href="#cb6-8"></a></span>
+<span id="cb6-9"><a href="#cb6-9"></a>t_high <span class="op">=</span> np.arange(<span class="dv">0</span>, T_total, <span class="fl">0.001</span>)</span>
+<span id="cb6-10"><a href="#cb6-10"></a>signal <span class="op">=</span> func(t_high)</span>
+<span id="cb6-11"><a href="#cb6-11"></a></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="cf">for</span> i, dt <span class="kw">in</span> <span class="bu">enumerate</span>(dt_list):</span>
+<span id="cb6-13"><a href="#cb6-13"></a>    time <span class="op">=</span> np.arange(<span class="dv">0</span>, T_total<span class="op">+</span>dt, dt)</span>
+<span id="cb6-14"><a href="#cb6-14"></a>    ax[i].plot(t_high, signal, color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb6-15"><a href="#cb6-15"></a>    c <span class="op">=</span> <span class="st">"tab:blue"</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a>    <span class="cf">if</span> dt <span class="op">&gt;</span> <span class="fl">0.5</span>: c <span class="op">=</span> <span class="st">"tab:red"</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a>    ax[i].plot(time, func(time), lw<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span>c)</span>
+<span id="cb6-18"><a href="#cb6-18"></a>    ax[i].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="vs">fr"$\Delta t = </span><span class="sc">{</span>dt<span class="sc">}</span><span class="vs">$"</span>)</span>
+<span id="cb6-19"><a href="#cb6-19"></a>    text <span class="op">=</span> <span class="vs">r"$f_</span><span class="sc">{sample}</span><span class="vs">$"</span><span class="op">+</span><span class="vs">rf"=</span><span class="sc">{</span><span class="dv">1</span><span class="op">/</span>dt<span class="sc">:.2f}</span><span class="vs">"</span><span class="op">+</span><span class="vs">r" $f_</span><span class="sc">{signal}</span><span class="vs">$"</span><span class="op">+</span><span class="ss">f"</span><span class="ch">\n</span><span class="sc">{</span><span class="dv">1</span><span class="op">/</span>dt<span class="sc">:.2f}</span><span class="ss"> points per period"</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a>    ax[i].text(<span class="fl">1.02</span>, <span class="fl">0.50</span>, text, transform<span class="op">=</span>ax[i].transAxes,</span>
+<span id="cb6-21"><a href="#cb6-21"></a>         horizontalalignment<span class="op">=</span><span class="st">'left'</span>, verticalalignment<span class="op">=</span><span class="st">'center'</span>,)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="frequencies_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Sampling at a <span class="math inline">\Delta t</span> greater than 0.5</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1165,13 +1536,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../frequency/filtering.html" class="pagination-link" aria-label="filtering">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">filtering</span></span>
+      <a href="../frequency/sound.html" class="pagination-link" aria-label="sound &amp; music">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">sound &amp; music</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../frequency/fft_practice_temperature.html" class="pagination-link" aria-label="practice 1">
-        <span class="nav-page-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">practice 1</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../frequency/filtering.html" class="pagination-link" aria-label="filtering">
+        <span class="nav-page-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">filtering</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

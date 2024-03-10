@@ -75,8 +75,8 @@ book:
         - frequency/fourier.ipynb
         - frequency/dft-and-fft.ipynb
         - frequency/sound.ipynb
-        - frequency/filtering.qmd
-        - frequency/nyquist.qmd
+        - frequency/frequencies.ipynb
+        - frequency/filtering.ipynb
         - frequency/fft_practice_temperature.ipynb
         - frequency/fft_practice_stomata.ipynb
         - frequency/fft_practice_stayin_alive.ipynb
