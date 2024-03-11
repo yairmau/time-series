@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -70,7 +104,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-</head><body class="nav-sidebar floating"><div id="progress-bar" style="width: 0%; height:4px; background-color: rgb(89 127 235);; position: fixed; top: 0px; z-index: 2000;"></div>
+</head><body class="nav-sidebar floating slimcontent"><div id="progress-bar" style="width: 0%; height:4px; background-color: rgb(89 127 235);; position: fixed; top: 0px; z-index: 2000;"></div>
 
 <script id="progressbar" type="text/javascript">
 
@@ -88,6 +122,49 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 
 
@@ -514,6 +591,24 @@ document.addEventListener("DOMContentLoaded", function() {
  <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">practice 3</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/filtering_temp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">filtering 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/filtering_scipy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">filtering 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/filtering_hummus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">filtering 3</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -528,31 +623,31 @@ document.addEventListener("DOMContentLoaded", function() {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">finite differences</span></span></a>
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">finite differences</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
   </div>
 </li>
       </ul>
@@ -569,13 +664,13 @@ document.addEventListener("DOMContentLoaded", function() {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
   </div>
 </li>
       </ul>
@@ -592,19 +687,19 @@ document.addEventListener("DOMContentLoaded", function() {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../assignments/assignment1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">assignment 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">assignment 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../assignments/assignment2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">assignment 2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">assignment 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../assignments/assignment3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">assignment 3</span></span></a>
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">assignment 3</span></span></a>
   </div>
 </li>
       </ul>
@@ -621,25 +716,25 @@ document.addEventListener("DOMContentLoaded", function() {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">sources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">sources</span></span></a>
   </div>
 </li>
       </ul>
@@ -656,31 +751,31 @@ document.addEventListener("DOMContentLoaded", function() {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/consecutive_sequence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/outliers_graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -697,14 +792,20 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#decibels" id="toc-decibels" class="nav-link active" data-scroll-target="#decibels"><span class="header-section-number">44.1</span> decibels</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../frequency/motivation.html">frequency</a></li><li class="breadcrumb-item"><a href="../frequency/filtering.html"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">filtering</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">filtering</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/frequency/filtering.ipynb"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">filtering</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/frequency/filtering.ipynb">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -721,8 +822,279 @@ document.addEventListener("DOMContentLoaded", function() {
 </header>
 
 
+<p>Let’s say we have a signal with some noise that we want to filter out. How would we do that using Fourier transforms?</p>
+<div id="cell-2" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>import stuff</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-5"><a href="#cb1-5"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> math</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> scipy</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-3" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>dt <span class="op">=</span> <span class="fl">0.02</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>time <span class="op">=</span> np.arange(<span class="dv">0</span>,<span class="dv">100</span>,dt)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>N <span class="op">=</span> <span class="bu">len</span>(time)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>period <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>signal <span class="op">=</span> np.sin(<span class="fl">2.0</span><span class="op">*</span>np.pi<span class="op">*</span>time<span class="op">/</span>period) <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> (np.random.random(N)<span class="op">-</span><span class="fl">0.5</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a>fft <span class="op">=</span> scipy.fft.fft(signal)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>xi <span class="op">=</span> scipy.fft.fftfreq(N, dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-4" class="cell" data-execution_count="80">
+<details class="code-fold">
+<summary>show signal and its power spectrum</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">8</span>))</span>
+<span id="cb3-2"><a href="#cb3-2"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.30</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>ax[<span class="dv">0</span>].plot(time[:N<span class="op">//</span><span class="dv">10</span>], signal[:N<span class="op">//</span><span class="dv">10</span>])</span>
+<span id="cb3-4"><a href="#cb3-4"></a>ax[<span class="dv">1</span>].plot(xi[:N<span class="op">//</span><span class="dv">20</span>], np.<span class="bu">abs</span>(fft[:N<span class="op">//</span><span class="dv">20</span>]))</span>
+<span id="cb3-5"><a href="#cb3-5"></a>ax[<span class="dv">1</span>].set_yscale(<span class="st">'log'</span>)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"time (s)"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7"></a>          ylabel<span class="op">=</span><span class="st">"signal"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"frequency (Hz)"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9"></a>          ylabel<span class="op">=</span><span class="st">"|F|"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="filtering_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can get rid of the fast variations in the signal by eliminating all high frequencies in the Fourier transform. The simplest way to do that is determining a cut-off frequency, and zeroing out the Fourier transform corresponding to frequencies higher than the cut off.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Also eliminate frequencies lower than negative cut off! This is important!</p>
+</div></div><div id="cell-6" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>cutoff <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># apply low pass filter</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>mask <span class="op">=</span> np.where( (xi<span class="op">&gt;</span>cutoff) <span class="op">|</span> (xi<span class="op">&lt;-</span>cutoff) )</span>
+<span id="cb4-4"><a href="#cb4-4"></a>fft_filtered <span class="op">=</span> fft.copy()</span>
+<span id="cb4-5"><a href="#cb4-5"></a>fft_filtered[mask] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co"># reconstitute signal using inverse Fourier transform</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>signal_filtered <span class="op">=</span> np.fft.ifft(fft_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-7" class="cell" data-execution_count="81">
+<details class="code-fold">
+<summary>original vs.&nbsp;filtered</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">8</span>))</span>
+<span id="cb5-2"><a href="#cb5-2"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.30</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>ax[<span class="dv">0</span>].plot(time[:N<span class="op">//</span><span class="dv">10</span>], signal[:N<span class="op">//</span><span class="dv">10</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"original"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>ax[<span class="dv">0</span>].plot(time[:N<span class="op">//</span><span class="dv">10</span>], signal_filtered[:N<span class="op">//</span><span class="dv">10</span>], color<span class="op">=</span><span class="st">"tab:orange"</span>, lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"filtered"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5"></a>ax[<span class="dv">0</span>].legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-6"><a href="#cb5-6"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"time (s)"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7"></a>          ylabel<span class="op">=</span><span class="st">"signal"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a>ax[<span class="dv">1</span>].plot(xi[:N<span class="op">//</span><span class="dv">20</span>], np.<span class="bu">abs</span>(fft[:N<span class="op">//</span><span class="dv">20</span>]))</span>
+<span id="cb5-10"><a href="#cb5-10"></a>ax[<span class="dv">1</span>].plot(xi[:N<span class="op">//</span><span class="dv">20</span>], np.<span class="bu">abs</span>(fft_filtered[:N<span class="op">//</span><span class="dv">20</span>]))</span>
+<span id="cb5-11"><a href="#cb5-11"></a></span>
+<span id="cb5-12"><a href="#cb5-12"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"frequency (Hz)"</span>,</span>
+<span id="cb5-13"><a href="#cb5-13"></a>          ylabel<span class="op">=</span><span class="st">"|F|"</span>)<span class="op">;</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>ax[<span class="dv">1</span>].set_yscale(<span class="st">'log'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="filtering_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We applied above a “low pass” filter, because we let all the low frequencies pass, and eliminated the higher frequencies. Within signal processing, there are four primary types of filters commonly employed, each serving a unique purpose in shaping the signal’s characteristics.</p>
+<ol type="1">
+<li><p><strong>Lowpass Filter</strong>: A lowpass filter allows signals with a frequency lower than a certain cutoff frequency to pass through while attenuating (reducing) the components of the signal that have frequencies higher than this cutoff frequency. It’s used to remove high-frequency noise or to extract the low-frequency components of a signal.</p></li>
+<li><p><strong>Highpass Filter</strong>: A highpass filter does the opposite of a lowpass filter. It allows signals with a frequency higher than a certain cutoff frequency to pass while attenuating signals with frequencies lower than the cutoff frequency. This type of filter is useful for removing low-frequency noise or to isolate high-frequency components.</p></li>
+<li><p><strong>Bandpass Filter</strong>: A bandpass filter allows signals within a certain frequency range (between a lower and an upper cutoff frequency) to pass through while attenuating signals outside this range. It’s used to isolate a specific frequency band from a broader spectrum of frequencies.</p></li>
+<li><p><strong>Bandstop Filter (Notch Filter)</strong>: A bandstop filter, also known as a notch filter, attenuates signals within a specific frequency range while allowing signals outside this range to pass through relatively unaffected. This type of filter is useful for eliminating unwanted frequencies or noise from a signal without significantly affecting the other components of the signal.</p></li>
+</ol>
+<div id="cell-9" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>ideal filter responses</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">8</span>), sharex<span class="op">=</span><span class="va">True</span>, sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>fr <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">101</span>)</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a>plot_dict <span class="op">=</span> {<span class="st">'lw'</span>:<span class="dv">3</span>, <span class="st">'color'</span>:<span class="st">'tab:red'</span>}</span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co"># panel (0,0)</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>cutoff_lp <span class="op">=</span> <span class="fl">5.0</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>gain_lp <span class="op">=</span> np.ones_like(fr)</span>
+<span id="cb6-10"><a href="#cb6-10"></a>mask <span class="op">=</span> np.where(fr<span class="op">&gt;</span>cutoff_lp)</span>
+<span id="cb6-11"><a href="#cb6-11"></a>gain_lp[mask] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].plot(fr, gain_lp, <span class="op">**</span>plot_dict)</span>
+<span id="cb6-13"><a href="#cb6-13"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].text(<span class="fl">2.5</span>,<span class="fl">1.05</span>, <span class="st">"passband"</span>, ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb6-14"><a href="#cb6-14"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].text(<span class="fl">7.5</span>,<span class="fl">1.05</span>, <span class="st">"stop band"</span>, ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb6-15"><a href="#cb6-15"></a></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co"># panel (0,1)</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a>cutoff_hp <span class="op">=</span> <span class="fl">5.0</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a>gain_hp <span class="op">=</span> np.ones_like(fr)</span>
+<span id="cb6-19"><a href="#cb6-19"></a>mask <span class="op">=</span> np.where(fr<span class="op">&lt;</span>cutoff_hp)</span>
+<span id="cb6-20"><a href="#cb6-20"></a>gain_hp[mask] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a>ax[<span class="dv">0</span>,<span class="dv">1</span>].plot(fr, gain_hp, <span class="op">**</span>plot_dict)</span>
+<span id="cb6-22"><a href="#cb6-22"></a>ax[<span class="dv">0</span>,<span class="dv">1</span>].text(<span class="fl">2.5</span>,<span class="fl">1.05</span>, <span class="st">"stop band"</span>, ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb6-23"><a href="#cb6-23"></a>ax[<span class="dv">0</span>,<span class="dv">1</span>].text(<span class="fl">7.5</span>,<span class="fl">1.05</span>, <span class="st">"passband"</span>, ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb6-24"><a href="#cb6-24"></a></span>
+<span id="cb6-25"><a href="#cb6-25"></a>cutoff_1 <span class="op">=</span> <span class="fl">4.0</span></span>
+<span id="cb6-26"><a href="#cb6-26"></a>cutoff_2 <span class="op">=</span> <span class="fl">6.0</span></span>
+<span id="cb6-27"><a href="#cb6-27"></a>gain_bp <span class="op">=</span> np.ones_like(fr)</span>
+<span id="cb6-28"><a href="#cb6-28"></a>mask <span class="op">=</span> np.where( (fr<span class="op">&lt;</span>cutoff_1) <span class="op">|</span> (fr<span class="op">&gt;</span>cutoff_2) )</span>
+<span id="cb6-29"><a href="#cb6-29"></a>gain_bp[mask] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb6-30"><a href="#cb6-30"></a>ax[<span class="dv">1</span>,<span class="dv">0</span>].plot(fr, gain_bp, <span class="op">**</span>plot_dict)</span>
+<span id="cb6-31"><a href="#cb6-31"></a></span>
+<span id="cb6-32"><a href="#cb6-32"></a>gain_bs <span class="op">=</span> np.ones_like(fr)</span>
+<span id="cb6-33"><a href="#cb6-33"></a>mask <span class="op">=</span> np.where( (fr<span class="op">&gt;</span>cutoff_1) <span class="op">&amp;</span> (fr<span class="op">&lt;</span>cutoff_2) )</span>
+<span id="cb6-34"><a href="#cb6-34"></a>gain_bs[mask] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb6-35"><a href="#cb6-35"></a>ax[<span class="dv">1</span>,<span class="dv">1</span>].plot(fr, gain_bs, <span class="op">**</span>plot_dict)</span>
+<span id="cb6-36"><a href="#cb6-36"></a></span>
+<span id="cb6-37"><a href="#cb6-37"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"gain"</span>,</span>
+<span id="cb6-38"><a href="#cb6-38"></a>            ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.2</span>],</span>
+<span id="cb6-39"><a href="#cb6-39"></a>            yticks<span class="op">=</span>[<span class="dv">0</span>,<span class="dv">1</span>],</span>
+<span id="cb6-40"><a href="#cb6-40"></a>            xticks<span class="op">=</span>[],</span>
+<span id="cb6-41"><a href="#cb6-41"></a>            title <span class="op">=</span> <span class="st">"low pass"</span>)</span>
+<span id="cb6-42"><a href="#cb6-42"></a>ax[<span class="dv">0</span>,<span class="dv">1</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"high pass"</span>)</span>
+<span id="cb6-43"><a href="#cb6-43"></a>ax[<span class="dv">1</span>,<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"gain"</span>,</span>
+<span id="cb6-44"><a href="#cb6-44"></a>            xlabel<span class="op">=</span><span class="st">"frequency"</span>,</span>
+<span id="cb6-45"><a href="#cb6-45"></a>            title <span class="op">=</span> <span class="st">"band pass"</span></span>
+<span id="cb6-46"><a href="#cb6-46"></a>            )</span>
+<span id="cb6-47"><a href="#cb6-47"></a>ax[<span class="dv">1</span>,<span class="dv">1</span>].<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"frequency"</span>,</span>
+<span id="cb6-48"><a href="#cb6-48"></a>            title <span class="op">=</span> <span class="st">"band stop"</span></span>
+<span id="cb6-49"><a href="#cb6-49"></a>            )</span>
+<span id="cb6-50"><a href="#cb6-50"></a></span>
+<span id="cb6-51"><a href="#cb6-51"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].spines[[<span class="st">'right'</span>, <span class="st">'top'</span>]].set_visible(<span class="va">False</span>)</span>
+<span id="cb6-52"><a href="#cb6-52"></a>ax[<span class="dv">0</span>,<span class="dv">1</span>].spines[[<span class="st">'right'</span>, <span class="st">'top'</span>]].set_visible(<span class="va">False</span>)</span>
+<span id="cb6-53"><a href="#cb6-53"></a>ax[<span class="dv">1</span>,<span class="dv">0</span>].spines[[<span class="st">'right'</span>, <span class="st">'top'</span>]].set_visible(<span class="va">False</span>)</span>
+<span id="cb6-54"><a href="#cb6-54"></a>ax[<span class="dv">1</span>,<span class="dv">1</span>].spines[[<span class="st">'right'</span>, <span class="st">'top'</span>]].set_visible(<span class="va">False</span>)</span>
+<span id="cb6-55"><a href="#cb6-55"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].grid()</span>
+<span id="cb6-56"><a href="#cb6-56"></a>ax[<span class="dv">0</span>,<span class="dv">1</span>].grid()</span>
+<span id="cb6-57"><a href="#cb6-57"></a>ax[<span class="dv">1</span>,<span class="dv">0</span>].grid()</span>
+<span id="cb6-58"><a href="#cb6-58"></a>ax[<span class="dv">1</span>,<span class="dv">1</span>].grid()</span>
+<span id="cb6-59"><a href="#cb6-59"></a></span>
+<span id="cb6-60"><a href="#cb6-60"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].annotate(</span>
+<span id="cb6-61"><a href="#cb6-61"></a>    <span class="st">"cut-off freq."</span>,</span>
+<span id="cb6-62"><a href="#cb6-62"></a>    xy<span class="op">=</span>(cutoff_lp<span class="op">+</span><span class="fl">0.2</span>, <span class="dv">0</span>),  xycoords<span class="op">=</span><span class="st">'data'</span>,</span>
+<span id="cb6-63"><a href="#cb6-63"></a>    xytext<span class="op">=</span>(<span class="dv">30</span>, <span class="dv">40</span>), textcoords<span class="op">=</span><span class="st">'offset points'</span>,</span>
+<span id="cb6-64"><a href="#cb6-64"></a>    bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">"round4,pad=.5"</span>, fc<span class="op">=</span><span class="st">"white"</span>),</span>
+<span id="cb6-65"><a href="#cb6-65"></a>    arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">"-&gt;"</span>,</span>
+<span id="cb6-66"><a href="#cb6-66"></a>                    color<span class="op">=</span><span class="st">"black"</span>, lw<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb6-67"><a href="#cb6-67"></a>                    connectionstyle<span class="op">=</span><span class="st">"angle,angleA=0,angleB=60,rad=40"</span>))</span>
+<span id="cb6-68"><a href="#cb6-68"></a></span>
+<span id="cb6-69"><a href="#cb6-69"></a>ax[<span class="dv">0</span>,<span class="dv">1</span>].annotate(</span>
+<span id="cb6-70"><a href="#cb6-70"></a>    <span class="st">"cut-off freq."</span>,</span>
+<span id="cb6-71"><a href="#cb6-71"></a>    xy<span class="op">=</span>(cutoff_hp<span class="op">+</span><span class="fl">0.2</span>, <span class="dv">0</span>),  xycoords<span class="op">=</span><span class="st">'data'</span>,</span>
+<span id="cb6-72"><a href="#cb6-72"></a>    xytext<span class="op">=</span>(<span class="dv">30</span>, <span class="dv">40</span>), textcoords<span class="op">=</span><span class="st">'offset points'</span>,</span>
+<span id="cb6-73"><a href="#cb6-73"></a>    bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">"round4,pad=.5"</span>, fc<span class="op">=</span><span class="st">"white"</span>),</span>
+<span id="cb6-74"><a href="#cb6-74"></a>    arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">"-&gt;"</span>,</span>
+<span id="cb6-75"><a href="#cb6-75"></a>                    color<span class="op">=</span><span class="st">"black"</span>, lw<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb6-76"><a href="#cb6-76"></a>                    connectionstyle<span class="op">=</span><span class="st">"angle,angleA=0,angleB=60,rad=40"</span>))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="filtering_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="decibels" class="level2 page-columns page-full" data-number="44.1">
+<h2 data-number="44.1" class="anchored" data-anchor-id="decibels"><span class="header-section-number">44.1</span> decibels</h2>
+<p>It is quite easy to apply a low pass filter as in the figure above, but that introduces problems down the road (more on that later). Usually, softer functions are used as filters, such as the ubiquitous <strong>first-order low pass frequency response</strong>:</p>
+<p><span class="math display">
+\text{Gain} = \frac{1}{\sqrt{1+(\xi/\xi_c)^2}}
+</span></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>For example, this appears as the response of a simple <a href="https://en.wikipedia.org/wiki/RC_circuit#Series_circuit">RC electric circuit</a>. Also, this is a particular instance of the <a href="https://en.wikipedia.org/wiki/Butterworth_filter">Butterworth filter</a> (order <span class="math inline">n=1</span>).</p>
+</div></div><div id="cell-11" class="cell" data-execution_count="83">
+<details class="code-fold">
+<summary>first-order low pass filter, gain response</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">4</span>))</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a>fr <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">5000</span>,<span class="dv">1001</span>)</span>
+<span id="cb7-4"><a href="#cb7-4"></a>plot_dict <span class="op">=</span> {<span class="st">'lw'</span>:<span class="dv">3</span>, <span class="st">'color'</span>:<span class="st">'tab:red'</span>}</span>
+<span id="cb7-5"><a href="#cb7-5"></a>cutoff_lp <span class="op">=</span> <span class="fl">500.0</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>H <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> np.sqrt(<span class="fl">1.0</span> <span class="op">+</span> (fr<span class="op">/</span>cutoff_lp)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb7-7"><a href="#cb7-7"></a>dB <span class="op">=</span> <span class="fl">20.0</span> <span class="op">*</span> np.log10(H)</span>
+<span id="cb7-8"><a href="#cb7-8"></a>ax[<span class="dv">0</span>].plot(fr, H, <span class="op">**</span>plot_dict)</span>
+<span id="cb7-9"><a href="#cb7-9"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(xlim<span class="op">=</span>[fr.<span class="bu">min</span>(), fr.<span class="bu">max</span>()],</span>
+<span id="cb7-10"><a href="#cb7-10"></a>          ylim<span class="op">=</span>[<span class="dv">0</span>,<span class="fl">1.1</span>],</span>
+<span id="cb7-11"><a href="#cb7-11"></a>          yticks<span class="op">=</span>[<span class="dv">0</span>,<span class="fl">0.5</span>,<span class="fl">1.0</span>],</span>
+<span id="cb7-12"><a href="#cb7-12"></a>          xlabel<span class="op">=</span><span class="st">"freq (Hz)"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13"></a>          ylabel<span class="op">=</span><span class="st">"gain"</span>,</span>
+<span id="cb7-14"><a href="#cb7-14"></a>          title<span class="op">=</span><span class="st">"linear-linear plot"</span>)</span>
+<span id="cb7-15"><a href="#cb7-15"></a>xlim_lin <span class="op">=</span> ax[<span class="dv">0</span>].get_xlim()</span>
+<span id="cb7-16"><a href="#cb7-16"></a>ax[<span class="dv">0</span>].plot(xlim_lin, [<span class="dv">1</span><span class="op">/</span>np.sqrt(<span class="dv">2</span>)]<span class="op">*</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">"tab:blue"</span>)</span>
+<span id="cb7-17"><a href="#cb7-17"></a>ax[<span class="dv">0</span>].text(<span class="op">-</span><span class="dv">100</span>, <span class="dv">1</span><span class="op">/</span>np.sqrt(<span class="dv">2</span>), <span class="vs">r"$\frac</span><span class="sc">{1}</span><span class="vs">{\sqrt</span><span class="sc">{2}</span><span class="vs">}$"</span>, ha<span class="op">=</span><span class="st">"right"</span>, color<span class="op">=</span><span class="st">"tab:blue"</span>)</span>
+<span id="cb7-18"><a href="#cb7-18"></a>ax[<span class="dv">0</span>].text(cutoff_lp, <span class="fl">0.5</span><span class="op">/</span>np.sqrt(<span class="dv">2</span>), <span class="st">"cut-off"</span>, rotation<span class="op">=</span><span class="st">"vertical"</span>, ha<span class="op">=</span><span class="st">"left"</span>, va<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb7-19"><a href="#cb7-19"></a>ax[<span class="dv">0</span>].plot([cutoff_lp]<span class="op">*</span><span class="dv">2</span>, [<span class="dv">0</span>, <span class="dv">1</span><span class="op">/</span>np.sqrt(<span class="dv">2</span>)], color<span class="op">=</span><span class="st">"tab:gray"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="co"># ax[0].grid()</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a></span>
+<span id="cb7-22"><a href="#cb7-22"></a></span>
+<span id="cb7-23"><a href="#cb7-23"></a>ax[<span class="dv">1</span>].plot(fr, dB, <span class="op">**</span>plot_dict)</span>
+<span id="cb7-24"><a href="#cb7-24"></a>ax[<span class="dv">1</span>].set_xscale(<span class="st">"log"</span>)</span>
+<span id="cb7-25"><a href="#cb7-25"></a>ax[<span class="dv">1</span>].yaxis.tick_right()</span>
+<span id="cb7-26"><a href="#cb7-26"></a>ax[<span class="dv">1</span>].yaxis.set_label_position(<span class="st">"right"</span>)</span>
+<span id="cb7-27"><a href="#cb7-27"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"power gain (dB)"</span>,</span>
+<span id="cb7-28"><a href="#cb7-28"></a>          xlabel<span class="op">=</span><span class="st">"freq (Hz)"</span>,</span>
+<span id="cb7-29"><a href="#cb7-29"></a>          xlim<span class="op">=</span>[<span class="fl">1e-1</span>,<span class="fl">1e4</span>],</span>
+<span id="cb7-30"><a href="#cb7-30"></a>          ylim<span class="op">=</span>[<span class="op">-</span><span class="dv">20</span>,<span class="dv">2</span>],</span>
+<span id="cb7-31"><a href="#cb7-31"></a>          title<span class="op">=</span><span class="st">"log-log plot"</span>)</span>
+<span id="cb7-32"><a href="#cb7-32"></a><span class="co"># ax[1].grid()</span></span>
+<span id="cb7-33"><a href="#cb7-33"></a>xlim_log <span class="op">=</span> ax[<span class="dv">1</span>].get_xlim()</span>
+<span id="cb7-34"><a href="#cb7-34"></a>ax[<span class="dv">1</span>].plot(xlim_log, [<span class="op">-</span><span class="dv">3</span>]<span class="op">*</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">"tab:blue"</span>)</span>
+<span id="cb7-35"><a href="#cb7-35"></a>ax[<span class="dv">1</span>].text(<span class="fl">0.5</span>, <span class="op">-</span><span class="dv">3</span><span class="op">+</span><span class="fl">0.2</span>, <span class="st">"-3 dB"</span>, color<span class="op">=</span><span class="st">"tab:blue"</span>)</span>
+<span id="cb7-36"><a href="#cb7-36"></a>ax[<span class="dv">1</span>].text(cutoff_lp, <span class="op">-</span><span class="dv">10</span>, <span class="st">"cut-off"</span>, rotation<span class="op">=</span><span class="st">"vertical"</span>, ha<span class="op">=</span><span class="st">"right"</span>, va<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb7-37"><a href="#cb7-37"></a>ax[<span class="dv">1</span>].plot([cutoff_lp]<span class="op">*</span><span class="dv">2</span>, [<span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">30</span>], color<span class="op">=</span><span class="st">"tab:gray"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="filtering_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The cut-off frequency is roughly at the elbow in the graph on the right, and traditionally it is identified with a power gain of -3 dB. <strong>What does that mean?!</strong></p>
+<p>Decibels are <strong>defined</strong> as the following expression of two powers:</p>
+<p><span class="math display">
+\text{dB} = 10\log_{10} \left( \frac{P}{P_0} \right),
+</span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">P</span> is the power being measuered</li>
+<li><span class="math inline">P_0</span> is a reference power level</li>
+</ul>
+<p>Because powers are the square of the amplitude of a signal (let’s call this amplitude <span class="math inline">V</span>), we can rewrite the definition as:</p>
+<p><span class="math display">
+\text{dB} = 10\log_{10} \left( \frac{V^2}{V_0^2} \right) = 20\log_{10} \left( \frac{V}{V_0} \right),
+</span></p>
+<p>The expression above is the famous one.</p>
+<p>The cut-off frequency is usually considered that for which the ratio of powers drops to 1/2:</p>
+<p><span class="math display">
+\frac{P}{P_0}=\frac{1}{2}\longrightarrow \left(\frac{V}{V_0}\right)^2=\frac{1}{2}\longrightarrow \frac{V}{V_0}=\frac{1}{\sqrt{2}}
+</span></p>
+<p>That is the value that we see on the graph on the left. What about the value on the graph on the right? Let’s substitute <span class="math inline">\frac{P}{P_0}=\frac{1}{2}</span> in the definition of the decibel:</p>
+<p><span class="math display">
+\text{dB} = 10\log_{10} \left( \frac{1}{2} \right) \simeq -3,
+</span></p>
+<p>Voilà! -3 dB is the value for the cut-off we see on the right!</p>
+<div id="cell-13" class="cell" data-execution_count="84">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="dv">10</span><span class="op">*</span>np.log10(<span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="84">
+<pre><code>-3.010299956639812</code></pre>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
