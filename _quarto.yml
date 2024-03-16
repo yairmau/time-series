@@ -87,8 +87,7 @@ book:
     - part: "rates of change"
       chapters:
         - rates-of-change/motivation.ipynb
-        - rates-of-change/derivatives.qmd
-        - rates-of-change/finite-differences.qmd
+        - rates-of-change/finite-differences.ipynb
         - rates-of-change/fourier-based-derivatives.qmd
         - rates-of-change/LOESS-based-derivatives.qmd
     - part: "forecasting"

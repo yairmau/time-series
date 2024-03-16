@@ -1,6 +1,9 @@
 ## motivation
 
-I used multiple sources for this lesson. The most noteworthy are:
+I used multiple sources for this lesson. The most noteworthy are these.
 
-* [Liz O'Gorman's "Decomposing Fourier transforms — an introduction to time-frequency decomposition"](https://dibsmethodsmeetings.github.io/fourier-transforms/)
-* [Jez Swanson's "An Interactive Introduction to Fourier Transforms"](https://www.jezzamon.com/fourier/index.html)
+[Jez Swanson's "An Interactive Introduction to Fourier Transforms"](https://www.jezzamon.com/fourier/index.html).  
+Truly amazing website. Start here.
+
+[Liz O'Gorman's "Decomposing Fourier transforms — an introduction to time-frequency decomposition"](https://dibsmethodsmeetings.github.io/fourier-transforms/)  
+This is excellent. A balanced combination of theory and coding for the beginner.
