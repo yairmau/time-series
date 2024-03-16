@@ -1,5 +1,0 @@
-## Fourier-based derivatives
-
-This tutorial is based on @pelliccia2019fourier.
-
-nice trick: <https://math.stackexchange.com/questions/430858/fourier-transform-of-derivative>
