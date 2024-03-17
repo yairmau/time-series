@@ -90,6 +90,7 @@ book:
         - rates-of-change/finite-differences.ipynb
         - rates-of-change/fourier-based-derivatives.ipynb
         - rates-of-change/LOESS-based-derivatives.ipynb
+        - rates-of-change/does-order-matter.ipynb
     - part: "forecasting"
       chapters:
         - forecasting/motivation.qmd
