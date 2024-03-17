@@ -1,0 +1,120 @@
+## final project
+
+In this final project, you have the opportunity to explore and analyze a dataset of your choosing. This project is designed to apply and showcase the skills you've acquired in this class. 
+
+## dataset selection
+
+Although this is class is for "Environment" students and we like environmental data, we are open to all types of time series, be it stock market, audio, economy, demography, etc. The most important thing should be that you find it interesting. So, you are free to choose whatever time series dataset you want as long as it meets the following criteria: 
+
+1. Real Data - The dataset must be composed of real, authentic data.
+1. Appropriate Size: It should be sufficiently large to support meaningful analysis, with a recommended **minimum** being equal to a 3-year meteorological dataset featuring 4 variables (e.g., temperature, humidity) sampled bi-hourly.
+1. Uniqueness: To ensure a diverse range of projects, your dataset should not duplicate another student's choice exactly. Variations of similar data types (e.g., weather data from different locations or periods) are acceptable.
+
+### data approval
+The whole project is based on the dataset you choose, and we want to make sure you chose a fitting dataset. So you are required to upload to the moodle a half-page description of your dataset and the basic analyses you with to accomplish. It should include description of the subject, the size (number of rows and columns), the source, and the basic tools you will be using. Should be in `.pdf` format. If the dataset is not too large you can upload it as well.
+
+**The deadline for this is March 26th**.  Late submissions will be penalized with minus 10 points.
+
+
+## Technical Requirements
+
+Your analysis must include techniques from each of the following pools.
+
+**ATTENTION!** You don't need to do each analysis in the order they are listed below. Each analysis should be included in the report according to your best judgement. Where does it fit best? Don't deliver a supermarket list of analyses, try to integrate the different tools inside a coherent story you are telling us.
+
+### Pool 1: implement at least 3
+
+Resampling
+
+* down sampling
+* up sampling
+
+Smoothing
+
+* moving average with a well-chosen kernel
+* LOESS (Savitzky-Golay)
+* FFT
+
+### Pool 2: implement at least 3
+
+Outlier identification
+
+* visual 
+* sliding windows (Z-score, IQR, MAD, etc)
+
+Gap filling
+
+* interpolation
+* advanced (SARIMAX, Randomforest, etc.)
+
+### Pool 3: implement at least 5
+
+Seasonal decomposition and frequencies
+
+* classic (additive or multiplicative)
+* decompose by FFT filtering
+* frequency analysis: FFT
+
+Lags
+
+* cross correlation
+* DTW
+
+Derivative
+
+* gradient
+* using FFT
+* using LOESS
+
+### Pool 4: implement all
+
+Study your signal.  
+Don't do that for the whole dataset. Choose a particular signal and characterize it.
+
+* Stationarity
+* ACF
+* PACF
+* ARIMA
+    * define order
+    * generate synthetic time series
+
+
+
+
+## Project Objectives
+
+The primary goal is to derive insights from your dataset using the analytical tools covered in the course. 
+
+> The purpose of computing is insight, not numbers.  
+  — Richard Hamming
+
+Make sure you follow the spirit of the quote above. Tell us what is interesting about your dataset, and what questions you wish to answer with the tools learned in this course.
+
+> Computers are useless. They can only give you answers.  
+  — Pablo Picasso
+
+We don't want a mindless string of numbers and graphs. We want a story.
+
+## Report Structure
+
+Your final report should include:
+
+* **Introduction:** Describe the chosen dataset, including its source and significance.
+* **Exploratory Analysis:** Present an initial exploration of the data.
+* **Detailed Analysis:** Divide this section into subsections, each addressing a specific question. For each question, describe the analysis performed, present your findings, and include relevant figures.
+* **Conclusions and Pitfalls:** Summarize your findings and describe the difficulties you encountered when analyzing your data, and how you solved them.
+
+### What to submit
+
+1. A written report in `.pdf` format.
+1. An `.ipynb` file with your complete code. Should be full of comments and executable with no errors.  
+**NOTE!** This is not a coding class and we will not grade your code, anyway we do want to see it and will appreciate if it is well written and organized.
+1. The dataset, preferably in `.csv` format.
+
+### When to submit
+
+Reports are due on April 21st.
+
+### How to submit
+
+Via the course’s Moodle (under the ‘Final Projects’ section).

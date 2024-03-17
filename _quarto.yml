@@ -89,7 +89,7 @@ book:
         - rates-of-change/motivation.ipynb
         - rates-of-change/finite-differences.ipynb
         - rates-of-change/fourier-based-derivatives.ipynb
-        - rates-of-change/LOESS-based-derivatives.qmd
+        - rates-of-change/LOESS-based-derivatives.ipynb
     - part: "forecasting"
       chapters:
         - forecasting/motivation.qmd
@@ -99,7 +99,7 @@ book:
         - assignments/assignment1.qmd
         - assignments/assignment2.ipynb
         - assignments/assignment3.ipynb
-        # - assignments/assignment_final.qmd
+        - assignments/final-project.qmd
     - part: "technical stuff"
       chapters:
         - technical-stuff/technical-stuff.qmd

@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -108,6 +142,49 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 
 
@@ -639,6 +716,12 @@ document.addEventListener("DOMContentLoaded", function() {
  <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">assignment 3</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/final-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">final project</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -653,25 +736,25 @@ document.addEventListener("DOMContentLoaded", function() {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">sources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">sources</span></span></a>
   </div>
 </li>
       </ul>
@@ -688,31 +771,31 @@ document.addEventListener("DOMContentLoaded", function() {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/consecutive_sequence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/outliers_graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -729,14 +812,20 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#dead-sea-level" id="toc-dead-sea-level" class="nav-link active" data-scroll-target="#dead-sea-level"><span class="header-section-number">53.1</span> dead sea level</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../rates-of-change/motivation.html">rates of change</a></li><li class="breadcrumb-item"><a href="../rates-of-change/fourier-based-derivatives.html"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/rates-of-change/fourier-based-derivatives.qmd"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/rates-of-change/fourier-based-derivatives.ipynb">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -755,6 +844,227 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <p>This tutorial is based on <span class="citation" data-cites="pelliccia2019fourier">Pelliccia (<a href="../technical-stuff/sources.html#ref-pelliccia2019fourier" role="doc-biblioref">2019</a>)</span>.</p>
 <p>nice trick: <a href="https://math.stackexchange.com/questions/430858/fourier-transform-of-derivative" class="uri">https://math.stackexchange.com/questions/430858/fourier-transform-of-derivative</a></p>
+<p>When we learned about Fourier transforms, we saw the following equation:</p>
+<p><span class="math display">
+f(t) = \int_{-\infty}^{\infty} F(k) e^{2\pi i k t}dk.
+</span>.</p>
+<p>What happens if we take the time derivative of the expression above?</p>
+<p><span class="math display">
+\begin{split}
+\frac{d}{dt}f(t) &amp;= \frac{d}{dt}\int_{-\infty}^{\infty} F(k) e^{2\pi i k t}dk \\
+                 &amp;= \int_{-\infty}^{\infty} F(k) \frac{d}{dt} e^{2\pi i k t}dk \\
+                 &amp;= \int_{-\infty}^{\infty} F(k) (2\pi i k) e^{2\pi i k t}dk
+\end{split}
+</span></p>
+<p>We found something interesting! The derivative of <span class="math inline">f(t)</span> can be calculated by taking the Inverse Fourier Transform of <span class="math inline">(2\pi i k)F(k)</span>.</p>
+<p>Let’s see this in action!</p>
+<section id="dead-sea-level" class="level2" data-number="53.1">
+<h2 data-number="53.1" class="anchored" data-anchor-id="dead-sea-level"><span class="header-section-number">53.1</span> dead sea level</h2>
+<p>First let’s get used to taking the Fourier transform and then reconstituting the signal by taking the inverse Fourier transform.</p>
+<div id="cell-3" class="cell" data-execution_count="24">
+<details class="code-fold">
+<summary>import stuff</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> scipy</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-6"><a href="#cb1-6"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-4" class="cell" data-execution_count="25">
+<details class="code-fold">
+<summary>load data</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>filename <span class="op">=</span> <span class="st">"dead_sea_1d.csv"</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>df <span class="op">=</span> pd.read_csv(filename)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>df[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'date'</span>])</span>
+<span id="cb2-4"><a href="#cb2-4"></a>df <span class="op">=</span> df.set_index(<span class="st">'date'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-5" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>fft <span class="op">=</span> scipy.fft.fft(df[<span class="st">'level'</span>].values)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>reconstituted <span class="op">=</span> scipy.fft.ifft(fft).real</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-6" class="cell" data-execution_count="27">
+<details class="code-fold">
+<summary>plot</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb4-2"><a href="#cb4-2"></a>ax.plot(df[<span class="st">'level'</span>], ls<span class="op">=</span><span class="st">"--"</span>, color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"signal"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a>ax.plot(df[<span class="st">'level'</span>].index, reconstituted, color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="vs">r"$F^{-1}[F[f(t)]]$"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">"Dead Sea Level"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6"></a>          ylabel<span class="op">=</span><span class="st">"level (m)"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="fourier-based-derivatives_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now let’s apply some smoothing, since we don’t want a choppy derivative.</p>
+<div id="cell-8" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>fft <span class="op">=</span> scipy.fft.fft(df[<span class="st">'level'</span>].values)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>N <span class="op">=</span> <span class="bu">len</span>(df[<span class="st">'level'</span>])</span>
+<span id="cb5-3"><a href="#cb5-3"></a>xi <span class="op">=</span> scipy.fft.fftfreq(N)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>cutoff_T <span class="op">=</span> <span class="fl">3000.0</span> <span class="co"># days</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>cutoff_xi <span class="op">=</span> <span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">/</span> cutoff_T</span>
+<span id="cb5-6"><a href="#cb5-6"></a>mask <span class="op">=</span> np.where(np.<span class="bu">abs</span>(xi) <span class="op">&gt;</span> cutoff_xi)</span>
+<span id="cb5-7"><a href="#cb5-7"></a>fft_filtered <span class="op">=</span> fft.copy()</span>
+<span id="cb5-8"><a href="#cb5-8"></a>fft_filtered[mask] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>reconstituted <span class="op">=</span> scipy.fft.ifft(fft_filtered).real</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-9" class="cell" data-execution_count="29">
+<details class="code-fold">
+<summary>plot</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">8</span>))</span>
+<span id="cb6-2"><a href="#cb6-2"></a>ax[<span class="dv">0</span>].plot(df[<span class="st">'level'</span>], ls<span class="op">=</span><span class="st">"--"</span>, color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"signal"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3"></a>ax[<span class="dv">0</span>].plot(df[<span class="st">'level'</span>].index, reconstituted, color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"Fourier-smoothed"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4"></a>ax[<span class="dv">0</span>].legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-5"><a href="#cb6-5"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"level (m)"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6"></a>ax[<span class="dv">1</span>].plot(xi, np.<span class="bu">abs</span>(fft), <span class="st">'.'</span>)</span>
+<span id="cb6-7"><a href="#cb6-7"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="dv">0</span>,<span class="dv">100</span>],</span>
+<span id="cb6-8"><a href="#cb6-8"></a>          xlabel<span class="op">=</span><span class="vs">r"frequency (day$^{-1}$)"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9"></a>          ylabel<span class="op">=</span><span class="vs">r"$|F|$"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="fourier-based-derivatives_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There’s a problem now! We eliminated high frequencies and now the smoothed signal is really bad at the edges.</p>
+<p>The reason for this is that one assumption of the <code>fft</code> tool is that we have a <strong>periodic signal</strong>. Our signal is clearly not periodic, and when we treat it as it were periodic, we have a <strong>very</strong> broad power spectrum, that has really high values even for the highest frequencies. We need to solve this.</p>
+<p>One trick to is to make our signal periodic by subtracting from it a straight line that joins the first and last points. See below.</p>
+<div id="cell-11" class="cell" data-execution_count="30">
+<details class="code-fold">
+<summary>define useful function</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">def</span> line_chord(p1, p2, t):</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="co">"""</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co">    given two points p1 and p2, return equation for the line that connects between them</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co">    """</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>    p1x, p1y <span class="op">=</span> p1</span>
+<span id="cb7-6"><a href="#cb7-6"></a>    p2x, p2y <span class="op">=</span> p2</span>
+<span id="cb7-7"><a href="#cb7-7"></a>    slope <span class="op">=</span> (p1y<span class="op">-</span>p2y) <span class="op">/</span> (p1x<span class="op">-</span>p2x)</span>
+<span id="cb7-8"><a href="#cb7-8"></a>    intercept <span class="op">=</span> (p1x<span class="op">*</span>p2y <span class="op">-</span> p1y<span class="op">*</span>p2x) <span class="op">/</span> (p1x<span class="op">-</span>p2x)</span>
+<span id="cb7-9"><a href="#cb7-9"></a>    <span class="cf">return</span> slope<span class="op">*</span>t <span class="op">+</span> intercept</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-12" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>r <span class="op">=</span> np.arange(<span class="bu">len</span>(df))</span>
+<span id="cb8-2"><a href="#cb8-2"></a>p1 <span class="op">=</span> (r[<span class="dv">0</span>], df[<span class="st">'level'</span>][<span class="dv">0</span>])</span>
+<span id="cb8-3"><a href="#cb8-3"></a>p2 <span class="op">=</span> (r[<span class="op">-</span><span class="dv">1</span>], df[<span class="st">'level'</span>][<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb8-4"><a href="#cb8-4"></a>line <span class="op">=</span> line_chord(p1, p2, r)</span>
+<span id="cb8-5"><a href="#cb8-5"></a>slope_mperday <span class="op">=</span> (p2[<span class="dv">1</span>] <span class="op">-</span> p1[<span class="dv">1</span>]) <span class="op">/</span> (p2[<span class="dv">0</span>] <span class="op">-</span> p1[<span class="dv">0</span>])</span>
+<span id="cb8-6"><a href="#cb8-6"></a>df[<span class="st">'periodic_level'</span>] <span class="op">=</span> df[<span class="st">'level'</span>] <span class="op">-</span> line</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-13" class="cell" data-execution_count="32">
+<details class="code-fold">
+<summary>plot</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">8</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-2"><a href="#cb9-2"></a>ax[<span class="dv">0</span>].plot(df[<span class="st">'level'</span>], ls<span class="op">=</span><span class="st">"--"</span>, color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"signal"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>ax[<span class="dv">0</span>].plot(df.index, line, color<span class="op">=</span><span class="st">"gray"</span>, label<span class="op">=</span><span class="st">"straight line"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4"></a>ax[<span class="dv">0</span>].legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-5"><a href="#cb9-5"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"level (m)"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>ax[<span class="dv">0</span>].text(df.index[<span class="dv">0</span>], <span class="op">-</span><span class="dv">425</span>, <span class="ss">f"slope = </span><span class="sc">{</span>slope_mperday<span class="sc">:.3e}</span><span class="ss"> m/day"</span>, color<span class="op">=</span><span class="st">"gray"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7"></a>ax[<span class="dv">1</span>].plot(df[<span class="st">'periodic_level'</span>], ls<span class="op">=</span><span class="st">"--"</span>, color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">'"periodic" signal'</span>)</span>
+<span id="cb9-8"><a href="#cb9-8"></a>ax[<span class="dv">1</span>].legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-9"><a href="#cb9-9"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"level (m)"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="fourier-based-derivatives_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can now check that after removing the highest frequencies from the signal, the smoothed reconstitution doesn’t suffer from weird boundary artifacts.</p>
+<div id="cell-15" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>fft <span class="op">=</span> scipy.fft.fft(df[<span class="st">'periodic_level'</span>].values)</span>
+<span id="cb10-2"><a href="#cb10-2"></a>N <span class="op">=</span> <span class="bu">len</span>(df)</span>
+<span id="cb10-3"><a href="#cb10-3"></a>xi <span class="op">=</span> scipy.fft.fftfreq(N)</span>
+<span id="cb10-4"><a href="#cb10-4"></a>cutoff_T <span class="op">=</span> <span class="fl">3000.0</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>cutoff_xi <span class="op">=</span> <span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">/</span> cutoff_T</span>
+<span id="cb10-6"><a href="#cb10-6"></a>mask <span class="op">=</span> np.where(np.<span class="bu">abs</span>(xi) <span class="op">&gt;</span> cutoff_xi)</span>
+<span id="cb10-7"><a href="#cb10-7"></a>fft_filtered <span class="op">=</span> fft.copy()</span>
+<span id="cb10-8"><a href="#cb10-8"></a>fft_filtered[mask] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a>reconstituted <span class="op">=</span> scipy.fft.ifft(fft_filtered).real</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-16" class="cell" data-execution_count="34">
+<details class="code-fold">
+<summary>plot</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>ax.plot(df[<span class="st">'periodic_level'</span>], ls<span class="op">=</span><span class="st">"--"</span>, color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">'"periodic" signal'</span>)</span>
+<span id="cb11-3"><a href="#cb11-3"></a>ax.plot(df.index, reconstituted, color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"Fourier-smoothed"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb11-5"><a href="#cb11-5"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"level (m)"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="fourier-based-derivatives_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>That looks great! We can finally calculate the derivative of the smoothed signal by using the nice property we saw at the top of this page.</p>
+<div id="cell-18" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>derivative <span class="op">=</span> scipy.fft.ifft(<span class="fl">2.0</span><span class="op">*</span>np.pi<span class="op">*</span><span class="ot">1j</span><span class="op">*</span>xi<span class="op">*</span>fft_filtered).real</span>
+<span id="cb12-2"><a href="#cb12-2"></a>derivative_correct <span class="op">=</span> derivative <span class="op">+</span> slope_mperday</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We have to correct for the fact that we subtracted a straight line from our original signal:</p>
+<p><span class="math display">
+\begin{split}
+\frac{d}{dt}\text{signal} &amp;= \frac{d}{dt}\left[\text{``periodic'' signal + line}\right] \\
+                          &amp;= \frac{d}{dt}\left[\text{``periodic'' signal}\right] + \text{slope}
+\end{split}
+</span></p>
+<div id="cell-20" class="cell" data-execution_count="36">
+<details class="code-fold">
+<summary>plot</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb13-2"><a href="#cb13-2"></a>ax.plot(df[<span class="st">'level'</span>].index, derivative, color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">'derivative of the "periodic" signal'</span>)</span>
+<span id="cb13-3"><a href="#cb13-3"></a>ax.plot(df[<span class="st">'level'</span>].index, derivative_correct, color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"derivative of original signal"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb13-5"><a href="#cb13-5"></a>ax.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">0.005</span>, <span class="fl">0.010</span>],</span>
+<span id="cb13-6"><a href="#cb13-6"></a>       ylabel<span class="op">=</span><span class="st">"derivative (m/day)"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="fourier-based-derivatives_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>How does our solution compare to the previous method, the gradient?</p>
+<div id="cell-22" class="cell" data-execution_count="37">
+<details class="code-fold">
+<summary>compare Fourier and gradient methods</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>df[<span class="st">'level_smooth_yr'</span>] <span class="op">=</span> df[<span class="st">'level'</span>].rolling(<span class="st">'365D'</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span>
+<span id="cb14-2"><a href="#cb14-2"></a>df[<span class="st">'grad_yr'</span>] <span class="op">=</span> np.gradient(df[<span class="st">'level_smooth_yr'</span>].values)</span>
+<span id="cb14-3"><a href="#cb14-3"></a></span>
+<span id="cb14-4"><a href="#cb14-4"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb14-5"><a href="#cb14-5"></a>ax.plot(df[<span class="st">'level'</span>].index, derivative_correct, color<span class="op">=</span><span class="st">"tab:blue"</span>, label<span class="op">=</span><span class="st">"Fourier-smoothed"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6"></a>ax.plot(df[<span class="st">'grad_yr'</span>], color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">"gradient"</span>)</span>
+<span id="cb14-7"><a href="#cb14-7"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb14-8"><a href="#cb14-8"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"derivative (m/day)"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="fourier-based-derivatives_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -762,6 +1072,7 @@ document.addEventListener("DOMContentLoaded", function() {
 Pelliccia, Daniel. 2019. <span>“Fourier Spectral Smoothing Method.”</span> 2019. <a href="https://nirpyresearch.com/fourier-spectral-smoothing-method/">https://nirpyresearch.com/fourier-spectral-smoothing-method/</a>.
 </div>
 </div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

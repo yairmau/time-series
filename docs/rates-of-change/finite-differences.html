@@ -696,6 +696,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">assignment 3</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/final-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">final project</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -710,25 +716,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">sources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">sources</span></span></a>
   </div>
 </li>
       </ul>
@@ -745,31 +751,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/consecutive_sequence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/outliers_graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1052,50 +1058,56 @@ $$ -->
 </div>
 </div>
 </div>
-<p>If this is too noisy to your taste, and you are looking for rates of change for longer time scales (e.g., a year), then we can smooth the original signal. First let’s smooth it by applying a running average of width 365 days.</p>
-<div id="cell-13" class="cell" data-execution_count="7">
+<div id="cell-12" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>df2[<span class="st">'level_smooth_yr'</span>] <span class="op">=</span> df2[<span class="st">'level_smooth'</span>].rolling(<span class="st">'365D'</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span>
-<span id="cb7-2"><a href="#cb7-2"></a>df2[<span class="st">'grad_yr'</span>] <span class="op">=</span> np.gradient(df2[<span class="st">'level_smooth_yr'</span>].values)</span>
-<span id="cb7-3"><a href="#cb7-3"></a></span>
-<span id="cb7-4"><a href="#cb7-4"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">8</span>))</span>
-<span id="cb7-5"><a href="#cb7-5"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb7-6"><a href="#cb7-6"></a>ax[<span class="dv">0</span>].plot(df2[<span class="st">'level_smooth_yr'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>,)</span>
-<span id="cb7-7"><a href="#cb7-7"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(title<span class="op">=</span><span class="st">"Dead Sea Level"</span>,</span>
-<span id="cb7-8"><a href="#cb7-8"></a>          ylabel<span class="op">=</span><span class="st">"level (m)"</span>)</span>
-<span id="cb7-9"><a href="#cb7-9"></a>ax[<span class="dv">1</span>].plot(df2[<span class="st">'grad_yr'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>)</span>
-<span id="cb7-10"><a href="#cb7-10"></a>ax[<span class="dv">1</span>].plot(df2[<span class="st">'grad_yr'</span>]<span class="op">*</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">"gray"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
-<span id="cb7-11"><a href="#cb7-11"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"level rate of change</span><span class="ch">\n</span><span class="st">"</span><span class="op">+</span><span class="vs">r"(m day$^{-1}$)"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>df2[<span class="st">'level'</span>].to_frame().to_csv()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="finite-differences_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
-</figure>
 </div>
-</div>
-</div>
-<p>Let’s see now with a 5-year window.</p>
-<div id="cell-15" class="cell" data-execution_count="8">
+<p>If this is too noisy to your taste, and you are looking for rates of change for longer time scales (e.g., a year), then we can smooth the original signal. First let’s smooth it by applying a running average of width 365 days.</p>
+<div id="cell-14" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>df2[<span class="st">'level_smooth_5yr'</span>] <span class="op">=</span> df2[<span class="st">'level_smooth'</span>].rolling(<span class="st">'1825D'</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span>
-<span id="cb8-2"><a href="#cb8-2"></a>df2[<span class="st">'grad_5yr'</span>] <span class="op">=</span> np.gradient(df2[<span class="st">'level_smooth_5yr'</span>].values)</span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>df2[<span class="st">'level_smooth_yr'</span>] <span class="op">=</span> df2[<span class="st">'level_smooth'</span>].rolling(<span class="st">'365D'</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span>
+<span id="cb8-2"><a href="#cb8-2"></a>df2[<span class="st">'grad_yr'</span>] <span class="op">=</span> np.gradient(df2[<span class="st">'level_smooth_yr'</span>].values)</span>
 <span id="cb8-3"><a href="#cb8-3"></a></span>
 <span id="cb8-4"><a href="#cb8-4"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">8</span>))</span>
 <span id="cb8-5"><a href="#cb8-5"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb8-6"><a href="#cb8-6"></a>ax[<span class="dv">0</span>].plot(df2[<span class="st">'level_smooth_5yr'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>,)</span>
+<span id="cb8-6"><a href="#cb8-6"></a>ax[<span class="dv">0</span>].plot(df2[<span class="st">'level_smooth_yr'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>,)</span>
 <span id="cb8-7"><a href="#cb8-7"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(title<span class="op">=</span><span class="st">"Dead Sea Level"</span>,</span>
 <span id="cb8-8"><a href="#cb8-8"></a>          ylabel<span class="op">=</span><span class="st">"level (m)"</span>)</span>
-<span id="cb8-9"><a href="#cb8-9"></a>ax[<span class="dv">1</span>].plot(df2[<span class="st">'grad_5yr'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>)</span>
-<span id="cb8-10"><a href="#cb8-10"></a>ax[<span class="dv">1</span>].plot(df2[<span class="st">'grad_5yr'</span>]<span class="op">*</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">"gray"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9"></a>ax[<span class="dv">1</span>].plot(df2[<span class="st">'grad_yr'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10"></a>ax[<span class="dv">1</span>].plot(df2[<span class="st">'grad_yr'</span>]<span class="op">*</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">"gray"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
 <span id="cb8-11"><a href="#cb8-11"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"level rate of change</span><span class="ch">\n</span><span class="st">"</span><span class="op">+</span><span class="vs">r"(m day$^{-1}$)"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="finite-differences_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s see now with a 5-year window.</p>
+<div id="cell-16" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>df2[<span class="st">'level_smooth_5yr'</span>] <span class="op">=</span> df2[<span class="st">'level_smooth'</span>].rolling(<span class="st">'1825D'</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span>
+<span id="cb9-2"><a href="#cb9-2"></a>df2[<span class="st">'grad_5yr'</span>] <span class="op">=</span> np.gradient(df2[<span class="st">'level_smooth_5yr'</span>].values)</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">8</span>))</span>
+<span id="cb9-5"><a href="#cb9-5"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>ax[<span class="dv">0</span>].plot(df2[<span class="st">'level_smooth_5yr'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>,)</span>
+<span id="cb9-7"><a href="#cb9-7"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(title<span class="op">=</span><span class="st">"Dead Sea Level"</span>,</span>
+<span id="cb9-8"><a href="#cb9-8"></a>          ylabel<span class="op">=</span><span class="st">"level (m)"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9"></a>ax[<span class="dv">1</span>].plot(df2[<span class="st">'grad_5yr'</span>], color<span class="op">=</span><span class="st">"tab:blue"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10"></a>ax[<span class="dv">1</span>].plot(df2[<span class="st">'grad_5yr'</span>]<span class="op">*</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">"gray"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"level rate of change</span><span class="ch">\n</span><span class="st">"</span><span class="op">+</span><span class="vs">r"(m day$^{-1}$)"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="finite-differences_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
