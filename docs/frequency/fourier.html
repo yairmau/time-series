@@ -812,6 +812,7 @@ window.Quarto = {
   <li><a href="#fouriers-theorem" id="toc-fouriers-theorem" class="nav-link" data-scroll-target="#fouriers-theorem"><span class="header-section-number">40.2</span> Fourier’s theorem</a></li>
   <li><a href="#fourier-series" id="toc-fourier-series" class="nav-link" data-scroll-target="#fourier-series"><span class="header-section-number">40.3</span> Fourier series</a></li>
   <li><a href="#fourier-transform" id="toc-fourier-transform" class="nav-link" data-scroll-target="#fourier-transform"><span class="header-section-number">40.4</span> Fourier transform</a></li>
+  <li><a href="#fun-calculation-of-a-fourier-series" id="toc-fun-calculation-of-a-fourier-series" class="nav-link" data-scroll-target="#fun-calculation-of-a-fourier-series"><span class="header-section-number">40.5</span> fun calculation of a Fourier series</a></li>
   </ul>
 </nav>
     </div>
@@ -1041,19 +1042,19 @@ A\cos(2\pi f t + \phi) + A_0
 <blockquote class="blockquote">
 <p>a periodic function can be described as a sum of sines and cosines.</p>
 </blockquote>
-<p>The most common way of representing the Fourier series is <span class="math display">
+<p>The most common way of representing the Fourier series is <span id="eq-fseries"><span class="math display">
 f(t) = \frac{1}{2}a_0 + \sum_{n=1}^{\infty}a_n\cos(nt) + \sum_{n=1}^{\infty}b_n\sin(nt)
-</span></p>
+\tag{40.6}</span></span></p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>for a periodic function <span class="math inline">f(t)</span> in the interval <span class="math inline">-\pi&lt;t&lt;\pi</span>, where</p>
-<p><span class="math display">
+<p><span id="eq-fseries-coeff"><span class="math display">
 \begin{split}
 a_0 &amp;= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)dt\\
 a_n &amp;= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)\cos(nt)dt\\
 b_n &amp;= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)\sin(nt)dt\\
 \end{split}
-</span></p>
+\tag{40.7}</span></span></p>
 <!-- Not any function, but certainly most functions we will deal with in this course. The function has to fullful the [Dirichlet conditions](https://en.wikipedia.org/wiki/Dirichlet–Jordan_test) -->
 </div></div><p>Let’s see some excellent visual demonstrations. The classic examples are usually the square function and the sawtooth function:</p>
 <p>Source: <a href="https://www.geogebra.org/m/tkajbzmg" class="uri">https://www.geogebra.org/m/tkajbzmg</a> <iframe scrolling="no" title="Fourier Series" src="https://www.geogebra.org/material/iframe/id/yd2qcp97/width/791/height/469/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false" width="791px" height="469px" style="border:0px;"> </iframe></p>
@@ -1094,6 +1095,112 @@ Source: <a href="https://commons.wikimedia.org/wiki/File:Fourier_synthesis_squar
 Source: <a href="https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif" class="uri">https://commons.wikimedia.org/wiki/File:Sawtooth_Fourier_Animation.gif</a></p>
 <p><a href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"><img width="512" alt="Continuous Fourier transform of rect and sinc functions" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Continuous_Fourier_transform_of_rect_and_sinc_functions.gif"></a><br>
 Source: <a href="https://commons.wikimedia.org/wiki/File:Continuous_Fourier_transform_of_rect_and_sinc_functions.gif">Wikimedia</a></p>
+</section>
+<section id="fun-calculation-of-a-fourier-series" class="level2" data-number="40.5">
+<h2 data-number="40.5" class="anchored" data-anchor-id="fun-calculation-of-a-fourier-series"><span class="header-section-number">40.5</span> fun calculation of a Fourier series</h2>
+<p>Let’s calculate the Fourier series of the periodic function <span class="math inline">f(t)</span> over the domain <span class="math inline">-\pi&lt;t&lt;\pi</span>:</p>
+<p><span class="math display">
+f(t)=
+\begin{cases}
+1, &amp; \text{if } -\frac{\pi}{2}&lt;t&lt;\frac{\pi}{2}\\
+0, &amp; \text{otherwise}
+\end{cases}
+</span></p>
+<div id="cell-13" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>pi <span class="op">=</span> np.pi</span>
+<span id="cb6-2"><a href="#cb6-2"></a>t <span class="op">=</span> np.linspace(<span class="op">-</span>pi,pi,<span class="dv">1001</span>)</span>
+<span id="cb6-3"><a href="#cb6-3"></a>f <span class="op">=</span> np.zeros(<span class="bu">len</span>(t))</span>
+<span id="cb6-4"><a href="#cb6-4"></a>mask <span class="op">=</span> np.where(np.<span class="bu">abs</span>(t)<span class="op">&lt;</span>pi<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb6-5"><a href="#cb6-5"></a>f[mask] <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb6-8"><a href="#cb6-8"></a>ax.plot(t, f)</span>
+<span id="cb6-9"><a href="#cb6-9"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="vs">r"$t$"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10"></a>       ylabel<span class="op">=</span><span class="vs">r"$f(t)$"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11"></a>       xticks<span class="op">=</span>[<span class="op">-</span>pi,<span class="op">-</span>pi<span class="op">/</span><span class="dv">2</span>,<span class="dv">0</span>,pi<span class="op">/</span><span class="dv">2</span>,pi],</span>
+<span id="cb6-12"><a href="#cb6-12"></a>       xticklabels<span class="op">=</span>[<span class="vs">r'$-\pi$'</span>,<span class="vs">r'$-\frac{\pi}</span><span class="sc">{2}</span><span class="vs">$'</span>,<span class="vs">r'$0$'</span>,<span class="vs">r'$\frac{\pi}</span><span class="sc">{2}</span><span class="vs">$'</span>,<span class="vs">r'$\pi$'</span>])<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="fourier_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Using the equations of the Fourier series (<a href="#eq-fseries" class="quarto-xref">Equation&nbsp;<span>40.6</span></a> and <a href="#eq-fseries-coeff" class="quarto-xref">Equation&nbsp;<span>40.7</span></a>), we can calculate the first coefficient <span class="math inline">a_0</span>:</p>
+<p><span class="math display">
+\begin{split}
+a_0 &amp;= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)dt \\
+    &amp;= \frac{1}{\pi}\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}1\cdot dt \\
+    &amp;= \frac{1}{\pi} \Big[ t \Big]_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \\
+    &amp;= \frac{1}{\pi} \Big[ \frac{\pi}{2} - (-\frac{\pi}{2}) \Big] \\
+    &amp;= \frac{1}{\pi} \Big[ \pi \Big] \\
+    &amp;= 1
+\end{split}
+</span></p>
+<p>The coefficients <span class="math inline">a_n</span> are: <span class="math display">
+\begin{split}
+a_n &amp;= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)\cos(nt)dt \\
+    &amp;= \frac{1}{\pi}\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\cos(nt) dt \\
+    &amp;= \frac{1}{\pi} \Big[ \frac{\sin(nt)}{n} \Big]_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \\
+    &amp;= \frac{1}{n\pi} \Big[ \sin\left(n\frac{\pi}{2}\right) - \sin\left(-n\frac{\pi}{2}\right) \Big] \\
+    &amp;\text{because }\sin(-a) = -\sin(a) \\
+    &amp;= \frac{2}{n\pi}  \sin\left(n\frac{\pi}{2}\right) \\
+\end{split}
+</span></p>
+<p>Finally, the coefficients <span class="math inline">b_n</span> are: <span class="math display">
+\begin{split}
+b_n &amp;= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)\sin(nt)dt \\
+    &amp;= \frac{1}{\pi}\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\sin(nt) dt \\
+    &amp;= \frac{1}{\pi} \Big[ -\frac{\cos(nt)}{n} \Big]_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \\
+    &amp;= -\frac{1}{n\pi} \Big[ \cos\left(n\frac{\pi}{2}\right) - \cos\left(-n\frac{\pi}{2}\right) \Big] \\
+    &amp;\text{because }\cos(-a) = \cos(a) \\
+    &amp;= -\frac{1}{n\pi} \Big[ \cos\left(n\frac{\pi}{2}\right) - \cos\left(n\frac{\pi}{2}\right) \Big] \\
+    &amp;= 0
+\end{split}
+</span></p>
+<p>Let’s put all this together:</p>
+<p><span class="math display">
+\begin{split}
+f(t) &amp;= \frac{1}{2}a_0 + \sum_{n=1}^{\infty}a_n\cos(nt) + \sum_{n=1}^{\infty}b_n\sin(nt) \\
+     &amp;= \frac{1}{2} + \sum_{n=1}^{\infty}\frac{2}{n\pi}  \sin\left(n\frac{\pi}{2}\right)\cos(nt)
+\end{split}
+</span></p>
+<p>Note that for even values of <span class="math inline">n=2k</span>, we have</p>
+<p><span class="math display">
+\sin\left(2k\frac{\pi}{2}\right) = \sin\left(k\pi\right) = 0
+</span></p>
+<p>We are left only with the odd values of <span class="math inline">n</span>, so let’s apply the following substitution:</p>
+<p><span class="math display">
+n \longrightarrow 2k+1
+</span></p>
+<p>Then our series for <span class="math inline">f(t)</span> can be expressed as</p>
+<p><span class="math display">
+f(t) = \frac{1}{2} + \sum_{k=0}^{\infty}\frac{2}{(2k+1)\pi}  \sin\left((2k+1)\frac{\pi}{2}\right)\cos((2k+1)t)
+</span></p>
+<p>Finally, note that when <span class="math inline">k=0,2,4,6,...</span></p>
+<p><span class="math display">
+\sin\left((2k+1)\frac{\pi}{2}\right) = 1
+</span></p>
+<p>and when <span class="math inline">k=1,3,5,7,...</span></p>
+<p><span class="math display">
+\sin\left((2k+1)\frac{\pi}{2}\right) = -1
+</span></p>
+<p>so we can simply write</p>
+<p><span class="math display">
+\sin\left((2k+1)\frac{\pi}{2}\right) = (-1)^k
+</span></p>
+<p>for any value of <span class="math inline">k=0,1,2,3,...</span>.</p>
+<p>The result of all this is</p>
+<p><span class="math display">
+f(t) = \frac{1}{2} + \sum_{k=0}^{\infty}\frac{2}{(2k+1)\pi}  (-1)^k \cos((2k+1)t)
+</span></p>
+<iframe src="https://www.geogebra.org/classic/vdraqcwr?embed" width="800" height="600" allowfullscreen="" style="border: 1px solid #e4e4e4;border-radius: 4px;" frameborder="0">
+</iframe>
+<p>Wasn’t this fun?</p>
 
 
 </section>
