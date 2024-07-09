@@ -1,6 +1,6 @@
 # about {.unnumbered}
 
-Welcome to **Time Series Analysis for Environmental Sciences** (71606) at the Hebrew University of Jerusalem. This is Yair Mau, your host for today. I am a senior lecturer at the Institute of Environmental Sciences, at the Faculty of Agriculture, Food and Environment, in Rehovot, Israel.
+Welcome to **Time Series Analysis for Environmental Sciences** (71106) at the Hebrew University of Jerusalem. This is Yair Mau, your host for today. I am a senior lecturer at the Institute of Environmental Sciences, at the Faculty of Agriculture, Food and Environment, in Rehovot, Israel.
 
 This website contains (almost) all the material you’ll need for the course. If you find any mistakes, or have any comments, please email me.
 
@@ -11,7 +11,7 @@ The material here is not comprehensive and `does not` constitute a stand alone c
 
 ## what, who, when and where?
 
-{{< iconify ic round-info >}} Course number 71606, 3 academic points  
+{{< iconify ic round-info >}} Course number 71106, 3 academic points  
 {{< iconify mdi teacher >}} Yair Mau (lecturer), Erez Feuer (TA)  
 {{< iconify ion calendar-sharp >}} Tuesdays, from 14:15 to 17:00  
 {{< iconify mdi location >}} Computer [classroom #18](https://goo.gl/maps/rzniv9NuyEs4ETH58)   
