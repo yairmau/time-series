@@ -2,7 +2,6 @@ project:
   type: book
   output-dir: docs
 
-
 book:
   title: "Time Series Analysis"
   author: "Yair Mau"
@@ -10,6 +9,7 @@ book:
   favicon: archive/clock-history.png
   chapters:
     - index.qmd
+    - 2024-2025-schedule.qmd
     - who-cares.qmd
     - part: "start here"
       chapters:
@@ -31,8 +31,6 @@ book:
         - smoothing/not-only-averages.ipynb
         - smoothing/fit.ipynb
         - smoothing/savgol.ipynb
-        # - smoothing/LOESS.qmd
-        # - smoothing/perfect-smoother.qmd
     - part: "outliers and gaps"
       chapters:
       - outliers/motivation.qmd
@@ -40,10 +38,8 @@ book:
       - outliers/robust-analysis.ipynb
       - outliers/sliding-algorithms.ipynb
       - outliers/substituting-outliers.ipynb
-      # - outliers/interpolation.ipynb
       - outliers/outliers_challenge.ipynb
       - outliers/outliers_challenge_part2.ipynb
-    
     - part: "stationarity"
       chapters:
         - stationarity/motivation.qmd
@@ -61,8 +57,6 @@ book:
         - seasonality/seasonal-decomposition-from-scratch.ipynb
         - seasonality/theory.ipynb
         - seasonality/widget.ipynb
-        # - seasonality/seasonal-decomposition.ipynb
-        # - seasonality/hilbert.qmd
     - part: "time lags"
       chapters:
         - lags/motivation.qmd
@@ -155,7 +149,4 @@ format:
     documentclass: scrreprt
     include-in-header:
       - latex_preamble.tex
-
-
-
-
+    
