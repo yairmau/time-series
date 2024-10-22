@@ -62,6 +62,8 @@ There will be assignments during the semester (totaling 50% of the final grade),
 
 * **Non-Compliance Consequence:** Assignments that do not adhere to these guidelines will automatically receive a grade of 0.
 
+<!--
+
 ## weekly program
 
 <div class="alert alert-danger">
@@ -143,3 +145,5 @@ Students will study a Fluxnet site of their choosing. How do gas fluxes (CO2, H2
 **Final Project**  
 In consultation with the lecturer, students will ask a specific scientific question about a site of their choosing (from NOAA, USGS, Fluxnet), and answer it using the tools learned during the semester. The report will be written in Jupyter Notebook, combining in one document all the calculations, documentation, figures, analysis, and discussion. 50% of the final grade.
 </div>
+
+-->

@@ -20,7 +20,7 @@ One failproof way of making sure VSCode uses the Anaconda installation is the fo
 - If you are using HUJI's computers, in "Environments", choose "asgard". If you are using your own computer, ignore this step.
 - open VSCode from inside Anaconda Navigator (see image below).
 
-![](anaconda-navigator.png)
+![](anacondanavigator.png)
 
 Sometimes you will need to manualy install the Jupyter extension on VSCode. In this case follow [this tutorial](https://code.visualstudio.com/docs/datascience/jupyter-notebooks){target="_blank"}.
 

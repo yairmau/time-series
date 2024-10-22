@@ -1,0 +1,70 @@
+## 2024/2025 Schedule {.unnumbered}
+
+
+### Week 1, 29 Oct 2024
+
+**Introduction**
+
+Course overview, setting of expectations, introduction to Jupyter Notebooks, loading data and plotting it.
+ 
+
+[Assignment 1](assignments/assignment1), due 12 Nov 2024
+
+### Week 2, 5 Nov 2024
+
+Resampling
+
+### Week 3, 12 Nov 2024
+
+Smoothing
+
+[Assignment 2](assignments/assignment2), due 26 Nov 2024
+
+### Week 4, 19 Nov 2024
+
+Outliers
+
+### Week 5, 26 Nov 2024
+
+Stationarity: random processes, statistics refresher, AR processes
+
+[Assignment 3](assignments/assignment3), due 10 Dec 2024
+
+### Week 6, 3 Dec 2024
+
+Stationarity: ACF and PACF graphs
+
+### Week 7, 10 Dec 2024
+
+Stationarity: Forecasting, ARIMA, SARIMA, SARIMAX
+
+[Assignment 4](assignments/assignment4), due 31 Dec 2024
+
+### Week 8, 17 Dec 2024
+
+Seasonality
+
+### 24 Dec 2024
+
+<span style="color:red">No classes.</span>
+
+### Week 9, 31 Dec 2024
+
+[Assignment 5](assignments/assignment5), due 14 Jan 2025
+
+
+### Week 10, 7 Jan 2025
+
+### Week 11, 14 Jan 2025
+
+[Assignment 6](assignments/assignment6), due 28 Jan 2025
+
+
+### Week 12, 21 Jan 2025
+
+### Week 13, 28 Jan 2025
+
+[Final project](assignments/final-project), due 4 Mar 2025
+
+
+
