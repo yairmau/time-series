@@ -1,0 +1,24 @@
+## Evaluation
+
+All your assignments will be evaluated according to the following criteria:
+
+- **40% Presentation:** How the graphs look, labels, general organization, markdown, and clean code.
+- **30% Discussion:** Explain what you did, what you found out, etc.
+- **15% Depth of analysis:** Analyze/explore the data with different levels of complexity.
+- **10% Replicability:** Ensure your code runs flawlessly.
+- **5% Code commenting:** Explain in your code what you are doing; this is good for everyone, especially for yourself.
+- **5% Bonus:** For originality, creative problem-solving, or notable analysis.
+
+## Penalty for Late Submission
+
+2 points will be deducted for each day after the deadline. Submissions will be accepted up to 7 days after the deadline.
+
+## Getting Help from Other Sources
+
+- You can get help from AI tools, websites, books, etc.
+- You can exchange ideas and tips with your colleagues, but should **not** do your projects together.
+- At a minimum, you should use AI to check the quality of your English text and make the text pleasant to read.
+- Ultimately, you, the student, are responsible for the assignment.
+- Acknowledge external sources you used in your assignments, cite them, and explain how they helped you.
+
+Above all, I would like you to look at the assignments as an opportunity to *learn*.
