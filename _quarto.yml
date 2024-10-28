@@ -23,6 +23,7 @@ book:
         - resampling/resampling.ipynb
         - resampling/upsampling.ipynb
         - resampling/interpolation.ipynb
+        - resampling/practice.ipynb
         - resampling/FAQ.ipynb
     - part: "smoothing"
       chapters:

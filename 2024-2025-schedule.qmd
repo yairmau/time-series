@@ -10,7 +10,7 @@ We will review the [learn by example](basics/example) page you were asked to run
 
 Resampling. Downsampling and upsampling. Date formats.
 
-[Assignment 1](assignments/assignment1), due 12 Nov 2024
+[Assignment 1](assignments/assignment1.html), due 12 Nov 2024
 
 ### Week 2, 5 Nov 2024
 
@@ -20,7 +20,7 @@ Smoothing. Sliding windows to compute averages and other operations, fitting a m
 
 Outliers. Identification using non robust and robust methods, leveraging sliding windows to identify outliers. Should we replace outliers? For what?
 
-[Assignment 2](assignments/assignment2), due 26 Nov 2024
+[Assignment 2](assignments/assignment2.html), due 26 Nov 2024
 
 ### Week 4, 19 Nov 2024
 
@@ -30,7 +30,7 @@ Stationarity: random processes, statistics refresher, AR processes
 
 Stationarity: ACF and PACF graphs
 
-[Assignment 3](assignments/assignment3), due 10 Dec 2024
+[Assignment 3](assignments/assignment3.html), due 10 Dec 2024
 
 ### Week 6, 3 Dec 2024
 
@@ -39,7 +39,7 @@ Stationarity: Forecasting, ARIMA, SARIMA, SARIMAX
 ### Week 7, 10 Dec 2024
 
 
-[Assignment 4](assignments/assignment4), due 31 Dec 2024
+[Assignment 4](assignments/assignment4.html), due 31 Dec 2024
 
 ### Week 8, 17 Dec 2024
 
@@ -54,7 +54,7 @@ Time lags
 
 Frequency
 
-[Assignment 5](assignments/assignment5), due 14 Jan 2025
+[Assignment 5](assignments/assignment5.html), due 14 Jan 2025
 
 ### Week 10, 7 Jan 2025
 
@@ -64,7 +64,7 @@ Frequency
 
 Frequency
 
-[Assignment 6](assignments/assignment6), due 28 Jan 2025
+[Assignment 6](assignments/assignment6.html), due 28 Jan 2025
 
 ### Week 12, 21 Jan 2025
 
@@ -73,7 +73,7 @@ Rate of change
 ### Week 13, 28 Jan 2025
 
 
-[Final project](assignments/final-project), due 4 Mar 2025
+[Final project](assignments/final-project.html), due 4 Mar 2025
 
 
 
