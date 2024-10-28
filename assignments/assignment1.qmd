@@ -7,13 +7,13 @@ Read the whole instructions.
 
 Go to the [IMS website](https://ims.gov.il/en/data_gov){target="_blank"}, and choose another weather station we have not worked with yet. Download 10-minute data for a full year, any year.
 
-**Make 3 graphs:**
+**Make the following graphs:**
 
 1. Daily maximum humidity. Bonus: add another line to the graph, the daily minimum humidity.
 1. The number of rainy days for each month.
-1. For each day of the year, show the number of hours when global solar radiation was above, on average, the threshold 10 W/m$^2$. Now add another line, for the threshold 500 W/m$^2$.
+1. Using global solar radiation data, calculate the number of hours in each day when the sun was up, and plot it. You can use a threshold of 10 W/m$^2$ to determine this.
 
-**Make 5 more graphs** (total of 8 graphs) of whatever you find interesting. You have the liberty to explore various facets of your dataset that capture your interest. It's essential, however, to maintain a focus on resampling. Each of your plots should effectively showcase and emphasize different aspects or techniques of resampling in your data analysis. To ensure diversity in your visualizations, avoid repetitive themes; for instance, if your first plot illustrates daily wind speed, then your second plot should not simply be a monthly resampling of wind speed. Aim for variety and innovation in each plot to fully explore the potential of resampling in data visualization.
+**Make 3 more graphs** of whatever you find interesting. You have the liberty to explore various facets of your dataset that capture your interest. It's essential, however, to maintain a focus on resampling. Each of your plots should effectively showcase and emphasize different aspects or techniques of resampling in your data analysis. To ensure diversity in your visualizations, avoid repetitive themes; for instance, if your first plot illustrates daily wind speed, then your second plot should not simply be a monthly resampling of wind speed. Aim for variety and innovation in each plot to fully explore the potential of resampling in data visualization. You can get ideas of what to plot from these [challenges](resampling/motivation.html#challenges).
 
 You must download this <a href="/assignments/assignment1-template.ipynb" download>Jupyter Notebook template</a>. Create a zip file with your Jupyter notebook and with the `.csv` you used. Upload this zip file to the moodle task we created.
 
@@ -31,11 +31,4 @@ You must download this <a href="/assignments/assignment1-template.ipynb" downloa
 
 ## evaluation
 
-All your assignments will be evaluated according to the following criteria:
-
-- Presentation. How the graphs look, labels, general organization, markdown, clean code.
-- Discussion. This is where you explain what you did, what you found out, etc.
-- Depth of analysis. You can analyze/explore the data with different levels of complexity, this is where we take that into consideration.
-- Replicability: Your code runs flawlessly.
-- Code commenting. Explain in your code what you are doing, this is good for everyone, especially for yourself!
-- Bonus: for originality, creative problem solving, or notable analysis.
+Check the [evaluation](assignments/evaluation) page to learn about the evaluation criteria.

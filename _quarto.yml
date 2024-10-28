@@ -91,6 +91,7 @@ book:
         - forecasting/arima.qmd
     - part: "assignments"
       chapters:
+        - assignments/evaluation.qmd
         - assignments/assignment1.qmd
         - assignments/assignment2.ipynb
         - assignments/assignment3.ipynb
@@ -110,7 +111,7 @@ book:
       - behind-the-scenes/outliers_graphs.ipynb
       - behind-the-scenes/make_your_own_website.qmd
   sidebar:
-    collapse-level: 2
+    collapse-level: 1
     tools:
       - icon: house-fill
         href: https://yairmau.com/

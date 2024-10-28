@@ -6,37 +6,38 @@
 **Introduction**
 
 Course overview, setting of expectations, introduction to Jupyter Notebooks, loading data and plotting it.
- 
+We will review the [learn by example](basics/example) page you were asked to run before the semester started.
+
+Resampling. Downsampling and upsampling. Date formats.
 
 [Assignment 1](assignments/assignment1), due 12 Nov 2024
 
 ### Week 2, 5 Nov 2024
 
-Resampling
+Smoothing. Sliding windows to compute averages and other operations, fitting a model to data, the Savitsky-Golay filter.
 
 ### Week 3, 12 Nov 2024
 
-Smoothing
+Outliers. Identification using non robust and robust methods, leveraging sliding windows to identify outliers. Should we replace outliers? For what?
 
 [Assignment 2](assignments/assignment2), due 26 Nov 2024
 
 ### Week 4, 19 Nov 2024
 
-Outliers
+Stationarity: random processes, statistics refresher, AR processes
 
 ### Week 5, 26 Nov 2024
 
-Stationarity: random processes, statistics refresher, AR processes
+Stationarity: ACF and PACF graphs
 
 [Assignment 3](assignments/assignment3), due 10 Dec 2024
 
 ### Week 6, 3 Dec 2024
 
-Stationarity: ACF and PACF graphs
+Stationarity: Forecasting, ARIMA, SARIMA, SARIMAX
 
 ### Week 7, 10 Dec 2024
 
-Stationarity: Forecasting, ARIMA, SARIMA, SARIMAX
 
 [Assignment 4](assignments/assignment4), due 31 Dec 2024
 
@@ -46,23 +47,31 @@ Seasonality
 
 ### 24 Dec 2024
 
+Time lags
 <span style="color:red">No classes.</span>
 
 ### Week 9, 31 Dec 2024
 
-[Assignment 5](assignments/assignment5), due 14 Jan 2025
+Frequency
 
+[Assignment 5](assignments/assignment5), due 14 Jan 2025
 
 ### Week 10, 7 Jan 2025
 
+Frequency
+
 ### Week 11, 14 Jan 2025
+
+Frequency
 
 [Assignment 6](assignments/assignment6), due 28 Jan 2025
 
-
 ### Week 12, 21 Jan 2025
 
+Rate of change
+
 ### Week 13, 28 Jan 2025
+
 
 [Final project](assignments/final-project), due 4 Mar 2025
 
