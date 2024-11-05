@@ -30,6 +30,7 @@ book:
         - smoothing/motivation.ipynb
         - smoothing/sliding.ipynb
         - smoothing/not-only-averages.ipynb
+        - smoothing/practice.ipynb
         - smoothing/fit.ipynb
         - smoothing/savgol.ipynb
     - part: "outliers and gaps"
