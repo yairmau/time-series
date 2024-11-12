@@ -134,7 +134,7 @@ format:
     # - font_defs.css
     # css: styles.css
     fontsize: 1.2em
-    highlight-style: solarized # kate # tango # breeze # ayu # monokai # breezedark # espresso
+    highlight-style: kate-custom.theme #kate #solarized # kate # tango # breeze # ayu # monokai # breezedark # espresso
     include-in-header:
       - includes.html
       # progress bar and back to top button. solution from here: https://github.com/quarto-dev/quarto-cli/discussions/3842#discussioncomment-4591721
