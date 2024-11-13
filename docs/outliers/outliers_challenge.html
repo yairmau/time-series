@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.554">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -792,9 +792,9 @@ document.addEventListener("DOMContentLoaded", function() {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#importing-bad-.csv-files" id="toc-importing-bad-.csv-files" class="nav-link active" data-scroll-target="#importing-bad-.csv-files"><span class="header-section-number">22.1</span> importing bad .csv files</a>
+  <li><a href="#importing-bad-.csv-files" id="toc-importing-bad-.csv-files" class="nav-link active" data-scroll-target="#importing-bad-.csv-files"><span class="header-section-number">22.1</span> Importing Bad .csv Files</a>
   <ul class="collapse">
-  <li><a href="#import" id="toc-import" class="nav-link" data-scroll-target="#import"><span class="header-section-number">22.1.1</span> import</a></li>
+  <li><a href="#import" id="toc-import" class="nav-link" data-scroll-target="#import"><span class="header-section-number">22.1.1</span> Import</a></li>
   </ul></li>
   <li><a href="#dataset-1" id="toc-dataset-1" class="nav-link" data-scroll-target="#dataset-1"><span class="header-section-number">22.2</span> dataset 1</a></li>
   <li><a href="#dataset-2" id="toc-dataset-2" class="nav-link" data-scroll-target="#dataset-2"><span class="header-section-number">22.3</span> dataset 2</a></li>
@@ -825,23 +825,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 <section id="importing-bad-.csv-files" class="level2" data-number="22.1">
-<h2 data-number="22.1" class="anchored" data-anchor-id="importing-bad-.csv-files"><span class="header-section-number">22.1</span> importing bad .csv files</h2>
+<h2 data-number="22.1" class="anchored" data-anchor-id="importing-bad-.csv-files"><span class="header-section-number">22.1</span> Importing Bad .csv Files</h2>
 <p>Here we will get a taste of what it feels like to work with bad <code>.csv</code> files and how to fix them.</p>
 <p>TO DO:</p>
 <ol type="1">
-<li>create a folder for this challenge, name it whatever you want.</li>
-<li>downlad this jupyter notebook and move to that folder.</li>
-<li>download these 3 <code>.csv</code> files and part 2 notebook:
+<li>Create a folder for this challenge, name it whatever you want.</li>
+<li>Download this Jupyter notebook and move it to that folder.</li>
+<li>Download these 3 <code>.csv</code> files and part 2 notebook:
 <ol type="1">
 <li><a href="../outliers/cleaning1.csv" download="">cleaning1</a></li>
 <li><a href="../outliers/cleaning2-.csv" download="">cleaning2-</a></li>
 <li><a href="../outliers/cleaning3.csv" download="">cleaning3</a></li>
 <li><a href="../outliers/outliers_challenge_part2.html" download="">part_2</a></li>
 </ol></li>
-<li>move them files into your folder</li>
+<li>Move these files into your folder.</li>
 </ol>
 <section id="import" class="level3" data-number="22.1.1">
-<h3 data-number="22.1.1" class="anchored" data-anchor-id="import"><span class="header-section-number">22.1.1</span> import</h3>
+<h3 data-number="22.1.1" class="anchored" data-anchor-id="import"><span class="header-section-number">22.1.1</span> Import</h3>
 <div id="cell-2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -1349,7 +1349,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 <p>Something is wrong…<br>
 Let’s open the actual <code>.csv</code> file and take a quick look.<br>
-It seems that the values are seperated by spaces <code></code> and not by commas <code>,</code>.</p>
+It seems that the values are separated by spaces <code></code> and not by commas <code>,</code>.</p>
 <div id="cell-16" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>df2 <span class="op">=</span> pd.read_csv(<span class="st">'cleaning2-.csv'</span>, delimiter<span class="op">=</span><span class="st">' '</span>)</span>
 <span id="cb8-2"><a href="#cb8-2"></a>df2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
