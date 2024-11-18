@@ -834,8 +834,9 @@ window.Quarto = {
 <p>Let’s call our time series <span class="math inline">X</span>, and its length <span class="math inline">N</span>. Then:</p>
 <p><span class="math display">
 \begin{aligned}
-\text{mean}&amp; &amp;\mu &amp;= \frac{\displaystyle\sum_{i=1}^N X_i}{N} \\
-\text{standard deviation}&amp; &amp;\sigma &amp;= \sqrt{\frac{\displaystyle\sum_{i=1}^N (X_i-\mu)^2}{N}}
+\text{mean\qquad}&amp; &amp;\mu &amp;= \frac{\displaystyle\sum_{i=1}^N X_i}{N} \\
+&amp;\\
+\text{standard deviation\qquad}&amp; &amp;\sigma &amp;= \sqrt{\frac{\displaystyle\sum_{i=1}^N (X_i-\mu)^2}{N}}
 \end{aligned}
 </span></p>
 <p>The mean and standard deviation can be visualized thus:</p>
@@ -874,7 +875,21 @@ E[X] = \sum_{i=1}^N X_i p_i.
 <p><span class="math display">
 \text{corr}(X,Y) = \frac{E[(X-\mu_X)(Y-\mu_Y)]}{\sigma_X \sigma_Y}.
 </span></p>
-<p>This is convenient, because now we can say that the correlation of a time series with itself is <span class="math inline">\text{corr}(X,X)=1</span>.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Isn’t this suspiciously similar to something we just saw in the last lecture?</p>
+<p>Remember that we defined de Z-score as <span class="math display">
+z  = \frac{x-\mu}{\sigma},
+</span></p>
+<p>Therefore, we can interpret the correlation as the expected value of <span class="math inline">Z_X</span> times <span class="math inline">Z_Y</span>:</p>
+<p><span class="math display">
+\begin{split}
+\text{corr}(X,Y) &amp;= \frac{E[(X-\mu_X)(Y-\mu_Y)]}{\sigma_X \sigma_Y} \\
+                 &amp;= E[\frac{X-\mu_X}{\sigma_X}\frac{Y-\mu_Y}{\sigma_Y}] \\
+                 &amp; = E[Z_X Z_Y]
+\end{split}
+</span></p>
+</div></div><p>This is convenient, because now we can say that the correlation of a time series with itself is <span class="math inline">\text{corr}(X,X)=1</span>.</p>
 <p>This is also called the Pearson correlation coefficient, and the result has a value between <span class="math inline">1</span> and <span class="math inline">-1</span>.</p>
 <p><img src="800px-Correlation_examples.png" class="img-fluid"></p>
 

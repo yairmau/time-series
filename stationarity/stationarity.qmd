@@ -107,7 +107,7 @@ $$
 1 - \phi_1 B - \phi_2 B^2 = 0.
 $$
 
-For the AR(2) time series from before, here are the roots of the characteristic polynomial plotten on the complex plane:
+For the AR(2) time series from before, here are the roots of the characteristic polynomial plotted on the complex plane:
 
 ![](AR2.png)
 

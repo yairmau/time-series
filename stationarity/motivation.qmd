@@ -1,6 +1,6 @@
 ## motivation
 
-See the temperatures for Jerusalem in a 4-day interval:
+See the temperatures for Jerusalem in a 11-day interval:
 
 ![](jer_temp1.png)
 

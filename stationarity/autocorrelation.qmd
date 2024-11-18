@@ -9,8 +9,9 @@ Let's call our time series $X$, and its length $N$. Then:
 
 $$
 \begin{aligned}
-\text{mean}& &\mu &= \frac{\displaystyle\sum_{i=1}^N X_i}{N} \\
-\text{standard deviation}& &\sigma &= \sqrt{\frac{\displaystyle\sum_{i=1}^N (X_i-\mu)^2}{N}}
+\text{mean\qquad}& &\mu &= \frac{\displaystyle\sum_{i=1}^N X_i}{N} \\
+&\\
+\text{standard deviation\qquad}& &\sigma &= \sqrt{\frac{\displaystyle\sum_{i=1}^N (X_i-\mu)^2}{N}}
 \end{aligned}
 $$
 
@@ -59,6 +60,27 @@ The fact that  $\text{cov(X,X)} = \sigma_X^2$ begs us to define a new measure, t
 $$
 \text{corr}(X,Y) = \frac{E[(X-\mu_X)(Y-\mu_Y)]}{\sigma_X \sigma_Y}.
 $$
+
+::: {.column-margin}
+Isn't this suspiciously similar to something we just saw in the last lecture?
+
+Remember that we defined de Z-score as
+$$
+z  = \frac{x-\mu}{\sigma},
+$$
+
+Therefore, we can interpret the correlation as the expected value of $Z_X$ times $Z_Y$:
+
+$$
+\begin{split}
+\text{corr}(X,Y) &= \frac{E[(X-\mu_X)(Y-\mu_Y)]}{\sigma_X \sigma_Y} \\
+                 &= E[\frac{X-\mu_X}{\sigma_X}\frac{Y-\mu_Y}{\sigma_Y}] \\
+                 & = E[Z_X Z_Y]
+\end{split}
+$$
+
+:::
+
 
 This is convenient, because now we can say that the correlation of a time series with itself is $\text{corr}(X,X)=1$.
 
