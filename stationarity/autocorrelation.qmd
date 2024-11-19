@@ -28,6 +28,17 @@ $$
 
 $p_i$ is the weight or probability that $X_i$ occurs. For a time series, the probability $p_i$ that a given point $X_i$ is in the dataset is simply $1/N$, therefore we can write the following measures in terms of expected values:
 
+::: {.column-margin}
+What if my time series clearly has data points with probability greater than $1/N$? For instance, consider this temperature time series, in degrees Celcius:
+
+$$
+X = \{21,25,25,20,26,25\}
+$$
+
+The value 25 appears in half (3/6) of the samples. Its weight in the equation for the expected value will be $1/N$ counted three times, that is, $3/N$. The probability of each value will automatically be what it needs to be when we use this formula.
+
+:::
+
 * mean, also called 1st moment:
   $$
   \mu = E[X].
@@ -37,6 +48,7 @@ $p_i$ is the weight or probability that $X_i$ occurs. For a time series, the pro
   \sigma^2 = E[(X-E[X])^2] = E[(X-\mu)^2].
   $$
   Of course, $\sigma$ is called the standard deviation.
+* you might have heard of the 3rd moment (skewness) and 4th moment (kurtosis), they are also useful sometimes. Higher order moments are not common.
 
 ## covariance
 
@@ -61,12 +73,22 @@ $$
 \text{corr}(X,Y) = \frac{E[(X-\mu_X)(Y-\mu_Y)]}{\sigma_X \sigma_Y}.
 $$
 
+This is convenient, because now we can say that the correlation of a time series with itself is $\text{corr}(X,X)=1$.
+
+This is also called the Pearson correlation coefficient, and the result has a value between $1$ and $-1$.
+
+![](800px-Correlation_examples.png)
+
 ::: {.column-margin}
-Isn't this suspiciously similar to something we just saw in the last lecture?
+Source: [Wikimedia](https://commons.wikimedia.org/wiki/File:Correlation_examples.png)
+:::
+
+### curious fact 1
+Isn't the expression for the correlation suspiciously similar to something we just saw in the last lecture?
 
 Remember that we defined de Z-score as
 $$
-z  = \frac{x-\mu}{\sigma},
+Z  = \frac{x-\mu}{\sigma},
 $$
 
 Therefore, we can interpret the correlation as the expected value of $Z_X$ times $Z_Y$:
@@ -79,17 +101,33 @@ $$
 \end{split}
 $$
 
-:::
+The correlation is thus the expected value of the product of standardized time series.
 
+### curious fact 2
 
-This is convenient, because now we can say that the correlation of a time series with itself is $\text{corr}(X,X)=1$.
+There is a *magnificent* geometric interpretation for the correlation of two time series. We can imagine that each time standardized series $Z_X$ and $Z_Y$ is a unit vector in an $N$-dimensional space. Then the expected value $E[Z_X Z_Y]$ can be seen as the dot product of these two vectors. The dot product of two vectors is
 
-This is also called the Pearson correlation coefficient, and the result has a value between $1$ and $-1$.
-
-![](800px-Correlation_examples.png)
+$$
+\vec{a}\cdot\vec{b} = |a|\, |b| \cos(\theta),
+$$
 
 ::: {.column-margin}
-Source: [Wikimedia](https://commons.wikimedia.org/wiki/File:Correlation_examples.png)
+The dot product is the sum of an element-wise multiplication:
+
+$$
+\vec{a}\cdot\vec{b} = a_1b_1 + a_2b_2 + \cdots + a_Nb_N
+$$
+:::
+Because we are dealing with unit vectors, we have
+
+$$
+\vec{Z_X}\cdot\vec{Z_Y} = \cos(\theta).
+$$
+
+The correlation between $X$ and $Y$ has to be between $-1$ and $1$ because the cosine of the angle between them is also bounded by these values. Furthermore, when two time series have zero correlation, this means that they are orthogonal ($\theta=\pi/2$) in this $N$-dimensional space. Mind. Blown.
+
+::: {.column-margin}
+In this geometric interpretation, the standard deviation is simply the L2 (Euclidean) norm of the time series. This is why we get a unit vector Z-score when we divide by the standard deviation.
 :::
 
 ## autocorrelation

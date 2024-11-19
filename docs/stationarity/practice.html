@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series Analysis - 31&nbsp; practice</title>
+<title>Time Series Analysis - 32&nbsp; practice</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../stationarity/practice2.html" rel="next">
+<link href="../seasonality/motivation.html" rel="next">
 <link href="../stationarity/from_AR_to_ARIMA.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -181,7 +181,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../stationarity/motivation.html">stationarity</a></li><li class="breadcrumb-item"><a href="../stationarity/practice.html"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">practice</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../stationarity/motivation.html">stationarity</a></li><li class="breadcrumb-item"><a href="../stationarity/practice.html"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">practice</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -413,6 +413,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">challenge part 2</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/fill-missing-values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">filling missing values</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -427,55 +433,49 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/random.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">random variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">random variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/AR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">autoregressive processes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">autoregressive processes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/autocorrelation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/stationarity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">stationarity</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">stationarity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/ACF_and_PACF_graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">ACF and PACF graphs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ACF and PACF graphs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/from_AR_to_ARIMA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/practice.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">practice</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../stationarity/practice2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">filling missing values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">practice</span></span></a>
   </div>
 </li>
       </ul>
@@ -836,22 +836,22 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#white-noise" id="toc-white-noise" class="nav-link active" data-scroll-target="#white-noise"><span class="header-section-number">32</span> White noise</a></li>
-  <li><a href="#random-walk" id="toc-random-walk" class="nav-link" data-scroll-target="#random-walk"><span class="header-section-number">33</span> Random walk</a>
+  <li><a href="#white-noise" id="toc-white-noise" class="nav-link active" data-scroll-target="#white-noise"><span class="header-section-number">33</span> White noise</a></li>
+  <li><a href="#random-walk" id="toc-random-walk" class="nav-link" data-scroll-target="#random-walk"><span class="header-section-number">34</span> Random walk</a>
   <ul class="collapse">
-  <li><a href="#differencing" id="toc-differencing" class="nav-link" data-scroll-target="#differencing"><span class="header-section-number">33.1</span> Differencing</a></li>
+  <li><a href="#differencing" id="toc-differencing" class="nav-link" data-scroll-target="#differencing"><span class="header-section-number">34.1</span> Differencing</a></li>
   </ul></li>
-  <li><a href="#ar1" id="toc-ar1" class="nav-link" data-scroll-target="#ar1"><span class="header-section-number">34</span> AR(1)</a>
+  <li><a href="#ar1" id="toc-ar1" class="nav-link" data-scroll-target="#ar1"><span class="header-section-number">35</span> AR(1)</a>
   <ul class="collapse">
-  <li><a href="#arp" id="toc-arp" class="nav-link" data-scroll-target="#arp"><span class="header-section-number">34.1</span> AR(p)</a>
+  <li><a href="#arp" id="toc-arp" class="nav-link" data-scroll-target="#arp"><span class="header-section-number">35.1</span> AR(p)</a>
   <ul class="collapse">
-  <li><a href="#using-specific-phi-values" id="toc-using-specific-phi-values" class="nav-link" data-scroll-target="#using-specific-phi-values"><span class="header-section-number">34.1.1</span> using specific <span class="math inline">\phi</span> values</a></li>
-  <li><a href="#weak-stationarity" id="toc-weak-stationarity" class="nav-link" data-scroll-target="#weak-stationarity"><span class="header-section-number">34.1.2</span> Weak stationarity</a></li>
+  <li><a href="#using-specific-phi-values" id="toc-using-specific-phi-values" class="nav-link" data-scroll-target="#using-specific-phi-values"><span class="header-section-number">35.1.1</span> using specific <span class="math inline">\phi</span> values</a></li>
+  <li><a href="#weak-stationarity" id="toc-weak-stationarity" class="nav-link" data-scroll-target="#weak-stationarity"><span class="header-section-number">35.1.2</span> Weak stationarity</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#acf" id="toc-acf" class="nav-link" data-scroll-target="#acf"><span class="header-section-number">35</span> ACF</a>
+  <li><a href="#acf" id="toc-acf" class="nav-link" data-scroll-target="#acf"><span class="header-section-number">36</span> ACF</a>
   <ul class="collapse">
-  <li><a href="#now-lets-work-with-actual-data" id="toc-now-lets-work-with-actual-data" class="nav-link" data-scroll-target="#now-lets-work-with-actual-data"><span class="header-section-number">35.1</span> Now let’s work with actual data</a></li>
+  <li><a href="#now-lets-work-with-actual-data" id="toc-now-lets-work-with-actual-data" class="nav-link" data-scroll-target="#now-lets-work-with-actual-data"><span class="header-section-number">36.1</span> Now let’s work with actual data</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -859,9 +859,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../stationarity/motivation.html">stationarity</a></li><li class="breadcrumb-item"><a href="../stationarity/practice.html"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">practice</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../stationarity/motivation.html">stationarity</a></li><li class="breadcrumb-item"><a href="../stationarity/practice.html"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">practice</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">practice</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/stationarity/practice.ipynb"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">practice</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/stationarity/practice.ipynb"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -889,8 +889,8 @@ window.Quarto = {
 <span id="cb1-7"><a href="#cb1-7"></a></span>
 <span id="cb1-8"><a href="#cb1-8"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="white-noise" class="level1" data-number="32">
-<h1 data-number="32"><span class="header-section-number">32</span> White noise</h1>
+<section id="white-noise" class="level1" data-number="33">
+<h1 data-number="33"><span class="header-section-number">33</span> White noise</h1>
 <p>If we randomly draw values from the same distribution we will get white noise.</p>
 <div id="cell-3" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># generate binary noise random ones and zeroes with equal distribution</span></span>
@@ -918,8 +918,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="random-walk" class="level1" data-number="33">
-<h1 data-number="33"><span class="header-section-number">33</span> Random walk</h1>
+<section id="random-walk" class="level1" data-number="34">
+<h1 data-number="34"><span class="header-section-number">34</span> Random walk</h1>
 <p>If we cumulatively sum the white noise, we then get a random walk</p>
 <div id="cell-6" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>walk_binary <span class="op">=</span> binary_noise.cumsum()</span>
@@ -940,8 +940,8 @@ window.Quarto = {
 </script>
 </div>
 </div>
-<section id="differencing" class="level2" data-number="33.1">
-<h2 data-number="33.1" class="anchored" data-anchor-id="differencing"><span class="header-section-number">33.1</span> Differencing</h2>
+<section id="differencing" class="level2" data-number="34.1">
+<h2 data-number="34.1" class="anchored" data-anchor-id="differencing"><span class="header-section-number">34.1</span> Differencing</h2>
 <p>Given an array<br>
 <span class="math display">a = [a_0, a_1, a_2, ..., a_{n-1}]</span> the operation performed by <code>np.diff(a)</code> can be represented as:<br>
 <span class="math display">\Delta a = [\Delta a_1, \Delta a_2, ..., \Delta a_{n-1}]</span> where<br>
@@ -972,8 +972,8 @@ window.Quarto = {
 <p>Another way of understanding this: the python operations <code>cumsum</code> and <code>diff</code> are each other’s inverse.</p>
 </section>
 </section>
-<section id="ar1" class="level1" data-number="34">
-<h1 data-number="34"><span class="header-section-number">34</span> AR(1)</h1>
+<section id="ar1" class="level1" data-number="35">
+<h1 data-number="35"><span class="header-section-number">35</span> AR(1)</h1>
 <p><span class="math display">
 X_{t} = \phi\,X_{t-1} + \varepsilon.
 </span></p>
@@ -1001,8 +1001,8 @@ X_{t} = \phi\,X_{t-1} + \varepsilon.
 </script>
 </div>
 </div>
-<section id="arp" class="level2" data-number="34.1">
-<h2 data-number="34.1" class="anchored" data-anchor-id="arp"><span class="header-section-number">34.1</span> AR(p)</h2>
+<section id="arp" class="level2" data-number="35.1">
+<h2 data-number="35.1" class="anchored" data-anchor-id="arp"><span class="header-section-number">35.1</span> AR(p)</h2>
 <p>The next thing to do is to generalize, and define an autoregressive process that depends on <span class="math inline">p</span> previous states:</p>
 <p><span class="math display">
 x_{t} = \phi_1\,x_{t-1} + \phi_2\,x_{t-2} + \cdots + \phi_p\,x_{t-p} + \varepsilon
@@ -1052,8 +1052,8 @@ x_{t} = \phi_1\,x_{t-1} + \phi_2\,x_{t-2} + \cdots + \phi_p\,x_{t-p} + \varepsil
 </script>
 </div>
 </div>
-<section id="using-specific-phi-values" class="level3" data-number="34.1.1">
-<h3 data-number="34.1.1" class="anchored" data-anchor-id="using-specific-phi-values"><span class="header-section-number">34.1.1</span> using specific <span class="math inline">\phi</span> values</h3>
+<section id="using-specific-phi-values" class="level3" data-number="35.1.1">
+<h3 data-number="35.1.1" class="anchored" data-anchor-id="using-specific-phi-values"><span class="header-section-number">35.1.1</span> using specific <span class="math inline">\phi</span> values</h3>
 <p>In the cell below we can specify specific <span class="math inline">\phi</span> values.<br>
 Use the <a href="https://yairmau.com/time-series/stationarity/stationarity.html#stationarity-of-ar2">interactive tool</a> from our website to chose the right values.<br>
 Remember, if one of the roots is inside the unit circle, the series will be <strong>not</strong> stationary.</p>
@@ -1081,8 +1081,8 @@ Remember, if one of the roots is inside the unit circle, the series will be <str
 </div>
 </div>
 </section>
-<section id="weak-stationarity" class="level3" data-number="34.1.2">
-<h3 data-number="34.1.2" class="anchored" data-anchor-id="weak-stationarity"><span class="header-section-number">34.1.2</span> Weak stationarity</h3>
+<section id="weak-stationarity" class="level3" data-number="35.1.2">
+<h3 data-number="35.1.2" class="anchored" data-anchor-id="weak-stationarity"><span class="header-section-number">35.1.2</span> Weak stationarity</h3>
 <ol type="1">
 <li>its mean <span class="math inline">\mu</span> does not vary in time: <span class="math display">
 \mu_X(t) = \mu_X(t+\tau)
@@ -1135,8 +1135,8 @@ Remember, if one of the roots is inside the unit circle, the series will be <str
 </section>
 </section>
 </section>
-<section id="acf" class="level1" data-number="35">
-<h1 data-number="35"><span class="header-section-number">35</span> ACF</h1>
+<section id="acf" class="level1" data-number="36">
+<h1 data-number="36"><span class="header-section-number">36</span> ACF</h1>
 <div id="cell-21" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">def</span> compute_acf(series):</span>
 <span id="cb20-2"><a href="#cb20-2"></a>    N <span class="op">=</span> <span class="bu">len</span>(series)</span>
@@ -1195,8 +1195,8 @@ Remember, if one of the roots is inside the unit circle, the series will be <str
 </script>
 </div>
 </div>
-<section id="now-lets-work-with-actual-data" class="level2" data-number="35.1">
-<h2 data-number="35.1" class="anchored" data-anchor-id="now-lets-work-with-actual-data"><span class="header-section-number">35.1</span> Now let’s work with actual data</h2>
+<section id="now-lets-work-with-actual-data" class="level2" data-number="36.1">
+<h2 data-number="36.1" class="anchored" data-anchor-id="now-lets-work-with-actual-data"><span class="header-section-number">36.1</span> Now let’s work with actual data</h2>
 <div id="cell-27" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>filename <span class="op">=</span> <span class="st">"jerusalem2019.csv"</span></span>
 <span id="cb26-2"><a href="#cb26-2"></a>df <span class="op">=</span> pd.read_csv(filename, na_values<span class="op">=</span>[<span class="st">'-'</span>])</span>
@@ -2030,12 +2030,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../stationarity/from_AR_to_ARIMA.html" class="pagination-link" aria-label="from AR to ARIMA">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../stationarity/practice2.html" class="pagination-link" aria-label="filling missing values">
-        <span class="nav-page-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">filling missing values</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../seasonality/motivation.html" class="pagination-link" aria-label="motivation">
+        <span class="nav-page-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">motivation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

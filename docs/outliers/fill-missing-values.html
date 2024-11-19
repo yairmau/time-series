@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series Analysis - 32&nbsp; filling missing values</title>
+<title>Time Series Analysis - 24&nbsp; filling missing values</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../seasonality/motivation.html" rel="next">
-<link href="../stationarity/practice.html" rel="prev">
+<link href="../stationarity/motivation.html" rel="next">
+<link href="../outliers/outliers_challenge_part2.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../stationarity/motivation.html">stationarity</a></li><li class="breadcrumb-item"><a href="../stationarity/practice2.html"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">filling missing values</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../outliers/motivation.html">outliers and gaps</a></li><li class="breadcrumb-item"><a href="../outliers/fill-missing-values.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">filling missing values</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -320,13 +320,13 @@ document.addEventListener("DOMContentLoaded", function() {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
  <span class="menu-text">outliers and gaps</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/motivation.html" class="sidebar-item-text sidebar-link">
@@ -369,69 +369,69 @@ document.addEventListener("DOMContentLoaded", function() {
  <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">challenge part 2</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/fill-missing-values.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">filling missing values</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
  <span class="menu-text">stationarity</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/random.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">random variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">random variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/AR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">autoregressive processes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">autoregressive processes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/autocorrelation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/stationarity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">stationarity</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">stationarity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/ACF_and_PACF_graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">ACF and PACF graphs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ACF and PACF graphs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/from_AR_to_ARIMA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/practice.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">practice</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../stationarity/practice2.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">filling missing values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">practice</span></span></a>
   </div>
 </li>
       </ul>
@@ -792,25 +792,25 @@ document.addEventListener("DOMContentLoaded", function() {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#forward-fill" id="toc-forward-fill" class="nav-link active" data-scroll-target="#forward-fill"><span class="header-section-number">32.1</span> Forward fill</a></li>
-  <li><a href="#backwrds-fill" id="toc-backwrds-fill" class="nav-link" data-scroll-target="#backwrds-fill"><span class="header-section-number">32.2</span> Backwrds fill</a></li>
-  <li><a href="#interpolation" id="toc-interpolation" class="nav-link" data-scroll-target="#interpolation"><span class="header-section-number">32.3</span> Interpolation</a>
+  <li><a href="#forward-fill" id="toc-forward-fill" class="nav-link active" data-scroll-target="#forward-fill"><span class="header-section-number">24.1</span> Forward fill</a></li>
+  <li><a href="#backwrds-fill" id="toc-backwrds-fill" class="nav-link" data-scroll-target="#backwrds-fill"><span class="header-section-number">24.2</span> Backwrds fill</a></li>
+  <li><a href="#interpolation" id="toc-interpolation" class="nav-link" data-scroll-target="#interpolation"><span class="header-section-number">24.3</span> Interpolation</a>
   <ul class="collapse">
-  <li><a href="#linear" id="toc-linear" class="nav-link" data-scroll-target="#linear"><span class="header-section-number">32.3.1</span> linear</a></li>
-  <li><a href="#cubic-splines" id="toc-cubic-splines" class="nav-link" data-scroll-target="#cubic-splines"><span class="header-section-number">32.3.2</span> cubic splines</a></li>
+  <li><a href="#linear" id="toc-linear" class="nav-link" data-scroll-target="#linear"><span class="header-section-number">24.3.1</span> linear</a></li>
+  <li><a href="#cubic-splines" id="toc-cubic-splines" class="nav-link" data-scroll-target="#cubic-splines"><span class="header-section-number">24.3.2</span> cubic splines</a></li>
   </ul></li>
-  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest"><span class="header-section-number">32.4</span> random forest</a></li>
-  <li><a href="#sarimax" id="toc-sarimax" class="nav-link" data-scroll-target="#sarimax"><span class="header-section-number">33</span> SARIMAX</a></li>
-  <li><a href="#sarimax-cross-fade" id="toc-sarimax-cross-fade" class="nav-link" data-scroll-target="#sarimax-cross-fade"><span class="header-section-number">34</span> SARIMAX cross fade</a></li>
+  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest"><span class="header-section-number">24.4</span> random forest</a></li>
+  <li><a href="#sarimax" id="toc-sarimax" class="nav-link" data-scroll-target="#sarimax"><span class="header-section-number">25</span> SARIMAX</a></li>
+  <li><a href="#sarimax-cross-fade" id="toc-sarimax-cross-fade" class="nav-link" data-scroll-target="#sarimax-cross-fade"><span class="header-section-number">26</span> SARIMAX cross fade</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../stationarity/motivation.html">stationarity</a></li><li class="breadcrumb-item"><a href="../stationarity/practice2.html"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">filling missing values</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../outliers/motivation.html">outliers and gaps</a></li><li class="breadcrumb-item"><a href="../outliers/fill-missing-values.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">filling missing values</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">filling missing values</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/stationarity/practice2.ipynb"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">filling missing values</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/outliers/fill-missing-values.ipynb"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -1017,58 +1017,58 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice2_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="fill-missing-values_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="forward-fill" class="level2" data-number="32.1">
-<h2 data-number="32.1" class="anchored" data-anchor-id="forward-fill"><span class="header-section-number">32.1</span> Forward fill</h2>
+<section id="forward-fill" class="level2" data-number="24.1">
+<h2 data-number="24.1" class="anchored" data-anchor-id="forward-fill"><span class="header-section-number">24.1</span> Forward fill</h2>
 <div id="cell-7" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>df_ffil <span class="op">=</span> df.fillna(method<span class="op">=</span><span class="st">'ffill'</span>)</span>
 <span id="cb6-2"><a href="#cb6-2"></a>plot_missing_vals(df, df_ffil, title<span class="op">=</span><span class="st">'ffill'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice2_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="fill-missing-values_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="backwrds-fill" class="level2" data-number="32.2">
-<h2 data-number="32.2" class="anchored" data-anchor-id="backwrds-fill"><span class="header-section-number">32.2</span> Backwrds fill</h2>
+<section id="backwrds-fill" class="level2" data-number="24.2">
+<h2 data-number="24.2" class="anchored" data-anchor-id="backwrds-fill"><span class="header-section-number">24.2</span> Backwrds fill</h2>
 <div id="cell-9" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>df_bfil <span class="op">=</span> df.fillna(method<span class="op">=</span><span class="st">'bfill'</span>)</span>
 <span id="cb7-2"><a href="#cb7-2"></a>plot_missing_vals(df, df_bfil, title<span class="op">=</span><span class="st">'bfill'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice2_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="fill-missing-values_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="interpolation" class="level2 page-columns page-full" data-number="32.3">
-<h2 data-number="32.3" class="anchored" data-anchor-id="interpolation"><span class="header-section-number">32.3</span> Interpolation</h2>
-<section id="linear" class="level3" data-number="32.3.1">
-<h3 data-number="32.3.1" class="anchored" data-anchor-id="linear"><span class="header-section-number">32.3.1</span> linear</h3>
+<section id="interpolation" class="level2 page-columns page-full" data-number="24.3">
+<h2 data-number="24.3" class="anchored" data-anchor-id="interpolation"><span class="header-section-number">24.3</span> Interpolation</h2>
+<section id="linear" class="level3" data-number="24.3.1">
+<h3 data-number="24.3.1" class="anchored" data-anchor-id="linear"><span class="header-section-number">24.3.1</span> linear</h3>
 <div id="cell-11" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>interpolated_df <span class="op">=</span> df.interpolate(method<span class="op">=</span><span class="st">'linear'</span>)</span>
 <span id="cb8-2"><a href="#cb8-2"></a>plot_missing_vals(df, interpolated_df, title<span class="op">=</span><span class="st">'linear interpolation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice2_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="fill-missing-values_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.interpolate.html</p>
 </section>
-<section id="cubic-splines" class="level3 page-columns page-full" data-number="32.3.2">
-<h3 data-number="32.3.2" class="anchored" data-anchor-id="cubic-splines"><span class="header-section-number">32.3.2</span> cubic splines</h3>
+<section id="cubic-splines" class="level3 page-columns page-full" data-number="24.3.2">
+<h3 data-number="24.3.2" class="anchored" data-anchor-id="cubic-splines"><span class="header-section-number">24.3.2</span> cubic splines</h3>
 <p>Source: <a href="https://docs.scipy.org/doc/scipy/tutorial/interpolate/1D.html#cubic-splines" class="uri">https://docs.scipy.org/doc/scipy/tutorial/interpolate/1D.html#cubic-splines</a></p>
 <p>Piecewise linear interpolation produces corners at data points, where linear pieces join. To produce a smoother curve, you can use cubic splines, where the interpolating curve is made of cubic pieces with <strong>matching first and second derivatives</strong>.</p>
 <p><img src="cubic_c2_spline.png" class="img-fluid"></p>
@@ -1081,7 +1081,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice2_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="fill-missing-values_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1091,7 +1091,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice2_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="fill-missing-values_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1102,7 +1102,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice2_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="fill-missing-values_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1112,7 +1112,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice2_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="fill-missing-values_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1120,8 +1120,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>All available interpolation types can be found at the <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.interpolate.html">pandas documentation</a></p>
 </section>
 </section>
-<section id="random-forest" class="level2" data-number="32.4">
-<h2 data-number="32.4" class="anchored" data-anchor-id="random-forest"><span class="header-section-number">32.4</span> random forest</h2>
+<section id="random-forest" class="level2" data-number="24.4">
+<h2 data-number="24.4" class="anchored" data-anchor-id="random-forest"><span class="header-section-number">24.4</span> random forest</h2>
 <p>Here we explore the use of a commnly used Machine learning model - RandomForest</p>
 <div id="cell-19" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a></span>
@@ -1169,14 +1169,14 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice2_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="fill-missing-values_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="sarimax" class="level1" data-number="33">
-<h1 data-number="33"><span class="header-section-number">33</span> SARIMAX</h1>
+<section id="sarimax" class="level1" data-number="25">
+<h1 data-number="25"><span class="header-section-number">25</span> SARIMAX</h1>
 <div id="cell-23" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Model Building and Imputation</span></span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="co"># Build a SARIMA model on the data with gaps</span></span>
@@ -1209,15 +1209,15 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice2_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="fill-missing-values_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The above looks good at the begining of the gap but at the end of the gap it looks bad. That is because we are forcasting and not filling in between the lines…</p>
 </section>
-<section id="sarimax-cross-fade" class="level1" data-number="34">
-<h1 data-number="34"><span class="header-section-number">34</span> SARIMAX cross fade</h1>
+<section id="sarimax-cross-fade" class="level1" data-number="26">
+<h1 data-number="26"><span class="header-section-number">26</span> SARIMAX cross fade</h1>
 <div id="cell-26" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">def</span> find_nan_gaps_indexes_datetime(series):</span>
 <span id="cb18-2"><a href="#cb18-2"></a>    <span class="co">"""</span></span>
@@ -1327,7 +1327,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice2_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="fill-missing-values_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1811,13 +1811,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../stationarity/practice.html" class="pagination-link" aria-label="practice">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">practice</span></span>
+      <a href="../outliers/outliers_challenge_part2.html" class="pagination-link" aria-label="challenge part 2">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">challenge part 2</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../seasonality/motivation.html" class="pagination-link" aria-label="motivation">
-        <span class="nav-page-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">motivation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../stationarity/motivation.html" class="pagination-link" aria-label="motivation">
+        <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">motivation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -631,7 +631,7 @@
     "href": "outliers/outlier-identification.html#z-score",
     "title": "18  outlier identification",
     "section": "18.2 Z-score",
-    "text": "18.2 Z-score\nThe Z-score is the distance, in units of 1 standard deviation, of a point in the series with respect to the mean:\n\nz  = \\frac{x-\\mu}{\\sigma},\n\n\n\nwhere\n\nx= data point,\n\n\\mu= time series mean\n\n\\sigma= time series standard deviation.\n\nA common choice is to consider an outlier a point whose Z-score is greater that 3, in absolute value. In other words: If a point is more than 3 standard deviations away form the mean, then we call it an outlier.\n\nYou can now use this algorithm to any number of time series, let the computer do the hard work.\nOf course, there is nothing sacred about the number 3. You can choose any Z-score you want to perform an analysis on your own data, depending on your needs.\n\n18.2.1 ATTENTION!\nFor data that is gaussianly distributed, we expect that 99.73% of data to fall within 3 standard deviations from the mean. In other words, 0.27% of points would be considered as outliers according to the Z-score method.\n\n\n\nSource: Wikimedia Commons\nAssume you have a time series gaussianly distributed, with 10k measurements. We would expect to find about 27 outliers in this time series.\nSo what is the problem?!\nThe thing is, outliers are not supposed to be only data points far from the other points. That’s not enough. A better way of understanding outliers is to imagine that our expected measurements are sampled from a given distribution, and every now an then we have measurements that are sampled from another distribution.\n\n\n\nSource: Taylor Wilson’s “Dealing with Outliers (Part 1): Ignore Them at Your Peril”\nWe should have this in mind always. We wouldn’t want to single out good data as something weird. Our true task is to identify which points in our time series were sampled from a different distribution. This can be a very challenging task.",
+    "text": "18.2 Z-score\nThe Z-score is the distance, in units of 1 standard deviation, of a point in the series with respect to the mean:\n\nz  = \\frac{x-\\mu}{\\sigma},\n\n\n\nwhere\n\nx= data point,\n\n\\mu= time series mean\n\n\\sigma= time series standard deviation.\n\nThe process of converting a time series into a Z-score series is called standardization. This will be useful in the next topic, when we talk about the correlation between two time series.\nA common choice is to consider an outlier a point whose Z-score is greater that 3, in absolute value. In other words: If a point is more than 3 standard deviations away form the mean, then we call it an outlier.\n\nYou can now use this algorithm to any number of time series, let the computer do the hard work.\nOf course, there is nothing sacred about the number 3. You can choose any Z-score you want to perform an analysis on your own data, depending on your needs.\n\n18.2.1 ATTENTION!\nFor data that is gaussianly distributed, we expect that 99.73% of data to fall within 3 standard deviations from the mean. In other words, 0.27% of points would be considered as outliers according to the Z-score method.\n\n\n\nSource: Wikimedia Commons\nAssume you have a time series gaussianly distributed, with 10k measurements. We would expect to find about 27 outliers in this time series.\nSo what is the problem?!\nThe thing is, outliers are not supposed to be only data points far from the other points. That’s not enough. A better way of understanding outliers is to imagine that our expected measurements are sampled from a given distribution, and every now an then we have measurements that are sampled from another distribution.\n\n\n\nSource: Taylor Wilson’s “Dealing with Outliers (Part 1): Ignore Them at Your Peril”\nWe should have this in mind always. We wouldn’t want to single out good data as something weird. Our true task is to identify which points in our time series were sampled from a different distribution. This can be a very challenging task.",
     "crumbs": [
       "outliers and gaps",
       "<span class='chapter-number'>18</span>  <span class='chapter-title'>outlier identification</span>"
@@ -774,7 +774,7 @@
     "href": "outliers/outliers_challenge.html#importing-bad-.csv-files",
     "title": "22  challenge",
     "section": "",
-    "text": "Create a folder for this challenge, name it whatever you want.\nDownload this Jupyter notebook and move it to that folder.\nDownload these 3 .csv files and part 2 notebook:\n\ncleaning1\ncleaning2-\ncleaning3\npart_2\n\nMove these files into your folder.\n\n\n22.1.1 Import\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.dates import DateFormatter\nimport matplotlib.dates as mdates\nimport matplotlib.ticker as ticker\nimport warnings\n# Suppress FutureWarnings\nwarnings.simplefilter(action='ignore', category=FutureWarning)\nwarnings.simplefilter(action='ignore', category=UserWarning)\nimport seaborn as sns\nsns.set(style=\"ticks\", font_scale=1.5)  # white graphs, with large and legible letters\n\n# %matplotlib widget",
+    "text": "Create a folder for this challenge, name it whatever you want.\nDownload this Jupyter notebook and move it to that folder.\nDownload these 3 .csv files and part 2 notebook:\n\ncleaning1\ncleaning2-\ncleaning3\nGo to challenge part 2 and download it from there.\n\nMove these files into your folder.\n\n\n22.1.1 Import\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.dates import DateFormatter\nimport matplotlib.dates as mdates\nimport matplotlib.ticker as ticker\nimport warnings\n# Suppress FutureWarnings\nwarnings.simplefilter(action='ignore', category=FutureWarning)\nwarnings.simplefilter(action='ignore', category=UserWarning)\nimport seaborn as sns\nsns.set(style=\"ticks\", font_scale=1.5)  # white graphs, with large and legible letters\n\n# %matplotlib widget",
     "crumbs": [
       "outliers and gaps",
       "<span class='chapter-number'>22</span>  <span class='chapter-title'>challenge</span>"
@@ -847,454 +847,454 @@
     ]
   },
   {
+    "objectID": "outliers/fill-missing-values.html",
+    "href": "outliers/fill-missing-values.html",
+    "title": "24  filling missing values",
+    "section": "",
+    "text": "24.1 Forward fill\ndf_ffil = df.fillna(method='ffill')\nplot_missing_vals(df, df_ffil, title='ffill')",
+    "crumbs": [
+      "outliers and gaps",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>filling missing values</span>"
+    ]
+  },
+  {
+    "objectID": "outliers/fill-missing-values.html#backwrds-fill",
+    "href": "outliers/fill-missing-values.html#backwrds-fill",
+    "title": "24  filling missing values",
+    "section": "24.2 Backwrds fill",
+    "text": "24.2 Backwrds fill\n\ndf_bfil = df.fillna(method='bfill')\nplot_missing_vals(df, df_bfil, title='bfill')",
+    "crumbs": [
+      "outliers and gaps",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>filling missing values</span>"
+    ]
+  },
+  {
+    "objectID": "outliers/fill-missing-values.html#interpolation",
+    "href": "outliers/fill-missing-values.html#interpolation",
+    "title": "24  filling missing values",
+    "section": "24.3 Interpolation",
+    "text": "24.3 Interpolation\n\n24.3.1 linear\n\ninterpolated_df = df.interpolate(method='linear')\nplot_missing_vals(df, interpolated_df, title='linear interpolation')\n\n\n\n\n\n\n\n\nhttps://pandas.pydata.org/docs/reference/api/pandas.DataFrame.interpolate.html\n\n\n24.3.2 cubic splines\nSource: https://docs.scipy.org/doc/scipy/tutorial/interpolate/1D.html#cubic-splines\nPiecewise linear interpolation produces corners at data points, where linear pieces join. To produce a smoother curve, you can use cubic splines, where the interpolating curve is made of cubic pieces with matching first and second derivatives.\n\n\n\nSource: https://kluge.in-chemnitz.de/opensource/spline/\n\ninterpolated_cubic_df = df.interpolate(method='cubic')\nplot_missing_vals(df, interpolated_cubic_df, title='cubic interpolation')\n\n\n\n\n\n\n\n\n\nplot_missing_vals(interpolated_df, interpolated_cubic_df, title='linear vs cubic interpolation')\n\n\n\n\n\n\n\n\n\ninterpolated_poly_df = df.interpolate(method='polynomial', order=3)\nplot_missing_vals(df, interpolated_poly_df, title='polynomial interpolation')\n\n\n\n\n\n\n\n\n\nplot_missing_vals(interpolated_cubic_df, interpolated_poly_df, title='cubic vs polynomial interpolation')\n\n\n\n\n\n\n\n\nAll available interpolation types can be found at the pandas documentation",
+    "crumbs": [
+      "outliers and gaps",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>filling missing values</span>"
+    ]
+  },
+  {
+    "objectID": "outliers/fill-missing-values.html#random-forest",
+    "href": "outliers/fill-missing-values.html#random-forest",
+    "title": "24  filling missing values",
+    "section": "24.4 random forest",
+    "text": "24.4 random forest\nHere we explore the use of a commnly used Machine learning model - RandomForest\n\n\ndef fillna_randomforest(series):\n    # Ensure the series index is a datetime object\n    if not isinstance(series.index, pd.DatetimeIndex):\n        raise ValueError(\"Index must be a DatetimeIndex\")\n    \n    # Split series into observed and missing values\n    observed = series.dropna()\n    missing = series[series.isna()]\n    \n    # Extracting time-based features\n    def create_features(index):\n        return np.array([index.hour, index.day, index.month, index.year]).T\n    \n    # Create features for training data\n    X_train = create_features(observed.index)\n    y_train = observed.values\n    \n    # Train the Random Forest regression model\n    model = RandomForestRegressor()\n    model.fit(X_train, y_train)\n    \n    # Create features for missing data and predict\n    X_missing = create_features(missing.index)\n    predicted_values = model.predict(X_missing)\n    \n    # Assign the predicted values to the missing positions\n    series_filled = series.copy()\n    series_filled[series_filled.isna()] = predicted_values\n\n    return series_filled\n\n\ncolumns = df.columns\ndf_rf = df.copy()\nfor i, column in enumerate(columns):\n    if i == 0:\n        continue\n    df_rf[column] = fillna_randomforest(df_rf[column])\n\n\nplot_missing_vals(df, df_rf, title='fandomforest')",
+    "crumbs": [
+      "outliers and gaps",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>filling missing values</span>"
+    ]
+  },
+  {
     "objectID": "stationarity/motivation.html",
     "href": "stationarity/motivation.html",
-    "title": "24  motivation",
+    "title": "25  motivation",
     "section": "",
-    "text": "24.1 questions",
+    "text": "25.1 questions",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>motivation</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>motivation</span>"
     ]
   },
   {
     "objectID": "stationarity/motivation.html#questions",
     "href": "stationarity/motivation.html#questions",
-    "title": "24  motivation",
+    "title": "25  motivation",
     "section": "",
     "text": "If I know the temperature right now, what does that tell me about the temperature 10 minutes from now? How about 100 minutes? 1000 minutes?\nThe same applies to the past: how heavily does past information inform today’s measurements?\ninformation degradation: how fast does information from a signal degrade, and gets swamped by noise?",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>motivation</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>motivation</span>"
     ]
   },
   {
     "objectID": "stationarity/motivation.html#goals",
     "href": "stationarity/motivation.html#goals",
-    "title": "24  motivation",
-    "section": "24.2 goals",
-    "text": "24.2 goals\n\ndiscuss what is noise, signal, trend, cycles, etc.\nlearn a useful framework to make sense of all the above.\nacquire statistical and time-series tools to analyze my data\neventually, all the above will be crucial to forcast future states.\n\nLet’s go! 🚀",
+    "title": "25  motivation",
+    "section": "25.2 goals",
+    "text": "25.2 goals\n\ndiscuss what is noise, signal, trend, cycles, etc.\nlearn a useful framework to make sense of all the above.\nacquire statistical and time-series tools to analyze my data\neventually, all the above will be crucial to forcast future states.\n\nLet’s go! 🚀",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>motivation</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>motivation</span>"
     ]
   },
   {
     "objectID": "stationarity/random.html",
     "href": "stationarity/random.html",
-    "title": "25  random variables",
+    "title": "26  random variables",
     "section": "",
     "text": "discrete random variable\nThere is a countable number of distinct outcomes. The obvious examples are coins and dice, which have 2 and 6 possible outcomes.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>random variables</span>"
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>random variables</span>"
     ]
   },
   {
     "objectID": "stationarity/random.html#white-noise",
     "href": "stationarity/random.html#white-noise",
-    "title": "25  random variables",
-    "section": "25.1 white noise",
-    "text": "25.1 white noise\nSee below three time series made up by three different stochastic (random) processes. All terms in each of the series are independent and identically distributed (iid), meaning that they are uncorrelated and taken from the same underlying distribution.\n\nAs we increase the length of the series, the statistics of each series reveal hints of the distributions they were sampled from:\n\n\nThe mathematical way of describing these series is thus: \\{X\\} represents the stochastic process (binary, uniform, etc), from which a specific series is randomly drawn:\n\n\\{ x_0, x_1, x_2, \\cdots \\}\n\nAll of these processes above have zero mean (\\mu=0) and a finite variance (\\sigma^2), which qualify them as white noise.",
+    "title": "26  random variables",
+    "section": "26.1 white noise",
+    "text": "26.1 white noise\nSee below three time series made up by three different stochastic (random) processes. All terms in each of the series are independent and identically distributed (iid), meaning that they are uncorrelated and taken from the same underlying distribution.\n\nAs we increase the length of the series, the statistics of each series reveal hints of the distributions they were sampled from:\n\n\nThe mathematical way of describing these series is thus: \\{X\\} represents the stochastic process (binary, uniform, etc), from which a specific series is randomly drawn:\n\n\\{ x_0, x_1, x_2, \\cdots \\}\n\nAll of these processes above have zero mean (\\mu=0) and a finite variance (\\sigma^2), which qualify them as white noise.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>random variables</span>"
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>random variables</span>"
     ]
   },
   {
     "objectID": "stationarity/random.html#random-walk",
     "href": "stationarity/random.html#random-walk",
-    "title": "25  random variables",
-    "section": "25.2 random walk",
-    "text": "25.2 random walk\nA random walk S_t (for t=0,1,2,\\cdots) is obtained by cumulatively summing iid random variables:\n\nS_t = X_1 + X_2 + X_3 + \\cdots + X_{t-1} + X_t\n\nwhere S_0=0.\nIn the case of a binary process, you can think of the random walk as the position of a person who takes a step forward every time a coin toss yields heads, and a step backward for tails. Of course, by differencing the random walk, we can recover the original random sequence:\n\nX_i = S_{i} - S_{i-1}.\n\nSee below the random walks associated with the three white noise processes from before:\n  \n\n\n\n\nBrockwell, Peter J., and Richard A. Davis. 2016. Introduction to Time Series and Forecasting. 3rd ed. Springer.",
+    "title": "26  random variables",
+    "section": "26.2 random walk",
+    "text": "26.2 random walk\nA random walk S_t (for t=0,1,2,\\cdots) is obtained by cumulatively summing iid random variables:\n\nS_t = X_1 + X_2 + X_3 + \\cdots + X_{t-1} + X_t\n\nwhere S_0=0.\nIn the case of a binary process, you can think of the random walk as the position of a person who takes a step forward every time a coin toss yields heads, and a step backward for tails. Of course, by differencing the random walk, we can recover the original random sequence:\n\nX_i = S_{i} - S_{i-1}.\n\nSee below the random walks associated with the three white noise processes from before:\n  \n\n\n\n\nBrockwell, Peter J., and Richard A. Davis. 2016. Introduction to Time Series and Forecasting. 3rd ed. Springer.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>random variables</span>"
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>random variables</span>"
     ]
   },
   {
     "objectID": "stationarity/AR.html",
     "href": "stationarity/AR.html",
-    "title": "26  autoregressive processes",
+    "title": "27  autoregressive processes",
     "section": "",
-    "text": "26.1 AR(1)\nLet’s add some white noise (\\varepsilon) to this process.\nX_{t} = \\phi\\,X_{t-1} + \\varepsilon.\nThis is called an Autoregressive Process of order 1, or AR(1). Here, the current value x_{t} is dependent on the immediately preceding value x_{t-1}.\nWhat can we call these special cases?\nThe time series clearly explodes to infinity if \\phi&gt;1, and seems to stay bounded for values equal or smaller than 1. We will come back to this observation in a little while, when we discuss stationarity.",
+    "text": "27.1 AR(1)\nLet’s add some white noise (\\varepsilon) to this process.\nX_{t} = \\phi\\,X_{t-1} + \\varepsilon.\nThis is called an Autoregressive Process of order 1, or AR(1). Here, the current value x_{t} is dependent on the immediately preceding value x_{t-1}.\nWhat can we call these special cases?\nThe time series clearly explodes to infinity if \\phi&gt;1, and seems to stay bounded for values equal or smaller than 1. We will come back to this observation in a little while, when we discuss stationarity.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>autoregressive processes</span>"
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>autoregressive processes</span>"
     ]
   },
   {
     "objectID": "stationarity/AR.html#ar1",
     "href": "stationarity/AR.html#ar1",
-    "title": "26  autoregressive processes",
+    "title": "27  autoregressive processes",
     "section": "",
     "text": "1 \\phi=1.0\n2 \\phi=0.0",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>autoregressive processes</span>"
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>autoregressive processes</span>"
     ]
   },
   {
     "objectID": "stationarity/AR.html#ar2",
     "href": "stationarity/AR.html#ar2",
-    "title": "26  autoregressive processes",
-    "section": "26.2 AR(2)",
-    "text": "26.2 AR(2)\nWe can define a process that the current state is dependent on the two previous states, each with a different weight.\n\nX_{t} = \\phi_1\\,X_{t-1} + \\phi_2\\,X_{t-2} + \\varepsilon",
+    "title": "27  autoregressive processes",
+    "section": "27.2 AR(2)",
+    "text": "27.2 AR(2)\nWe can define a process that the current state is dependent on the two previous states, each with a different weight.\n\nX_{t} = \\phi_1\\,X_{t-1} + \\phi_2\\,X_{t-2} + \\varepsilon",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>autoregressive processes</span>"
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>autoregressive processes</span>"
     ]
   },
   {
     "objectID": "stationarity/AR.html#arp",
     "href": "stationarity/AR.html#arp",
-    "title": "26  autoregressive processes",
-    "section": "26.3 AR(p)",
-    "text": "26.3 AR(p)\nThe next thing to do is to generalize, and define an autoregressive process that depends on p previous states:\n\nx_{t} = \\phi_1\\,x_{t-1} + \\phi_2\\,x_{t-2} + \\cdots + \\phi_p\\,x_{t-p} + \\varepsilon\n\n\n\n\n\nShumway, Robert H., and David S. Stoffer. 2017. Time Series Analysis and Its Applications With R Examples. 4th ed. Springer. http://www.stat.ucla.edu/~frederic/415/S23/tsa4.pdf.",
+    "title": "27  autoregressive processes",
+    "section": "27.3 AR(p)",
+    "text": "27.3 AR(p)\nThe next thing to do is to generalize, and define an autoregressive process that depends on p previous states:\n\nx_{t} = \\phi_1\\,x_{t-1} + \\phi_2\\,x_{t-2} + \\cdots + \\phi_p\\,x_{t-p} + \\varepsilon\n\n\n\n\n\nShumway, Robert H., and David S. Stoffer. 2017. Time Series Analysis and Its Applications With R Examples. 4th ed. Springer. http://www.stat.ucla.edu/~frederic/415/S23/tsa4.pdf.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>autoregressive processes</span>"
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>autoregressive processes</span>"
     ]
   },
   {
     "objectID": "stationarity/AR.html#footnotes",
     "href": "stationarity/AR.html#footnotes",
-    "title": "26  autoregressive processes",
+    "title": "27  autoregressive processes",
     "section": "",
     "text": "random walk↩︎\nwhite noise↩︎",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>autoregressive processes</span>"
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>autoregressive processes</span>"
     ]
   },
   {
     "objectID": "stationarity/autocorrelation.html",
     "href": "stationarity/autocorrelation.html",
-    "title": "27  autocorrelation",
+    "title": "28  autocorrelation",
     "section": "",
-    "text": "27.1 mean and standard deviation\nLet’s call our time series X, and its length N. Then:\n\\begin{aligned}\n\\text{mean\\qquad}& &\\mu &= \\frac{\\displaystyle\\sum_{i=1}^N X_i}{N} \\\\\n&\\\\\n\\text{standard deviation\\qquad}& &\\sigma &= \\sqrt{\\frac{\\displaystyle\\sum_{i=1}^N (X_i-\\mu)^2}{N}}\n\\end{aligned}\nThe mean and standard deviation can be visualized thus:",
+    "text": "28.1 mean and standard deviation\nLet’s call our time series X, and its length N. Then:\n\\begin{aligned}\n\\text{mean\\qquad}& &\\mu &= \\frac{\\displaystyle\\sum_{i=1}^N X_i}{N} \\\\\n&\\\\\n\\text{standard deviation\\qquad}& &\\sigma &= \\sqrt{\\frac{\\displaystyle\\sum_{i=1}^N (X_i-\\mu)^2}{N}}\n\\end{aligned}\nThe mean and standard deviation can be visualized thus:",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>27</span>  <span class='chapter-title'>autocorrelation</span>"
+      "<span class='chapter-number'>28</span>  <span class='chapter-title'>autocorrelation</span>"
     ]
   },
   {
     "objectID": "stationarity/autocorrelation.html#expected-value",
     "href": "stationarity/autocorrelation.html#expected-value",
-    "title": "27  autocorrelation",
-    "section": "27.2 expected value",
-    "text": "27.2 expected value\nThe expected value (or expectation) of a variable X is given by \nE[X] = \\sum_{i=1}^N X_i p_i.\n\np_i is the weight or probability that X_i occurs. For a time series, the probability p_i that a given point X_i is in the dataset is simply 1/N, therefore we can write the following measures in terms of expected values:\n\nmean, also called 1st moment: \n\\mu = E[X].\n\nvariance, also called 2nd moment: \n\\sigma^2 = E[(X-E[X])^2] = E[(X-\\mu)^2].\n Of course, \\sigma is called the standard deviation.",
+    "title": "28  autocorrelation",
+    "section": "28.2 expected value",
+    "text": "28.2 expected value\nThe expected value (or expectation) of a variable X is given by \nE[X] = \\sum_{i=1}^N X_i p_i.\n\np_i is the weight or probability that X_i occurs. For a time series, the probability p_i that a given point X_i is in the dataset is simply 1/N, therefore we can write the following measures in terms of expected values:\n\n\nWhat if my time series clearly has data points with probability greater than 1/N? For instance, consider this temperature time series, in degrees Celcius:\n\nX = \\{21,25,25,20,26,25\\}\n\nThe value 25 appears in half (3/6) of the samples. Its weight in the equation for the expected value will be 1/N counted three times, that is, 3/N. The probability of each value will automatically be what it needs to be when we use this formula.\n\nmean, also called 1st moment: \n\\mu = E[X].\n\nvariance, also called 2nd moment: \n\\sigma^2 = E[(X-E[X])^2] = E[(X-\\mu)^2].\n Of course, \\sigma is called the standard deviation.\nyou might have heard of the 3rd moment (skewness) and 4th moment (kurtosis), they are also useful sometimes. Higher order moments are not common.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>27</span>  <span class='chapter-title'>autocorrelation</span>"
+      "<span class='chapter-number'>28</span>  <span class='chapter-title'>autocorrelation</span>"
     ]
   },
   {
     "objectID": "stationarity/autocorrelation.html#covariance",
     "href": "stationarity/autocorrelation.html#covariance",
-    "title": "27  autocorrelation",
-    "section": "27.3 covariance",
-    "text": "27.3 covariance\nThe covariance between two time series X and Y is given by\n\n\\begin{split}\n\\text{cov}(X,Y) &= E[(X-E[X])(Y-E[Y])]\\\\\n                &= E[(X-\\mu_X)(Y-\\mu_Y)]\n\\end{split}\n\nCompare this to the definition of the variance, and it is obvious that the covariance \\text{cov(X,X)} of a time series with itself is its variance.",
+    "title": "28  autocorrelation",
+    "section": "28.3 covariance",
+    "text": "28.3 covariance\nThe covariance between two time series X and Y is given by\n\n\\begin{split}\n\\text{cov}(X,Y) &= E[(X-E[X])(Y-E[Y])]\\\\\n                &= E[(X-\\mu_X)(Y-\\mu_Y)]\n\\end{split}\n\nCompare this to the definition of the variance, and it is obvious that the covariance \\text{cov(X,X)} of a time series with itself is its variance.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>27</span>  <span class='chapter-title'>autocorrelation</span>"
+      "<span class='chapter-number'>28</span>  <span class='chapter-title'>autocorrelation</span>"
     ]
   },
   {
     "objectID": "stationarity/autocorrelation.html#correlation",
     "href": "stationarity/autocorrelation.html#correlation",
-    "title": "27  autocorrelation",
-    "section": "27.4 correlation",
-    "text": "27.4 correlation\nWe are almost there. I promise.\nThe fact that \\text{cov(X,X)} = \\sigma_X^2 begs us to define a new measure, the correlation:\n\n\\text{corr}(X,Y) = \\frac{E[(X-\\mu_X)(Y-\\mu_Y)]}{\\sigma_X \\sigma_Y}.\n\n\n\nIsn’t this suspiciously similar to something we just saw in the last lecture?\nRemember that we defined de Z-score as \nz  = \\frac{x-\\mu}{\\sigma},\n\nTherefore, we can interpret the correlation as the expected value of Z_X times Z_Y:\n\n\\begin{split}\n\\text{corr}(X,Y) &= \\frac{E[(X-\\mu_X)(Y-\\mu_Y)]}{\\sigma_X \\sigma_Y} \\\\\n                 &= E[\\frac{X-\\mu_X}{\\sigma_X}\\frac{Y-\\mu_Y}{\\sigma_Y}] \\\\\n                 & = E[Z_X Z_Y]\n\\end{split}\n\nThis is convenient, because now we can say that the correlation of a time series with itself is \\text{corr}(X,X)=1.\nThis is also called the Pearson correlation coefficient, and the result has a value between 1 and -1.\n\n\n\nSource: Wikimedia",
+    "title": "28  autocorrelation",
+    "section": "28.4 correlation",
+    "text": "28.4 correlation\nWe are almost there. I promise.\nThe fact that \\text{cov(X,X)} = \\sigma_X^2 begs us to define a new measure, the correlation:\n\n\\text{corr}(X,Y) = \\frac{E[(X-\\mu_X)(Y-\\mu_Y)]}{\\sigma_X \\sigma_Y}.\n\nThis is convenient, because now we can say that the correlation of a time series with itself is \\text{corr}(X,X)=1.\nThis is also called the Pearson correlation coefficient, and the result has a value between 1 and -1.\n\n\n\nSource: Wikimedia\n\n28.4.1 curious fact 1\nIsn’t the expression for the correlation suspiciously similar to something we just saw in the last lecture?\nRemember that we defined de Z-score as \nZ  = \\frac{x-\\mu}{\\sigma},\n\nTherefore, we can interpret the correlation as the expected value of Z_X times Z_Y:\n\n\\begin{split}\n\\text{corr}(X,Y) &= \\frac{E[(X-\\mu_X)(Y-\\mu_Y)]}{\\sigma_X \\sigma_Y} \\\\\n                 &= E[\\frac{X-\\mu_X}{\\sigma_X}\\frac{Y-\\mu_Y}{\\sigma_Y}] \\\\\n                 & = E[Z_X Z_Y]\n\\end{split}\n\nThe correlation is thus the expected value of the product of standardized time series.\n\n\n28.4.2 curious fact 2\nThere is a magnificent geometric interpretation for the correlation of two time series. We can imagine that each time standardized series Z_X and Z_Y is a unit vector in an N-dimensional space. Then the expected value E[Z_X Z_Y] can be seen as the dot product of these two vectors. The dot product of two vectors is\n\n\\vec{a}\\cdot\\vec{b} = |a|\\, |b| \\cos(\\theta),\n\n\n\nThe dot product is the sum of an element-wise multiplication:\n\n\\vec{a}\\cdot\\vec{b} = a_1b_1 + a_2b_2 + \\cdots + a_Nb_N\n\nBecause we are dealing with unit vectors, we have\n\n\\vec{Z_X}\\cdot\\vec{Z_Y} = \\cos(\\theta).\n\nThe correlation between X and Y has to be between -1 and 1 because the cosine of the angle between them is also bounded by these values. Furthermore, when two time series have zero correlation, this means that they are orthogonal (\\theta=\\pi/2) in this N-dimensional space. Mind. Blown.\n\n\nIn this geometric interpretation, the standard deviation is simply the L2 (Euclidean) norm of the time series. This is why we get a unit vector Z-score when we divide by the standard deviation.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>27</span>  <span class='chapter-title'>autocorrelation</span>"
+      "<span class='chapter-number'>28</span>  <span class='chapter-title'>autocorrelation</span>"
     ]
   },
   {
     "objectID": "stationarity/autocorrelation.html#autocorrelation",
     "href": "stationarity/autocorrelation.html#autocorrelation",
-    "title": "27  autocorrelation",
-    "section": "27.5 autocorrelation",
-    "text": "27.5 autocorrelation\nThe autocorrelation of a time series X is the answer to the following question:\n\nif we shift X by \\tau units, how similar will this be to the original signal?\n\nIn other words:\n\nhow correlated are X(t) and X(t+\\tau)?\n\nThe autocorrelation is expressed as \n\\rho_{XX}(\\tau) = \\frac{E\\left[ (X_t - \\mu)(X_{t+\\tau} - \\mu) \\right]}{\\sigma^2}\n\n\n\nIn other disciplines, the autocorrelation is simply the autocovariance, i.e., it is not normalized by dividing by \\sigma^2. In time series it is assumed that the autocorrelation is always normalized, therefore between -1 and 1.\nThe autocorrelation function \\rho_{XX}(\\tau) provides a useful measure of the degree of dependence among the values of a time series at different times.\nA video is worth a billion words, so let’s see the autocorrelation in action:\n\nA few comments:\n\nThe autocorrelation for \\tau=0 (zero shift) is always 1.\n[Can you prove this? All the necessary equations are above!]",
+    "title": "28  autocorrelation",
+    "section": "28.5 autocorrelation",
+    "text": "28.5 autocorrelation\nThe autocorrelation of a time series X is the answer to the following question:\n\nif we shift X by \\tau units, how similar will this be to the original signal?\n\nIn other words:\n\nhow correlated are X(t) and X(t+\\tau)?\n\nThe autocorrelation is expressed as \n\\rho_{XX}(\\tau) = \\frac{E\\left[ (X_t - \\mu)(X_{t+\\tau} - \\mu) \\right]}{\\sigma^2}\n\n\n\nIn other disciplines, the autocorrelation is simply the autocovariance, i.e., it is not normalized by dividing by \\sigma^2. In time series it is assumed that the autocorrelation is always normalized, therefore between -1 and 1.\nThe autocorrelation function \\rho_{XX}(\\tau) provides a useful measure of the degree of dependence among the values of a time series at different times.\nA video is worth a billion words, so let’s see the autocorrelation in action:\n\nA few comments:\n\nThe autocorrelation for \\tau=0 (zero shift) is always 1.\n[Can you prove this? All the necessary equations are above!]",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>27</span>  <span class='chapter-title'>autocorrelation</span>"
+      "<span class='chapter-number'>28</span>  <span class='chapter-title'>autocorrelation</span>"
     ]
   },
   {
     "objectID": "stationarity/stationarity.html",
     "href": "stationarity/stationarity.html",
-    "title": "28  stationarity",
+    "title": "29  stationarity",
     "section": "",
-    "text": "28.1 weak stationarity\nA time series is called weakly stationary if the following conditions are met:",
+    "text": "29.1 weak stationarity\nA time series is called weakly stationary if the following conditions are met:",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>28</span>  <span class='chapter-title'>stationarity</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>stationarity</span>"
     ]
   },
   {
     "objectID": "stationarity/stationarity.html#weak-stationarity",
     "href": "stationarity/stationarity.html#weak-stationarity",
-    "title": "28  stationarity",
+    "title": "29  stationarity",
     "section": "",
     "text": "its mean \\mu does not vary in time: \n\\mu_X(t) = \\mu_X(t+\\tau)\n for all values of t and \\tau.\nits variance is finite for any time t: \n\\sigma^2_X(t) &lt; \\infty.\n\nThe autocorrelation function between two lagged versions of the same time series, X(t_1) and X(t_2), depends only on the difference \\tau=t_2-t_1.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>28</span>  <span class='chapter-title'>stationarity</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>stationarity</span>"
     ]
   },
   {
     "objectID": "stationarity/stationarity.html#strictstrong-stationarity",
     "href": "stationarity/stationarity.html#strictstrong-stationarity",
-    "title": "28  stationarity",
-    "section": "28.2 strict/strong stationarity",
-    "text": "28.2 strict/strong stationarity\nAs the name suggests, strict stationarity requires much more than the above. It requires that the joint CDF of two lagged versions of X is the same. It is rare to require such strong terms, we will assume weak stationarity always from now on.",
+    "title": "29  stationarity",
+    "section": "29.2 strict/strong stationarity",
+    "text": "29.2 strict/strong stationarity\nAs the name suggests, strict stationarity requires much more than the above. It requires that the joint CDF of two lagged versions of X is the same. It is rare to require such strong terms, we will assume weak stationarity always from now on.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>28</span>  <span class='chapter-title'>stationarity</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>stationarity</span>"
     ]
   },
   {
     "objectID": "stationarity/stationarity.html#stationarity-of-arp",
     "href": "stationarity/stationarity.html#stationarity-of-arp",
-    "title": "28  stationarity",
-    "section": "28.3 stationarity of AR(p)",
-    "text": "28.3 stationarity of AR(p)\nLet’s write once more the definition of AR(p):\n\nx_{t} = \\phi_1\\,x_{t-1} + \\phi_2\\,x_{t-2} + \\cdots + \\phi_p\\,x_{t-p} + \\varepsilon\n\nWe can define the backward shift operator B as\n\nB X_t = X_{t-1}\n\nOf course, if B is applied p times, it shifts X thus:\n\nB^p X_t = X_{t-p}.\n\nWith that in hand, we can rewrite the definition of AR(p) as follows:\n\nx_{t} = \\phi_1\\, B\\,x_t + \\phi_2\\,B^2\\,x_t + \\cdots + \\phi_p\\,B^p\\,x_t + \\varepsilon\n\nWe have many terms with x_{t}, so let’s group them on the left-hand side:\n\nx_{t}\\, \\phi(B) = \\varepsilon,\n\nwhere the characteristic polynomial \\phi(B) is\n\n\\phi(B) = 1 - \\phi_1\\, B - \\phi_2\\,B^2 - \\cdots - \\phi_p\\,B^p\n\nIn order to determine the stationarity of AR(p), we need to find the roots of\n\n\\phi(B) = 0,\n\ncalled characteristic roots. These roots are often complex numbers.\n\nAR(p) is stationary if ALL the characteristic roots lie OUTSIDE the unit circle.\n\n\n\nThe reason for this is not obvious. A nice explanation can be found in this StackExchange response. Another good text is Tsay (2010, chap. 2).\nBrockwell and Davis (2016, chap. 2 p. 49 and chapter 3 p. 75) explain that, strictly speaking, an AR(p) process is stationary as long as the roots do not lie on the unit circle. However, in the case that the roots lie inside the unit circle, the process is noncausal, meaning that the present state depends on future states. In reality, everyone just ignores this point, and simply say that we require the roots to lie outside the unit circle to guarantee stationarity.",
+    "title": "29  stationarity",
+    "section": "29.3 stationarity of AR(p)",
+    "text": "29.3 stationarity of AR(p)\nLet’s write once more the definition of AR(p):\n\nx_{t} = \\phi_1\\,x_{t-1} + \\phi_2\\,x_{t-2} + \\cdots + \\phi_p\\,x_{t-p} + \\varepsilon\n\nWe can define the backward shift operator B as\n\nB X_t = X_{t-1}\n\nOf course, if B is applied p times, it shifts X thus:\n\nB^p X_t = X_{t-p}.\n\nWith that in hand, we can rewrite the definition of AR(p) as follows:\n\nx_{t} = \\phi_1\\, B\\,x_t + \\phi_2\\,B^2\\,x_t + \\cdots + \\phi_p\\,B^p\\,x_t + \\varepsilon\n\nWe have many terms with x_{t}, so let’s group them on the left-hand side:\n\nx_{t}\\, \\phi(B) = \\varepsilon,\n\nwhere the characteristic polynomial \\phi(B) is\n\n\\phi(B) = 1 - \\phi_1\\, B - \\phi_2\\,B^2 - \\cdots - \\phi_p\\,B^p\n\nIn order to determine the stationarity of AR(p), we need to find the roots of\n\n\\phi(B) = 0,\n\ncalled characteristic roots. These roots are often complex numbers.\n\nAR(p) is stationary if ALL the characteristic roots lie OUTSIDE the unit circle.\n\n\n\nThe reason for this is not obvious. A nice explanation can be found in this StackExchange response. Another good text is Tsay (2010, chap. 2).\nBrockwell and Davis (2016, chap. 2 p. 49 and chapter 3 p. 75) explain that, strictly speaking, an AR(p) process is stationary as long as the roots do not lie on the unit circle. However, in the case that the roots lie inside the unit circle, the process is noncausal, meaning that the present state depends on future states. In reality, everyone just ignores this point, and simply say that we require the roots to lie outside the unit circle to guarantee stationarity.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>28</span>  <span class='chapter-title'>stationarity</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>stationarity</span>"
     ]
   },
   {
     "objectID": "stationarity/stationarity.html#stationarity-of-ar1",
     "href": "stationarity/stationarity.html#stationarity-of-ar1",
-    "title": "28  stationarity",
-    "section": "28.4 stationarity of AR(1)",
-    "text": "28.4 stationarity of AR(1)\nWe need to solve the roots of the characteristic equation\n\n1 - \\phi_1\\, B = 0.\n\nThe only root is\n\nB = \\frac{1}{\\phi_1}\n\nBecause we require that this root is greater than 1 (in absolute value), we have that:\n\n\\left|\\frac{1}{\\phi_1}\\right| &gt; 1\\quad \\longrightarrow \\quad |\\phi| &lt; 1.\n\nThis result corroborates our conclusion from before:",
+    "title": "29  stationarity",
+    "section": "29.4 stationarity of AR(1)",
+    "text": "29.4 stationarity of AR(1)\nWe need to solve the roots of the characteristic equation\n\n1 - \\phi_1\\, B = 0.\n\nThe only root is\n\nB = \\frac{1}{\\phi_1}\n\nBecause we require that this root is greater than 1 (in absolute value), we have that:\n\n\\left|\\frac{1}{\\phi_1}\\right| &gt; 1\\quad \\longrightarrow \\quad |\\phi| &lt; 1.\n\nThis result corroborates our conclusion from before:",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>28</span>  <span class='chapter-title'>stationarity</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>stationarity</span>"
     ]
   },
   {
     "objectID": "stationarity/stationarity.html#stationarity-of-ar2",
     "href": "stationarity/stationarity.html#stationarity-of-ar2",
-    "title": "28  stationarity",
-    "section": "28.5 stationarity of AR(2)",
-    "text": "28.5 stationarity of AR(2)\nWe need to solve the roots of the characteristic equation\n\n1 - \\phi_1 B - \\phi_2 B^2 = 0.\n\nFor the AR(2) time series from before, here are the roots of the characteristic polynomial plotted on the complex plane:\n\n\nBecause complex roots come in pairs, I plotted above only one of the roots, the one with positive imaginary component. The second panel (\\phi_1=1.16,\\phi_2=-0.33) has two real roots, so both are plotted in blue.\nThe AR(2) time series will have a periodic component if the roots are complex, and the frequency of oscillation is\n\nf_0 = \\frac{1}{2\\pi}\\cos^{-1}\\left( \\frac{\\phi_1}{2\\sqrt{(-\\phi_2)}} \\right)\n\n\n\nSee an interesting discussion in David Josephs’ excellent time series webpage\nPlay with the widget below to get a feel of how the complex roots depend on the values of \\phi_1 and \\phi_2. In the left panel you can move the point A to choose different \\phi values, and on the right you see the complex roots of the polynomial instantly updated. As long as the point A is inside the blue triangle, the roots will be outside the unit circle, and therefore the process will be stationary. For \\phi_2 values above (below) the red line, the complex roots will be real (complex conjugates).\n\n\n\n\nGeogebra app made by Yair Mau (2024)\nConversely, play with the position of one of the complex roots, and see how this influences the value of \\phi_1,\\phi_2.\n\n\nThe two roots are easy to find from \\phi_1,\\phi_2, you just need to solve\n\n1 - \\phi_1 B - \\phi_2 B^2 = 0\n\nfor B. What if you choose two roots z_1,z_2 and want to derive from them the value of \\phi_1,\\phi_2? Just use this:\n\n\\begin{split}\n\\phi_1 &= \\frac{z_1+z_2}{z_1\\cdot z_2}\\\\\n& \\\\\n\\phi_2 &= -\\frac{1}{z_1\\cdot z_2}\n\\end{split}",
+    "title": "29  stationarity",
+    "section": "29.5 stationarity of AR(2)",
+    "text": "29.5 stationarity of AR(2)\nWe need to solve the roots of the characteristic equation\n\n1 - \\phi_1 B - \\phi_2 B^2 = 0.\n\nFor the AR(2) time series from before, here are the roots of the characteristic polynomial plotted on the complex plane:\n\n\nBecause complex roots come in pairs, I plotted above only one of the roots, the one with positive imaginary component. The second panel (\\phi_1=1.16,\\phi_2=-0.33) has two real roots, so both are plotted in blue.\nThe AR(2) time series will have a periodic component if the roots are complex, and the frequency of oscillation is\n\nf_0 = \\frac{1}{2\\pi}\\cos^{-1}\\left( \\frac{\\phi_1}{2\\sqrt{(-\\phi_2)}} \\right)\n\n\n\nSee an interesting discussion in David Josephs’ excellent time series webpage\nPlay with the widget below to get a feel of how the complex roots depend on the values of \\phi_1 and \\phi_2. In the left panel you can move the point A to choose different \\phi values, and on the right you see the complex roots of the polynomial instantly updated. As long as the point A is inside the blue triangle, the roots will be outside the unit circle, and therefore the process will be stationary. For \\phi_2 values above (below) the red line, the complex roots will be real (complex conjugates).\n\n\n\n\nGeogebra app made by Yair Mau (2024)\nConversely, play with the position of one of the complex roots, and see how this influences the value of \\phi_1,\\phi_2.\n\n\nThe two roots are easy to find from \\phi_1,\\phi_2, you just need to solve\n\n1 - \\phi_1 B - \\phi_2 B^2 = 0\n\nfor B. What if you choose two roots z_1,z_2 and want to derive from them the value of \\phi_1,\\phi_2? Just use this:\n\n\\begin{split}\n\\phi_1 &= \\frac{z_1+z_2}{z_1\\cdot z_2}\\\\\n& \\\\\n\\phi_2 &= -\\frac{1}{z_1\\cdot z_2}\n\\end{split}",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>28</span>  <span class='chapter-title'>stationarity</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>stationarity</span>"
     ]
   },
   {
     "objectID": "stationarity/stationarity.html#stationarity-of-ar4",
     "href": "stationarity/stationarity.html#stationarity-of-ar4",
-    "title": "28  stationarity",
-    "section": "28.6 stationarity of AR(4)",
-    "text": "28.6 stationarity of AR(4)\nConceptually, this is exactly like AR(2). In case you ever need to choose AR(4) \\phi values, play with the widget below and see if you can put all the roots outside the unit circle.\n\n\n\n\n\n\nBrockwell, Peter J., and Richard A. Davis. 2016. Introduction to Time Series and Forecasting. 3rd ed. Springer.\n\n\nTsay, R. S. 2010. Analysis of Financial Time Series. Wiley.",
+    "title": "29  stationarity",
+    "section": "29.6 stationarity of AR(4)",
+    "text": "29.6 stationarity of AR(4)\nConceptually, this is exactly like AR(2). In case you ever need to choose AR(4) \\phi values, play with the widget below and see if you can put all the roots outside the unit circle.\n\n\n\n\n\n\nBrockwell, Peter J., and Richard A. Davis. 2016. Introduction to Time Series and Forecasting. 3rd ed. Springer.\n\n\nTsay, R. S. 2010. Analysis of Financial Time Series. Wiley.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>28</span>  <span class='chapter-title'>stationarity</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>stationarity</span>"
     ]
   },
   {
     "objectID": "stationarity/ACF_and_PACF_graphs.html",
     "href": "stationarity/ACF_and_PACF_graphs.html",
-    "title": "29  ACF and PACF graphs",
+    "title": "30  ACF and PACF graphs",
     "section": "",
-    "text": "29.1 ACF\nWe need to calculate now the autocorrelation function of our series: \n\\rho_{XX}(\\tau) = \\frac{E\\left[ (X_t - \\mu)(X_{t+\\tau} - \\mu) \\right]}{\\sigma^2}\ndef compute_acf(series):\n    N = len(series)\n    lags = np.arange(N)\n    acf = np.zeros_like(lags)\n    series = (series - series.mean()) / series.std()\n    for i in lags:\n        acf[i] = np.sum(series[i:] * series[:N-i])\n    acf = acf / N\n    return lags, acf\nplot acf\nfig, ax = plt.subplots()\nlags, acf = compute_acf(ar2_values)\nax.plot([0, N], [0]*2, color=\"black\", ls=\"--\")\nax.plot(lags, acf)\nax.set(xlabel=\"lag\",\n       ylabel=\"acf\",\n       xlim=[0, N]);\nNotice that the ACF always starts at 1 for zero lag, and it gets closer to zero as the lag increases.\nThe statsmodels package also offers an easy way to plot the ACF, let’s compare our calculation with the built-in function:\nplot\nfig, ax = plt.subplots()\nax.plot([0, N], [0]*2, color=\"black\", ls=\"--\")\nsm.graphics.tsa.plot_acf(ar2_values, lags= N-1, ax=ax, label=\"statsmodels\", alpha=None, use_vlines=False)\nax.plot(lags, acf, color=\"tab:orange\", label=\"our own acf\")\nax.legend()\nax.set(ylim=[-0.5, 1.1],\n       xlim=[0, N],\n       title=\"compare acf\",\n       xlabel=\"lag\",\n       ylabel=\"acf\");\nExcellent! From now on we will continue using statsmodels functions. We can spice up the ACF graph, by showing an envelope of 95% confidence interval.\nplot\nfig, ax = plt.subplots()\nsm.graphics.tsa.plot_acf(ar2_values, lags= N-1, ax=ax, alpha=.05)\nax.set(ylim=[-1.1, 1.1],\n       title=\"now confidence interval\")\nax.set(ylim=[-1.1, 1.1],\n       title=\"now with 95% confidence interval\",\n       xlabel=\"lag\",\n       ylabel=\"acf\");\nIf an autocorrelation value at a specific lag falls outside the confidence interval, it suggests that the autocorrelation at that lag is statistically significant. In other words, there is evidence of correlation at that lag. If an autocorrelation value is within the confidence interval, it suggests that the autocorrelation at that lag is not statistically significant, and any observed correlation might be due to random noise. The width of the confidence interval is influenced by the significance level. For a 95% confidence interval, it means that you are 95% confident that the true autocorrelation lies within the interval. If you choose a higher confidence level, the interval will become wider, making it harder to reject the null hypothesis of no correlation.",
+    "text": "30.1 ACF\nWe need to calculate now the autocorrelation function of our series: \n\\rho_{XX}(\\tau) = \\frac{E\\left[ (X_t - \\mu)(X_{t+\\tau} - \\mu) \\right]}{\\sigma^2}\ndef compute_acf(series):\n    N = len(series)\n    lags = np.arange(N)\n    acf = np.zeros_like(lags)\n    series = (series - series.mean()) / series.std()\n    for i in lags:\n        acf[i] = np.sum(series[i:] * series[:N-i])\n    acf = acf / N\n    return lags, acf\nplot acf\nfig, ax = plt.subplots()\nlags, acf = compute_acf(ar2_values)\nax.plot([0, N], [0]*2, color=\"black\", ls=\"--\")\nax.plot(lags, acf)\nax.set(xlabel=\"lag\",\n       ylabel=\"acf\",\n       xlim=[0, N]);\nNotice that the ACF always starts at 1 for zero lag, and it gets closer to zero as the lag increases.\nThe statsmodels package also offers an easy way to plot the ACF, let’s compare our calculation with the built-in function:\nplot\nfig, ax = plt.subplots()\nax.plot([0, N], [0]*2, color=\"black\", ls=\"--\")\nsm.graphics.tsa.plot_acf(ar2_values, lags= N-1, ax=ax, label=\"statsmodels\", alpha=None, use_vlines=False)\nax.plot(lags, acf, color=\"tab:orange\", label=\"our own acf\")\nax.legend()\nax.set(ylim=[-0.5, 1.1],\n       xlim=[0, N],\n       title=\"compare acf\",\n       xlabel=\"lag\",\n       ylabel=\"acf\");\nExcellent! From now on we will continue using statsmodels functions. We can spice up the ACF graph, by showing an envelope of 95% confidence interval.\nplot\nfig, ax = plt.subplots()\nsm.graphics.tsa.plot_acf(ar2_values, lags= N-1, ax=ax, alpha=.05)\nax.set(ylim=[-1.1, 1.1],\n       title=\"now confidence interval\")\nax.set(ylim=[-1.1, 1.1],\n       title=\"now with 95% confidence interval\",\n       xlabel=\"lag\",\n       ylabel=\"acf\");\nIf an autocorrelation value at a specific lag falls outside the confidence interval, it suggests that the autocorrelation at that lag is statistically significant. In other words, there is evidence of correlation at that lag. If an autocorrelation value is within the confidence interval, it suggests that the autocorrelation at that lag is not statistically significant, and any observed correlation might be due to random noise. The width of the confidence interval is influenced by the significance level. For a 95% confidence interval, it means that you are 95% confident that the true autocorrelation lies within the interval. If you choose a higher confidence level, the interval will become wider, making it harder to reject the null hypothesis of no correlation.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>29</span>  <span class='chapter-title'>ACF and PACF graphs</span>"
+      "<span class='chapter-number'>30</span>  <span class='chapter-title'>ACF and PACF graphs</span>"
     ]
   },
   {
     "objectID": "stationarity/ACF_and_PACF_graphs.html#acf",
     "href": "stationarity/ACF_and_PACF_graphs.html#acf",
-    "title": "29  ACF and PACF graphs",
+    "title": "30  ACF and PACF graphs",
     "section": "",
-    "text": "Intuitive interpretation: Two measurements taken within a short time interval (lag) should be similar, therefore their correlation is expected to be high. As we compare measurements from increasing time intervals, they are less and less similar to one another, therefore their correlation goes down.\nMathematical interpretation: Take a look at the code we wrote above. As the lags grows, the length of both arrays keeps shrinking, but we still divide the result by N. The logical conclusion is that when \\tau=N the ACF will be exactly zero.\n\n\n\n\n\n\n\n29.1.1 problem?\nThere is something a bit troubling about the ACF graph. We can learn from it how fast the correlation between two points in time falls, but this analysis is not too clean. Assume that the present state x_t is only dependent on one time step back, x_{t-1}. Because x_{t-1} is dependent on x_{t-2}, the result is that we will find that x_{t} is weakly dependent on x_{t-2}, although the direct dependence is zero.\nThe Partial ACF (PACF) solves this problem. It removes the intermediate effects between two points, and returns only the direct influence of one time instant on another one lagged by \\tau. Let’s see how it looks like for the proceess above.",
+    "text": "Intuitive interpretation: Two measurements taken within a short time interval (lag) should be similar, therefore their correlation is expected to be high. As we compare measurements from increasing time intervals, they are less and less similar to one another, therefore their correlation goes down.\nMathematical interpretation: Take a look at the code we wrote above. As the lags grows, the length of both arrays keeps shrinking, but we still divide the result by N. The logical conclusion is that when \\tau=N the ACF will be exactly zero.\n\n\n\n\n\n\n\n30.1.1 problem?\nThere is something a bit troubling about the ACF graph. We can learn from it how fast the correlation between two points in time falls, but this analysis is not too clean. Assume that the present state x_t is only dependent on one time step back, x_{t-1}. Because x_{t-1} is dependent on x_{t-2}, the result is that we will find that x_{t} is weakly dependent on x_{t-2}, although the direct dependence is zero.\nThe Partial ACF (PACF) solves this problem. It removes the intermediate effects between two points, and returns only the direct influence of one time instant on another one lagged by \\tau. Let’s see how it looks like for the proceess above.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>29</span>  <span class='chapter-title'>ACF and PACF graphs</span>"
+      "<span class='chapter-number'>30</span>  <span class='chapter-title'>ACF and PACF graphs</span>"
     ]
   },
   {
     "objectID": "stationarity/ACF_and_PACF_graphs.html#pacf",
     "href": "stationarity/ACF_and_PACF_graphs.html#pacf",
-    "title": "29  ACF and PACF graphs",
-    "section": "29.2 PACF",
-    "text": "29.2 PACF\n\n\nplot\nfig, (ax1, ax2) = plt.subplots(2,1)\nfig.subplots_adjust(hspace=0.05)\nsm.graphics.tsa.plot_pacf(ar2_values, lags=25, ax=ax1, alpha=.05)\nax1.set(ylim=[-1.1, 1.1],\n       title=\"now confidence interval\")\nax1.set(ylim=[-1.1, 1.1],\n       title=\"Comparison between ACF and PACF\",\n       xlabel=\"lag\",\n       ylabel=\"PACF\");\n\nsm.graphics.tsa.plot_acf(ar2_values, lags= 25, ax=ax2, alpha=.05, title=None)\nax2.set(ylim=[-1.1, 1.1],\n       xlabel=\"lag\",\n       ylabel=\"ACF\");\n\n\n\n\n\n\n\n\n\nWe see three bars significantly far from the confidence interval. The leftmost shows \\text{PACF}(\\tau=0)=1, which is expected, so let’s not discuss it. The two next bars are the really important ones, they show the greatest correlation. From then on, the correlation for lags greater than 2 is not significant. With PACF’s help, we can infer that the original AR processes must have been of order 2.",
+    "title": "30  ACF and PACF graphs",
+    "section": "30.2 PACF",
+    "text": "30.2 PACF\n\n\nplot\nfig, (ax1, ax2) = plt.subplots(2,1)\nfig.subplots_adjust(hspace=0.05)\nsm.graphics.tsa.plot_pacf(ar2_values, lags=25, ax=ax1, alpha=.05)\nax1.set(ylim=[-1.1, 1.1],\n       title=\"now confidence interval\")\nax1.set(ylim=[-1.1, 1.1],\n       title=\"Comparison between ACF and PACF\",\n       xlabel=\"lag\",\n       ylabel=\"PACF\");\n\nsm.graphics.tsa.plot_acf(ar2_values, lags= 25, ax=ax2, alpha=.05, title=None)\nax2.set(ylim=[-1.1, 1.1],\n       xlabel=\"lag\",\n       ylabel=\"ACF\");\n\n\n\n\n\n\n\n\n\nWe see three bars significantly far from the confidence interval. The leftmost shows \\text{PACF}(\\tau=0)=1, which is expected, so let’s not discuss it. The two next bars are the really important ones, they show the greatest correlation. From then on, the correlation for lags greater than 2 is not significant. With PACF’s help, we can infer that the original AR processes must have been of order 2.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>29</span>  <span class='chapter-title'>ACF and PACF graphs</span>"
+      "<span class='chapter-number'>30</span>  <span class='chapter-title'>ACF and PACF graphs</span>"
     ]
   },
   {
     "objectID": "stationarity/ACF_and_PACF_graphs.html#discussion",
     "href": "stationarity/ACF_and_PACF_graphs.html#discussion",
-    "title": "29  ACF and PACF graphs",
-    "section": "29.3 discussion",
-    "text": "29.3 discussion\nWhat can we say about the following series?\n\n29.3.1 sine wave\n\n\nShow the code\nN = 500\ntime = np.arange(N)\nperiod = 70\nomega = 2.0 * np.pi / period\nsignal = np.sin(omega * time)\n\nfig, (ax1, ax2, ax3) = plt.subplots(3,1, figsize=(8,8))\nfig.subplots_adjust(hspace=0.4)\n\nax1.plot(time, signal)\nax1.set(ylabel=\"signal\",\n        title=\"sine wave\",\n        xlabel=\"time\")\n\nsm.graphics.tsa.plot_acf(signal, ax=ax2, alpha=.05, title=None, lags=N-1)\nax2.set(ylim=[-1.1, 1.1],\n       xlabel=\"lag\",\n       ylabel=\"ACF\");\n\nsm.graphics.tsa.plot_pacf(signal, ax=ax3, alpha=.05, title=None)\nax3.set(ylim=[-1.1, 1.1],\n       ylabel=\"PACF\",\n       xlabel=\"lag\");\n\n\n\n\n\n\n\n\n\n\n\n29.3.2 white noise\n\n\nShow the code\nN = 500\ntime = np.arange(N)\nsignal = np.random.normal(size=N)\n\nfig, (ax1, ax2, ax3) = plt.subplots(3,1, figsize=(8,8))\nfig.subplots_adjust(hspace=0.4)\n\nax1.plot(time, signal)\nax1.set(ylabel=\"signal\",\n        title=\"white noise\",\n        xlabel=\"time\")\n\nsm.graphics.tsa.plot_acf(signal, ax=ax2, alpha=.05, title=None, lags=25)\nax2.set(ylim=[-1.1, 1.1],\n       xlabel=\"lag\",\n       ylabel=\"ACF\");\n\nsm.graphics.tsa.plot_pacf(signal, ax=ax3, alpha=.05, title=None)\nax3.set(ylim=[-1.1, 1.1],\n       ylabel=\"PACF\",\n       xlabel=\"lag\");\n\n\n\n\n\n\n\n\n\n\n\n29.3.3 random walk\n\n\nShow the code\nN = 500\ntime = np.arange(N)\nsignal = np.cumsum(np.random.normal(size=N))\n\nfig, (ax1, ax2, ax3) = plt.subplots(3,1, figsize=(8,8))\nfig.subplots_adjust(hspace=0.4)\n\nax1.plot(time, signal)\nax1.set(ylabel=\"signal\",\n        title=\"random walk\",\n        xlabel=\"time\")\n\nsm.graphics.tsa.plot_acf(signal, ax=ax2, alpha=.05, title=None, lags=N-1)\nax2.set(ylim=[-1.1, 1.1],\n       xlabel=\"lag\",\n       ylabel=\"ACF\");\n\nsm.graphics.tsa.plot_pacf(signal, ax=ax3, alpha=.05, title=None)\nax3.set(ylim=[-1.1, 1.1],\n       ylabel=\"PACF\",\n       xlabel=\"lag\");",
+    "title": "30  ACF and PACF graphs",
+    "section": "30.3 discussion",
+    "text": "30.3 discussion\nWhat can we say about the following series?\n\n30.3.1 sine wave\n\n\nShow the code\nN = 500\ntime = np.arange(N)\nperiod = 70\nomega = 2.0 * np.pi / period\nsignal = np.sin(omega * time)\n\nfig, (ax1, ax2, ax3) = plt.subplots(3,1, figsize=(8,8))\nfig.subplots_adjust(hspace=0.4)\n\nax1.plot(time, signal)\nax1.set(ylabel=\"signal\",\n        title=\"sine wave\",\n        xlabel=\"time\")\n\nsm.graphics.tsa.plot_acf(signal, ax=ax2, alpha=.05, title=None, lags=N-1)\nax2.set(ylim=[-1.1, 1.1],\n       xlabel=\"lag\",\n       ylabel=\"ACF\");\n\nsm.graphics.tsa.plot_pacf(signal, ax=ax3, alpha=.05, title=None)\nax3.set(ylim=[-1.1, 1.1],\n       ylabel=\"PACF\",\n       xlabel=\"lag\");\n\n\n\n\n\n\n\n\n\n\n\n30.3.2 white noise\n\n\nShow the code\nN = 500\ntime = np.arange(N)\nsignal = np.random.normal(size=N)\n\nfig, (ax1, ax2, ax3) = plt.subplots(3,1, figsize=(8,8))\nfig.subplots_adjust(hspace=0.4)\n\nax1.plot(time, signal)\nax1.set(ylabel=\"signal\",\n        title=\"white noise\",\n        xlabel=\"time\")\n\nsm.graphics.tsa.plot_acf(signal, ax=ax2, alpha=.05, title=None, lags=25)\nax2.set(ylim=[-1.1, 1.1],\n       xlabel=\"lag\",\n       ylabel=\"ACF\");\n\nsm.graphics.tsa.plot_pacf(signal, ax=ax3, alpha=.05, title=None)\nax3.set(ylim=[-1.1, 1.1],\n       ylabel=\"PACF\",\n       xlabel=\"lag\");\n\n\n\n\n\n\n\n\n\n\n\n30.3.3 random walk\n\n\nShow the code\nN = 500\ntime = np.arange(N)\nsignal = np.cumsum(np.random.normal(size=N))\n\nfig, (ax1, ax2, ax3) = plt.subplots(3,1, figsize=(8,8))\nfig.subplots_adjust(hspace=0.4)\n\nax1.plot(time, signal)\nax1.set(ylabel=\"signal\",\n        title=\"random walk\",\n        xlabel=\"time\")\n\nsm.graphics.tsa.plot_acf(signal, ax=ax2, alpha=.05, title=None, lags=N-1)\nax2.set(ylim=[-1.1, 1.1],\n       xlabel=\"lag\",\n       ylabel=\"ACF\");\n\nsm.graphics.tsa.plot_pacf(signal, ax=ax3, alpha=.05, title=None)\nax3.set(ylim=[-1.1, 1.1],\n       ylabel=\"PACF\",\n       xlabel=\"lag\");",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>29</span>  <span class='chapter-title'>ACF and PACF graphs</span>"
+      "<span class='chapter-number'>30</span>  <span class='chapter-title'>ACF and PACF graphs</span>"
     ]
   },
   {
     "objectID": "stationarity/from_AR_to_ARIMA.html",
     "href": "stationarity/from_AR_to_ARIMA.html",
-    "title": "30  from AR to ARIMA",
+    "title": "31  from AR to ARIMA",
     "section": "",
-    "text": "30.1 AR(p)\nAn autoregressive process X is one that depend on p past states:\nX_{t} = \\phi_1\\,X_{t-1} + \\phi_2\\,X_{t-2} + \\cdots + \\phi_p\\,X_{t-p} + \\varepsilon\nFrom what we already learned, if the complex roots of the polynomial\n\\phi(B) = 1 - \\phi_1\\, B - \\phi_2\\,B^2 - \\cdots - \\phi_p\\,B^p\nlie outside the unit circle, then the AR process is causal and stationary.",
+    "text": "31.1 AR(p)\nAn autoregressive process X is one that depend on p past states:\nX_{t} = \\phi_1\\,X_{t-1} + \\phi_2\\,X_{t-2} + \\cdots + \\phi_p\\,X_{t-p} + \\varepsilon\nFrom what we already learned, if the complex roots of the polynomial\n\\phi(B) = 1 - \\phi_1\\, B - \\phi_2\\,B^2 - \\cdots - \\phi_p\\,B^p\nlie outside the unit circle, then the AR process is causal and stationary.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>30</span>  <span class='chapter-title'>from AR to ARIMA</span>"
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>from AR to ARIMA</span>"
     ]
   },
   {
     "objectID": "stationarity/from_AR_to_ARIMA.html#maq",
     "href": "stationarity/from_AR_to_ARIMA.html#maq",
-    "title": "30  from AR to ARIMA",
-    "section": "30.2 MA(q)",
-    "text": "30.2 MA(q)\nSimilarly, a moving average process X is one that depend on q past noise steps:\n\nX_{t} = \\varepsilon_t + \\theta_1\\,\\varepsilon_{t-1} + \\theta_2\\,\\varepsilon_{t-2} + \\cdots + \\theta_p\\,\\varepsilon_{t-q}\n\nThis has nothing to do with the sliding averages used for smoothing we studied before, it’s just the same name for a different concept.\nNote that this equation is identical in structure to that of AR(p), but with weights \\theta standing for \\phi, and past noise \\varepsilon_{t-i} standing in for past states X_{t-i}.\nThis process also has its characteristic polynomial:\n\n\\theta(B) = 1 - \\theta_1\\, B - \\theta_2\\,B^2 - \\cdots - \\theta_p\\,B^p\n\nThe complex roots of this polynomial are also important. As long as the roots are outside the unit circle, the MA(q) process will be considered invertible, which is to say that it can be transformed into an AR(\\infty) process.\n\n\nThe story is of course more complex than that. Using intelligent mathematical tricks (substitutions), one can change the noise term to make roots move from inside the unit circle to the outside, so effectively there shouldn’t be any problems as long as there aren’t any roots exacly on the unit circle.",
+    "title": "31  from AR to ARIMA",
+    "section": "31.2 MA(q)",
+    "text": "31.2 MA(q)\nSimilarly, a moving average process X is one that depend on q past noise steps:\n\nX_{t} = \\varepsilon_t + \\theta_1\\,\\varepsilon_{t-1} + \\theta_2\\,\\varepsilon_{t-2} + \\cdots + \\theta_p\\,\\varepsilon_{t-q}\n\nThis has nothing to do with the sliding averages used for smoothing we studied before, it’s just the same name for a different concept.\nNote that this equation is identical in structure to that of AR(p), but with weights \\theta standing for \\phi, and past noise \\varepsilon_{t-i} standing in for past states X_{t-i}.\nThis process also has its characteristic polynomial:\n\n\\theta(B) = 1 - \\theta_1\\, B - \\theta_2\\,B^2 - \\cdots - \\theta_p\\,B^p\n\nThe complex roots of this polynomial are also important. As long as the roots are outside the unit circle, the MA(q) process will be considered invertible, which is to say that it can be transformed into an AR(\\infty) process.\n\n\nThe story is of course more complex than that. Using intelligent mathematical tricks (substitutions), one can change the noise term to make roots move from inside the unit circle to the outside, so effectively there shouldn’t be any problems as long as there aren’t any roots exacly on the unit circle.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>30</span>  <span class='chapter-title'>from AR to ARIMA</span>"
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>from AR to ARIMA</span>"
     ]
   },
   {
     "objectID": "stationarity/from_AR_to_ARIMA.html#armapq",
     "href": "stationarity/from_AR_to_ARIMA.html#armapq",
-    "title": "30  from AR to ARIMA",
-    "section": "30.3 ARMA(p,q)",
-    "text": "30.3 ARMA(p,q)\nAn ARMA(p,q) process is simply the combination of an AR(p) and an MA(q) process:\n\n\\begin{split}\nX_{t} &= \\phi_1\\,X_{t-1} + \\phi_2\\,X_{t-2} + \\cdots + \\phi_p\\,X_{t-p} \\\\\n      &+ \\varepsilon_t + \\theta_1\\,\\varepsilon_{t-1} + \\theta_2\\,\\varepsilon_{t-2} + \\cdots + \\theta_p\\,\\varepsilon_{t-p}\n\\end{split}",
+    "title": "31  from AR to ARIMA",
+    "section": "31.3 ARMA(p,q)",
+    "text": "31.3 ARMA(p,q)\nAn ARMA(p,q) process is simply the combination of an AR(p) and an MA(q) process:\n\n\\begin{split}\nX_{t} &= \\phi_1\\,X_{t-1} + \\phi_2\\,X_{t-2} + \\cdots + \\phi_p\\,X_{t-p} \\\\\n      &+ \\varepsilon_t + \\theta_1\\,\\varepsilon_{t-1} + \\theta_2\\,\\varepsilon_{t-2} + \\cdots + \\theta_p\\,\\varepsilon_{t-p}\n\\end{split}",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>30</span>  <span class='chapter-title'>from AR to ARIMA</span>"
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>from AR to ARIMA</span>"
     ]
   },
   {
     "objectID": "stationarity/from_AR_to_ARIMA.html#acf-and-pacf",
     "href": "stationarity/from_AR_to_ARIMA.html#acf-and-pacf",
-    "title": "30  from AR to ARIMA",
-    "section": "30.4 ACF and PACF",
-    "text": "30.4 ACF and PACF\nThe graphs for the autocorrelation and partial autocorrrelation functions can be very useful to identify the order p and q of an ARMA(p,q) process.\n\n\nimport stuff\nimport numpy as np\nimport statsmodels.api as sm\nimport matplotlib.pyplot as plt\nimport matplotlib.gridspec as gridspec\nimport seaborn as sns\nsns.set(style=\"ticks\", font_scale=1.5)  # white graphs, with large and legible letters\nimport statsmodels.api as sm\nfrom statsmodels.tsa.arima_process import ArmaProcess\nfrom statsmodels.tsa.stattools import adfuller\n\n\n\n\ngenerate ARMA(4,0) process\nnp.random.seed(0)\nn = 1000  # number of data points\nphi_list = np.array([0.8, -0.28, 0.8, -0.36])\nar_coefs = np.insert(-phi_list, 0, 1)  # AR coefficients. append 1 at the beginning\nma_coefs = [1] # MA coefficients\n\narma_process = ArmaProcess(ar_coefs, ma_coefs)\ndata = arma_process.generate_sample(nsample=n)\n\nfig, axes = plt.subplots(3, 1, figsize=(8, 8))\nfig.subplots_adjust(hspace=0.4)  # increase vertical space between panels\n\nax1 = axes[0]\nax1.plot(data)\nax1.set(xlabel='time',\n        ylabel='value',\n        title='ARMA(4,0) process',\n       )\n\n# plot ACF and PACF graphs\nax2 = axes[1]\nsm.graphics.tsa.plot_acf(data, lags=n-1, ax=ax2, title=None)\nax2.set(ylabel=\"ACF\",\n        xlabel=\"lags\")\n\nax3 = axes[2]\nsm.graphics.tsa.plot_pacf(data, lags=30, ax=ax3, title=None)\nax3.set(ylim=[-1.1, 1.1],\n        ylabel='PACF',\n        xlabel=\"lags\");\n\n\n\n\n\n\n\n\n\nNote that for the ARMA(4,0) process, the last significant PACF value is at lag \\tau=4.\n\n\ngenerate ARMA(0,3) process\nnp.random.seed(0)\nn = 1000  # number of data points\ntheta_list = np.array([0.4, -0.3, 0.8])\nma_coefs = np.insert(-theta_list, 0, 1)  # MA coefficients. append 1 at the beginning\nar_coefs = [1]\n\narma_process = ArmaProcess(ar_coefs, ma_coefs)\ndata = arma_process.generate_sample(nsample=n)\n\nfig, axes = plt.subplots(3, 1, figsize=(8, 8))\nfig.subplots_adjust(hspace=0.4)\n\nax1 = axes[0]\nax1.plot(data)\nax1.set(xlabel='time',\n        ylabel='value',\n        title='ARMA(0,3) process',\n       )\n\n# plot ACF and PACF graphs\nax2 = axes[1]\nsm.graphics.tsa.plot_acf(data, lags=20, ax=ax2, title=None)\nax2.set(ylabel=\"ACF\",\n        xlabel=\"lags\")\n\nax3 = axes[2]\nsm.graphics.tsa.plot_pacf(data, lags=30, ax=ax3, title=None)\nax3.set(ylim=[-1.1, 1.1],\n        ylabel='PACF',\n        xlabel=\"lags\");\n\n\n\n\n\n\n\n\n\nFor the ARMA(0,3) process, the last significant ACF value is at lag \\tau=3.\n\n\ngenerate ARMA(4,3) process\nnp.random.seed(0)\nn = 1000  # number of data points\ntheta_list = np.array([0.4, -0.3, 0.8])\nphi_list = np.array([0.8, -0.28, 0.8, -0.36])\nar_coefs = np.insert(-phi_list, 0, 1)  # AR coefficients\nma_coefs = np.insert(-theta_list, 0, 1)  # MA coefficients\n\narma_process = ArmaProcess(ar_coefs, ma_coefs)\ndata = arma_process.generate_sample(nsample=n)\n\n# Create a single figure with panels\nfig, axes = plt.subplots(3, 1, figsize=(8, 8))\nfig.subplots_adjust(hspace=0.4)\n\n\n# Plot the ARMA process\nax1 = axes[0]\nax1.plot(data)\nax1.set(xlabel='time',\n        ylabel='value',\n        title='ARMA(4,3) process',\n       )\n\n# Plot ACF and PACF graphs\nax2 = axes[1]\nsm.graphics.tsa.plot_acf(data, lags=20, ax=ax2, title=None)\nax2.set(ylabel=\"ACF\",\n        xlabel=\"lags\")\n\nax3 = axes[2]\nsm.graphics.tsa.plot_pacf(data, lags=30, ax=ax3, title=None)\nax3.set(ylim=[-1.1, 1.1],\n        ylabel='PACF',\n        xlabel=\"lags\");\n\n\n\n\n\n\n\n\n\nThis table from Shumway and Stoffer (2017, 108) is useful to sum up what we’ve learned so far.\n\n\n\n\n\n\n\n\n\n\nAR(p)\nMA(q)\nARMA(p,q)\n\n\n\n\nACF\ngradually goes down\ncuts off after lag q\ngradually goes down\n\n\nPACF\ncuts off after lag p\ngradually goes down\ngradually goes down",
+    "title": "31  from AR to ARIMA",
+    "section": "31.4 ACF and PACF",
+    "text": "31.4 ACF and PACF\nThe graphs for the autocorrelation and partial autocorrrelation functions can be very useful to identify the order p and q of an ARMA(p,q) process.\n\n\nimport stuff\nimport numpy as np\nimport statsmodels.api as sm\nimport matplotlib.pyplot as plt\nimport matplotlib.gridspec as gridspec\nimport seaborn as sns\nsns.set(style=\"ticks\", font_scale=1.5)  # white graphs, with large and legible letters\nimport statsmodels.api as sm\nfrom statsmodels.tsa.arima_process import ArmaProcess\nfrom statsmodels.tsa.stattools import adfuller\n\n\n\n\ngenerate ARMA(4,0) process\nnp.random.seed(0)\nn = 1000  # number of data points\nphi_list = np.array([0.8, -0.28, 0.8, -0.36])\nar_coefs = np.insert(-phi_list, 0, 1)  # AR coefficients. append 1 at the beginning\nma_coefs = [1] # MA coefficients\n\narma_process = ArmaProcess(ar_coefs, ma_coefs)\ndata = arma_process.generate_sample(nsample=n)\n\nfig, axes = plt.subplots(3, 1, figsize=(8, 8))\nfig.subplots_adjust(hspace=0.4)  # increase vertical space between panels\n\nax1 = axes[0]\nax1.plot(data)\nax1.set(xlabel='time',\n        ylabel='value',\n        title='ARMA(4,0) process',\n       )\n\n# plot ACF and PACF graphs\nax2 = axes[1]\nsm.graphics.tsa.plot_acf(data, lags=n-1, ax=ax2, title=None)\nax2.set(ylabel=\"ACF\",\n        xlabel=\"lags\")\n\nax3 = axes[2]\nsm.graphics.tsa.plot_pacf(data, lags=30, ax=ax3, title=None)\nax3.set(ylim=[-1.1, 1.1],\n        ylabel='PACF',\n        xlabel=\"lags\");\n\n\n\n\n\n\n\n\n\nNote that for the ARMA(4,0) process, the last significant PACF value is at lag \\tau=4.\n\n\ngenerate ARMA(0,3) process\nnp.random.seed(0)\nn = 1000  # number of data points\ntheta_list = np.array([0.4, -0.3, 0.8])\nma_coefs = np.insert(-theta_list, 0, 1)  # MA coefficients. append 1 at the beginning\nar_coefs = [1]\n\narma_process = ArmaProcess(ar_coefs, ma_coefs)\ndata = arma_process.generate_sample(nsample=n)\n\nfig, axes = plt.subplots(3, 1, figsize=(8, 8))\nfig.subplots_adjust(hspace=0.4)\n\nax1 = axes[0]\nax1.plot(data)\nax1.set(xlabel='time',\n        ylabel='value',\n        title='ARMA(0,3) process',\n       )\n\n# plot ACF and PACF graphs\nax2 = axes[1]\nsm.graphics.tsa.plot_acf(data, lags=20, ax=ax2, title=None)\nax2.set(ylabel=\"ACF\",\n        xlabel=\"lags\")\n\nax3 = axes[2]\nsm.graphics.tsa.plot_pacf(data, lags=30, ax=ax3, title=None)\nax3.set(ylim=[-1.1, 1.1],\n        ylabel='PACF',\n        xlabel=\"lags\");\n\n\n\n\n\n\n\n\n\nFor the ARMA(0,3) process, the last significant ACF value is at lag \\tau=3.\n\n\ngenerate ARMA(4,3) process\nnp.random.seed(0)\nn = 1000  # number of data points\ntheta_list = np.array([0.4, -0.3, 0.8])\nphi_list = np.array([0.8, -0.28, 0.8, -0.36])\nar_coefs = np.insert(-phi_list, 0, 1)  # AR coefficients\nma_coefs = np.insert(-theta_list, 0, 1)  # MA coefficients\n\narma_process = ArmaProcess(ar_coefs, ma_coefs)\ndata = arma_process.generate_sample(nsample=n)\n\n# Create a single figure with panels\nfig, axes = plt.subplots(3, 1, figsize=(8, 8))\nfig.subplots_adjust(hspace=0.4)\n\n\n# Plot the ARMA process\nax1 = axes[0]\nax1.plot(data)\nax1.set(xlabel='time',\n        ylabel='value',\n        title='ARMA(4,3) process',\n       )\n\n# Plot ACF and PACF graphs\nax2 = axes[1]\nsm.graphics.tsa.plot_acf(data, lags=20, ax=ax2, title=None)\nax2.set(ylabel=\"ACF\",\n        xlabel=\"lags\")\n\nax3 = axes[2]\nsm.graphics.tsa.plot_pacf(data, lags=30, ax=ax3, title=None)\nax3.set(ylim=[-1.1, 1.1],\n        ylabel='PACF',\n        xlabel=\"lags\");\n\n\n\n\n\n\n\n\n\nThis table from Shumway and Stoffer (2017, 108) is useful to sum up what we’ve learned so far.\n\n\n\n\n\n\n\n\n\n\nAR(p)\nMA(q)\nARMA(p,q)\n\n\n\n\nACF\ngradually goes down\ncuts off after lag q\ngradually goes down\n\n\nPACF\ncuts off after lag p\ngradually goes down\ngradually goes down",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>30</span>  <span class='chapter-title'>from AR to ARIMA</span>"
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>from AR to ARIMA</span>"
     ]
   },
   {
     "objectID": "stationarity/from_AR_to_ARIMA.html#non-stationary-data-and-adf-test",
     "href": "stationarity/from_AR_to_ARIMA.html#non-stationary-data-and-adf-test",
-    "title": "30  from AR to ARIMA",
-    "section": "30.5 Non-stationary data and ADF test",
-    "text": "30.5 Non-stationary data and ADF test\nThe following is partially based on Chatfield (2016, chap. 3, page 63).\nWhat do we do if it turns out that our data is not stationary? Heck, how can we even tell if our data is stationary or not? The most common stationarity test is the Augmented Dickey–Fuller (ADF) test. This is not a trivial subject that can be completely understood in a few words, so I’ll give the very basic intuition here.\nA stationary time series has a constant mean \\mu. If at a given instant t our state X_t is way above the mean, we would expect that, with a high probability, the next step brings it closer to the mean. This is to say that the the difference between two consecutive states X_t-X_{t-1} depends on the value of X_t! Nonstationary time series do not show this behavior: the differences between two time steps do not depend on the state value. The idea described here is for the Dickey-Fuller test. The Augmented Dickey-Fuller test is basically the same, but for time lags p between states, not only 1.\nThe ADF test has a null hypothesis that the time series is not stationary. By applying the test to a given time series, we get a p-value as one of the results. The smaller the p-value, the more evidence we have to reject the null hypothesis, and therefore conclude that our time series is indeed stationary.\nLet’s see an example:\n\n\nShow the code\n# Generate ARIMA(1,1,2) process with differencing\nN = 500\nnp.random.seed(1)\narima_112_diff = sm.tsa.arma_generate_sample(ar=[1, -0.5], ma=[1, 0.7, 0.3], nsample=N)\narima_112 = np.cumsum(arima_112_diff)\n\nfig, ax = plt.subplots()\nax.plot(arima_112)\nax.set(xlabel=\"time\",\n       ylabel=\"signal\",\n       title=\"a non-stationary time series\")\nplt.show()\n\nresult = adfuller(arima_112)\nprint('p-value: ', result[1])\n\n\n\n\n\n\n\n\n\np-value:  0.591478751185507\n\n\nSo what do we do if we have a non-stationary time series? One common solution is to apply successive differencing operations, until the outcome becomes stationary.\nLet’s define the difference operator \\nabla as\n\n\\nabla X_t = X_t - X_{t-1}.\n\nNow recalling that the backward shift operator B is defined as\n\nB X_t = X_{t-1},\n\nwe can rewrite the difference operator as\n\n\\begin{split}\n\\nabla X_t &= X_t - BX_t\\\\\n           &= (1-B)X_t.\n\\end{split}\n\nIf we apply the difference operator d times, then we denote this as\n\nW_t = \\nabla^d X_t = (1-B)^d X_t.\n\nLet’s apply the difference operator once to the time series plotted above, and then apply the ADF test.\n\n\nShow the code\nfig, ax = plt.subplots()\nax.plot(arima_112_diff)\nax.set(xlabel=\"time\",\n       ylabel=\"signal\",\n       title=\"the same time series as above, after one differencing\")\nplt.show()\n\nresult = adfuller(arima_112_diff)\nprint('p-value: ', result[1])\n\n\n\n\n\n\n\n\n\np-value:  4.7341140554650393e-14",
+    "title": "31  from AR to ARIMA",
+    "section": "31.5 Non-stationary data and ADF test",
+    "text": "31.5 Non-stationary data and ADF test\nThe following is partially based on Chatfield (2016, chap. 3, page 63).\nWhat do we do if it turns out that our data is not stationary? Heck, how can we even tell if our data is stationary or not? The most common stationarity test is the Augmented Dickey–Fuller (ADF) test. This is not a trivial subject that can be completely understood in a few words, so I’ll give the very basic intuition here.\nA stationary time series has a constant mean \\mu. If at a given instant t our state X_t is way above the mean, we would expect that, with a high probability, the next step brings it closer to the mean. This is to say that the the difference between two consecutive states X_t-X_{t-1} depends on the value of X_t! Nonstationary time series do not show this behavior: the differences between two time steps do not depend on the state value. The idea described here is for the Dickey-Fuller test. The Augmented Dickey-Fuller test is basically the same, but for time lags p between states, not only 1.\nThe ADF test has a null hypothesis that the time series is not stationary. By applying the test to a given time series, we get a p-value as one of the results. The smaller the p-value, the more evidence we have to reject the null hypothesis, and therefore conclude that our time series is indeed stationary.\nLet’s see an example:\n\n\nShow the code\n# Generate ARIMA(1,1,2) process with differencing\nN = 500\nnp.random.seed(1)\narima_112_diff = sm.tsa.arma_generate_sample(ar=[1, -0.5], ma=[1, 0.7, 0.3], nsample=N)\narima_112 = np.cumsum(arima_112_diff)\n\nfig, ax = plt.subplots()\nax.plot(arima_112)\nax.set(xlabel=\"time\",\n       ylabel=\"signal\",\n       title=\"a non-stationary time series\")\nplt.show()\n\nresult = adfuller(arima_112)\nprint('p-value: ', result[1])\n\n\n\n\n\n\n\n\n\np-value:  0.591478751185507\n\n\nSo what do we do if we have a non-stationary time series? One common solution is to apply successive differencing operations, until the outcome becomes stationary.\nLet’s define the difference operator \\nabla as\n\n\\nabla X_t = X_t - X_{t-1}.\n\nNow recalling that the backward shift operator B is defined as\n\nB X_t = X_{t-1},\n\nwe can rewrite the difference operator as\n\n\\begin{split}\n\\nabla X_t &= X_t - BX_t\\\\\n           &= (1-B)X_t.\n\\end{split}\n\nIf we apply the difference operator d times, then we denote this as\n\nW_t = \\nabla^d X_t = (1-B)^d X_t.\n\nLet’s apply the difference operator once to the time series plotted above, and then apply the ADF test.\n\n\nShow the code\nfig, ax = plt.subplots()\nax.plot(arima_112_diff)\nax.set(xlabel=\"time\",\n       ylabel=\"signal\",\n       title=\"the same time series as above, after one differencing\")\nplt.show()\n\nresult = adfuller(arima_112_diff)\nprint('p-value: ', result[1])\n\n\n\n\n\n\n\n\n\np-value:  4.7341140554650393e-14",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>30</span>  <span class='chapter-title'>from AR to ARIMA</span>"
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>from AR to ARIMA</span>"
     ]
   },
   {
     "objectID": "stationarity/from_AR_to_ARIMA.html#arimapdq",
     "href": "stationarity/from_AR_to_ARIMA.html#arimapdq",
-    "title": "30  from AR to ARIMA",
-    "section": "30.6 ARIMA(p,d,q)",
-    "text": "30.6 ARIMA(p,d,q)\nWe are ready to describe an Autoregressive (AR) Integrated (I) Moving Average (MA) process:\n\n\\begin{split}\nW_t &= \\phi_1 W_{t-1} + \\phi_2 W_{t-2}+\\cdots \\phi_q W_{t-q} \\\\\n    &+ \\varepsilon_t + \\theta_1 \\varepsilon_{t-1} + \\theta_2 \\varepsilon_{t-2}+\\cdots \\theta_q \\varepsilon_{t-q}\n\\end{split}\n\nRearranging the terms in this equation, we can also express an ARIMA(p,d,q) process as\n\n\\phi(B)(1-B)^d X_t = \\theta(B)\\epsilon_t.\n\nLet’s try to put this in a context we already know. We saw that a random walk is the integrated version of a white noise. The random walk can be interpreted as a special case of an AR(1) process for \\phi=1. However, an AR process is usually called as such when it is stationary. Because a white noise can be understood as an ARMA(0,0) process, and because differencing the random walk yields a white noise, we can say that the white noise is an ARIMA(0,1,0) process.\nLet’s see two examples of ARIMA processes.\n\n\nShow the code\n\n\n# Generate ARIMA(2,2,1) process with differencing\narima_221_diff = sm.tsa.arma_generate_sample(ar=[1, -0.18, 0.06], ma=[1, -0.5], nsample=N)\n# arima_221 = np.cumsum(arima_221_diff) \narima_221 = np.cumsum(np.cumsum(arima_221_diff)) # \n\n# Plot the ARIMA(1,1,2) process\nfig, ax = plt.subplots()\nax.plot(arima_112)\nax.set_title('ARIMA(1,1,2) process')\nplt.show()\n\n# Plot the ARIMA(2,2,1) process\nfig, ax = plt.subplots()\nax.plot(arima_221)\nax.set_title('ARIMA(2,2,1) process')\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWe will not fully delve into forecasting right now, but it would be nice to see a real application of ARIMA. If we can reasonably well estimate the parameters associated with a given ARIMA(p,d,q) process, we can use this knowledge to predict future states within a confidence interval. In the simulations below, we see forecasts an ARIMA(2,2,0) process.\n\n\nwrite function to forecast\ndef arima_forecast(series, ar_coeff):\n    s = series.copy()\n    phi1 = -ar_coeff[1]\n    phi2 = -ar_coeff[2]\n    start_index = np.argmax(np.isnan(s))\n    for i in np.arange(start_index,len(series)):\n        s[i] = phi1 * s[i-1] + phi2 * s[i-2] + np.random.normal()\n    return s\n\nnp.random.seed(1998)\narima_220_diff = sm.tsa.arma_generate_sample(ar=[1, -0.18, 0.06], ma=[1], nsample=N)\narima_220 = np.cumsum(np.cumsum(arima_220_diff)) # \n\n\nl = 380\nmissing = arima_220_diff.copy()\nmissing[l:] = np.nan\n\n\n\n\nplot forecasts\nfig, axes = plt.subplots(3, 1, figsize=(8, 8))\nfig.subplots_adjust(hspace=0.1)\n\nxlim = [0, len(missing)]\nylim = [-1000,10000]\n\nax0 = axes[0]\nntries = 10\nfor i in range(ntries):\n    np.random.seed(i)\n    try_diff = arima_forecast(missing, [1, -0.18, 0.06])\n    t = np.cumsum(np.cumsum(try_diff))\n    ax0.plot(t, color=\"black\", alpha=0.3)\nax0.plot(arima_220, color=\"xkcd:hot pink\", lw=3, label=\"data\")\nax0.plot([len(missing),len(missing)+1], [0]*2, color=\"black\", alpha=0.3, label=\"forecast\")\nax0.set(xticklabels=[],\n        xlim=xlim,\n        ylim=ylim)\nax0.text(0.5, 0.98, f\"{ntries} forecasts\",\n         transform=ax0.transAxes, ha=\"center\", va=\"top\")\nax0.legend(frameon=False)\nax0.plot([380]*2, ylim, color=\"black\", ls=\":\")\n\nax1 = axes[1]\nntries = 100\nfor i in range(ntries):\n    np.random.seed(i)\n    try_diff = arima_forecast(missing, [1, -0.18, 0.06])\n    t = np.cumsum(np.cumsum(try_diff))\n    ax1.plot(t, color=\"black\", alpha=0.1)\nax1.plot(arima_220, color=\"xkcd:hot pink\", lw=3)\nax1.set(xticklabels=[],\n        ylabel=\"signal\",\n        xlim=xlim,\n        ylim=ylim)\nax1.text(0.5, 0.98, f\"{ntries} forecasts\",\n         transform=ax1.transAxes, ha=\"center\", va=\"top\")\nax1.plot([380]*2, ylim, color=\"black\", ls=\":\")\n\n\nax2 = axes[2]\nntries = 1000\nfor i in range(ntries):\n    np.random.seed(i)\n    try_diff = arima_forecast(missing, [1, -0.18, 0.06])\n    t = np.cumsum(np.cumsum(try_diff))\n    ax2.plot(t, color=\"black\", alpha=0.03)\nax2.plot(arima_220, color=\"xkcd:hot pink\", lw=3)\nax2.set(xlabel='time',\n        xlim=xlim,\n        ylim=ylim)\nax2.text(0.5, 0.98, f\"{ntries} forecasts\",\n         transform=ax2.transAxes, ha=\"center\", va=\"top\")\nax2.plot([380]*2, ylim, color=\"black\", ls=\":\")\n\n\n\n\n\n\n\n\n\nWe will discuss this later in the course, but estimating the parameters is quite easy:\n\nfrom statsmodels.tsa.arima.model import ARIMA\n\narima_model = ARIMA(arima_220, order=(2,2,0))\nmodel = arima_model.fit()\nprint(model.summary())\n\n                               SARIMAX Results                                \n==============================================================================\nDep. Variable:                      y   No. Observations:                  500\nModel:                 ARIMA(2, 2, 0)   Log Likelihood                -703.606\nDate:                Tue, 06 Feb 2024   AIC                           1413.212\nTime:                        13:12:24   BIC                           1425.844\nSample:                             0   HQIC                          1418.170\n                                - 500                                         \nCovariance Type:                  opg                                         \n==============================================================================\n                 coef    std err          z      P&gt;|z|      [0.025      0.975]\n------------------------------------------------------------------------------\nar.L1          0.2171      0.045      4.782      0.000       0.128       0.306\nar.L2          0.0636      0.045      1.401      0.161      -0.025       0.153\nsigma2         0.9878      0.072     13.739      0.000       0.847       1.129\n===================================================================================\nLjung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):                 5.16\nProb(Q):                              0.99   Prob(JB):                         0.08\nHeteroskedasticity (H):               1.08   Skew:                             0.05\nProb(H) (two-sided):                  0.62   Kurtosis:                         2.51\n===================================================================================\n\nWarnings:\n[1] Covariance matrix calculated using the outer product of gradients (complex-step).\n\n\n\n\n\n\nChatfield, C. 2016. The Analysis of Time Series: An Introduction, Sixth Edition. Chapman & Hall/CRC Texts in Statistical Science. CRC Press.\n\n\nShumway, Robert H., and David S. Stoffer. 2017. Time Series Analysis and Its Applications With R Examples. 4th ed. Springer. http://www.stat.ucla.edu/~frederic/415/S23/tsa4.pdf.",
+    "title": "31  from AR to ARIMA",
+    "section": "31.6 ARIMA(p,d,q)",
+    "text": "31.6 ARIMA(p,d,q)\nWe are ready to describe an Autoregressive (AR) Integrated (I) Moving Average (MA) process:\n\n\\begin{split}\nW_t &= \\phi_1 W_{t-1} + \\phi_2 W_{t-2}+\\cdots \\phi_q W_{t-q} \\\\\n    &+ \\varepsilon_t + \\theta_1 \\varepsilon_{t-1} + \\theta_2 \\varepsilon_{t-2}+\\cdots \\theta_q \\varepsilon_{t-q}\n\\end{split}\n\nRearranging the terms in this equation, we can also express an ARIMA(p,d,q) process as\n\n\\phi(B)(1-B)^d X_t = \\theta(B)\\epsilon_t.\n\nLet’s try to put this in a context we already know. We saw that a random walk is the integrated version of a white noise. The random walk can be interpreted as a special case of an AR(1) process for \\phi=1. However, an AR process is usually called as such when it is stationary. Because a white noise can be understood as an ARMA(0,0) process, and because differencing the random walk yields a white noise, we can say that the white noise is an ARIMA(0,1,0) process.\nLet’s see two examples of ARIMA processes.\n\n\nShow the code\n\n\n# Generate ARIMA(2,2,1) process with differencing\narima_221_diff = sm.tsa.arma_generate_sample(ar=[1, -0.18, 0.06], ma=[1, -0.5], nsample=N)\n# arima_221 = np.cumsum(arima_221_diff) \narima_221 = np.cumsum(np.cumsum(arima_221_diff)) # \n\n# Plot the ARIMA(1,1,2) process\nfig, ax = plt.subplots()\nax.plot(arima_112)\nax.set_title('ARIMA(1,1,2) process')\nplt.show()\n\n# Plot the ARIMA(2,2,1) process\nfig, ax = plt.subplots()\nax.plot(arima_221)\nax.set_title('ARIMA(2,2,1) process')\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWe will not fully delve into forecasting right now, but it would be nice to see a real application of ARIMA. If we can reasonably well estimate the parameters associated with a given ARIMA(p,d,q) process, we can use this knowledge to predict future states within a confidence interval. In the simulations below, we see forecasts an ARIMA(2,2,0) process.\n\n\nwrite function to forecast\ndef arima_forecast(series, ar_coeff):\n    s = series.copy()\n    phi1 = -ar_coeff[1]\n    phi2 = -ar_coeff[2]\n    start_index = np.argmax(np.isnan(s))\n    for i in np.arange(start_index,len(series)):\n        s[i] = phi1 * s[i-1] + phi2 * s[i-2] + np.random.normal()\n    return s\n\nnp.random.seed(1998)\narima_220_diff = sm.tsa.arma_generate_sample(ar=[1, -0.18, 0.06], ma=[1], nsample=N)\narima_220 = np.cumsum(np.cumsum(arima_220_diff)) # \n\n\nl = 380\nmissing = arima_220_diff.copy()\nmissing[l:] = np.nan\n\n\n\n\nplot forecasts\nfig, axes = plt.subplots(3, 1, figsize=(8, 8))\nfig.subplots_adjust(hspace=0.1)\n\nxlim = [0, len(missing)]\nylim = [-1000,10000]\n\nax0 = axes[0]\nntries = 10\nfor i in range(ntries):\n    np.random.seed(i)\n    try_diff = arima_forecast(missing, [1, -0.18, 0.06])\n    t = np.cumsum(np.cumsum(try_diff))\n    ax0.plot(t, color=\"black\", alpha=0.3)\nax0.plot(arima_220, color=\"xkcd:hot pink\", lw=3, label=\"data\")\nax0.plot([len(missing),len(missing)+1], [0]*2, color=\"black\", alpha=0.3, label=\"forecast\")\nax0.set(xticklabels=[],\n        xlim=xlim,\n        ylim=ylim)\nax0.text(0.5, 0.98, f\"{ntries} forecasts\",\n         transform=ax0.transAxes, ha=\"center\", va=\"top\")\nax0.legend(frameon=False)\nax0.plot([380]*2, ylim, color=\"black\", ls=\":\")\n\nax1 = axes[1]\nntries = 100\nfor i in range(ntries):\n    np.random.seed(i)\n    try_diff = arima_forecast(missing, [1, -0.18, 0.06])\n    t = np.cumsum(np.cumsum(try_diff))\n    ax1.plot(t, color=\"black\", alpha=0.1)\nax1.plot(arima_220, color=\"xkcd:hot pink\", lw=3)\nax1.set(xticklabels=[],\n        ylabel=\"signal\",\n        xlim=xlim,\n        ylim=ylim)\nax1.text(0.5, 0.98, f\"{ntries} forecasts\",\n         transform=ax1.transAxes, ha=\"center\", va=\"top\")\nax1.plot([380]*2, ylim, color=\"black\", ls=\":\")\n\n\nax2 = axes[2]\nntries = 1000\nfor i in range(ntries):\n    np.random.seed(i)\n    try_diff = arima_forecast(missing, [1, -0.18, 0.06])\n    t = np.cumsum(np.cumsum(try_diff))\n    ax2.plot(t, color=\"black\", alpha=0.03)\nax2.plot(arima_220, color=\"xkcd:hot pink\", lw=3)\nax2.set(xlabel='time',\n        xlim=xlim,\n        ylim=ylim)\nax2.text(0.5, 0.98, f\"{ntries} forecasts\",\n         transform=ax2.transAxes, ha=\"center\", va=\"top\")\nax2.plot([380]*2, ylim, color=\"black\", ls=\":\")\n\n\n\n\n\n\n\n\n\nWe will discuss this later in the course, but estimating the parameters is quite easy:\n\nfrom statsmodels.tsa.arima.model import ARIMA\n\narima_model = ARIMA(arima_220, order=(2,2,0))\nmodel = arima_model.fit()\nprint(model.summary())\n\n                               SARIMAX Results                                \n==============================================================================\nDep. Variable:                      y   No. Observations:                  500\nModel:                 ARIMA(2, 2, 0)   Log Likelihood                -703.606\nDate:                Tue, 06 Feb 2024   AIC                           1413.212\nTime:                        13:12:24   BIC                           1425.844\nSample:                             0   HQIC                          1418.170\n                                - 500                                         \nCovariance Type:                  opg                                         \n==============================================================================\n                 coef    std err          z      P&gt;|z|      [0.025      0.975]\n------------------------------------------------------------------------------\nar.L1          0.2171      0.045      4.782      0.000       0.128       0.306\nar.L2          0.0636      0.045      1.401      0.161      -0.025       0.153\nsigma2         0.9878      0.072     13.739      0.000       0.847       1.129\n===================================================================================\nLjung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):                 5.16\nProb(Q):                              0.99   Prob(JB):                         0.08\nHeteroskedasticity (H):               1.08   Skew:                             0.05\nProb(H) (two-sided):                  0.62   Kurtosis:                         2.51\n===================================================================================\n\nWarnings:\n[1] Covariance matrix calculated using the outer product of gradients (complex-step).\n\n\n\n\n\n\nChatfield, C. 2016. The Analysis of Time Series: An Introduction, Sixth Edition. Chapman & Hall/CRC Texts in Statistical Science. CRC Press.\n\n\nShumway, Robert H., and David S. Stoffer. 2017. Time Series Analysis and Its Applications With R Examples. 4th ed. Springer. http://www.stat.ucla.edu/~frederic/415/S23/tsa4.pdf.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>30</span>  <span class='chapter-title'>from AR to ARIMA</span>"
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>from AR to ARIMA</span>"
     ]
   },
   {
     "objectID": "stationarity/practice.html",
     "href": "stationarity/practice.html",
-    "title": "31  practice",
+    "title": "32  practice",
     "section": "",
-    "text": "32 White noise\nIf we randomly draw values from the same distribution we will get white noise.\n# generate binary noise random ones and zeroes with equal distribution\nn = 1000\nbinary_noise = np.random.choice([-1, 1], size=n)\n\n# generate gaussian noise with mean 0 and standard deviation 1\ngaussian_noise = np.random.normal(0, 1, n)\n# plot:\nfig, ax = plt.subplots(2,1, figsize=(10,4), sharex=True)\nax[0].plot(binary_noise)\nax[0].set_title('binary')\n\nax[1].plot(gaussian_noise)\nax[1].set_title('gaussian')\n\nText(0.5, 1.0, 'gaussian')",
+    "text": "33 White noise\nIf we randomly draw values from the same distribution we will get white noise.\n# generate binary noise random ones and zeroes with equal distribution\nn = 1000\nbinary_noise = np.random.choice([-1, 1], size=n)\n\n# generate gaussian noise with mean 0 and standard deviation 1\ngaussian_noise = np.random.normal(0, 1, n)\n# plot:\nfig, ax = plt.subplots(2,1, figsize=(10,4), sharex=True)\nax[0].plot(binary_noise)\nax[0].set_title('binary')\n\nax[1].plot(gaussian_noise)\nax[1].set_title('gaussian')\n\nText(0.5, 1.0, 'gaussian')",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>31</span>  <span class='chapter-title'>practice</span>"
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>practice</span>"
     ]
   },
   {
     "objectID": "stationarity/practice.html#differencing",
     "href": "stationarity/practice.html#differencing",
-    "title": "31  practice",
-    "section": "33.1 Differencing",
-    "text": "33.1 Differencing\nGiven an array\na = [a_0, a_1, a_2, ..., a_{n-1}] the operation performed by np.diff(a) can be represented as:\n\\Delta a = [\\Delta a_1, \\Delta a_2, ..., \\Delta a_{n-1}] where\n\\Delta a_i = a_{i} - a_{i-1} \\quad \\text{for} \\quad i = 1, 2, ..., n-1\nIf we difference the random walk we will get the white noise.\n\nfig, ax = plt.subplots(2,1, figsize=(10,4), sharex=True)\nax[0].plot(binary_noise, label='original')\nax[0].plot(np.diff(walk_binary, prepend=0), label='diff', linestyle='--')\nax[0].set_title('binary')\nax[0].legend()\nax[0].set_xlim(0,100)\n\nax[1].plot(gaussian_noise, label='original')\nax[1].plot(np.diff(walk_gaussian, prepend=0), label='diff', linestyle='--')\nax[1].set_title('gaussian')\nax[1].legend()\nax[1].set_xlim(0,100)\n\n(0.0, 100.0)\n\n\n\n\n\nAnother way of understanding this: the python operations cumsum and diff are each other’s inverse.",
+    "title": "32  practice",
+    "section": "34.1 Differencing",
+    "text": "34.1 Differencing\nGiven an array\na = [a_0, a_1, a_2, ..., a_{n-1}] the operation performed by np.diff(a) can be represented as:\n\\Delta a = [\\Delta a_1, \\Delta a_2, ..., \\Delta a_{n-1}] where\n\\Delta a_i = a_{i} - a_{i-1} \\quad \\text{for} \\quad i = 1, 2, ..., n-1\nIf we difference the random walk we will get the white noise.\n\nfig, ax = plt.subplots(2,1, figsize=(10,4), sharex=True)\nax[0].plot(binary_noise, label='original')\nax[0].plot(np.diff(walk_binary, prepend=0), label='diff', linestyle='--')\nax[0].set_title('binary')\nax[0].legend()\nax[0].set_xlim(0,100)\n\nax[1].plot(gaussian_noise, label='original')\nax[1].plot(np.diff(walk_gaussian, prepend=0), label='diff', linestyle='--')\nax[1].set_title('gaussian')\nax[1].legend()\nax[1].set_xlim(0,100)\n\n(0.0, 100.0)\n\n\n\n\n\nAnother way of understanding this: the python operations cumsum and diff are each other’s inverse.",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>31</span>  <span class='chapter-title'>practice</span>"
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>practice</span>"
     ]
   },
   {
     "objectID": "stationarity/practice.html#arp",
     "href": "stationarity/practice.html#arp",
-    "title": "31  practice",
-    "section": "34.1 AR(p)",
-    "text": "34.1 AR(p)\nThe next thing to do is to generalize, and define an autoregressive process that depends on p previous states:\n\nx_{t} = \\phi_1\\,x_{t-1} + \\phi_2\\,x_{t-2} + \\cdots + \\phi_p\\,x_{t-p} + \\varepsilon\n\n\n# Function to generate AR(p) time series\n# this function can recive p as an integer and then is will draw random phi values\n# or, you can pass p as a np array of the specific phi values you want.\ndef generate_ar(n, p):\n    # Check if p is an integer or an array\n    if isinstance(p, int):\n        # Generate random coefficients between -1 and 1\n        phi = np.random.uniform(-1, 1, size=p)\n    elif isinstance(p, np.ndarray):\n        phi = p  # Use the provided array as coefficients\n    else:\n        raise ValueError(\"p should be either an integer or a NumPy array\")\n    \n    print(phi)\n    # Generate white noise\n    noise = np.random.normal(0, 1, n)\n    \n    # Initialize time series array\n    ar_series = np.zeros(n)\n    \n    for i in range(phi.size, n):\n        ar_series[i] = np.dot(phi, ar_series[i-phi.size:i]) + noise[i]\n    \n    return ar_series\n\n\n# plot using p as an int\np = 4\nar = generate_ar(n, p)\nfig, ax = plt.subplots(figsize=(10,4))\nax.plot(ar)\nax.set_title(f'AR({p})')\n\n[-0.82679831 -0.50310415 -0.68089179  0.1555622 ]\n\n\nText(0.5, 1.0, 'AR(4)')\n\n\n\n\n\n\n34.1.1 using specific \\phi values\nIn the cell below we can specify specific \\phi values.\nUse the interactive tool from our website to chose the right values.\nRemember, if one of the roots is inside the unit circle, the series will be not stationary.\n\n# plot using p as an array of phi values\n# the order should be [phi2, phi1]\np = np.array([-0.97,-1.88])\n# p = np.array([-1.88,-0.97])\n\nar2 = generate_ar(n, p)\nfig, ax = plt.subplots(figsize=(10,4))\n\nax.plot(ar2)\nax.set_title(f'AR({p})')\n\n[-0.97 -1.88]\n\n\nText(0.5, 1.0, 'AR([-0.97 -1.88])')\n\n\n\n\n\n\n\n34.1.2 Weak stationarity\n\nits mean \\mu does not vary in time: \n\\mu_X(t) = \\mu_X(t+\\tau)\n for all values of t and \\tau.\nits variance is finite for any time t: \n\\sigma^2_X(t) &lt; \\infty.\n\nThe autocorrelation function between two lagged versions of the same time series, X(t_1) and X(t_2), depends only on the difference \\tau=t_2-t_1.\n\nLet’s get a feeling by plotting\n\ndef test_stationarity(time_series, window=100):\n    series = pd.Series(time_series)\n    rolling_var = series.rolling(window=window, center=True).std()**2\n    rolling_mean = series.rolling(window=window, center=True).mean()\n\n    fig, ax = plt.subplots(2,1, figsize=(10,4), sharex=True)\n    ax[0].plot(series, label='series')\n    ax[0].plot(rolling_mean, c='r', label='mean')\n    ax[0].legend()\n    ax[0].set_title('rolling mean')\n\n    ax[1].plot(rolling_var)\n    ax[1].set_title('rolling variance')\n\n    return\n\n\ntest_stationarity(walk_binary)\n# test_stationarity(walk_gaussian)\n# test_stationarity(ar1_series)\ntest_stationarity(ar)\ntest_stationarity(ar2)",
+    "title": "32  practice",
+    "section": "35.1 AR(p)",
+    "text": "35.1 AR(p)\nThe next thing to do is to generalize, and define an autoregressive process that depends on p previous states:\n\nx_{t} = \\phi_1\\,x_{t-1} + \\phi_2\\,x_{t-2} + \\cdots + \\phi_p\\,x_{t-p} + \\varepsilon\n\n\n# Function to generate AR(p) time series\n# this function can recive p as an integer and then is will draw random phi values\n# or, you can pass p as a np array of the specific phi values you want.\ndef generate_ar(n, p):\n    # Check if p is an integer or an array\n    if isinstance(p, int):\n        # Generate random coefficients between -1 and 1\n        phi = np.random.uniform(-1, 1, size=p)\n    elif isinstance(p, np.ndarray):\n        phi = p  # Use the provided array as coefficients\n    else:\n        raise ValueError(\"p should be either an integer or a NumPy array\")\n    \n    print(phi)\n    # Generate white noise\n    noise = np.random.normal(0, 1, n)\n    \n    # Initialize time series array\n    ar_series = np.zeros(n)\n    \n    for i in range(phi.size, n):\n        ar_series[i] = np.dot(phi, ar_series[i-phi.size:i]) + noise[i]\n    \n    return ar_series\n\n\n# plot using p as an int\np = 4\nar = generate_ar(n, p)\nfig, ax = plt.subplots(figsize=(10,4))\nax.plot(ar)\nax.set_title(f'AR({p})')\n\n[-0.82679831 -0.50310415 -0.68089179  0.1555622 ]\n\n\nText(0.5, 1.0, 'AR(4)')\n\n\n\n\n\n\n35.1.1 using specific \\phi values\nIn the cell below we can specify specific \\phi values.\nUse the interactive tool from our website to chose the right values.\nRemember, if one of the roots is inside the unit circle, the series will be not stationary.\n\n# plot using p as an array of phi values\n# the order should be [phi2, phi1]\np = np.array([-0.97,-1.88])\n# p = np.array([-1.88,-0.97])\n\nar2 = generate_ar(n, p)\nfig, ax = plt.subplots(figsize=(10,4))\n\nax.plot(ar2)\nax.set_title(f'AR({p})')\n\n[-0.97 -1.88]\n\n\nText(0.5, 1.0, 'AR([-0.97 -1.88])')\n\n\n\n\n\n\n\n35.1.2 Weak stationarity\n\nits mean \\mu does not vary in time: \n\\mu_X(t) = \\mu_X(t+\\tau)\n for all values of t and \\tau.\nits variance is finite for any time t: \n\\sigma^2_X(t) &lt; \\infty.\n\nThe autocorrelation function between two lagged versions of the same time series, X(t_1) and X(t_2), depends only on the difference \\tau=t_2-t_1.\n\nLet’s get a feeling by plotting\n\ndef test_stationarity(time_series, window=100):\n    series = pd.Series(time_series)\n    rolling_var = series.rolling(window=window, center=True).std()**2\n    rolling_mean = series.rolling(window=window, center=True).mean()\n\n    fig, ax = plt.subplots(2,1, figsize=(10,4), sharex=True)\n    ax[0].plot(series, label='series')\n    ax[0].plot(rolling_mean, c='r', label='mean')\n    ax[0].legend()\n    ax[0].set_title('rolling mean')\n\n    ax[1].plot(rolling_var)\n    ax[1].set_title('rolling variance')\n\n    return\n\n\ntest_stationarity(walk_binary)\n# test_stationarity(walk_gaussian)\n# test_stationarity(ar1_series)\ntest_stationarity(ar)\ntest_stationarity(ar2)",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>31</span>  <span class='chapter-title'>practice</span>"
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>practice</span>"
     ]
   },
   {
     "objectID": "stationarity/practice.html#now-lets-work-with-actual-data",
     "href": "stationarity/practice.html#now-lets-work-with-actual-data",
-    "title": "31  practice",
-    "section": "35.1 Now let’s work with actual data",
-    "text": "35.1 Now let’s work with actual data\n\nfilename = \"jerusalem2019.csv\"\ndf = pd.read_csv(filename, na_values=['-'])\ndf.rename(columns={'Temperature (°C)': 'temperature',\n                   'Rainfall (mm)': 'rain'}, inplace=True)\ndf['date'] = pd.to_datetime(df['Date & Time (Winter)'], dayfirst=True)\ndf = df.set_index('date')\ndf = df.fillna(method='ffill')\ndf\n\n\n\n\n\n\n\n\n\nStation\nDate & Time (Winter)\nDiffused radiation (W/m^2)\nGlobal radiation (W/m^2)\nDirect radiation (W/m^2)\nRelative humidity (%)\ntemperature\nMaximum temperature (°C)\nMinimum temperature (°C)\nWind direction (°)\nGust wind direction (°)\nWind speed (m/s)\nMaximum 1 minute wind speed (m/s)\nMaximum 10 minutes wind speed (m/s)\nTime ending maximum 10 minutes wind speed (hhmm)\nGust wind speed (m/s)\nStandard deviation wind direction (°)\nrain\n\n\ndate\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n2019-01-01 00:00:00\nJerusalem Givat Ram\n01/01/2019 00:00\n0.0\n0.0\n0.0\n80.0\n8.7\n8.8\n8.6\n75.0\n84.0\n3.3\n4.3\n3.5\n23:58\n6.0\n15.6\n0.0\n\n\n2019-01-01 00:10:00\nJerusalem Givat Ram\n01/01/2019 00:10\n0.0\n0.0\n0.0\n79.0\n8.7\n8.8\n8.7\n74.0\n82.0\n3.3\n4.1\n3.3\n00:01\n4.9\n14.3\n0.0\n\n\n2019-01-01 00:20:00\nJerusalem Givat Ram\n01/01/2019 00:20\n0.0\n0.0\n0.0\n79.0\n8.7\n8.8\n8.7\n76.0\n82.0\n3.2\n4.1\n3.3\n00:19\n4.9\n9.9\n0.0\n\n\n2019-01-01 00:30:00\nJerusalem Givat Ram\n01/01/2019 00:30\n0.0\n0.0\n0.0\n79.0\n8.7\n8.7\n8.6\n78.0\n73.0\n3.6\n4.2\n3.6\n00:30\n5.2\n11.7\n0.0\n\n\n2019-01-01 00:40:00\nJerusalem Givat Ram\n01/01/2019 00:40\n0.0\n0.0\n0.0\n79.0\n8.6\n8.7\n8.5\n80.0\n74.0\n3.6\n4.4\n3.8\n00:35\n5.4\n10.5\n0.0\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n2019-12-31 22:20:00\nJerusalem Givat Ram\n31/12/2019 22:20\n0.0\n0.0\n1.0\n81.0\n7.4\n7.6\n7.3\n222.0\n255.0\n0.5\n0.9\n1.0\n22:11\n1.0\n47.9\n0.0\n\n\n2019-12-31 22:30:00\nJerusalem Givat Ram\n31/12/2019 22:30\n0.0\n0.0\n1.0\n83.0\n7.3\n7.4\n7.3\n266.0\n259.0\n0.6\n0.8\n0.6\n22:28\n1.1\n22.8\n0.0\n\n\n2019-12-31 22:40:00\nJerusalem Givat Ram\n31/12/2019 22:40\n0.0\n0.0\n1.0\n83.0\n7.5\n7.6\n7.3\n331.0\n317.0\n0.5\n0.8\n0.6\n22:35\n1.0\n31.6\n0.0\n\n\n2019-12-31 22:50:00\nJerusalem Givat Ram\n31/12/2019 22:50\n0.0\n0.0\n1.0\n83.0\n7.5\n7.6\n7.4\n312.0\n285.0\n0.6\n1.0\n0.6\n22:50\n1.4\n31.3\n0.0\n\n\n2019-12-31 23:00:00\nJerusalem Givat Ram\n31/12/2019 23:00\n0.0\n0.0\n1.0\n83.0\n7.6\n7.7\n7.4\n315.0\n321.0\n0.7\n1.0\n0.8\n22:54\n1.3\n23.5\n0.0\n\n\n\n\n52554 rows × 18 columns\n\n\n\n\n\n# t = df['temperature'].values\nt = df['Relative humidity (%)'].values\n# t = df['Wind speed (m/s)'].values\n# t = df['Wind direction (°)'].values\nfig, ax = plt.subplots()\nax.plot(t)\n\n\n\n\n\ntest_stationarity(t, window=5000)\n\n\n\n\n\nt_stationary = t[27000:35000]\nfig, ax = plt.subplots()\nax.plot(t_stationary)\ntest_stationarity(t_stationary, window=1500)\n\n\n\n\n\n\n\n\nseries_to_plot = t_stationary\nfig, ax = plt.subplots()\nlags, acf = compute_acf(series_to_plot)\nax.plot([0, len(series_to_plot)], [0]*2, color=\"black\", ls=\"--\")\nax.plot(lags, acf)\nax.set(xlabel=\"lag\",\n       ylabel=\"acf\",\n       xlim=[0, len(series_to_plot)]);\n\n\n\n\n\nfig, ax = plt.subplots()\nsm.graphics.tsa.plot_pacf(series_to_plot, lags=25, ax=ax, alpha=.05);\n\n/opt/anaconda3/lib/python3.9/site-packages/statsmodels/graphics/tsaplots.py:348: FutureWarning: The default method 'yw' can produce PACF values outside of the [-1,1] interval. After 0.13, the default will change tounadjusted Yule-Walker ('ywm'). You can use this method now by setting method='ywm'.\n  warnings.warn(",
+    "title": "32  practice",
+    "section": "36.1 Now let’s work with actual data",
+    "text": "36.1 Now let’s work with actual data\n\nfilename = \"jerusalem2019.csv\"\ndf = pd.read_csv(filename, na_values=['-'])\ndf.rename(columns={'Temperature (°C)': 'temperature',\n                   'Rainfall (mm)': 'rain'}, inplace=True)\ndf['date'] = pd.to_datetime(df['Date & Time (Winter)'], dayfirst=True)\ndf = df.set_index('date')\ndf = df.fillna(method='ffill')\ndf\n\n\n\n\n\n\n\n\n\nStation\nDate & Time (Winter)\nDiffused radiation (W/m^2)\nGlobal radiation (W/m^2)\nDirect radiation (W/m^2)\nRelative humidity (%)\ntemperature\nMaximum temperature (°C)\nMinimum temperature (°C)\nWind direction (°)\nGust wind direction (°)\nWind speed (m/s)\nMaximum 1 minute wind speed (m/s)\nMaximum 10 minutes wind speed (m/s)\nTime ending maximum 10 minutes wind speed (hhmm)\nGust wind speed (m/s)\nStandard deviation wind direction (°)\nrain\n\n\ndate\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n2019-01-01 00:00:00\nJerusalem Givat Ram\n01/01/2019 00:00\n0.0\n0.0\n0.0\n80.0\n8.7\n8.8\n8.6\n75.0\n84.0\n3.3\n4.3\n3.5\n23:58\n6.0\n15.6\n0.0\n\n\n2019-01-01 00:10:00\nJerusalem Givat Ram\n01/01/2019 00:10\n0.0\n0.0\n0.0\n79.0\n8.7\n8.8\n8.7\n74.0\n82.0\n3.3\n4.1\n3.3\n00:01\n4.9\n14.3\n0.0\n\n\n2019-01-01 00:20:00\nJerusalem Givat Ram\n01/01/2019 00:20\n0.0\n0.0\n0.0\n79.0\n8.7\n8.8\n8.7\n76.0\n82.0\n3.2\n4.1\n3.3\n00:19\n4.9\n9.9\n0.0\n\n\n2019-01-01 00:30:00\nJerusalem Givat Ram\n01/01/2019 00:30\n0.0\n0.0\n0.0\n79.0\n8.7\n8.7\n8.6\n78.0\n73.0\n3.6\n4.2\n3.6\n00:30\n5.2\n11.7\n0.0\n\n\n2019-01-01 00:40:00\nJerusalem Givat Ram\n01/01/2019 00:40\n0.0\n0.0\n0.0\n79.0\n8.6\n8.7\n8.5\n80.0\n74.0\n3.6\n4.4\n3.8\n00:35\n5.4\n10.5\n0.0\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n2019-12-31 22:20:00\nJerusalem Givat Ram\n31/12/2019 22:20\n0.0\n0.0\n1.0\n81.0\n7.4\n7.6\n7.3\n222.0\n255.0\n0.5\n0.9\n1.0\n22:11\n1.0\n47.9\n0.0\n\n\n2019-12-31 22:30:00\nJerusalem Givat Ram\n31/12/2019 22:30\n0.0\n0.0\n1.0\n83.0\n7.3\n7.4\n7.3\n266.0\n259.0\n0.6\n0.8\n0.6\n22:28\n1.1\n22.8\n0.0\n\n\n2019-12-31 22:40:00\nJerusalem Givat Ram\n31/12/2019 22:40\n0.0\n0.0\n1.0\n83.0\n7.5\n7.6\n7.3\n331.0\n317.0\n0.5\n0.8\n0.6\n22:35\n1.0\n31.6\n0.0\n\n\n2019-12-31 22:50:00\nJerusalem Givat Ram\n31/12/2019 22:50\n0.0\n0.0\n1.0\n83.0\n7.5\n7.6\n7.4\n312.0\n285.0\n0.6\n1.0\n0.6\n22:50\n1.4\n31.3\n0.0\n\n\n2019-12-31 23:00:00\nJerusalem Givat Ram\n31/12/2019 23:00\n0.0\n0.0\n1.0\n83.0\n7.6\n7.7\n7.4\n315.0\n321.0\n0.7\n1.0\n0.8\n22:54\n1.3\n23.5\n0.0\n\n\n\n\n52554 rows × 18 columns\n\n\n\n\n\n# t = df['temperature'].values\nt = df['Relative humidity (%)'].values\n# t = df['Wind speed (m/s)'].values\n# t = df['Wind direction (°)'].values\nfig, ax = plt.subplots()\nax.plot(t)\n\n\n\n\n\ntest_stationarity(t, window=5000)\n\n\n\n\n\nt_stationary = t[27000:35000]\nfig, ax = plt.subplots()\nax.plot(t_stationary)\ntest_stationarity(t_stationary, window=1500)\n\n\n\n\n\n\n\n\nseries_to_plot = t_stationary\nfig, ax = plt.subplots()\nlags, acf = compute_acf(series_to_plot)\nax.plot([0, len(series_to_plot)], [0]*2, color=\"black\", ls=\"--\")\nax.plot(lags, acf)\nax.set(xlabel=\"lag\",\n       ylabel=\"acf\",\n       xlim=[0, len(series_to_plot)]);\n\n\n\n\n\nfig, ax = plt.subplots()\nsm.graphics.tsa.plot_pacf(series_to_plot, lags=25, ax=ax, alpha=.05);\n\n/opt/anaconda3/lib/python3.9/site-packages/statsmodels/graphics/tsaplots.py:348: FutureWarning: The default method 'yw' can produce PACF values outside of the [-1,1] interval. After 0.13, the default will change tounadjusted Yule-Walker ('ywm'). You can use this method now by setting method='ywm'.\n  warnings.warn(",
     "crumbs": [
       "stationarity",
-      "<span class='chapter-number'>31</span>  <span class='chapter-title'>practice</span>"
-    ]
-  },
-  {
-    "objectID": "stationarity/practice2.html",
-    "href": "stationarity/practice2.html",
-    "title": "32  filling missing values",
-    "section": "",
-    "text": "32.1 Forward fill\ndf_ffil = df.fillna(method='ffill')\nplot_missing_vals(df, df_ffil, title='ffill')",
-    "crumbs": [
-      "stationarity",
-      "<span class='chapter-number'>32</span>  <span class='chapter-title'>filling missing values</span>"
-    ]
-  },
-  {
-    "objectID": "stationarity/practice2.html#backwrds-fill",
-    "href": "stationarity/practice2.html#backwrds-fill",
-    "title": "32  filling missing values",
-    "section": "32.2 Backwrds fill",
-    "text": "32.2 Backwrds fill\n\ndf_bfil = df.fillna(method='bfill')\nplot_missing_vals(df, df_bfil, title='bfill')",
-    "crumbs": [
-      "stationarity",
-      "<span class='chapter-number'>32</span>  <span class='chapter-title'>filling missing values</span>"
-    ]
-  },
-  {
-    "objectID": "stationarity/practice2.html#interpolation",
-    "href": "stationarity/practice2.html#interpolation",
-    "title": "32  filling missing values",
-    "section": "32.3 Interpolation",
-    "text": "32.3 Interpolation\n\n32.3.1 linear\n\ninterpolated_df = df.interpolate(method='linear')\nplot_missing_vals(df, interpolated_df, title='linear interpolation')\n\n\n\n\n\n\n\n\nhttps://pandas.pydata.org/docs/reference/api/pandas.DataFrame.interpolate.html\n\n\n32.3.2 cubic splines\nSource: https://docs.scipy.org/doc/scipy/tutorial/interpolate/1D.html#cubic-splines\nPiecewise linear interpolation produces corners at data points, where linear pieces join. To produce a smoother curve, you can use cubic splines, where the interpolating curve is made of cubic pieces with matching first and second derivatives.\n\n\n\nSource: https://kluge.in-chemnitz.de/opensource/spline/\n\ninterpolated_cubic_df = df.interpolate(method='cubic')\nplot_missing_vals(df, interpolated_cubic_df, title='cubic interpolation')\n\n\n\n\n\n\n\n\n\nplot_missing_vals(interpolated_df, interpolated_cubic_df, title='linear vs cubic interpolation')\n\n\n\n\n\n\n\n\n\ninterpolated_poly_df = df.interpolate(method='polynomial', order=3)\nplot_missing_vals(df, interpolated_poly_df, title='polynomial interpolation')\n\n\n\n\n\n\n\n\n\nplot_missing_vals(interpolated_cubic_df, interpolated_poly_df, title='cubic vs polynomial interpolation')\n\n\n\n\n\n\n\n\nAll available interpolation types can be found at the pandas documentation",
-    "crumbs": [
-      "stationarity",
-      "<span class='chapter-number'>32</span>  <span class='chapter-title'>filling missing values</span>"
-    ]
-  },
-  {
-    "objectID": "stationarity/practice2.html#random-forest",
-    "href": "stationarity/practice2.html#random-forest",
-    "title": "32  filling missing values",
-    "section": "32.4 random forest",
-    "text": "32.4 random forest\nHere we explore the use of a commnly used Machine learning model - RandomForest\n\n\ndef fillna_randomforest(series):\n    # Ensure the series index is a datetime object\n    if not isinstance(series.index, pd.DatetimeIndex):\n        raise ValueError(\"Index must be a DatetimeIndex\")\n    \n    # Split series into observed and missing values\n    observed = series.dropna()\n    missing = series[series.isna()]\n    \n    # Extracting time-based features\n    def create_features(index):\n        return np.array([index.hour, index.day, index.month, index.year]).T\n    \n    # Create features for training data\n    X_train = create_features(observed.index)\n    y_train = observed.values\n    \n    # Train the Random Forest regression model\n    model = RandomForestRegressor()\n    model.fit(X_train, y_train)\n    \n    # Create features for missing data and predict\n    X_missing = create_features(missing.index)\n    predicted_values = model.predict(X_missing)\n    \n    # Assign the predicted values to the missing positions\n    series_filled = series.copy()\n    series_filled[series_filled.isna()] = predicted_values\n\n    return series_filled\n\n\ncolumns = df.columns\ndf_rf = df.copy()\nfor i, column in enumerate(columns):\n    if i == 0:\n        continue\n    df_rf[column] = fillna_randomforest(df_rf[column])\n\n\nplot_missing_vals(df, df_rf, title='fandomforest')",
-    "crumbs": [
-      "stationarity",
-      "<span class='chapter-number'>32</span>  <span class='chapter-title'>filling missing values</span>"
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>practice</span>"
     ]
   },
   {
