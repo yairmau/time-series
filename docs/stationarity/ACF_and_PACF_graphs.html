@@ -104,7 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-</head><body class="nav-sidebar floating"><div id="progress-bar" style="width: 0%; height:4px; background-color: rgb(89 127 235);; position: fixed; top: 0px; z-index: 2000;"></div>
+</head><body class="nav-sidebar floating slimcontent"><div id="progress-bar" style="width: 0%; height:4px; background-color: rgb(89 127 235);; position: fixed; top: 0px; z-index: 2000;"></div>
 
 <script id="progressbar" type="text/javascript">
 
@@ -847,7 +847,7 @@ window.Quarto = {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../stationarity/motivation.html">stationarity</a></li><li class="breadcrumb-item"><a href="../stationarity/ACF_and_PACF_graphs.html"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ACF and PACF graphs</span></a></li></ol></nav>
 <div class="quarto-title">
@@ -870,7 +870,7 @@ window.Quarto = {
 
 <p>We will now see what is the connection between stationarity and autocorrelation.</p>
 <p>Using Python’s <code>statsmodels</code> package, let’s create an AR time series and plot it.</p>
-<div id="cell-2" class="cell" data-execution_count="21">
+<div id="cell-2" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>import stuff</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -878,12 +878,12 @@ window.Quarto = {
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib.gridspec <span class="im">as</span> gridspec</span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-5"><a href="#cb1-5"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-6"><a href="#cb1-6"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>sns.set_theme(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
 <span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb1-8"><a href="#cb1-8"></a><span class="im">from</span> statsmodels.tsa.arima_process <span class="im">import</span> ArmaProcess</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-3" class="cell" data-execution_count="22">
+<div id="cell-3" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>produce a time series</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>phi1 <span class="op">=</span> <span class="fl">1.86</span></span>
@@ -894,7 +894,7 @@ window.Quarto = {
 <span id="cb2-6"><a href="#cb2-6"></a>ar2_values <span class="op">=</span> ar2_process.generate_sample(nsample<span class="op">=</span>N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-4" class="cell" data-execution_count="23">
+<div id="cell-4" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>plot time series</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -910,12 +910,12 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<section id="acf" class="level2" data-number="30.1">
+<section id="acf" class="level2 page-columns page-full" data-number="30.1">
 <h2 data-number="30.1" class="anchored" data-anchor-id="acf"><span class="header-section-number">30.1</span> ACF</h2>
 <p>We need to calculate now the autocorrelation function of our series: <span class="math display">
 \rho_{XX}(\tau) = \frac{E\left[ (X_t - \mu)(X_{t+\tau} - \mu) \right]}{\sigma^2}
 </span></p>
-<div id="cell-6" class="cell" data-execution_count="29">
+<div id="cell-6" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> compute_acf(series):</span>
 <span id="cb4-2"><a href="#cb4-2"></a>    N <span class="op">=</span> <span class="bu">len</span>(series)</span>
 <span id="cb4-3"><a href="#cb4-3"></a>    lags <span class="op">=</span> np.arange(N)</span>
@@ -926,7 +926,7 @@ window.Quarto = {
 <span id="cb4-8"><a href="#cb4-8"></a>    acf <span class="op">=</span> acf <span class="op">/</span> N</span>
 <span id="cb4-9"><a href="#cb4-9"></a>    <span class="cf">return</span> lags, acf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="42">
+<div id="cell-7" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>plot acf</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -951,19 +951,24 @@ window.Quarto = {
 <li><strong>Mathematical interpretation</strong>: Take a look at the code we wrote above. As the lags grows, the length of both arrays keeps shrinking, but we still divide the result by <span class="math inline">N</span>. The logical conclusion is that when <span class="math inline">\tau=N</span> the ACF will be exactly zero.</li>
 </ul>
 <p>The <code>statsmodels</code> package also offers an easy way to plot the ACF, let’s compare our calculation with the built-in function:</p>
-<div id="cell-9" class="cell" data-execution_count="41">
+<div id="cell-9" class="cell">
 <details class="code-fold">
 <summary>plot</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb6-2"><a href="#cb6-2"></a>ax.plot([<span class="dv">0</span>, N], [<span class="dv">0</span>]<span class="op">*</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">"black"</span>, ls<span class="op">=</span><span class="st">"--"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3"></a>sm.graphics.tsa.plot_acf(ar2_values, lags<span class="op">=</span> N<span class="op">-</span><span class="dv">1</span>, ax<span class="op">=</span>ax, label<span class="op">=</span><span class="st">"statsmodels"</span>, alpha<span class="op">=</span><span class="va">None</span>, use_vlines<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb6-4"><a href="#cb6-4"></a>ax.plot(lags, acf, color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"our own acf"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5"></a>ax.legend()</span>
-<span id="cb6-6"><a href="#cb6-6"></a>ax.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">1.1</span>],</span>
-<span id="cb6-7"><a href="#cb6-7"></a>       xlim<span class="op">=</span>[<span class="dv">0</span>, N],</span>
-<span id="cb6-8"><a href="#cb6-8"></a>       title<span class="op">=</span><span class="st">"compare acf"</span>,</span>
-<span id="cb6-9"><a href="#cb6-9"></a>       xlabel<span class="op">=</span><span class="st">"lag"</span>,</span>
-<span id="cb6-10"><a href="#cb6-10"></a>       ylabel<span class="op">=</span><span class="st">"acf"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-3"><a href="#cb6-3"></a>sm.graphics.tsa.plot_acf(ar2_values,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>                         lags<span class="op">=</span>N<span class="op">-</span><span class="dv">1</span>,              <span class="co"># acf returns an array of length N-1</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>                         ax<span class="op">=</span>ax,</span>
+<span id="cb6-6"><a href="#cb6-6"></a>                         label<span class="op">=</span><span class="st">"statsmodels"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7"></a>                         alpha<span class="op">=</span><span class="va">None</span>,             <span class="co"># no confidence interval</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>                         use_vlines<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-9"><a href="#cb6-9"></a>ax.plot(lags, acf, color<span class="op">=</span><span class="st">"tab:orange"</span>, label<span class="op">=</span><span class="st">"our own acf"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10"></a>ax.legend()</span>
+<span id="cb6-11"><a href="#cb6-11"></a>ax.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">1.1</span>],</span>
+<span id="cb6-12"><a href="#cb6-12"></a>       xlim<span class="op">=</span>[<span class="dv">0</span>, N],</span>
+<span id="cb6-13"><a href="#cb6-13"></a>       title<span class="op">=</span><span class="st">"compare acf"</span>,</span>
+<span id="cb6-14"><a href="#cb6-14"></a>       xlabel<span class="op">=</span><span class="st">"lag"</span>,</span>
+<span id="cb6-15"><a href="#cb6-15"></a>       ylabel<span class="op">=</span><span class="st">"acf"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -974,17 +979,21 @@ window.Quarto = {
 </div>
 </div>
 <p>Excellent! From now on we will continue using <code>statsmodels</code> functions. We can spice up the ACF graph, by showing an envelope of 95% confidence interval.</p>
-<div id="cell-11" class="cell" data-execution_count="27">
+<div id="cell-11" class="cell">
 <details class="code-fold">
 <summary>plot</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb7-2"><a href="#cb7-2"></a>sm.graphics.tsa.plot_acf(ar2_values, lags<span class="op">=</span> N<span class="op">-</span><span class="dv">1</span>, ax<span class="op">=</span>ax, alpha<span class="op">=</span><span class="fl">.05</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a>ax.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>],</span>
-<span id="cb7-4"><a href="#cb7-4"></a>       title<span class="op">=</span><span class="st">"now confidence interval"</span>)</span>
-<span id="cb7-5"><a href="#cb7-5"></a>ax.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>],</span>
-<span id="cb7-6"><a href="#cb7-6"></a>       title<span class="op">=</span><span class="st">"now with 95</span><span class="sc">% c</span><span class="st">onfidence interval"</span>,</span>
-<span id="cb7-7"><a href="#cb7-7"></a>       xlabel<span class="op">=</span><span class="st">"lag"</span>,</span>
-<span id="cb7-8"><a href="#cb7-8"></a>       ylabel<span class="op">=</span><span class="st">"acf"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href="#cb7-2"></a>sm.graphics.tsa.plot_acf(ar2_values,</span>
+<span id="cb7-3"><a href="#cb7-3"></a>                         lags<span class="op">=</span>N<span class="op">-</span><span class="dv">1</span>,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>                         ax<span class="op">=</span>ax,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>                         alpha<span class="op">=</span><span class="fl">.05</span>    <span class="co"># 95% confidence interval</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>                         )</span>
+<span id="cb7-7"><a href="#cb7-7"></a>ax.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>],</span>
+<span id="cb7-8"><a href="#cb7-8"></a>       title<span class="op">=</span><span class="st">"now confidence interval"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9"></a>ax.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>],</span>
+<span id="cb7-10"><a href="#cb7-10"></a>       title<span class="op">=</span><span class="st">"now with 95</span><span class="sc">% c</span><span class="st">onfidence interval"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11"></a>       xlabel<span class="op">=</span><span class="st">"lag"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12"></a>       ylabel<span class="op">=</span><span class="st">"acf"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -994,8 +1003,21 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>If an autocorrelation value at a specific lag falls outside the confidence interval, it suggests that the autocorrelation at that lag is statistically significant. In other words, there is evidence of correlation at that lag. If an autocorrelation value is within the confidence interval, it suggests that the autocorrelation at that lag is not statistically significant, and any observed correlation might be due to random noise. The width of the confidence interval is influenced by the significance level. For a 95% confidence interval, it means that you are 95% confident that the true autocorrelation lies within the interval. If you choose a higher confidence level, the interval will become wider, making it harder to reject the null hypothesis of no correlation.</p>
-<section id="problem" class="level3" data-number="30.1.1">
+<p>The idea behind this confidence interval envelope is to help us understand if the observed correlation is statistically significant. The null hypothesis is that the time series is white noise. If an autocorrelation value at a specific lag falls outside the confidence interval, it suggests that the autocorrelation at that lag is statistically significant. In other words, there is evidence of correlation at that lag. If an autocorrelation value is within the confidence interval, it suggests that the autocorrelation at that lag is not statistically significant, and any observed correlation might be due to random noise. The width of the confidence interval is influenced by the significance level. For a 95% confidence interval, it means that you are 95% confident that the true autocorrelation lies within the interval. If you choose a higher confidence level, the interval will become wider, making it harder to reject the null hypothesis of no correlation.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>The shape of the envelope is given by:</p>
+<p><span class="math display">
+z_{\alpha/2}\cdot \text{StdErr}(\rho_{XX}(\tau)),
+</span></p>
+<p>where <span class="math inline">z_{\alpha/2}</span> is the critical value of the normal distribution at <span class="math inline">\alpha/2</span> level of significance. For example, for a 95% confidence interval, <span class="math inline">\alpha=0.05</span>, and <span class="math inline">z_{\alpha/2}=1.96</span>. <span class="math inline">z_{\alpha/2}</span> is the distance from the mean such that the area under the curve for each tail is <span class="math inline">\alpha/2</span> of the total area.</p>
+<p><img src="confidence-interval.png" class="img-fluid"></p>
+<p><span class="math inline">\text{StdErr}(\rho_{XX}(\tau))</span> is the standard error of the ACF at lag <span class="math inline">\tau</span>, given by Bartlett’s Formula:</p>
+<p><span class="math display">
+\text{StdErr}(\rho_k) = \sqrt{\frac{1+2\sum_{j=1}^{k-1}\rho_j^2}{N}},
+</span></p>
+<p>where <span class="math inline">k</span> is the index of the lag <span class="math inline">\tau</span>. If the time series is white noise, <span class="math inline">\rho^2</span> will be zero for all lags except for <span class="math inline">\tau=0</span>, therefore Bartlett’s Formula becomes simply <span class="math inline">1/\sqrt{N}</span>, and the confidence interval will be a horizontal envelope.</p>
+</div></div><section id="problem" class="level3" data-number="30.1.1">
 <h3 data-number="30.1.1" class="anchored" data-anchor-id="problem"><span class="header-section-number">30.1.1</span> problem?</h3>
 <p>There is something a bit troubling about the ACF graph. We can learn from it how fast the correlation between two points in time falls, but this analysis is not too clean. Assume that the present state <span class="math inline">x_t</span> is only dependent on one time step back, <span class="math inline">x_{t-1}</span>. Because <span class="math inline">x_{t-1}</span> is dependent on <span class="math inline">x_{t-2}</span>, the result is that we will find that <span class="math inline">x_{t}</span> is weakly dependent on <span class="math inline">x_{t-2}</span>, although the direct dependence is zero.</p>
 <p>The Partial ACF (PACF) solves this problem. It removes the intermediate effects between two points, and returns only the direct influence of one time instant on another one lagged by <span class="math inline">\tau</span>. Let’s see how it looks like for the proceess above.</p>
@@ -1003,23 +1025,21 @@ window.Quarto = {
 </section>
 <section id="pacf" class="level2" data-number="30.2">
 <h2 data-number="30.2" class="anchored" data-anchor-id="pacf"><span class="header-section-number">30.2</span> PACF</h2>
-<div id="cell-13" class="cell" data-execution_count="37">
+<div id="cell-13" class="cell">
 <details class="code-fold">
 <summary>plot</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">2</span>,<span class="dv">1</span>)</span>
 <span id="cb8-2"><a href="#cb8-2"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.05</span>)</span>
 <span id="cb8-3"><a href="#cb8-3"></a>sm.graphics.tsa.plot_pacf(ar2_values, lags<span class="op">=</span><span class="dv">25</span>, ax<span class="op">=</span>ax1, alpha<span class="op">=</span><span class="fl">.05</span>)</span>
 <span id="cb8-4"><a href="#cb8-4"></a>ax1.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>],</span>
-<span id="cb8-5"><a href="#cb8-5"></a>       title<span class="op">=</span><span class="st">"now confidence interval"</span>)</span>
-<span id="cb8-6"><a href="#cb8-6"></a>ax1.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>],</span>
-<span id="cb8-7"><a href="#cb8-7"></a>       title<span class="op">=</span><span class="st">"Comparison between ACF and PACF"</span>,</span>
-<span id="cb8-8"><a href="#cb8-8"></a>       xlabel<span class="op">=</span><span class="st">"lag"</span>,</span>
-<span id="cb8-9"><a href="#cb8-9"></a>       ylabel<span class="op">=</span><span class="st">"PACF"</span>)<span class="op">;</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a></span>
-<span id="cb8-11"><a href="#cb8-11"></a>sm.graphics.tsa.plot_acf(ar2_values, lags<span class="op">=</span> <span class="dv">25</span>, ax<span class="op">=</span>ax2, alpha<span class="op">=</span><span class="fl">.05</span>, title<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb8-12"><a href="#cb8-12"></a>ax2.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>],</span>
-<span id="cb8-13"><a href="#cb8-13"></a>       xlabel<span class="op">=</span><span class="st">"lag"</span>,</span>
-<span id="cb8-14"><a href="#cb8-14"></a>       ylabel<span class="op">=</span><span class="st">"ACF"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-5"><a href="#cb8-5"></a>       title<span class="op">=</span><span class="st">"Comparison between ACF and PACF"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6"></a>       xlabel<span class="op">=</span><span class="st">"lag"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7"></a>       ylabel<span class="op">=</span><span class="st">"PACF"</span>)<span class="op">;</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a></span>
+<span id="cb8-9"><a href="#cb8-9"></a>sm.graphics.tsa.plot_acf(ar2_values, lags<span class="op">=</span> <span class="dv">25</span>, ax<span class="op">=</span>ax2, alpha<span class="op">=</span><span class="fl">.05</span>, title<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb8-10"><a href="#cb8-10"></a>ax2.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>],</span>
+<span id="cb8-11"><a href="#cb8-11"></a>       xlabel<span class="op">=</span><span class="st">"lag"</span>,</span>
+<span id="cb8-12"><a href="#cb8-12"></a>       ylabel<span class="op">=</span><span class="st">"ACF"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
