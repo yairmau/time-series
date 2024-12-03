@@ -52,7 +52,7 @@ book:
         - stationarity/stationarity.qmd
         - stationarity/ACF_and_PACF_graphs.ipynb
         - stationarity/from_AR_to_ARIMA.ipynb
-        - stationarity/practice.ipynb
+        - stationarity/practice_ARIMA.ipynb
     - part: "seasonality"
       chapters:
         - seasonality/motivation.qmd
