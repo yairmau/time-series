@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.554">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -856,7 +856,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="1">
+<div id="cell-1" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>import stuff</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -866,7 +866,7 @@ window.Quarto = {
 <span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> pandas.plotting <span class="im">import</span> register_matplotlib_converters</span>
 <span id="cb1-6"><a href="#cb1-6"></a>register_matplotlib_converters()  <span class="co"># datetime converter for a matplotlib</span></span>
 <span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-8"><a href="#cb1-8"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb1-8"><a href="#cb1-8"></a>sns.set_theme(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)</span>
 <span id="cb1-9"><a href="#cb1-9"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
 <span id="cb1-10"><a href="#cb1-10"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span>
 <span id="cb1-11"><a href="#cb1-11"></a><span class="im">from</span> datetime <span class="im">import</span> datetime <span class="im">as</span> dt</span>
@@ -882,7 +882,7 @@ window.Quarto = {
 <span id="cb1-21"><a href="#cb1-21"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-2" class="cell" data-execution_count="2">
+<div id="cell-2" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>create synthetic data</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>delta_t <span class="op">=</span> <span class="fl">0.1</span></span>
@@ -895,7 +895,7 @@ window.Quarto = {
 <span id="cb2-8"><a href="#cb2-8"></a>signal2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.2</span> <span class="op">*</span> np.sin(omega<span class="op">*</span>time <span class="op">-</span> math.tau <span class="op">*</span> (time_offset<span class="op">/</span>period)) <span class="op">+</span> <span class="fl">0.2</span> <span class="op">*</span> np.random.random(N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-3" class="cell" data-execution_count="3">
+<div id="cell-3" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>plot data</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -913,25 +913,25 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Let’s normalize our data:</p>
+<p>Let’s standardize our data:</p>
 <p><span class="math display">
 x_n = \frac{x-\mu}{\sigma}.
 </span></p>
-<p>This is identical to the Z-score we learned before. Effectively, our data now has zero mean and unit standard deviation.</p>
-<div id="cell-5" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> norm_data(data):</span>
-<span id="cb4-2"><a href="#cb4-2"></a>    <span class="co"># normalize data to have mean=0 and standard_deviation=1</span></span>
+<p>This is the Z-score we learned before. Effectively, our data now has zero mean and unit standard deviation.</p>
+<div id="cell-5" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> standardized_data(data):</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    <span class="co"># standardize data to have mean=0 and standard_deviation=1</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>    <span class="cf">return</span> (data <span class="op">-</span> data.mean())<span class="op">/</span> data.std()</span>
 <span id="cb4-4"><a href="#cb4-4"></a></span>
-<span id="cb4-5"><a href="#cb4-5"></a>s1 <span class="op">=</span> norm_data(signal1)</span>
-<span id="cb4-6"><a href="#cb4-6"></a>s2 <span class="op">=</span> norm_data(signal2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-5"><a href="#cb4-5"></a>s1 <span class="op">=</span> standardized_data(signal1)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>s2 <span class="op">=</span> standardized_data(signal2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="5">
+<div id="cell-6" class="cell" data-execution_count="14">
 <details class="code-fold">
-<summary>plot normalized data</summary>
+<summary>plot standardized data</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb5-2"><a href="#cb5-2"></a>ax.plot(time, s1, label<span class="op">=</span><span class="st">"normalized 1"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3"></a>ax.plot(time, s2, label<span class="op">=</span><span class="st">"normalized 2"</span>, zorder<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>ax.plot(time, s1, label<span class="op">=</span><span class="st">"standardized 1"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>ax.plot(time, s2, label<span class="op">=</span><span class="st">"standardized 2"</span>, zorder<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb5-4"><a href="#cb5-4"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"time"</span>,</span>
 <span id="cb5-5"><a href="#cb5-5"></a>       ylabel<span class="op">=</span><span class="st">"signal"</span>)</span>
 <span id="cb5-6"><a href="#cb5-6"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -950,7 +950,7 @@ x_n = \frac{x-\mu}{\sigma}.
 </span></p>
 <p>If the autocorrelation helps us check how similar a signal is to a lagged version of itself, the cross correlation measures how a signal <span class="math inline">X</span> is similar to a lagged version of another signal <span class="math inline">Y</span>.</p>
 <p>Let’s write this ourselves:</p>
-<div id="cell-8" class="cell" data-execution_count="6">
+<div id="cell-8" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">def</span> cross_corr(s1, s2):</span>
 <span id="cb6-2"><a href="#cb6-2"></a>    <span class="co">"""</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a><span class="co">    we assume s1 and s2 to have the same length</span></span>
@@ -965,7 +965,7 @@ x_n = \frac{x-\mu}{\sigma}.
 <span id="cb6-12"><a href="#cb6-12"></a>    <span class="cf">return</span> lags, cc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Of course, there are available functions that accomplish the same, let’s compare them with our code:</p>
-<div id="cell-10" class="cell" data-execution_count="7">
+<div id="cell-10" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>cross correlation plot</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>corr_np <span class="op">=</span> signal.correlate(s1, s2) <span class="op">/</span> N</span>
@@ -995,7 +995,7 @@ x_n = \frac{x-\mu}{\sigma}.
 </div>
 </div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="8">
+<div id="cell-11" class="cell" data-execution_count="17">
 <details class="code-fold">
 <summary>prepare padded versions of the array</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>nann <span class="op">=</span> np.zeros(N) <span class="op">*</span> np.nan</span>
@@ -1005,7 +1005,7 @@ x_n = \frac{x-\mu}{\sigma}.
 <span id="cb8-5"><a href="#cb8-5"></a>s2_padded <span class="op">=</span> np.hstack([nann, nann, s2, nann, nann])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-12" class="cell" data-execution_count="9">
+<div id="cell-12" class="cell" data-execution_count="18">
 <details class="code-fold">
 <summary>Widget, should work in VSCode, not on the website</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Define a function to plot the time series with a shift</span></span>
@@ -1013,10 +1013,10 @@ x_n = \frac{x-\mu}{\sigma}.
 <span id="cb9-3"><a href="#cb9-3"></a>    sh <span class="op">=</span> shift <span class="op">+</span> N <span class="op">+</span> <span class="dv">1</span></span>
 <span id="cb9-4"><a href="#cb9-4"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb9-5"><a href="#cb9-5"></a>    fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.3</span>)  <span class="co"># increase vertical space between panels</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a>    ax[<span class="dv">0</span>].plot(lag_padded <span class="op">*</span> delta_t, s1_padded, label<span class="op">=</span><span class="st">"normalized 1"</span>)</span>
-<span id="cb9-7"><a href="#cb9-7"></a>    ax[<span class="dv">0</span>].plot(lag_padded <span class="op">*</span> delta_t, s2_padded[<span class="dv">2</span><span class="op">*</span>N<span class="op">-</span>sh:<span class="op">-</span>sh], label<span class="op">=</span><span class="st">"normalized 2"</span>, zorder<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>    ax[<span class="dv">0</span>].plot(lag_padded <span class="op">*</span> delta_t, s1_padded, label<span class="op">=</span><span class="st">"standardized 1"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7"></a>    ax[<span class="dv">0</span>].plot(lag_padded <span class="op">*</span> delta_t, s2_padded[<span class="dv">2</span><span class="op">*</span>N<span class="op">-</span>sh:<span class="op">-</span>sh], label<span class="op">=</span><span class="st">"standardized 2"</span>, zorder<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb9-8"><a href="#cb9-8"></a>    ax[<span class="dv">0</span>].<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"time"</span>,</span>
-<span id="cb9-9"><a href="#cb9-9"></a>           ylabel<span class="op">=</span><span class="st">"normalized signal"</span>,</span>
+<span id="cb9-9"><a href="#cb9-9"></a>           ylabel<span class="op">=</span><span class="st">"standardized signal"</span>,</span>
 <span id="cb9-10"><a href="#cb9-10"></a>           xlim<span class="op">=</span>[delta_t<span class="op">*</span>lag_padded.<span class="bu">min</span>(), delta_t<span class="op">*</span>lag_padded.<span class="bu">max</span>()])</span>
 <span id="cb9-11"><a href="#cb9-11"></a>    ax[<span class="dv">1</span>].plot(lags, corr_np, color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
 <span id="cb9-12"><a href="#cb9-12"></a>    ax[<span class="dv">1</span>].plot(lags[:sh], corr_np[:sh], lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"xkcd:hot pink"</span>)</span>
@@ -1041,7 +1041,7 @@ x_n = \frac{x-\mu}{\sigma}.
 </details>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"2f95330b3b074a43b5dc9001dd545b7b","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"4e408926001e4693a9cc900d56796a70","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-display">

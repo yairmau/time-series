@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.554">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -867,7 +867,7 @@ window.Quarto = {
 <li><p><a href="https://rtavenar.github.io/blog/dtw.html" target="_blank">Romain Tavenard’s DTW tutorial</a></p></li>
 </ul>
 <p>Other good sources: <a href="https://www.psb.ugent.be/cbd/papers/gentxwarper/DTWalgorithm.htm">GenTχWarper</a>, <a href="https://pub.towardsai.net/dynamic-time-warping-explained-fbb24c1e079b">Vatsal</a>, <a href="http://mirlab.org/jang/books/dcpr/dpDtw.asp">Roger Jang</a>, <a href="https://www.audiolabs-erlangen.de/resources/MIR/FMP/C3/C3S2_DTWbasic.html">International Audio Laboratories Erlangen</a>, <a href="http://practicalquant.blogspot.com/2012/10/mining-time-series-with-trillions-of.html">The Practical Quant</a>, <a href="https://www.audiolabs-erlangen.de/media/pages/fau/professor/mueller/publications/225d056498-1492348761/2007_Mueller_DTW-Chapter04-IR_Springer.pdf">Meinard Müller: Dynamic Time Warping, Chapter 4 of Information Retrieval for Music and Motion</a>, <a href="https://ealizadeh.com/blog/introduction-to-dynamic-time-warping/">Essi Alizadeh</a>, <a href="https://netman.aiops.org/~peidan/ANM2017/11.DependencyDiscovery/LectureCoverage/DTW.pdf">Elena Tsiporkova</a></p>
-</div></div><div id="cell-2" class="cell" data-execution_count="2">
+</div></div><div id="cell-2" class="cell">
 <details class="code-fold">
 <summary>import stuff</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -877,11 +877,11 @@ window.Quarto = {
 <span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> pandas.plotting <span class="im">import</span> register_matplotlib_converters</span>
 <span id="cb1-6"><a href="#cb1-6"></a>register_matplotlib_converters()  <span class="co"># datetime converter for a matplotlib</span></span>
 <span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-8"><a href="#cb1-8"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb1-8"><a href="#cb1-8"></a>sns.set_theme(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)</span>
 <span id="cb1-9"><a href="#cb1-9"></a><span class="im">import</span> matplotlib.gridspec <span class="im">as</span> gridspec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-3" class="cell" data-execution_count="3">
+<div id="cell-3" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>define functions for calculating DTW</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> fill_dtw_cost_matrix(abs_diff):</span>
@@ -924,7 +924,7 @@ window.Quarto = {
 <span id="cb2-38"><a href="#cb2-38"></a>    <span class="cf">return</span> path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-4" class="cell" data-execution_count="4">
+<div id="cell-4" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>useful functions for plotting</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">def</span> plot_series(s1, s2):</span>
@@ -1045,7 +1045,7 @@ window.Quarto = {
 <span id="cb3-116"><a href="#cb3-116"></a>    cost_matrix[lower_right] <span class="op">=</span> np.nan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-5" class="cell" data-execution_count="5">
+<div id="cell-5" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>a few useful time series</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>s1_a <span class="op">=</span> np.array([<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">4</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">3</span>])</span>
@@ -1076,7 +1076,7 @@ window.Quarto = {
 </details>
 </div>
 <p>Let’s plot two time series, <span class="math inline">P</span> and <span class="math inline">Q</span>.</p>
-<div id="cell-7" class="cell" data-execution_count="123">
+<div id="cell-7" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Plot P and Q</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>plot_series(s1_b, s2_b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1089,7 +1089,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="124">
+<div id="cell-8" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Let’s build a matrix for the absolute differences between P and Q</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>plot_abs_diff(s1_b, s2_b, c_b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1102,7 +1102,11 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="125">
+<p>Cost matrix <span class="math inline">M</span>:</p>
+<p><span class="math display">
+M[i,j] = P[i,j] + \min(M[i-1,j-1], M[i-1,j], M[i,j-1])
+</span></p>
+<div id="cell-10" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Let’s build the cost matrix and the best path</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>plot_cost_and_path(m_b, p_b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1115,7 +1119,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="126">
+<div id="cell-11" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>plot warped time series</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>plot_warped_series(s1_b, s2_b, p_b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1129,7 +1133,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Let’s see another example.</p>
-<div id="cell-12" class="cell" data-execution_count="6">
+<div id="cell-13" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Plot P and Q</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>plot_series(s1_c, s2_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1143,7 +1147,7 @@ window.Quarto = {
 </div>
 </div>
 <p>These are exactly the same series from before, with additional data points.</p>
-<div id="cell-14" class="cell" data-execution_count="7">
+<div id="cell-15" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Let’s build the cost matrix and the best path</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>plot_cost_and_path(m_c, p_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1157,7 +1161,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Now the path meanders both above and below the diagonal, meaning that the second time series sometimes lags behind (bottom) and sometimes leads ahead (top) the first time series,</p>
-<div id="cell-16" class="cell" data-execution_count="8">
+<div id="cell-17" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>plot warped time series</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>plot_warped_series(s1_c, s2_c, p_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1170,9 +1174,11 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<p><img src="DTW_illustration.png" class="img-fluid"><br>
+Source: Wikimedia, https://en.wikipedia.org/wiki/File:DTW_illustration.png</p>
 <section id="causality" class="level2" data-number="39.1">
 <h2 data-number="39.1" class="anchored" data-anchor-id="causality"><span class="header-section-number">39.1</span> causality</h2>
-<div id="cell-18" class="cell" data-execution_count="11">
+<div id="cell-20" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>s1_c <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">3</span>])</span>
@@ -1189,16 +1195,13 @@ window.Quarto = {
 <span id="cb12-12"><a href="#cb12-12"></a></span>
 <span id="cb12-13"><a href="#cb12-13"></a><span class="co"># p_c = np.array(find_min_path(m_c))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-error">
-<pre><code>IndexError: index -12 is out of bounds for axis 1 with size 11</code></pre>
 </div>
-</div>
-<div id="cell-19" class="cell" data-execution_count="10">
+<div id="cell-21" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>m_c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>m_c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>array([[ 0.        ,         nan,         nan,         nan,         nan,
                 nan,         nan,         nan,         nan,         nan,
                 nan],
@@ -1234,71 +1237,74 @@ window.Quarto = {
          5.90591194]])</code></pre>
 </div>
 </div>
-<div id="cell-20" class="cell">
+<div id="cell-22" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>plot_abs_diff(s1_b, s2_b, c_b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>plot_abs_diff(s1_b, s2_b, c_b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="DTW_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-23" class="cell" data-execution_count="15">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">##Fill DTW Matrix</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="kw">def</span> fill_dtw_cost_matrix_causal(abs_diff):</span>
+<span id="cb16-3"><a href="#cb16-3"></a>    N1, N2 <span class="op">=</span> abs_diff.shape</span>
+<span id="cb16-4"><a href="#cb16-4"></a>    cost_matrix <span class="op">=</span> abs_diff.copy()  <span class="co"># make a copy</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>    <span class="co"># prepend row full of nan</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>    cost_matrix <span class="op">=</span> np.vstack([np.full(N1, np.nan), cost_matrix])</span>
+<span id="cb16-7"><a href="#cb16-7"></a>    <span class="co"># prepend col full of nan</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a>    cost_matrix <span class="op">=</span> np.hstack([np.full((N2<span class="op">+</span><span class="dv">1</span>,<span class="dv">1</span>), np.nan), cost_matrix])</span>
+<span id="cb16-9"><a href="#cb16-9"></a>    <span class="co"># make origin zero</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a>    cost_matrix[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb16-11"><a href="#cb16-11"></a></span>
+<span id="cb16-12"><a href="#cb16-12"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, N1<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb16-13"><a href="#cb16-13"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, N2<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb16-14"><a href="#cb16-14"></a>            south     <span class="op">=</span> cost_matrix[i<span class="op">-</span><span class="dv">1</span>, j  ]</span>
+<span id="cb16-15"><a href="#cb16-15"></a>            west      <span class="op">=</span> cost_matrix[i  , j<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb16-16"><a href="#cb16-16"></a>            southwest <span class="op">=</span> cost_matrix[i<span class="op">-</span><span class="dv">1</span>, j<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb16-17"><a href="#cb16-17"></a>            <span class="co"># print(([south, west, southwest]))</span></span>
+<span id="cb16-18"><a href="#cb16-18"></a>            <span class="co"># print(np.nanmin([south, west, southwest]))</span></span>
+<span id="cb16-19"><a href="#cb16-19"></a>            cost_matrix[i, j] <span class="op">=</span> cost_matrix[i, j] <span class="op">+</span> np.nanmin([south, west, southwest])</span>
+<span id="cb16-20"><a href="#cb16-20"></a>    <span class="cf">return</span> cost_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-21" class="cell" data-execution_count="151">
+<div id="cell-24" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">##Fill DTW Matrix</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="kw">def</span> fill_dtw_cost_matrix_causal(abs_diff):</span>
-<span id="cb17-3"><a href="#cb17-3"></a>    N1, N2 <span class="op">=</span> abs_diff.shape</span>
-<span id="cb17-4"><a href="#cb17-4"></a>    cost_matrix <span class="op">=</span> abs_diff.copy()  <span class="co"># make a copy</span></span>
-<span id="cb17-5"><a href="#cb17-5"></a>    <span class="co"># prepend row full of nan</span></span>
-<span id="cb17-6"><a href="#cb17-6"></a>    cost_matrix <span class="op">=</span> np.vstack([np.full(N1, np.nan), cost_matrix])</span>
-<span id="cb17-7"><a href="#cb17-7"></a>    <span class="co"># prepend col full of nan</span></span>
-<span id="cb17-8"><a href="#cb17-8"></a>    cost_matrix <span class="op">=</span> np.hstack([np.full((N2<span class="op">+</span><span class="dv">1</span>,<span class="dv">1</span>), np.nan), cost_matrix])</span>
-<span id="cb17-9"><a href="#cb17-9"></a>    <span class="co"># make origin zero</span></span>
-<span id="cb17-10"><a href="#cb17-10"></a>    cost_matrix[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb17-11"><a href="#cb17-11"></a></span>
-<span id="cb17-12"><a href="#cb17-12"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, N1<span class="op">+</span><span class="dv">1</span>):</span>
-<span id="cb17-13"><a href="#cb17-13"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, N2<span class="op">+</span><span class="dv">1</span>):</span>
-<span id="cb17-14"><a href="#cb17-14"></a>            south     <span class="op">=</span> cost_matrix[i<span class="op">-</span><span class="dv">1</span>, j  ]</span>
-<span id="cb17-15"><a href="#cb17-15"></a>            west      <span class="op">=</span> cost_matrix[i  , j<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb17-16"><a href="#cb17-16"></a>            southwest <span class="op">=</span> cost_matrix[i<span class="op">-</span><span class="dv">1</span>, j<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb17-17"><a href="#cb17-17"></a>            <span class="co"># print(([south, west, southwest]))</span></span>
-<span id="cb17-18"><a href="#cb17-18"></a>            <span class="co"># print(np.nanmin([south, west, southwest]))</span></span>
-<span id="cb17-19"><a href="#cb17-19"></a>            cost_matrix[i, j] <span class="op">=</span> cost_matrix[i, j] <span class="op">+</span> np.nanmin([south, west, southwest])</span>
-<span id="cb17-20"><a href="#cb17-20"></a>    <span class="cf">return</span> cost_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">##Call DTW function</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>m_a_causal <span class="op">=</span> fill_dtw_cost_matrix_causal(c_a)</span>
+<span id="cb17-3"><a href="#cb17-3"></a>p_a_causal <span class="op">=</span> np.array(find_min_path(m_a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-22" class="cell" data-execution_count="152">
+<div id="cell-25" class="cell" data-execution_count="17">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="co">##Call DTW function</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a>m_a_causal <span class="op">=</span> fill_dtw_cost_matrix_causal(c_a)</span>
-<span id="cb18-3"><a href="#cb18-3"></a>p_a_causal <span class="op">=</span> np.array(find_min_path(m_a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/kv/9cqw3y_s6c75xmgqm9n0t5d40000gn/T/ipykernel_29281/239877799.py:21: RuntimeWarning: All-NaN axis encountered
-  cost_matrix[i, j] = cost_matrix[i, j] + np.nanmin([south, west, southwest])</code></pre>
-</div>
-</div>
-<div id="cell-23" class="cell" data-execution_count="153">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>))</span>
-<span id="cb20-2"><a href="#cb20-2"></a></span>
-<span id="cb20-3"><a href="#cb20-3"></a>m <span class="op">=</span> ax.imshow(m_a_causal, origin<span class="op">=</span><span class="st">"lower"</span>)</span>
-<span id="cb20-4"><a href="#cb20-4"></a><span class="co"># plt.colorbar(m, ax=ax, shrink=1.0)</span></span>
-<span id="cb20-5"><a href="#cb20-5"></a>plt.colorbar(m,fraction<span class="op">=</span><span class="fl">0.046</span>, pad<span class="op">=</span><span class="fl">0.04</span>)</span>
-<span id="cb20-6"><a href="#cb20-6"></a></span>
-<span id="cb20-7"><a href="#cb20-7"></a>text_dict <span class="op">=</span> {<span class="st">'ha'</span>:<span class="st">'center'</span>, <span class="st">'va'</span>:<span class="st">'center'</span>, <span class="st">'color'</span>:<span class="st">"deepskyblue"</span>,</span>
-<span id="cb20-8"><a href="#cb20-8"></a>             <span class="st">'fontsize'</span>:<span class="dv">24</span>, <span class="st">'weight'</span>:<span class="st">'bold'</span>}</span>
-<span id="cb20-9"><a href="#cb20-9"></a></span>
-<span id="cb20-10"><a href="#cb20-10"></a><span class="co"># https://stackoverflow.com/a/33829001</span></span>
-<span id="cb20-11"><a href="#cb20-11"></a><span class="cf">for</span> (j,i),label <span class="kw">in</span> np.ndenumerate(m_a_causal):</span>
-<span id="cb20-12"><a href="#cb20-12"></a>    <span class="cf">if</span> np.isnan(label):</span>
-<span id="cb20-13"><a href="#cb20-13"></a>        label <span class="op">=</span> <span class="vs">r"$\times$"</span></span>
-<span id="cb20-14"><a href="#cb20-14"></a>    <span class="cf">else</span>: label <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>label<span class="sc">:.0f}</span><span class="ss">"</span></span>
-<span id="cb20-15"><a href="#cb20-15"></a>    ax.text(i,j,label, <span class="op">**</span>text_dict, zorder<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb20-16"><a href="#cb20-16"></a></span>
-<span id="cb20-17"><a href="#cb20-17"></a>ax.plot(p_a_causal[:,<span class="dv">1</span>], p_a_causal[:,<span class="dv">0</span>], color<span class="op">=</span>[<span class="fl">0.6</span>]<span class="op">*</span><span class="dv">3</span>)</span>
-<span id="cb20-18"><a href="#cb20-18"></a></span>
-<span id="cb20-19"><a href="#cb20-19"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">"path of smallest total distance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>))</span>
+<span id="cb18-2"><a href="#cb18-2"></a></span>
+<span id="cb18-3"><a href="#cb18-3"></a>m <span class="op">=</span> ax.imshow(m_a_causal, origin<span class="op">=</span><span class="st">"lower"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4"></a><span class="co"># plt.colorbar(m, ax=ax, shrink=1.0)</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a>plt.colorbar(m,fraction<span class="op">=</span><span class="fl">0.046</span>, pad<span class="op">=</span><span class="fl">0.04</span>)</span>
+<span id="cb18-6"><a href="#cb18-6"></a></span>
+<span id="cb18-7"><a href="#cb18-7"></a>text_dict <span class="op">=</span> {<span class="st">'ha'</span>:<span class="st">'center'</span>, <span class="st">'va'</span>:<span class="st">'center'</span>, <span class="st">'color'</span>:<span class="st">"deepskyblue"</span>,</span>
+<span id="cb18-8"><a href="#cb18-8"></a>             <span class="st">'fontsize'</span>:<span class="dv">24</span>, <span class="st">'weight'</span>:<span class="st">'bold'</span>}</span>
+<span id="cb18-9"><a href="#cb18-9"></a></span>
+<span id="cb18-10"><a href="#cb18-10"></a><span class="co"># https://stackoverflow.com/a/33829001</span></span>
+<span id="cb18-11"><a href="#cb18-11"></a><span class="cf">for</span> (j,i),label <span class="kw">in</span> np.ndenumerate(m_a_causal):</span>
+<span id="cb18-12"><a href="#cb18-12"></a>    <span class="cf">if</span> np.isnan(label):</span>
+<span id="cb18-13"><a href="#cb18-13"></a>        label <span class="op">=</span> <span class="vs">r"$\times$"</span></span>
+<span id="cb18-14"><a href="#cb18-14"></a>    <span class="cf">else</span>: label <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>label<span class="sc">:.0f}</span><span class="ss">"</span></span>
+<span id="cb18-15"><a href="#cb18-15"></a>    ax.text(i,j,label, <span class="op">**</span>text_dict, zorder<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb18-16"><a href="#cb18-16"></a></span>
+<span id="cb18-17"><a href="#cb18-17"></a>ax.plot(p_a_causal[:,<span class="dv">1</span>], p_a_causal[:,<span class="dv">0</span>], color<span class="op">=</span>[<span class="fl">0.6</span>]<span class="op">*</span><span class="dv">3</span>)</span>
+<span id="cb18-18"><a href="#cb18-18"></a></span>
+<span id="cb18-19"><a href="#cb18-19"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">"path of smallest total distance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1308,25 +1314,25 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="147">
+<div id="cell-26" class="cell" data-execution_count="18">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb21-2"><a href="#cb21-2"></a></span>
-<span id="cb21-3"><a href="#cb21-3"></a>ax.plot(s1_a, color<span class="op">=</span><span class="st">"tab:blue"</span>, lw<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb21-4"><a href="#cb21-4"></a>ax.plot(s2_a, color<span class="op">=</span><span class="st">"tab:orange"</span>, lw<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb21-5"><a href="#cb21-5"></a></span>
-<span id="cb21-6"><a href="#cb21-6"></a>p1 <span class="op">=</span> p_a_causal <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb21-7"><a href="#cb21-7"></a></span>
-<span id="cb21-8"><a href="#cb21-8"></a><span class="cf">for</span> (i,j) <span class="kw">in</span> p1:</span>
-<span id="cb21-9"><a href="#cb21-9"></a>    ax.plot([i, j], [s1_a[i], s2_a[j]], color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, ls<span class="op">=</span><span class="st">"--"</span>)</span>
-<span id="cb21-10"><a href="#cb21-10"></a></span>
-<span id="cb21-11"><a href="#cb21-11"></a>ax.text(<span class="fl">0.5</span>, <span class="fl">5.7</span>, <span class="st">"P[i]"</span>, color<span class="op">=</span><span class="st">"tab:blue"</span>)</span>
-<span id="cb21-12"><a href="#cb21-12"></a>ax.text(<span class="fl">0.5</span>, <span class="fl">0.0</span>, <span class="st">"Q[i]"</span>, color<span class="op">=</span><span class="st">"tab:orange"</span>)</span>
-<span id="cb21-13"><a href="#cb21-13"></a></span>
-<span id="cb21-14"><a href="#cb21-14"></a>ax.<span class="bu">set</span>(xticks<span class="op">=</span>np.arange(<span class="dv">0</span>,<span class="dv">3</span>),</span>
-<span id="cb21-15"><a href="#cb21-15"></a>       yticks<span class="op">=</span>np.arange(<span class="op">-</span><span class="dv">2</span>,<span class="dv">7</span>),</span>
-<span id="cb21-16"><a href="#cb21-16"></a>       title<span class="op">=</span><span class="vs">r"absolute vertical distance between $P[1]$ and $Q[i]$"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb19-2"><a href="#cb19-2"></a></span>
+<span id="cb19-3"><a href="#cb19-3"></a>ax.plot(s1_a, color<span class="op">=</span><span class="st">"tab:blue"</span>, lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb19-4"><a href="#cb19-4"></a>ax.plot(s2_a, color<span class="op">=</span><span class="st">"tab:orange"</span>, lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb19-5"><a href="#cb19-5"></a></span>
+<span id="cb19-6"><a href="#cb19-6"></a>p1 <span class="op">=</span> p_a_causal <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb19-7"><a href="#cb19-7"></a></span>
+<span id="cb19-8"><a href="#cb19-8"></a><span class="cf">for</span> (i,j) <span class="kw">in</span> p1:</span>
+<span id="cb19-9"><a href="#cb19-9"></a>    ax.plot([i, j], [s1_a[i], s2_a[j]], color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb19-10"><a href="#cb19-10"></a></span>
+<span id="cb19-11"><a href="#cb19-11"></a>ax.text(<span class="fl">0.5</span>, <span class="fl">5.7</span>, <span class="st">"P[i]"</span>, color<span class="op">=</span><span class="st">"tab:blue"</span>)</span>
+<span id="cb19-12"><a href="#cb19-12"></a>ax.text(<span class="fl">0.5</span>, <span class="fl">0.0</span>, <span class="st">"Q[i]"</span>, color<span class="op">=</span><span class="st">"tab:orange"</span>)</span>
+<span id="cb19-13"><a href="#cb19-13"></a></span>
+<span id="cb19-14"><a href="#cb19-14"></a>ax.<span class="bu">set</span>(xticks<span class="op">=</span>np.arange(<span class="dv">0</span>,<span class="dv">3</span>),</span>
+<span id="cb19-15"><a href="#cb19-15"></a>       yticks<span class="op">=</span>np.arange(<span class="op">-</span><span class="dv">2</span>,<span class="dv">7</span>),</span>
+<span id="cb19-16"><a href="#cb19-16"></a>       title<span class="op">=</span><span class="vs">r"absolute vertical distance between $P[1]$ and $Q[i]$"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1336,16 +1342,16 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="139">
+<div id="cell-27" class="cell" data-execution_count="19">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>a <span class="op">=</span> <span class="fl">1.0</span><span class="op">*</span>np.arange(<span class="dv">16</span>).reshape(<span class="dv">4</span>, <span class="dv">4</span>)</span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="co"># iu1 = np.triu_indices(4)</span></span>
-<span id="cb22-3"><a href="#cb22-3"></a>iu1 <span class="op">=</span> np.tril_indices(n<span class="op">=</span><span class="dv">4</span>,m<span class="op">=</span><span class="dv">5</span>, k<span class="op">=-</span><span class="dv">1</span>)</span>
-<span id="cb22-4"><a href="#cb22-4"></a>a[iu1] <span class="op">=</span> np.nan</span>
-<span id="cb22-5"><a href="#cb22-5"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>a <span class="op">=</span> <span class="fl">1.0</span><span class="op">*</span>np.arange(<span class="dv">16</span>).reshape(<span class="dv">4</span>, <span class="dv">4</span>)</span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="co"># iu1 = np.triu_indices(4)</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>iu1 <span class="op">=</span> np.tril_indices(n<span class="op">=</span><span class="dv">4</span>,m<span class="op">=</span><span class="dv">5</span>, k<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb20-4"><a href="#cb20-4"></a>a[iu1] <span class="op">=</span> np.nan</span>
+<span id="cb20-5"><a href="#cb20-5"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="139">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>array([[ 0.,  1.,  2.,  3.],
        [nan,  5.,  6.,  7.],
        [nan, nan, 10., 11.],
