@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Time Series Analysis - 56&nbsp; Fourier-based derivatives</title>
+<title>Time Series Analysis - 55&nbsp; Fourier-based derivatives</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,7 +85,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../rates-of-change/LOESS-based-derivatives.html" rel="next">
-<link href="../rates-of-change/finite-differences.html" rel="prev">
+<link href="../rates-of-change/motivation.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -197,7 +197,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../rates-of-change/motivation.html">rates of change</a></li><li class="breadcrumb-item"><a href="../rates-of-change/fourier-based-derivatives.html"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../rates-of-change/motivation.html">rates of change</a></li><li class="breadcrumb-item"><a href="../rates-of-change/fourier-based-derivatives.html"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -672,26 +672,20 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/finite-differences.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">finite differences</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/does-order-matter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">does order matter?</span></span></a>
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">does order matter?</span></span></a>
   </div>
 </li>
       </ul>
@@ -708,7 +702,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../forecasting/forecasting-tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">forecasting tutorial</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -852,16 +852,16 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#dead-sea-level" id="toc-dead-sea-level" class="nav-link active" data-scroll-target="#dead-sea-level"><span class="header-section-number">56.1</span> dead sea level</a></li>
+  <li><a href="#dead-sea-level" id="toc-dead-sea-level" class="nav-link active" data-scroll-target="#dead-sea-level"><span class="header-section-number">55.1</span> dead sea level</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../rates-of-change/motivation.html">rates of change</a></li><li class="breadcrumb-item"><a href="../rates-of-change/fourier-based-derivatives.html"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../rates-of-change/motivation.html">rates of change</a></li><li class="breadcrumb-item"><a href="../rates-of-change/fourier-based-derivatives.html"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/rates-of-change/fourier-based-derivatives.ipynb">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/rates-of-change/fourier-based-derivatives.ipynb">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -894,8 +894,8 @@ f(t) = \int_{-\infty}^{\infty} F(k) e^{2\pi i k t}dk.
 </span></p>
 <p>We found something interesting! The derivative of <span class="math inline">f(t)</span> can be calculated by taking the Inverse Fourier Transform of <span class="math inline">(2\pi i k)F(k)</span>.</p>
 <p>Let’s see this in action!</p>
-<section id="dead-sea-level" class="level2" data-number="56.1">
-<h2 data-number="56.1" class="anchored" data-anchor-id="dead-sea-level"><span class="header-section-number">56.1</span> dead sea level</h2>
+<section id="dead-sea-level" class="level2" data-number="55.1">
+<h2 data-number="55.1" class="anchored" data-anchor-id="dead-sea-level"><span class="header-section-number">55.1</span> dead sea level</h2>
 <p>First let’s get used to taking the Fourier transform and then reconstituting the signal by taking the inverse Fourier transform.</p>
 <div id="cell-3" class="cell" data-execution_count="24">
 <details class="code-fold">
@@ -1573,13 +1573,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../rates-of-change/finite-differences.html" class="pagination-link" aria-label="finite differences">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">finite differences</span></span>
+      <a href="../rates-of-change/motivation.html" class="pagination-link" aria-label="motivation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">motivation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../rates-of-change/LOESS-based-derivatives.html" class="pagination-link" aria-label="LOESS-based derivatives">
-        <span class="nav-page-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

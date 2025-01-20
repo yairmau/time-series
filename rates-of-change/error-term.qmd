@@ -1,0 +1,115 @@
+# error term
+
+Derivation of error orders for numerical derivative approximations
+
+## First-Order Approximation (Forward Difference)
+
+The **first-order forward difference approximation** for the derivative of a function $f(t)$ is given by:
+
+$$
+f'(t) \approx \frac{f(t + \Delta t) - f(t)}{\Delta t}.
+$$
+
+To analyze the error, we expand $f(t + \Delta t)t$ using the Taylor series around $t$:
+
+$$
+f(t + \Delta t) = f(t) + f'(t) \Delta t + \frac{f''(t)}{2} (\Delta t)^2 + \frac{f^{(3)}(t)}{6} (\Delta t)^3 + \cdots.
+$$
+
+Substituting this expansion into the forward difference formula:
+
+$$
+\frac{f(t + \Delta t) - f(t)}{\Delta t} = \frac{\big( f(t) + f'(t) \Delta t + \frac{f''(t)}{2} (\Delta t)^2 + \cdots \big) - f(t)}{\Delta t}.
+$$
+
+Simplify the numerator:
+
+$$
+\frac{f(x + \Delta t) - f(x)}{\Delta t} = f'(x) + \frac{f''(x)}{2} \Delta t + \frac{f^{(3)}(x)}{6} (\Delta t)^2 + \cdots.
+$$
+
+The error in this approximation is the difference between the true derivative $ f'(x) $ and the approximation:
+
+$$
+\text{Error} = \left| f'(x) - \frac{f(x + \Delta t) - f(x)}{\Delta t} \right|.
+$$
+
+From the expansion above, the leading error term is:
+
+$$
+\text{Error} = \frac{f''(x)}{2} \Delta t + O((\Delta t)^2).
+$$
+
+Thus, the error in the forward difference approximation is **linear in $ \Delta t $**, or:
+
+$$
+\text{Error} = O(\Delta t).
+$$
+
+---
+
+## 2. Centered Difference Approximation
+
+The **centered difference approximation** for the derivative of a function $ f(x) $ is given by:
+
+$$
+f'(x) \approx \frac{f(x + \Delta t) - f(x - \Delta t)}{2 \Delta t}.
+$$
+
+To analyze the error, we expand $ f(x + \Delta t) $ and $ f(x - \Delta t) $ using the Taylor series around $ x $:
+
+$$
+f(x + \Delta t) = f(x) + f'(x) \Delta t + \frac{f''(x)}{2} (\Delta t)^2 + \frac{f^{(3)}(x)}{6} (\Delta t)^3 + \frac{f^{(4)}(x)}{24} (\Delta t)^4 + \cdots,
+$$
+
+$$
+f(x - \Delta t) = f(x) - f'(x) \Delta t + \frac{f''(x)}{2} (\Delta t)^2 - \frac{f^{(3)}(x)}{6} (\Delta t)^3 + \frac{f^{(4)}(x)}{24} (\Delta t)^4 - \cdots.
+$$
+
+Substitute these expansions into the centered difference formula:
+
+$$
+f'(x) \approx \frac{f(x + \Delta t) - f(x - \Delta t)}{2 \Delta t}.
+$$
+
+Simplify the numerator:
+
+$$
+\frac{f(x + \Delta t) - f(x - \Delta t)}{2 \Delta t} = \frac{\big( f(x) + f'(x) \Delta t + \frac{f''(x)}{2} (\Delta t)^2 + \frac{f^{(3)}(x)}{6} (\Delta t)^3 + \cdots \big) 
+- \big( f(x) - f'(x) \Delta t + \frac{f''(x)}{2} (\Delta t)^2 - \frac{f^{(3)}(x)}{6} (\Delta t)^3 + \cdots \big)}{2 \Delta t}.
+$$
+
+Simplify further:
+
+$$
+\frac{f(x + \Delta t) - f(x - \Delta t)}{2 \Delta t} = f'(x) + \frac{\frac{f^{(3)}(x)}{6} (\Delta t)^3}{2 \Delta t} + \cdots.
+$$
+
+The error in the centered difference approximation is:
+
+$$
+\text{Error} = \left| f'(x) - \frac{f(x + \Delta t) - f(x - \Delta t)}{2 \Delta t} \right|.
+$$
+
+From the expansion, the leading error term is:
+
+$$
+\text{Error} = \frac{f^{(3)}(x)}{6} (\Delta t)^2 + O((\Delta t)^4).
+$$
+
+Thus, the error in the centered difference approximation is **quadratic in $ \Delta t $**, or:
+
+$$
+\text{Error} = O((\Delta t)^2).
+$$
+
+---
+
+## Summary
+
+| Method                | Formula                                           | Error Order        |
+|-----------------------|--------------------------------------------------|--------------------|
+| Forward Difference    | $ \frac{f(x + \Delta t) - f(x)}{\Delta t} $   | $ O(\Delta t) $  |
+| Centered Difference   | $ \frac{f(x + \Delta t) - f(x - \Delta t)}{2 \Delta t} $ | $ O((\Delta t)^2) $ |
+
+The centered difference method is more accurate than the forward difference method because it cancels out the linear error term, leaving a higher-order error term.
