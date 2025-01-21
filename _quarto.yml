@@ -92,6 +92,7 @@ book:
       chapters:
         - forecasting/motivation.qmd
         - forecasting/forecasting-tutorial.ipynb
+        - forecasting/filling-gaps.ipynb
         - forecasting/arima.qmd
     - part: "assignments"
       chapters:

@@ -13,7 +13,7 @@ Although this is class is for "Environment" students and we like environmental d
 ### data approval
 The whole project is based on the dataset you choose, and we want to make sure you chose a fitting dataset. So you are required to upload to the moodle a half-page description of your dataset and the basic analyses you with to accomplish. It should include description of the subject, the size (number of rows and columns), the source, and the basic tools you will be using. Should be in `.pdf` format. If the dataset is not too large you can upload it as well.
 
-**The deadline for this is March 26th**.  Late submissions will be penalized with minus 10 points.
+**The deadline for this is January 21th**.  Late submissions will be penalized with a 10-point penalty.
 
 
 ## Technical Requirements
@@ -45,7 +45,7 @@ Outlier identification
 Gap filling
 
 * interpolation
-* advanced (SARIMAX, Randomforest, etc.)
+* advanced (SARIMAX, Randomforest, Exponential Smoothing etc.)
 
 ### Pool 3: implement at least 5
 
@@ -113,7 +113,7 @@ Your final report should include:
 
 ### When to submit
 
-Reports are due on April 21st.
+Check on Moodle the exact deadline. A delayed submission will be penalized with 2 points per day. No submissions will be allowed 7 days after the deadline.
 
 ### How to submit
 
