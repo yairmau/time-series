@@ -1,1 +1,23 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Wait for Quarto to finish building tooltips
+  setTimeout(() => {
+    document.querySelectorAll('.footnote-ref').forEach(el => {
+      // 1. Prevent page jump
+      el.addEventListener('click', (e) => e.preventDefault());
+      
+      // 2. Switch to Click trigger
+      if (el._tippy) {
+        el._tippy.setProps({
+          trigger: 'click',
+          hideOnClick: true,
+          interactive: true,
+          arrow: true
+        });
+      }
+    });
+  }, 1000); 
+});
+</script>

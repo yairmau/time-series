@@ -8,3 +8,60 @@
     margin: 0 auto;
   }
 
+/* Hide the footnote section at the bottom of the page */
+#footnotes, 
+.footnotes {
+  display: none;
+}
+
+/* Optional: Hide the horizontal rule that usually sits above footnotes */
+section.footnotes hr {
+  display: none;
+}
+
+/* 1. Reset the counter once per page */
+#quarto-content {
+  counter-reset: footnote-btn-counter;
+}
+
+/* 2. Style the container as a Standard Inline Square */
+.footnote-ref sup {
+  display: inline-flex;
+  align-items: center;      /* Perfect vertical center */
+  justify-content: center;   /* Perfect horizontal center */
+  counter-increment: footnote-btn-counter; 
+  
+  width: 18px;               /* Slightly larger since it's not super anymore */
+  height: 18px;
+  background-color: $link-color; 
+  color: white;
+  border-radius: 2px; 
+  
+  /* Alignment Fixes */
+  vertical-align: middle;    /* Sits nicely centered with the text height */
+  text-decoration: none;
+  margin: 0 4px;
+  cursor: pointer;
+  
+  /* Resetting sup defaults */
+  font-size: 0; 
+  top: 0;
+  line-height: 0;
+  
+  transition: transform 0.2s ease;
+}
+
+.footnote-ref sup:hover {
+  transform: scale(1.0);    /* Slightly less aggressive scale for better line-spacing */
+  background-color: tint-color($link-color, 30%); 
+}
+
+/* 3. Insert the number */
+.footnote-ref sup::before {
+  content: counter(footnote-btn-counter);
+  font-size: 10px;           /* Slightly larger for readability */
+  font-family: sans-serif;
+  font-weight: bold;
+  line-height: 1;
+  display: block;
+}

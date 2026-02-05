@@ -42,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-a588049bcf6ba0aff1d03aeee07a0105.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-fcf83911b402597c2c5fefaa754962c9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-419ae4f01d6b523c4c250f3515d1ae9e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -80,6 +80,28 @@ gtag('js', new Date());
 gtag('config', 'G-DLXS6KFJYP', { 'anonymize_ip': true});
 </script>
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Wait for Quarto to finish building tooltips
+  setTimeout(() => {
+    document.querySelectorAll('.footnote-ref').forEach(el => {
+      // 1. Prevent page jump
+      el.addEventListener('click', (e) => e.preventDefault());
+      
+      // 2. Switch to Click trigger
+      if (el._tippy) {
+        el._tippy.setProps({
+          trigger: 'click',
+          hideOnClick: true,
+          interactive: true,
+          arrow: true
+        });
+      }
+    });
+  }, 1000); 
+});
+</script>
 </head><body class="nav-sidebar floating quarto-light"><div id="progress-bar" style="width: 0%; height:4px; background-color: rgb(89 127 235);; position: fixed; top: 0px; z-index: 2000;"></div>
 
 <script id="progressbar" type="text/javascript">

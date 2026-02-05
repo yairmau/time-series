@@ -972,7 +972,7 @@
     "href": "stationarity/AR.html#ar1",
     "title": "27  autoregressive processes",
     "section": "",
-    "text": "1 \\phi=1.0\n2 \\phi=0.0",
+    "text": "\\phi=1.0 1\n\\phi=0.0 2",
     "crumbs": [
       "stationarity",
       "<span class='chapter-number'>27</span>  <span class='chapter-title'>autoregressive processes</span>"

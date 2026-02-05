@@ -90,8 +90,8 @@ This is called an Autoregressive Process of order 1, or AR(1). Here, the current
 
 What can we call these special cases?
 
-* [^1] $\phi=1.0$
-* [^2] $\phi=0.0$
+* $\phi=1.0$ [^1]
+* $\phi=0.0$ [^2]
 
 [^1]: random walk
 [^2]: white noise
