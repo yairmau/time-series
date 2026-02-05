@@ -7,6 +7,7 @@ book:
   author: "Yair Mau"
   repo-url: https://github.com/yairmau/time-series/
   favicon: archive/clock-history.png
+  google-analytics: "G-DLXS6KFJYP"
   chapters:
     - index.qmd
     - 2024-2025-schedule.qmd
@@ -151,8 +152,8 @@ format:
     # the default MathJax rendering option yields ugly results, use katex
     html-math-method: katex
   
-  pdf:
-    documentclass: scrreprt
-    include-in-header:
-      - latex_preamble.tex
+  # pdf:
+  #   documentclass: scrreprt
+  #   include-in-header:
+  #     - latex_preamble.tex
     
