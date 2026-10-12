@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mini-exam prototype — Predict / Observe / Explain</title>
+<style>
+  :root {
+    --ink: #1c2230;
+    --muted: #5b6472;
+    --line: #dfe3e8;
+    --predict: #eef3fc;
+    --predict-border: #a9c3ea;
+    --observe: #fdf3e7;
+    --observe-border: #e9c58c;
+    --explain: #f3f8f0;
+    --explain-border: #b9d8a4;
+    --notes: #f5f0fa;
+    --notes-border: #cdb8e6;
+    --accent: #2c5f9e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+    line-height: 1.55;
+  }
+  h1 { font-size: 1.7rem; margin-bottom: .25rem; }
+  h2.item-title {
+    margin-top: 3.5rem;
+    padding-top: 1.2rem;
+    border-top: 3px solid var(--ink);
+    font-size: 1.25rem;
+  }
+  .subtitle { color: var(--muted); margin-top: 0; }
+  .meta-box {
+    background: #f4f6f8;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1rem 1.3rem;
+    margin: 1.5rem 0 2rem;
+    font-size: .95rem;
+  }
+  .meta-box h3 { margin-top: 0; font-size: 1rem; }
+  .scenario {
+    font-style: italic;
+    color: var(--muted);
+    margin: .8rem 0 1.2rem;
+  }
+  .phase {
+    border-radius: 10px;
+    padding: 1rem 1.3rem;
+    margin: 1rem 0;
+    border: 1px solid;
+  }
+  .phase > .phase-label {
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    font-size: .78rem;
+    display: inline-block;
+    margin-bottom: .5rem;
+    padding: .15rem .55rem;
+    border-radius: 999px;
+  }
+  .predict { background: var(--predict); border-color: var(--predict-border); }
+  .predict > .phase-label { background: var(--predict-border); color: #0c2c56; }
+  .observe { background: var(--observe); border-color: var(--observe-border); }
+  .observe > .phase-label { background: var(--observe-border); color: #5a3c05; }
+  .explain { background: var(--explain); border-color: var(--explain-border); }
+  .explain > .phase-label { background: var(--explain-border); color: #234a13; }
+  figure { margin: .8rem 0; text-align: center; }
+  figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px; }
+  figcaption { font-size: .85rem; color: var(--muted); margin-top: .3rem; }
+  .writing-lines {
+    margin-top: .8rem;
+  }
+  .writing-lines div {
+    border-bottom: 1px solid #aab2bd;
+    height: 1.6rem;
+  }
+  .stop-banner {
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: #8a3b12;
+    border: 2px dashed #d99a5d;
+    border-radius: 8px;
+    padding: .5rem;
+    margin: 1.2rem 0;
+    background: #fff8ef;
+  }
+  details.notes {
+    margin-top: 1.2rem;
+    background: var(--notes);
+    border: 1px solid var(--notes-border);
+    border-radius: 10px;
+    padding: .9rem 1.3rem;
+  }
+  details.notes > summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: #4a2e73;
+  }
+  details.notes ul { padding-left: 1.2rem; }
+  code { background: #eef0f3; padding: .1rem .3rem; border-radius: 4px; font-size: .9em; }
+  .toc { columns: 2; font-size: .95rem; }
+  hr.section { border: none; border-top: 2px solid var(--ink); margin: 3rem 0 1.5rem; }
+  @media print {
+    details.notes { display: none; }
+    h2.item-title { break-before: page; }
+    body { max-width: none; }
+  }
+  @media (max-width: 600px) {
+    .toc { columns: 1; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Mini-exam prototype: Predict &rarr; Observe &rarr; Explain</h1>
+<p class="subtitle">A closed-book, presential, no-AI format for Time Series Analysis (71106) — worked example for discussion, not a final instrument.</p>
+
+<div class="meta-box">
+  <h3>What this is</h3>
+  <p>Four sample items, each built from real datasets already used elsewhere in this course (Jerusalem temperature, a dendrometer record, Mauna Loa CO₂, a weather-station log). Each item follows the same three-phase structure:</p>
+  <ul>
+    <li><strong>Predict</strong> — students see a real setup and commit to a prediction in writing, before seeing the result.</li>
+    <li><strong>Observe</strong> — the actual result is revealed (in a real exam: a second printed sheet, or a screen uncovered after a fixed time).</li>
+    <li><strong>Explain</strong> — students reconcile their prediction with what actually happened. This is the graded part, not the sketch itself.</li>
+  </ul>
+  <p>Nothing here requires a computer, writing code, or arithmetic under time pressure. It requires having actually built an intuition for how these methods behave on real data — which is exactly what's hard to fake and hard to get from watching an LLM produce a clean answer.</p>
+  <p><strong>Suggested timing:</strong> ~7–8 minutes per item once students are used to the format &rarr; all four items fit in a 30-minute closed slot; two items fit in a 15-minute pop quiz.</p>
+  <p>Click <em>"instructor notes"</em> under each item to see the intended reasoning, why it resists AI/rote answers, and a rough grading rubric. Data and the script that generated every figure below are in this same folder (<code>generate_figures.py</code>).</p>
+</div>
+
+<div class="toc">
+  <p><a href="#item1">Item 1 — Smoothing (does it only remove noise?)</a></p>
+  <p><a href="#item2">Item 2 — Aliasing (a real daily cycle, sampled wrong)</a></p>
+  <p><a href="#item3">Item 3 — Stationarity / ACF (what does a trend do to it?)</a></p>
+  <p><a href="#item4">Item 4 — Outliers (real reading or sensor fault?)</a></p>
+</div>
+
+<!-- ITEM 1 -->
+<h2 class="item-title" id="item1">Item 1 — Smoothing: does it only remove noise?</h2>
+<p class="scenario">Panel A shows 10 days of real 10-minute air-temperature measurements from a Jerusalem weather station in June 2023 (the same dataset used in the stationarity unit).</p>
+
+<div class="phase predict">
+  <span class="phase-label">Predict</span>
+  <p>A colleague wants to remove short-term noise and proposes a <strong>centered 3-day moving average</strong>. Before seeing the result: will the smoothed curve still show clear day/night temperature cycles, just with less noise? Sketch what you expect the smoothed curve to look like, directly on this panel.</p>
+  <figure>
+    <img src="figures/item1_panelA_raw.png" alt="Raw 10-minute Jerusalem temperature, June 2023">
+    <figcaption>Panel A — raw data (real measurements)</figcaption>
+  </figure>
+  <div class="writing-lines"><div></div><div></div></div>
+</div>
+
+<div class="stop-banner">— reveal Panel B only now —</div>
+
+<div class="phase observe">
+  <span class="phase-label">Observe</span>
+  <figure>
+    <img src="figures/item1_panelB_smoothed.png" alt="3-day centered moving average of the Jerusalem temperature series">
+    <figcaption>Panel B — the actual 3-day centered moving average</figcaption>
+  </figure>
+</div>
+
+<div class="phase explain">
+  <span class="phase-label">Explain</span>
+  <p>In 3–5 sentences: what happened, and why? Was your prediction right? What does this imply about choosing a smoothing window — is "bigger window = cleaner data" always true?</p>
+  <div class="writing-lines"><div></div><div></div><div></div><div></div><div></div></div>
+</div>
+
+<details class="notes">
+  <summary>Instructor notes</summary>
+  <ul>
+    <li><strong>What actually happens:</strong> a 3-day window is longer than the ~24h period of the signal itself, so the moving average doesn't just suppress noise — it averages entire day/night cycles together and erases them. Panel B shows only the slow multi-day trend; the diurnal cycle, which is the real signal students came to this course to study, is gone.</li>
+    <li><strong>Why students get this wrong:</strong> the common (mis)intuition from earlier in the smoothing unit is "moving averages remove noise and keep the real pattern." This item exposes that the window size has to be chosen relative to the period of the phenomenon of interest — a fact usually stated once in lecture and never truly internalized until seen failing on real data.</li>
+    <li><strong>Why it resists AI/rote answers:</strong> the "trick" isn't a fact you can look up — it only clicks if the student has an actual feel for what a moving average does mechanically to a periodic signal. An LLM can explain the general principle abstractly, but the exam asks the student to predict a specific, concrete, surprising outcome <em>before</em> being told the principle applies here.</li>
+    <li><strong>Rough rubric (out of 4):</strong> 1 pt for a falsifiable, concrete prediction (even if wrong); 1 pt for correctly identifying that the diurnal cycle disappeared, not just "got smoother"; 2 pts for a correct causal explanation referencing window length vs. signal period.</li>
+  </ul>
+</details>
+
+<!-- ITEM 2 -->
+<h2 class="item-title" id="item2">Item 2 — Aliasing: a real daily cycle, sampled wrong</h2>
+<p class="scenario">A dendrometer glued to a tree trunk records stem radius every 30 minutes; the stem visibly shrinks during the day (transpiration) and swells at night — a real ~24-hour cycle (data from the forecasting unit).</p>
+
+<div class="phase predict">
+  <span class="phase-label">Predict</span>
+  <p>A field technician reprograms the logger's battery-saving mode, so instead of recording every 30 minutes, it now records <strong>once every 22 hours</strong>. The underlying tree physiology hasn't changed at all. Before seeing the new record: what will the resulting time series look like? Will it still look like a daily cycle, just coarser?</p>
+  <figure>
+    <img src="figures/item2_panelA_native.png" alt="Dendrometer data at native 30-minute resolution showing a clear daily cycle">
+    <figcaption>Panel A — the real signal, native 30-minute resolution</figcaption>
+  </figure>
+  <div class="writing-lines"><div></div><div></div></div>
+</div>
+
+<div class="stop-banner">— reveal Panel B only now —</div>
+
+<div class="phase observe">
+  <span class="phase-label">Observe</span>
+  <figure>
+    <img src="figures/item2_panelB_aliased.png" alt="Same dendrometer, sampled once every 22 hours, showing an apparent slow multi-day cycle">
+    <figcaption>Panel B — same sensor, same tree, sampled every 22 hours</figcaption>
+  </figure>
+</div>
+
+<div class="phase explain">
+  <span class="phase-label">Explain</span>
+  <p>Panel B looks like it shows a slow ~11-day growth cycle. Is that a real biological signal? What actually produced this pattern, and what would you tell the technician to do differently?</p>
+  <div class="writing-lines"><div></div><div></div><div></div><div></div><div></div></div>
+</div>
+
+<details class="notes">
+  <summary>Instructor notes</summary>
+  <ul>
+    <li><strong>What actually happens:</strong> sampling a ~24h signal every 22h creates a beat pattern — the aliased period is 1/|1/24 − 1/22| ≈ 264 hours ≈ 11 days. The slow wave in Panel B is entirely an artifact of the mismatch between sampling interval and signal period; there is no real 11-day biological cycle.</li>
+    <li><strong>Why students get this wrong:</strong> aliasing is usually taught abstractly via the Nyquist criterion and a textbook sine wave. Seeing it emerge from a real, physically meaningful signal (something they already understand — a tree's daily water-balance cycle) is a different and harder test than reciting the sampling theorem.</li>
+    <li><strong>Why it resists AI/rote answers:</strong> naming "aliasing" is easy to look up; correctly computing the beat period and, more importantly, arguing convincingly why the "11-day cycle" is fake rather than a genuine (if surprising) botanical finding, requires actually reasoning about this specific pair of frequencies.</li>
+    <li><strong>Rough rubric (out of 4):</strong> 1 pt for identifying the pattern as an artifact, not a real cycle; 1 pt for naming/describing aliasing correctly; 1 pt for a reasonable account of why beating occurs between two close frequencies; 1 pt for a sound practical recommendation (sample well above 2× the fastest frequency of interest).</li>
+  </ul>
+</details>
+
+<!-- ITEM 3 -->
+<h2 class="item-title" id="item3">Item 3 — Stationarity: what does a trend do to the ACF?</h2>
+<p class="scenario">Panel A shows the full weekly Mauna Loa CO₂ record (the same dataset used in the seasonality unit): a strong upward trend plus a yearly wiggle.</p>
+
+<div class="phase predict">
+  <span class="phase-label">Predict</span>
+  <p>Before computing anything: if you calculated the autocorrelation function (ACF) of this <em>raw</em> series, would it decay to near zero within a few weeks (like a short-memory process), or stay high for a very long time?</p>
+  <figure>
+    <img src="figures/item3_panelA_co2.png" alt="Weekly Mauna Loa CO2 record, full history, showing trend and seasonal cycle">
+    <figcaption>Panel A — the raw series</figcaption>
+  </figure>
+  <div class="writing-lines"><div></div><div></div></div>
+</div>
+
+<div class="stop-banner">— reveal Panel B only now —</div>
+
+<div class="phase observe">
+  <span class="phase-label">Observe</span>
+  <figure>
+    <img src="figures/item3_panelB_acf_raw.png" alt="ACF of the raw CO2 series, staying near 1 for over 100 lags">
+    <figcaption>Panel B — ACF of the raw series (lags in weeks)</figcaption>
+  </figure>
+  <figure>
+    <img src="figures/item3_panelC_acf_residual.png" alt="ACF of the STL residual after removing trend and season, decaying within a few weeks">
+    <figcaption>Panel C — ACF after removing trend and season (STL residual)</figcaption>
+  </figure>
+</div>
+
+<div class="phase explain">
+  <span class="phase-label">Explain</span>
+  <p>Why does the raw ACF (Panel B) stay near 1 for over a hundred weeks? Why does removing trend and seasonality (Panel C) change the picture so dramatically? If you fit an AR model directly on the raw series, what would go wrong?</p>
+  <div class="writing-lines"><div></div><div></div><div></div><div></div><div></div></div>
+</div>
+
+<details class="notes">
+  <summary>Instructor notes</summary>
+  <ul>
+    <li><strong>What actually happens:</strong> the strong trend means every value is close to its neighbor from weeks or months ago simply because the whole series is drifting upward together — that's not memory of a stochastic process, it's non-stationarity leaking into the ACF. Only after removing trend and season does the ACF reflect actual short-range dependence (decaying within a handful of weeks).</li>
+    <li><strong>Why students get this wrong:</strong> the ACF is usually introduced on already-stationary toy series (white noise, AR(1)). Students rarely see what it looks like when you skip the stationarity check — which is precisely the mistake they're most likely to make on their own final-project data.</li>
+    <li><strong>Why it resists AI/rote answers:</strong> "detrend before computing ACF" is a fact any LLM will state. What's being tested here is whether the student can look at Panel B <em>and recognize on sight</em> that a near-1 ACF at 100+ lags is a trend artifact rather than genuine long memory — a diagnostic reflex, not a fact.</li>
+    <li><strong>Rough rubric (out of 4):</strong> 1 pt for identifying the trend (not memory) as the cause of the slow-decaying raw ACF; 1 pt for correctly describing what changed after detrending/deseasonalizing; 2 pts for correctly predicting the consequence of skipping this step before AR/ARIMA fitting (spurious apparent predictability, unstable or meaningless coefficients).</li>
+  </ul>
+</details>
+
+<!-- ITEM 4 -->
+<h2 class="item-title" id="item4">Item 4 — Outliers: real reading or sensor fault?</h2>
+<p class="scenario">Panel A shows 3 days of real 10-minute air-temperature readings from a weather station in January 2022 (the same station used in the smoothing unit).</p>
+
+<div class="phase predict">
+  <span class="phase-label">Predict</span>
+  <p>Look at Panel A. One reading has been circled by a teaching assistant as "worth checking." Before zooming in: what do you think is going on at that point, and what would you check first to decide whether to keep, correct, or discard it?</p>
+  <figure>
+    <img src="figures/item4_panelA_fault.png" alt="Three days of winter air temperature with one suspicious dip">
+    <figcaption>Panel A — 3 days of the record</figcaption>
+  </figure>
+  <div class="writing-lines"><div></div><div></div></div>
+</div>
+
+<div class="stop-banner">— reveal Panel B only now —</div>
+
+<div class="phase observe">
+  <span class="phase-label">Observe</span>
+  <figure>
+    <img src="figures/item4_panelB_zoom.png" alt="Zoomed-in view showing an isolated sharp single-point dip in an otherwise smooth series">
+    <figcaption>Panel B — the flagged point, zoomed in</figcaption>
+  </figure>
+</div>
+
+<div class="phase explain">
+  <span class="phase-label">Explain</span>
+  <p>Is this a real, physically plausible temperature reading, or a sensor/transmission fault? What single number about this point (relative to its neighbors) makes you confident either way? If you had to run this series through an automated outlier detector before an ACF/forecasting analysis, would a fixed threshold (e.g. 3 standard deviations from the global mean) reliably catch this — why or why not?</p>
+  <div class="writing-lines"><div></div><div></div><div></div><div></div><div></div></div>
+</div>
+
+<details class="notes">
+  <summary>Instructor notes</summary>
+  <ul>
+    <li><strong>What actually happens:</strong> the flagged point is a synthetic fault deliberately inserted into a real background series for this exam (a decimal-place error: 8.8°C misrecorded as 0.88°C) — disclosed here, not to students. It is physically implausible (a ~8°C drop and immediate recovery within 10 minutes, in the middle of an otherwise smooth overnight cooling trend) and should be recognized as a fault, not weather.</li>
+    <li><strong>Why students get this wrong:</strong> without practice, novices often default to a single rule ("outlier = far from the mean") learned from a lecture example, rather than reasoning locally: this value isn't extreme relative to the whole January record, but it's wildly implausible relative to its immediate neighbors and to physically reasonable rates of temperature change.</li>
+    <li><strong>Why it resists AI/rote answers:</strong> the question isn't "define an outlier" (an LLM answers that instantly) — it's "look at this specific local context and decide," and specifically probes whether a naive global-threshold method would even catch it (a single 10-minute dip usually will not move a series-wide mean/std by much, so a global 3σ rule can miss exactly this kind of fault — a robust/local method, from the outliers unit, is needed).</li>
+    <li><strong>Rough rubric (out of 4):</strong> 1 pt for correctly calling it a fault, not a real reading; 1 pt for a physically grounded justification (implausible rate of change, single-point spike-and-recovery); 2 pts for correctly reasoning about why a global-mean-based threshold might fail here, pointing toward local/robust methods (rolling median, rolling MAD) from earlier in the course.</li>
+  </ul>
+</details>
+
+<hr class="section">
+<h2>Logistics for running this as a real exam</h2>
+<ul>
+  <li><strong>No laptops, no phones, printed panels.</strong> "Observe" panels can be printed on the back of the "predict" page, or held up on a screen at the front at a fixed time — either removes any dependency on AI or classroom devices.</li>
+  <li><strong>Partial credit lives in the Explain phase, not the sketch.</strong> A wrong prediction that is reasoned about correctly after seeing the real result should score close to a correct prediction — the goal is diagnosing understanding, not testing psychic ability.</li>
+  <li><strong>Rotate the specific dataset/parameters each semester.</strong> Same four "shapes" of surprise (smoothing destroys signal, sampling creates aliasing, trend inflates ACF, local vs. global outlier logic), different real dataset and specific numbers each year — keeps question banks from circulating while keeping prep effort low (change the CSV and window/threshold, not the pedagogy).</li>
+  <li><strong>This maps cleanly onto existing course units:</strong> smoothing, frequency/time-lags (aliasing), stationarity, and outliers — i.e. it could be four short 15–20 minute in-class checkpoints spread across the semester rather than one 30-minute exam, if that fits better logistically with the lab sessions.</li>
+</ul>
+
+</body>
+</html>

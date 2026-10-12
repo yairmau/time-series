@@ -1,0 +1,117 @@
+## homework: resampling
+
+This homework comes right after the first session, where we discussed resampling. Read all the instructions before you start.
+
+::: {.alert .alert-info}
+##### why homework? {.unnumbered}
+
+This is where you build intuition: you will play with parameters and get surprised by what the data tells you. Doing the homework is **essential to prepare for the exams**. In the exams there will be no computations. I will show you graphs and ask you to think critically about them, and the questions will be variations of what you do here. Homework is the training, the exam is the match.
+
+Read the [AI policy](/basics/AI-policy.html) before you start. AI is welcome here, but **write your prediction before you run the code or ask an AI**.
+:::
+
+::: {.alert .alert-warning}
+##### where to spend your time {.unnumbered}
+
+Not all effort is equal. For every obstacle you meet, ask yourself: is this **productive friction** or **pointless friction**?
+
+- *Productive:* deciding what you expect to see, understanding why the graph surprised you, working out what a result means.
+- *Pointless:* fighting with axis labels, colors or tick formats, an obscure error message, remembering the name of an argument.
+
+Spend your time on the first kind, and get help for the second (AI, a classmate, a quick search). A clear graph is enough, nobody needs a beautiful one. If you have been stuck on the same cosmetic detail for 15 minutes, move on.
+:::
+
+## the data
+
+Go to the [IMS website](https://ims.gov.il/en/data_gov){target="_blank"}, and choose a weather station we have not worked with yet (not Jerusalem, Shani or Tel Aviv). Download 10-minute data for a full year, any year. You will need temperature, rainfall, relative humidity and global radiation. If your station does not measure one of them, choose another station.
+
+Download this <a href="/homework/homework-resampling-template.ipynb" download>Jupyter Notebook template</a>. It already loads the data for you, because that part is not what we are here to learn.
+
+## how to work
+
+For every graph below, do these three steps, in this order:
+
+1. **Predict.** Before running anything, write one or two sentences in the notebook: what do you expect to see, and why?
+2. **Run.** Make the graph.
+3. **Explain.** Compare what you got with what you predicted. If you were surprised, find out why.
+
+A wrong prediction is not a mistake, it is where the learning happens. Please do not edit your prediction after the fact.
+
+## part 1: the classics
+
+Make the following graphs. Some hints are in the collapsed boxes, try without them first.
+
+::: {.callout-note collapse="true" icon=false}
+## {{< iconify fa question-circle-o >}} Daily maximum humidity. Bonus: add the daily minimum humidity.
+
+**What if...** you plot the daily *mean* humidity instead? Which of the three lines varies the most during the year? Why?
+
+<details>
+<summary>hint</summary>
+```{.python}
+daily_max = df['humidity'].resample('D').max()
+```
+</details>
+:::
+
+::: {.callout-note collapse="true" icon=false}
+## {{< iconify fa question-circle-o >}} The number of rainy days for each month.
+
+**What if...** your definition of a "rainy day" changes? Make a graph with three bars per month: days with rain above 0 mm, days with at least 1 mm, and days with at least 5 mm. Check also the smallest non-zero value in your rain column. What do you conclude about the question "how many rainy days were there?"
+
+<details>
+<summary>hint</summary>
+```{.python}
+daily_rain = df['rain'].resample('D').sum()
+rainy_days = (daily_rain > 0).resample('ME').sum()
+```
+</details>
+:::
+
+::: {.callout-note collapse="true" icon=false}
+## {{< iconify fa question-circle-o >}} The number of hours in each day when the sun was up.
+
+Use the global solar radiation data. Count the 10-minute records above a threshold, and convert to hours.
+
+**What if...** the threshold is 1, 10, 50 or 120 W/m$^2$? Plot the four lines together. Then look up the real sunrise and sunset times for your station on the longest and the shortest day of the year, and compare. Which threshold would you choose to say "the sun is up"? Is there one correct answer?
+
+<details>
+<summary>hint</summary>
+```{.python}
+sun_hours = (df['radiation'] > 10).resample('D').sum() / 6   # 6 records per hour
+```
+</details>
+:::
+
+## part 2: one signal, many time scales
+
+Resample the temperature to 1 hour, 6 hours, 1 day, 1 week and 1 month (mean). Plot all of them in panels, one below the other, sharing the same time axis.
+
+- **Predict:** at which resolution will the daily cycle disappear? At which one the seasonal cycle? Which one do you expect to lose first?
+- **Explain:** each time we coarsen the data we lose something. What did you lose in each step, and what did you gain? A researcher wants to study how fast a leaf responds to a cloud passing by. Another wants to study the effect of a drought. What is the coarsest resolution each of them can afford?
+
+## part 3: think like in the exam
+
+Answer in your own words, in a few sentences each. No code is needed, but you can use your own graphs as evidence.
+
+1. A colleague computes `df['rain'].resample('ME').mean()` and reports it as the monthly rainfall, in mm. What did they actually compute? Is the number meaningful? What should they have done?
+1. Compute the yearly mean temperature in three ways: the mean of all records, the mean of the daily means, and the mean of the monthly means. Are they the same? If not, why? When would you prefer each one?
+1. Is the maximum of the daily mean temperatures the same as the maximum temperature of the year? Check it with your data and explain.
+1. *Optional:* you want the monthly mean wind direction, so you take the average of all the records. At some moment the wind blows from 350° and then from 10°. What does the average say? What is wrong with it?
+
+## bonus: your own graphs
+
+Optional, for the curious. Make 1 or 2 more graphs of whatever you find interesting, each one showcasing a different resampling idea. Before each graph, write the question that motivated it. You can get ideas from these [challenges](/resampling/practice.html).
+
+## guidelines
+
+A graph is good enough when it has:
+
+1. a title, and named axes with units;
+1. readable tick labels;
+1. a legend, if there is more than one line;
+1. a size that lets you see everything clearly.
+
+## AI declaration
+
+At the end of your notebook, write a line or two: which AI tools you used, and what you used them for.

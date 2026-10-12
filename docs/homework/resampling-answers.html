@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.41">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>63&nbsp; homework: resampling answers – Time Series Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../technical-stuff/technical-stuff.html" rel="next">
+<link href="../homework/resampling.html" rel="prev">
+<link href="../archive/clock-history.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b288e077f13cdc2375eec65dc093508f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-0cc16e73634f01ca4ea797a13a558e30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-DLXS6KFJYP"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-DLXS6KFJYP', { 'anonymize_ip': true});
+</script>
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Wait for Quarto to finish building tooltips
+  setTimeout(() => {
+    document.querySelectorAll('.footnote-ref').forEach(el => {
+      // 1. Prevent page jump
+      el.addEventListener('click', (e) => e.preventDefault());
+      
+      // 2. Switch to Click trigger
+      if (el._tippy) {
+        el._tippy.setProps({
+          trigger: 'click',
+          hideOnClick: true,
+          interactive: true,
+          arrow: true
+        });
+      }
+    });
+  }, 1000); 
+});
+</script>
+</head><body class="nav-sidebar floating"><div id="progress-bar" style="width: 0%; height:4px; background-color: rgb(89 127 235);; position: fixed; top: 0px; z-index: 2000;"></div>
+
+<script id="progressbar" type="text/javascript">
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const bar = document.querySelector('#progress-bar');
+    const post = document.querySelector('#quarto-content');
+    const html = document.documentElement;
+    
+    const height = post.scrollHeight + post.offsetTop;
+    
+    window.addEventListener('scroll', () => {
+        bar.style.width = (html.scrollTop / (height- html.clientHeight)) * 100 + '%';
+    });
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+
+
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../homework/resampling.html">homework</a></li><li class="breadcrumb-item"><a href="../homework/resampling-answers.html"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">homework: resampling answers</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../archive/clock-history.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Time Series Analysis</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://yairmau.com/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-house-fill"></i></a>
+    <a href="../sources.html" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-bookmark-fill"></i></a>
+    <a href="../things-to-remember.html" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-asterisk"></i></a>
+    <a href="https://github.com/yairmau/time-series/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">about</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2026/2027 Schedule</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../who-cares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">who cares?</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">start here</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/boring.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">the boring stuff you absolutely need to do</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/numpy-pandas-matplotlib.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">numpy, pandas, matplotlib</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">learn by example</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basics/AI-policy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AI policy</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">resampling</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/resampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">resampling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/upsampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">upsampling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/interpolation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">interpolation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">practice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resampling/FAQ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">FAQ</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">smoothing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/sliding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">sliding window</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/not-only-averages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">not only averages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">practice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/fit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">fit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/savgol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">outliers and gaps</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/outlier-identification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">outlier identification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/robust-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">robust analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/sliding-algorithms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">sliding algorithms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/substituting-outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">substituting outliers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/outliers_challenge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">challenge</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/outliers_challenge_part2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">challenge part 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../outliers/fill-missing-values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">filling missing values</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">stationarity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/random.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">random variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/AR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">autoregressive processes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/autocorrelation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/stationarity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">stationarity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/ACF_and_PACF_graphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ACF and PACF graphs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/from_AR_to_ARIMA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stationarity/practice_ARIMA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">practice</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">seasonality</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../seasonality/seasonal-decomposition-from-scratch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">seasonal decomposition from scratch</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../seasonality/theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">theory</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../seasonality/widget.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">widgets</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">time lags</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/DTW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">dynamic time warping</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lags/lags_TA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">time lags practice</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+ <span class="menu-text">frequency</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/dft-and-fft.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">DFT and FFT</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/sound.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">sound &amp; music</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/frequencies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">frequencies</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/convolution-theorem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">convolution theorem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/fft_practice_temperature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">practice 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/fft_practice_stomata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">practice 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/fft_practice_stayin_alive.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">practice 3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/filtering_temp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">filtering 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/filtering_scipy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">filtering 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/filtering_hummus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">filtering 3</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
+ <span class="menu-text">rates of change</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rates-of-change/does-order-matter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">does order matter?</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
+ <span class="menu-text">forecasting</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../forecasting/forecasting-tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">forecasting tutorial</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../forecasting/filling-gaps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">filling gaps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text">homework</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../homework/resampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">homework: resampling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../homework/resampling-answers.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">homework: resampling answers</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
+ <span class="menu-text">technical stuff</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">sources</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
+ <span class="menu-text">behind-the-scenes</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/consecutive_sequence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/outliers_graphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../behind-the-scenes/make_your_own_website.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">make your own website</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#import-data-and-basic-processing" id="toc-import-data-and-basic-processing" class="nav-link active" data-scroll-target="#import-data-and-basic-processing"><span class="header-section-number">63.1</span> Import data and basic processing</a></li>
+  <li><a href="#part-1-the-classics" id="toc-part-1-the-classics" class="nav-link" data-scroll-target="#part-1-the-classics"><span class="header-section-number">63.2</span> Part 1: the classics</a>
+  <ul class="collapse">
+  <li><a href="#graph-1-daily-maximum-humidity-bonus-daily-minimum" id="toc-graph-1-daily-maximum-humidity-bonus-daily-minimum" class="nav-link" data-scroll-target="#graph-1-daily-maximum-humidity-bonus-daily-minimum"><span class="header-section-number">63.2.1</span> Graph 1: daily maximum humidity (bonus: daily minimum)</a></li>
+  <li><a href="#graph-2-rainy-days-per-month" id="toc-graph-2-rainy-days-per-month" class="nav-link" data-scroll-target="#graph-2-rainy-days-per-month"><span class="header-section-number">63.2.2</span> Graph 2: rainy days per month</a></li>
+  <li><a href="#graph-3-hours-of-sun-per-day" id="toc-graph-3-hours-of-sun-per-day" class="nav-link" data-scroll-target="#graph-3-hours-of-sun-per-day"><span class="header-section-number">63.2.3</span> Graph 3: hours of sun per day</a></li>
+  </ul></li>
+  <li><a href="#part-2-one-signal-many-time-scales" id="toc-part-2-one-signal-many-time-scales" class="nav-link" data-scroll-target="#part-2-one-signal-many-time-scales"><span class="header-section-number">63.3</span> Part 2: one signal, many time scales</a></li>
+  <li><a href="#part-3-think-like-in-the-exam" id="toc-part-3-think-like-in-the-exam" class="nav-link" data-scroll-target="#part-3-think-like-in-the-exam"><span class="header-section-number">63.4</span> Part 3: think like in the exam</a></li>
+  <li><a href="#bonus-my-own-graphs" id="toc-bonus-my-own-graphs" class="nav-link" data-scroll-target="#bonus-my-own-graphs"><span class="header-section-number">63.5</span> Bonus: my own graphs</a>
+  <ul class="collapse">
+  <li><a href="#bonus-graph-1-the-daily-temperature-range" id="toc-bonus-graph-1-the-daily-temperature-range" class="nav-link" data-scroll-target="#bonus-graph-1-the-daily-temperature-range"><span class="header-section-number">63.5.1</span> Bonus graph 1: the daily temperature range</a></li>
+  <li><a href="#bonus-graph-2-the-daily-solar-energy" id="toc-bonus-graph-2-the-daily-solar-energy" class="nav-link" data-scroll-target="#bonus-graph-2-the-daily-solar-energy"><span class="header-section-number">63.5.2</span> Bonus graph 2: the daily solar energy</a></li>
+  </ul></li>
+  <li><a href="#ai-declaration" id="toc-ai-declaration" class="nav-link" data-scroll-target="#ai-declaration"><span class="header-section-number">63.6</span> AI declaration</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../homework/resampling.html">homework</a></li><li class="breadcrumb-item"><a href="../homework/resampling-answers.html"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">homework: resampling answers</span></a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">homework: resampling answers</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/homework/resampling-answers.ipynb"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Station:</strong> Ashalim, 2024, 10-minute data from the IMS (<code>ashalim_2024.csv</code>), in the Negev desert.</p>
+<section id="import-data-and-basic-processing" class="level2" data-number="63.1">
+<h2 data-number="63.1" class="anchored" data-anchor-id="import-data-and-basic-processing"><span class="header-section-number">63.1</span> Import data and basic processing</h2>
+<div id="e26f1609" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:28.528139Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:28.527867Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.476711Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.476244Z&quot;}" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># settings for all the graphs: resolution, and no lines on the top and right of the axes</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>plt.rcParams.update({<span class="st">'figure.dpi'</span>: <span class="dv">110</span>,</span>
+<span id="cb1-8"><a href="#cb1-8"></a>                     <span class="st">'axes.spines.top'</span>: <span class="va">False</span>,</span>
+<span id="cb1-9"><a href="#cb1-9"></a>                     <span class="st">'axes.spines.right'</span>: <span class="va">False</span>})</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="kw">def</span> month_axis(ax):</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="co">"""show month names on the horizontal axis"""</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>    ax.xaxis.set_major_locator(mdates.MonthLocator())</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    ax.xaxis.set_major_formatter(mdates.DateFormatter(<span class="st">'%b'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="39704413" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.477992Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.477877Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.587913Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.587455Z&quot;}" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>filename <span class="op">=</span> <span class="st">"ashalim_2024.csv"</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># the IMS writes '-' where there is no measurement</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>df <span class="op">=</span> pd.read_csv(filename, na_values<span class="op">=</span>[<span class="st">'-'</span>])</span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co"># the IMS column that holds the time starts with "Date &amp; Time"</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>time_column <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> df.columns <span class="cf">if</span> c.startswith(<span class="st">'Date &amp; Time'</span>)][<span class="dv">0</span>]</span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co"># turn the text into datetimes (the day comes first!) and use them as the index</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>df[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(df[time_column], dayfirst<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-11"><a href="#cb2-11"></a>df <span class="op">=</span> df.set_index(<span class="st">'date'</span>)</span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co"># shorter names for the columns we will use</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">'Temperature (°C)'</span>: <span class="st">'temperature'</span>,</span>
+<span id="cb2-15"><a href="#cb2-15"></a>                        <span class="st">'Rainfall (mm)'</span>: <span class="st">'rain'</span>,</span>
+<span id="cb2-16"><a href="#cb2-16"></a>                        <span class="st">'Relative humidity (%)'</span>: <span class="st">'humidity'</span>,</span>
+<span id="cb2-17"><a href="#cb2-17"></a>                        <span class="st">'Global radiation (W/m^2)'</span>: <span class="st">'radiation'</span>})</span>
+<span id="cb2-18"><a href="#cb2-18"></a></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="co"># the file ends with a single record from 2025-01-01 00:00, we keep only 2024</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>df <span class="op">=</span> df.loc[<span class="st">'2024'</span>]</span>
+<span id="cb2-21"><a href="#cb2-21"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Station</th>
+<th data-quarto-table-cell-role="th">Date &amp; Time (Winter)</th>
+<th data-quarto-table-cell-role="th">radiation</th>
+<th data-quarto-table-cell-role="th">humidity</th>
+<th data-quarto-table-cell-role="th">temperature</th>
+<th data-quarto-table-cell-role="th">rain</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2024-01-01 00:00:00</td>
+<td>Ashalim</td>
+<td>01/01/2024 00:00</td>
+<td>0.0</td>
+<td>95.0</td>
+<td>8.8</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2024-01-01 00:10:00</td>
+<td>Ashalim</td>
+<td>01/01/2024 00:10</td>
+<td>0.0</td>
+<td>95.0</td>
+<td>8.4</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2024-01-01 00:20:00</td>
+<td>Ashalim</td>
+<td>01/01/2024 00:20</td>
+<td>0.0</td>
+<td>95.0</td>
+<td>8.3</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2024-01-01 00:30:00</td>
+<td>Ashalim</td>
+<td>01/01/2024 00:30</td>
+<td>0.0</td>
+<td>95.0</td>
+<td>7.9</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2024-01-01 00:40:00</td>
+<td>Ashalim</td>
+<td>01/01/2024 00:40</td>
+<td>0.0</td>
+<td>94.0</td>
+<td>7.6</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Let’s check the data.</p>
+<div id="ae936534" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.588905Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.588829Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.593063Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.592617Z&quot;}" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># the time between consecutive records should always be 10 minutes: look for longer gaps</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>step <span class="op">=</span> df.index.to_series().diff()</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="bu">print</span>(<span class="st">"gaps longer than 30 minutes:"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="bu">print</span>(step[step <span class="op">&gt;</span> pd.Timedelta(<span class="st">'30min'</span>)])</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="bu">print</span>()</span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co"># how many records are missing, compared with a full year?</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>expected <span class="op">=</span> <span class="dv">366</span> <span class="op">*</span> <span class="dv">24</span> <span class="op">*</span> <span class="dv">6</span>   <span class="co"># 2024 is a leap year</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="bu">print</span>(<span class="ss">f"records: </span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">}</span><span class="ss">, expected for a full year: </span><span class="sc">{</span>expected<span class="sc">}</span><span class="ss">, missing: </span><span class="sc">{</span>expected <span class="op">-</span> <span class="bu">len</span>(df)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="bu">print</span>()</span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co"># the records that exist, but are empty (NaN)</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="bu">print</span>(df[[<span class="st">'radiation'</span>, <span class="st">'humidity'</span>, <span class="st">'temperature'</span>, <span class="st">'rain'</span>]].isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>gaps longer than 30 minutes:
+date
+2024-01-29 12:30:00   1 days 13:40:00
+2024-05-09 13:10:00   0 days 00:40:00
+2024-05-29 14:40:00   0 days 02:00:00
+2024-07-23 09:20:00   0 days 07:50:00
+Name: date, dtype: timedelta64[ns]
+
+records: 52409, expected for a full year: 52704, missing: 295
+
+radiation      35
+humidity       14
+temperature    15
+rain            2
+dtype: int64</code></pre>
+</div>
+</div>
+<p>295 of the 52,704 records of the year are missing (0.6%). The longest gap is 1.5 days, on 28-29 January, and there are also 8 hours missing on 23 July. Careful: the sum of a day without records is 0, not NaN, so a day without data looks like a day without rain or sun.</p>
+</section>
+<section id="part-1-the-classics" class="level2" data-number="63.2">
+<h2 data-number="63.2" class="anchored" data-anchor-id="part-1-the-classics"><span class="header-section-number">63.2</span> Part 1: the classics</h2>
+<section id="graph-1-daily-maximum-humidity-bonus-daily-minimum" class="level3" data-number="63.2.1">
+<h3 data-number="63.2.1" class="anchored" data-anchor-id="graph-1-daily-maximum-humidity-bonus-daily-minimum"><span class="header-section-number">63.2.1</span> Graph 1: daily maximum humidity (bonus: daily minimum)</h3>
+<p><strong>My prediction:</strong> at night the air cools and the humidity rises, while in the afternoon the desert air is dry. I expect a daily maximum of 70-95% and a minimum of 10-30%, with the maximum varying little compared with the minimum.</p>
+<div id="d5a4a2ea" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.594057Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.593972Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.713825Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.713437Z&quot;}" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># one resample, three statistics: the daily minimum, mean and maximum</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>daily_hum <span class="op">=</span> df[<span class="st">'humidity'</span>].resample(<span class="st">'D'</span>).agg([<span class="st">'min'</span>, <span class="st">'mean'</span>, <span class="st">'max'</span>])</span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># plotting</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">4</span>))</span>
+<span id="cb5-6"><a href="#cb5-6"></a>ax.plot(daily_hum[<span class="st">'max'</span>], color<span class="op">=</span><span class="st">'tab:blue'</span>, label<span class="op">=</span><span class="st">'daily maximum'</span>)</span>
+<span id="cb5-7"><a href="#cb5-7"></a>ax.plot(daily_hum[<span class="st">'mean'</span>], color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'daily mean'</span>)</span>
+<span id="cb5-8"><a href="#cb5-8"></a>ax.plot(daily_hum[<span class="st">'min'</span>], color<span class="op">=</span><span class="st">'tab:red'</span>, label<span class="op">=</span><span class="st">'daily minimum'</span>)</span>
+<span id="cb5-9"><a href="#cb5-9"></a>month_axis(ax)</span>
+<span id="cb5-10"><a href="#cb5-10"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'relative humidity (%)'</span>, title<span class="op">=</span><span class="st">'Ashalim, 2024: daily relative humidity'</span>)</span>
+<span id="cb5-11"><a href="#cb5-11"></a>ax.legend(ncol<span class="op">=</span><span class="dv">3</span>, loc<span class="op">=</span><span class="st">'upper center'</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.1</span>))</span>
+<span id="cb5-12"><a href="#cb5-12"></a></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co"># how much does each line vary during the year?</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="bu">print</span>(<span class="st">"standard deviation of each line during the year (percentage points):"</span>)</span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="bu">print</span>(daily_hum.std().<span class="bu">round</span>(<span class="dv">1</span>))</span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="bu">print</span>()</span>
+<span id="cb5-17"><a href="#cb5-17"></a></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co"># the monthly mean of each line</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="bu">print</span>(<span class="st">"monthly means of each line:"</span>)</span>
+<span id="cb5-20"><a href="#cb5-20"></a>monthly_hum <span class="op">=</span> daily_hum.resample(<span class="st">'ME'</span>).mean().<span class="bu">round</span>(<span class="dv">0</span>)</span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="bu">print</span>(monthly_hum.set_index(monthly_hum.index.strftime(<span class="st">'%b'</span>)).T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>standard deviation of each line during the year (percentage points):
+min     11.6
+mean    12.8
+max     11.3
+dtype: float64
+
+monthly means of each line:
+date   Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec
+min   37.0  36.0  28.0  29.0  27.0  24.0  26.0  28.0  35.0  34.0  40.0  34.0
+mean  65.0  65.0  56.0  57.0  55.0  55.0  58.0  63.0  63.0  60.0  69.0  61.0
+max   87.0  89.0  84.0  86.0  84.0  85.0  88.0  91.0  87.0  83.0  91.0  86.0</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="resampling-answers_files/figure-html/cell-5-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>What I found, and why:</strong> the maximum is high (85-95%) and the minimum is low (10-40%), as expected. But I was wrong about the variability: the maximum varies as much as the minimum (standard deviation of 11 points), and the daily mean varies the most (13 points). On dry days (1 March, 24 April, 24-25 October) the whole curve collapses, even the daily maximum falls to 22-32%.</p>
+</section>
+<section id="graph-2-rainy-days-per-month" class="level3" data-number="63.2.2">
+<h3 data-number="63.2.2" class="anchored" data-anchor-id="graph-2-rainy-days-per-month"><span class="header-section-number">63.2.2</span> Graph 2: rainy days per month</h3>
+<p><strong>My prediction:</strong> very few rainy days, all in winter, many of them just traces. With at least 5 mm I expect almost none.</p>
+<div id="089be69b" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.714997Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.714915Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.800769Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.800309Z&quot;}" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># the rain of each day is the sum of its 10-minute records</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>daily_rain <span class="op">=</span> df[<span class="st">'rain'</span>].resample(<span class="st">'D'</span>).<span class="bu">sum</span>()</span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># the smallest non-zero value is the resolution of the rain gauge</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="bu">print</span>(<span class="st">"smallest non-zero value in the rain column:"</span>, df[<span class="st">'rain'</span>][df[<span class="st">'rain'</span>] <span class="op">&gt;</span> <span class="dv">0</span>].<span class="bu">min</span>(), <span class="st">"mm"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="bu">print</span>(<span class="ss">f"total rain in the year: </span><span class="sc">{</span>daily_rain<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">:.1f}</span><span class="ss"> mm"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7"></a></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co"># number of rainy days in each month, with three definitions of "rainy day":</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co"># a boolean series (True/False) summed by month counts the True values</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>counts <span class="op">=</span> pd.DataFrame({<span class="st">'above 0 mm'</span>: (daily_rain <span class="op">&gt;</span> <span class="dv">0</span>).resample(<span class="st">'ME'</span>).<span class="bu">sum</span>(),</span>
+<span id="cb7-11"><a href="#cb7-11"></a>                       <span class="st">'at least 1 mm'</span>: (daily_rain <span class="op">&gt;=</span> <span class="dv">1</span>).resample(<span class="st">'ME'</span>).<span class="bu">sum</span>(),</span>
+<span id="cb7-12"><a href="#cb7-12"></a>                       <span class="st">'at least 5 mm'</span>: (daily_rain <span class="op">&gt;=</span> <span class="dv">5</span>).resample(<span class="st">'ME'</span>).<span class="bu">sum</span>()})</span>
+<span id="cb7-13"><a href="#cb7-13"></a>counts.index <span class="op">=</span> counts.index.strftime(<span class="st">'%b'</span>)   <span class="co"># month names instead of dates</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="co"># plotting</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">4</span>))</span>
+<span id="cb7-17"><a href="#cb7-17"></a>counts.plot.bar(ax<span class="op">=</span>ax, color<span class="op">=</span>[<span class="st">'lightgray'</span>, <span class="st">'tab:blue'</span>, <span class="st">'navy'</span>], width<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb7-18"><a href="#cb7-18"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">''</span>, ylabel<span class="op">=</span><span class="st">'number of rainy days'</span>, title<span class="op">=</span><span class="st">'Ashalim, 2024: rainy days per month'</span>)</span>
+<span id="cb7-19"><a href="#cb7-19"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, rotation<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb7-20"><a href="#cb7-20"></a>ax.legend(title<span class="op">=</span><span class="st">'definition of a rainy day'</span>)</span>
+<span id="cb7-21"><a href="#cb7-21"></a></span>
+<span id="cb7-22"><a href="#cb7-22"></a><span class="co"># the numbers behind the graph</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="bu">print</span>()</span>
+<span id="cb7-24"><a href="#cb7-24"></a><span class="bu">print</span>(counts.T)</span>
+<span id="cb7-25"><a href="#cb7-25"></a><span class="bu">print</span>()</span>
+<span id="cb7-26"><a href="#cb7-26"></a><span class="bu">print</span>(<span class="st">"total in the year:"</span>)</span>
+<span id="cb7-27"><a href="#cb7-27"></a><span class="bu">print</span>(counts.<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>smallest non-zero value in the rain column: 0.1 mm
+total rain in the year: 17.1 mm
+
+date           Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+above 0 mm       2    5    3    0    1    0    0    0    0    0    3    3
+at least 1 mm    2    1    0    0    0    0    0    0    0    0    3    1
+at least 5 mm    0    0    0    0    0    0    0    0    0    0    0    0
+
+total in the year:
+above 0 mm       17
+at least 1 mm     7
+at least 5 mm     0
+dtype: int64</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="resampling-answers_files/figure-html/cell-6-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>What I found, and why:</strong> there are 17 days with rain above 0 mm, 7 with at least 1 mm, and none with at least 5 mm. So the answer to “how many rainy days?” depends on the definition. The year was drier than I expected (17.1 mm in total), and the smallest non-zero value is 0.1 mm, the resolution of the gauge. The station was off on 28-29 January, right after the wettest day, so we don’t know what happened then.</p>
+</section>
+<section id="graph-3-hours-of-sun-per-day" class="level3" data-number="63.2.3">
+<h3 data-number="63.2.3" class="anchored" data-anchor-id="graph-3-hours-of-sun-per-day"><span class="header-section-number">63.2.3</span> Graph 3: hours of sun per day</h3>
+<p><strong>My prediction:</strong> clear skies, so a smooth curve, about 14 hours in June and 10 hours in December, with dips on cloudy winter days. The 1 W/m<span class="math inline">^2</span> threshold should be the closest to the real day length, and 120 W/m<span class="math inline">^2</span> should lose 1-2 hours.</p>
+<div id="e590e324" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.801853Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.801774Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.898062Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.897742Z&quot;}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># a day without records would have a sum of 0, and look like a day without sun!</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="co"># so we keep only the days with at least 90% of the records (144 records per day)</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>valid_records <span class="op">=</span> df[<span class="st">'radiation'</span>].resample(<span class="st">'D'</span>).count()</span>
+<span id="cb9-4"><a href="#cb9-4"></a>complete_day <span class="op">=</span> valid_records <span class="op">&gt;=</span> <span class="fl">0.9</span> <span class="op">*</span> <span class="dv">144</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="bu">print</span>(<span class="ss">f"days without enough radiation records: </span><span class="sc">{</span>(<span class="op">~</span>complete_day)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6"></a></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co"># hours of sun: count the records above the threshold, and divide by 6 (records per hour)</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>thresholds <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">120</span>]</span>
+<span id="cb9-9"><a href="#cb9-9"></a>sun_hours <span class="op">=</span> pd.DataFrame({<span class="ss">f'</span><span class="sc">{</span>t<span class="sc">}</span><span class="ss"> W/m²'</span>: ((df[<span class="st">'radiation'</span>] <span class="op">&gt;</span> t).resample(<span class="st">'D'</span>).<span class="bu">sum</span>() <span class="op">/</span> <span class="dv">6</span>).where(complete_day)</span>
+<span id="cb9-10"><a href="#cb9-10"></a>                          <span class="cf">for</span> t <span class="kw">in</span> thresholds})</span>
+<span id="cb9-11"><a href="#cb9-11"></a></span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="co"># the real day length, computed from the position of the sun, for comparison</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a>latitude <span class="op">=</span> <span class="fl">30.97</span>   <span class="co"># approximate latitude of Ashalim</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="kw">def</span> day_length(date):</span>
+<span id="cb9-15"><a href="#cb9-15"></a>    n <span class="op">=</span> date.dayofyear</span>
+<span id="cb9-16"><a href="#cb9-16"></a>    declination <span class="op">=</span> np.deg2rad(<span class="fl">23.44</span>) <span class="op">*</span> np.sin(<span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> (<span class="dv">284</span> <span class="op">+</span> n) <span class="op">/</span> <span class="dv">365</span>)</span>
+<span id="cb9-17"><a href="#cb9-17"></a>    lat <span class="op">=</span> np.deg2rad(latitude)</span>
+<span id="cb9-18"><a href="#cb9-18"></a>    cos_h <span class="op">=</span> (np.sin(np.deg2rad(<span class="op">-</span><span class="fl">0.833</span>)) <span class="op">-</span> np.sin(lat) <span class="op">*</span> np.sin(declination)) <span class="op">/</span> (np.cos(lat) <span class="op">*</span> np.cos(declination))</span>
+<span id="cb9-19"><a href="#cb9-19"></a>    <span class="cf">return</span> <span class="dv">24</span> <span class="op">/</span> np.pi <span class="op">*</span> np.arccos(cos_h)</span>
+<span id="cb9-20"><a href="#cb9-20"></a>real_day <span class="op">=</span> pd.Series([day_length(d) <span class="cf">for</span> d <span class="kw">in</span> sun_hours.index], index<span class="op">=</span>sun_hours.index)</span>
+<span id="cb9-21"><a href="#cb9-21"></a></span>
+<span id="cb9-22"><a href="#cb9-22"></a><span class="co"># plotting</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">4</span>))</span>
+<span id="cb9-24"><a href="#cb9-24"></a><span class="cf">for</span> col, color <span class="kw">in</span> <span class="bu">zip</span>(sun_hours.columns, [<span class="st">'tab:orange'</span>, <span class="st">'tab:red'</span>, <span class="st">'tab:purple'</span>, <span class="st">'tab:blue'</span>]):</span>
+<span id="cb9-25"><a href="#cb9-25"></a>    ax.plot(sun_hours[col], color<span class="op">=</span>color, label<span class="op">=</span><span class="ss">f'threshold </span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb9-26"><a href="#cb9-26"></a>ax.plot(real_day, color<span class="op">=</span><span class="st">'black'</span>, ls<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'astronomical day length'</span>)</span>
+<span id="cb9-27"><a href="#cb9-27"></a>month_axis(ax)</span>
+<span id="cb9-28"><a href="#cb9-28"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'hours of sun per day'</span>, title<span class="op">=</span><span class="st">'Ashalim, 2024: hours of sun per day'</span>)</span>
+<span id="cb9-29"><a href="#cb9-29"></a>ax.legend(ncol<span class="op">=</span><span class="dv">3</span>, loc<span class="op">=</span><span class="st">'upper center'</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.1</span>), fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb9-30"><a href="#cb9-30"></a></span>
+<span id="cb9-31"><a href="#cb9-31"></a><span class="co"># thresholds vs. the real day length on the longest and the shortest day</span></span>
+<span id="cb9-32"><a href="#cb9-32"></a>summary <span class="op">=</span> sun_hours.loc[[<span class="st">'2024-06-21'</span>, <span class="st">'2024-12-21'</span>]].copy()</span>
+<span id="cb9-33"><a href="#cb9-33"></a>summary[<span class="st">'astronomical'</span>] <span class="op">=</span> real_day.loc[[<span class="st">'2024-06-21'</span>, <span class="st">'2024-12-21'</span>]]</span>
+<span id="cb9-34"><a href="#cb9-34"></a><span class="bu">print</span>(summary.<span class="bu">round</span>(<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>days without enough radiation records: 4
+            1 W/m²  10 W/m²  50 W/m²  120 W/m²  astronomical
+date                                                        
+2024-06-21   14.17    13.83    13.00     12.17         14.16
+2024-12-21   10.17     9.83     9.17      8.50         10.14</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="resampling-answers_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>What I found, and why:</strong> the 1 W/m<span class="math inline">^2</span> line matches the real day length (computed from the latitude: 14.2 h in June, 10.1 h in December) within a few minutes. Higher thresholds cut the morning and the evening: on 21 June, 10 W/m<span class="math inline">^2</span> loses 20 minutes, 50 W/m<span class="math inline">^2</span> about 1 hour, and 120 W/m<span class="math inline">^2</span> 2 hours. The 120 line also drops sharply on cloudy days, which the low thresholds ignore. So there is no single correct threshold: low for the day length (the photoperiod of a plant), high for bright sunshine. I removed 4 days with too few records, otherwise 28 January would show 0 hours of sun.</p>
+</section>
+</section>
+<section id="part-2-one-signal-many-time-scales" class="level2" data-number="63.3">
+<h2 data-number="63.3" class="anchored" data-anchor-id="part-2-one-signal-many-time-scales"><span class="header-section-number">63.3</span> Part 2: one signal, many time scales</h2>
+<p><strong>My prediction:</strong> the daily cycle is clear in the hourly data and disappears with daily means. Only the seasons survive in the monthly data. Since the daily cycle is large in the desert, I expect the standard deviation to drop noticeably from hourly to daily.</p>
+<div id="a4e7c9d8" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.899244Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.899155Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.186358Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.185977Z&quot;}" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>temp <span class="op">=</span> df[<span class="st">'temperature'</span>]</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="co"># the same variable at five resolutions: only the resampling rule changes</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>rules <span class="op">=</span> [<span class="st">'1h'</span>, <span class="st">'6h'</span>, <span class="st">'D'</span>, <span class="st">'W'</span>, <span class="st">'ME'</span>]</span>
+<span id="cb11-5"><a href="#cb11-5"></a>names <span class="op">=</span> [<span class="st">'1 hour'</span>, <span class="st">'6 hours'</span>, <span class="st">'1 day'</span>, <span class="st">'1 week'</span>, <span class="st">'1 month'</span>]</span>
+<span id="cb11-6"><a href="#cb11-6"></a></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co"># plotting: one panel for each resolution, all sharing the time axis</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="bu">len</span>(rules), <span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">11</span>))</span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="cf">for</span> ax, rule, name <span class="kw">in</span> <span class="bu">zip</span>(axes, rules, names):</span>
+<span id="cb11-10"><a href="#cb11-10"></a>    ax.plot(temp.resample(rule).mean(), color<span class="op">=</span><span class="st">'black'</span>, lw<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb11-11"><a href="#cb11-11"></a>    ax.set_ylabel(<span class="st">'T (°C)'</span>)</span>
+<span id="cb11-12"><a href="#cb11-12"></a>    ax.set_title(<span class="ss">f'mean every </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">'</span>, loc<span class="op">=</span><span class="st">'left'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb11-13"><a href="#cb11-13"></a>month_axis(axes[<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb11-14"><a href="#cb11-14"></a>fig.suptitle(<span class="st">'Ashalim, 2024: the same temperature at different time scales'</span>, y<span class="op">=</span><span class="fl">1.0</span>)</span>
+<span id="cb11-15"><a href="#cb11-15"></a>fig.tight_layout()</span>
+<span id="cb11-16"><a href="#cb11-16"></a></span>
+<span id="cb11-17"><a href="#cb11-17"></a><span class="co"># how much variability is left at each resolution?</span></span>
+<span id="cb11-18"><a href="#cb11-18"></a><span class="bu">print</span>(<span class="st">"standard deviation (°C) of the series at each resolution:"</span>)</span>
+<span id="cb11-19"><a href="#cb11-19"></a><span class="bu">print</span>(pd.Series({name: temp.resample(rule).mean().std() <span class="cf">for</span> rule, name <span class="kw">in</span> <span class="bu">zip</span>(rules, names)}).<span class="bu">round</span>(<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>standard deviation (°C) of the series at each resolution:
+1 hour     7.77
+6 hours    7.45
+1 day      6.17
+1 week     6.03
+1 month    5.98
+dtype: float64</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="resampling-answers_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>What I found, and why:</strong> the daily cycle is huge (about 14 °C on average), still visible with 6-hour means, and gone with daily means. The weekly means lose the day-to-day weather (the hot spell of 24-25 April is just a small bump), and the monthly means keep only the seasons. The standard deviation drops from 7.8 to 6.2 °C when the daily cycle disappears, as predicted, and then hardly changes. Note that each point is drawn at the end of its period, which is why the monthly curve starts in February.</p>
+<p>The resolution must be finer than the process we study: the researcher of the leaf and the cloud needs minutes, while the one studying a drought can use weeks or months.</p>
+</section>
+<section id="part-3-think-like-in-the-exam" class="level2" data-number="63.4">
+<h2 data-number="63.4" class="anchored" data-anchor-id="part-3-think-like-in-the-exam"><span class="header-section-number">63.4</span> Part 3: think like in the exam</h2>
+<p><strong>1. The monthly mean of the rain.</strong></p>
+<div id="787e76de" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.187751Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.187654Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.195499Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.195088Z&quot;}" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># the mean of the records is the wrong way, the sum is the right way</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>wrong <span class="op">=</span> df[<span class="st">'rain'</span>].resample(<span class="st">'ME'</span>).mean()</span>
+<span id="cb13-3"><a href="#cb13-3"></a>right <span class="op">=</span> df[<span class="st">'rain'</span>].resample(<span class="st">'ME'</span>).<span class="bu">sum</span>()</span>
+<span id="cb13-4"><a href="#cb13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co"># put both side by side, with the number of records behind each month</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>table <span class="op">=</span> pd.DataFrame({<span class="st">'mean of the records (mm per 10 min)'</span>: wrong,</span>
+<span id="cb13-7"><a href="#cb13-7"></a>                      <span class="st">'sum of the records (mm per month)'</span>: right,</span>
+<span id="cb13-8"><a href="#cb13-8"></a>                      <span class="st">'records in the month'</span>: df[<span class="st">'rain'</span>].resample(<span class="st">'ME'</span>).count()})</span>
+<span id="cb13-9"><a href="#cb13-9"></a>table.index <span class="op">=</span> table.index.strftime(<span class="st">'%b'</span>)</span>
+<span id="cb13-10"><a href="#cb13-10"></a>table.<span class="bu">round</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">mean of the records (mm per 10 min)</th>
+<th data-quarto-table-cell-role="th">sum of the records (mm per month)</th>
+<th data-quarto-table-cell-role="th">records in the month</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Jan</td>
+<td>0.0011</td>
+<td>4.5</td>
+<td>4239</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Feb</td>
+<td>0.0007</td>
+<td>2.9</td>
+<td>4174</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Mar</td>
+<td>0.0004</td>
+<td>2.0</td>
+<td>4464</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Apr</td>
+<td>0.0000</td>
+<td>0.0</td>
+<td>4318</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">May</td>
+<td>0.0000</td>
+<td>0.1</td>
+<td>4449</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Jun</td>
+<td>0.0000</td>
+<td>0.0</td>
+<td>4320</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Jul</td>
+<td>0.0000</td>
+<td>0.0</td>
+<td>4418</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Aug</td>
+<td>0.0000</td>
+<td>0.0</td>
+<td>4464</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Sep</td>
+<td>0.0000</td>
+<td>0.0</td>
+<td>4313</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Oct</td>
+<td>0.0000</td>
+<td>0.0</td>
+<td>4464</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Nov</td>
+<td>0.0013</td>
+<td>5.6</td>
+<td>4320</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Dec</td>
+<td>0.0004</td>
+<td>2.0</td>
+<td>4464</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>They computed the average rain per 10-minute record, in mm per 10 minutes, and not the monthly total (in January, 0.0011 mm instead of 4.5 mm). Rain is an amount that accumulates, so we must <strong>sum</strong> it. Temperature is a state, so we <strong>average</strong> it. The function must match the physical meaning of the variable.</p>
+<p><strong>2. Three ways to compute the yearly mean.</strong></p>
+<div id="86f46d6e" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.196532Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.196458Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.202445Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.202146Z&quot;}" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># 1. the mean of all the records</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>mean_all <span class="op">=</span> df[<span class="st">'temperature'</span>].mean()</span>
+<span id="cb14-3"><a href="#cb14-3"></a></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="co"># 2. the mean of the daily means</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a>mean_daily <span class="op">=</span> df[<span class="st">'temperature'</span>].resample(<span class="st">'D'</span>).mean().mean()</span>
+<span id="cb14-6"><a href="#cb14-6"></a></span>
+<span id="cb14-7"><a href="#cb14-7"></a><span class="co"># 3. the mean of the monthly means, first without and then with weights (the days in each month)</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a>monthly_means <span class="op">=</span> df[<span class="st">'temperature'</span>].resample(<span class="st">'ME'</span>).mean()</span>
+<span id="cb14-9"><a href="#cb14-9"></a>mean_monthly <span class="op">=</span> monthly_means.mean()</span>
+<span id="cb14-10"><a href="#cb14-10"></a>mean_monthly_weighted <span class="op">=</span> np.average(monthly_means, weights<span class="op">=</span>monthly_means.index.day)</span>
+<span id="cb14-11"><a href="#cb14-11"></a></span>
+<span id="cb14-12"><a href="#cb14-12"></a><span class="bu">print</span>(<span class="ss">f"mean of all records:          </span><span class="sc">{</span>mean_all<span class="sc">:.3f}</span><span class="ss"> °C"</span>)</span>
+<span id="cb14-13"><a href="#cb14-13"></a><span class="bu">print</span>(<span class="ss">f"mean of the daily means:      </span><span class="sc">{</span>mean_daily<span class="sc">:.3f}</span><span class="ss"> °C"</span>)</span>
+<span id="cb14-14"><a href="#cb14-14"></a><span class="bu">print</span>(<span class="ss">f"mean of the monthly means:    </span><span class="sc">{</span>mean_monthly<span class="sc">:.3f}</span><span class="ss"> °C"</span>)</span>
+<span id="cb14-15"><a href="#cb14-15"></a><span class="bu">print</span>(<span class="ss">f"monthly means, weighted days: </span><span class="sc">{</span>mean_monthly_weighted<span class="sc">:.3f}</span><span class="ss"> °C"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>mean of all records:          20.527 °C
+mean of the daily means:      20.525 °C
+mean of the monthly means:    20.487 °C
+monthly means, weighted days: 20.503 °C</code></pre>
+</div>
+</div>
+<p>They differ by less than 0.04 °C. The mean of the monthly means is the lowest, because it gives the 29 days of February the same weight as the 31 days of January, and overweights the cold months. Weighting by days helps, but January has 2 days without data. With complete data I prefer the mean of the daily means. The mean of the monthly means is for when we only have monthly values.</p>
+<p><strong>3. The maximum of the daily means.</strong></p>
+<div id="c8a0c3ed" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.203485Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.203417Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.207116Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.206786Z&quot;}" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># the maximum of the daily means: first the daily means, then the largest of them</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>daily_mean_t <span class="op">=</span> df[<span class="st">'temperature'</span>].resample(<span class="st">'D'</span>).mean()</span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="bu">print</span>(<span class="ss">f"maximum of the daily means: </span><span class="sc">{</span>daily_mean_t<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.1f}</span><span class="ss"> °C on </span><span class="sc">{</span>daily_mean_t<span class="sc">.</span>idxmax()<span class="sc">.</span>date()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4"></a></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="co"># the maximum of all the records, and the daily mean of that same day</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="bu">print</span>(<span class="ss">f"maximum temperature of the year: </span><span class="sc">{</span>df[<span class="st">'temperature'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.1f}</span><span class="ss"> °C on </span><span class="sc">{</span>df[<span class="st">'temperature'</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="bu">print</span>(<span class="ss">f"daily mean on the day of the maximum: </span><span class="sc">{</span>daily_mean_t<span class="sc">.</span>loc[df[<span class="st">'temperature'</span>].idxmax().date().isoformat()]<span class="sc">:.1f}</span><span class="ss"> °C"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>maximum of the daily means: 31.4 °C on 2024-07-12
+maximum temperature of the year: 41.1 °C on 2024-06-15 14:30:00
+daily mean on the day of the maximum: 30.5 °C</code></pre>
+</div>
+</div>
+<p>No.&nbsp;The maximum of the daily means is 31.4 °C (12 July), and the maximum temperature of the year is 41.1 °C (15 June). On 15 June the temperature was above 37 °C from 11:00 to 16:00, but the cold night brought the daily mean down to 30.5 °C, an ordinary summer value. For the heat stress of a plant the extreme matters, and for the energy needed to cool a building the mean matters.</p>
+<p><strong>4. Optional: the wind direction.</strong></p>
+<div id="0f7bda6e" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.208099Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.208031Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.210080Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.209774Z&quot;}" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># the ordinary mean does not work for angles</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>angles <span class="op">=</span> np.array([<span class="dv">350</span>, <span class="dv">10</span>])</span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="bu">print</span>(<span class="st">"ordinary mean:"</span>, angles.mean(), <span class="st">"°"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4"></a></span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="co"># average the vectors (the unit vectors pointing in each direction), then go back to an angle</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a>rad <span class="op">=</span> np.deg2rad(angles)</span>
+<span id="cb18-7"><a href="#cb18-7"></a>circular_mean <span class="op">=</span> np.rad2deg(np.arctan2(np.sin(rad).mean(), np.cos(rad).mean())) <span class="op">%</span> <span class="dv">360</span></span>
+<span id="cb18-8"><a href="#cb18-8"></a><span class="bu">print</span>(<span class="st">"circular mean:"</span>, <span class="bu">round</span>(circular_mean) <span class="op">%</span> <span class="dv">360</span>, <span class="st">"°"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ordinary mean: 180.0 °
+circular mean: 0 °</code></pre>
+</div>
+</div>
+<p>350° and 10° are both nearly north, but the ordinary mean is 180°, which is south. Angles live on a circle, where 0° and 360° are the same. We should average the vectors (sines and cosines) and convert back to an angle, which gives 0°, north. (This dataset has no wind direction, so the code only illustrates the numbers of the question.)</p>
+</section>
+<section id="bonus-my-own-graphs" class="level2" data-number="63.5">
+<h2 data-number="63.5" class="anchored" data-anchor-id="bonus-my-own-graphs"><span class="header-section-number">63.5</span> Bonus: my own graphs</h2>
+<section id="bonus-graph-1-the-daily-temperature-range" class="level3" data-number="63.5.1">
+<h3 data-number="63.5.1" class="anchored" data-anchor-id="bonus-graph-1-the-daily-temperature-range"><span class="header-section-number">63.5.1</span> Bonus graph 1: the daily temperature range</h3>
+<p>The question: how large is the difference between the daily maximum and minimum temperature, and does it change during the year?</p>
+<p><strong>My prediction:</strong> a range of 12-18 °C, larger in the dry summer and smaller in winter.</p>
+<div id="d07e628f" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.211037Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.210969Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.288434Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.288100Z&quot;}" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># the daily range is the daily maximum minus the daily minimum, then we take the monthly mean</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>daily_t <span class="op">=</span> df[<span class="st">'temperature'</span>].resample(<span class="st">'D'</span>).agg([<span class="st">'min'</span>, <span class="st">'max'</span>])</span>
+<span id="cb20-3"><a href="#cb20-3"></a>daily_range <span class="op">=</span> daily_t[<span class="st">'max'</span>] <span class="op">-</span> daily_t[<span class="st">'min'</span>]</span>
+<span id="cb20-4"><a href="#cb20-4"></a>monthly_range <span class="op">=</span> daily_range.resample(<span class="st">'ME'</span>).mean()</span>
+<span id="cb20-5"><a href="#cb20-5"></a></span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="co"># plotting: the monthly means are drawn in the middle of the month (the resample puts them at the end of it)</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">4</span>))</span>
+<span id="cb20-8"><a href="#cb20-8"></a>ax.plot(daily_range, color<span class="op">=</span><span class="st">'lightgray'</span>, label<span class="op">=</span><span class="st">'each day'</span>)</span>
+<span id="cb20-9"><a href="#cb20-9"></a>ax.plot(monthly_range.index <span class="op">-</span> pd.Timedelta(days<span class="op">=</span><span class="dv">15</span>), monthly_range, color<span class="op">=</span><span class="st">'black'</span>, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'monthly mean'</span>)</span>
+<span id="cb20-10"><a href="#cb20-10"></a>month_axis(ax)</span>
+<span id="cb20-11"><a href="#cb20-11"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'max - min temperature (°C)'</span>, title<span class="op">=</span><span class="st">'Ashalim, 2024: daily temperature range'</span>)</span>
+<span id="cb20-12"><a href="#cb20-12"></a>ax.legend()</span>
+<span id="cb20-13"><a href="#cb20-13"></a></span>
+<span id="cb20-14"><a href="#cb20-14"></a><span class="co"># the numbers behind the graph</span></span>
+<span id="cb20-15"><a href="#cb20-15"></a><span class="bu">print</span>(monthly_range.<span class="bu">round</span>(<span class="dv">1</span>).set_axis(monthly_range.index.strftime(<span class="st">'%b'</span>)))</span>
+<span id="cb20-16"><a href="#cb20-16"></a><span class="bu">print</span>()</span>
+<span id="cb20-17"><a href="#cb20-17"></a><span class="bu">print</span>(daily_range.describe().<span class="bu">round</span>(<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>date
+Jan    12.7
+Feb    12.0
+Mar    14.4
+Apr    14.4
+May    14.9
+Jun    17.3
+Jul    14.9
+Aug    14.6
+Sep    13.4
+Oct    14.6
+Nov    13.4
+Dec    13.7
+dtype: float64
+
+count    365.0
+mean      14.2
+std        3.4
+min        3.8
+25%       12.2
+50%       14.3
+75%       16.2
+max       24.5
+dtype: float64</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="resampling-answers_files/figure-html/cell-13-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>What I found, and why:</strong> the mean range is 14.2 °C, as predicted, and it is smaller in winter (12-13 °C). But the largest month is June (17.3 °C), not the whole summer. I did not look for the reason, but June had the hottest day of the year (41.1 °C), so probably dry, hot spells.</p>
+</section>
+<section id="bonus-graph-2-the-daily-solar-energy" class="level3" data-number="63.5.2">
+<h3 data-number="63.5.2" class="anchored" data-anchor-id="bonus-graph-2-the-daily-solar-energy"><span class="header-section-number">63.5.2</span> Bonus graph 2: the daily solar energy</h3>
+<p>The question: how much solar energy reaches the ground each day, in MJ/m<span class="math inline">^2</span>, and how much do clouds subtract?</p>
+<p><strong>My prediction:</strong> about 28-30 MJ/m<span class="math inline">^2</span> in summer and 8-12 in winter, with cloudy days below half of that.</p>
+<div id="84eb7042" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.289608Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.289519Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.366955Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.366607Z&quot;}" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># the radiation is a power (W/m²): the mean power of the day times the seconds in a day gives the energy (J/m²)</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="co"># we use the mean, and not the sum, so that missing records do not reduce the result</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="co"># days with too few records (defined in Graph 3) are discarded</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a>daily_energy <span class="op">=</span> (df[<span class="st">'radiation'</span>].resample(<span class="st">'D'</span>).mean() <span class="op">*</span> <span class="dv">86400</span> <span class="op">/</span> <span class="fl">1e6</span>).where(complete_day)   <span class="co"># MJ/m² per day</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a>monthly_energy <span class="op">=</span> daily_energy.resample(<span class="st">'ME'</span>).mean()</span>
+<span id="cb22-6"><a href="#cb22-6"></a></span>
+<span id="cb22-7"><a href="#cb22-7"></a><span class="co"># plotting: the monthly means are drawn in the middle of the month</span></span>
+<span id="cb22-8"><a href="#cb22-8"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">4</span>))</span>
+<span id="cb22-9"><a href="#cb22-9"></a>ax.plot(daily_energy, color<span class="op">=</span><span class="st">'lightgray'</span>, label<span class="op">=</span><span class="st">'each day'</span>)</span>
+<span id="cb22-10"><a href="#cb22-10"></a>ax.plot(monthly_energy.index <span class="op">-</span> pd.Timedelta(days<span class="op">=</span><span class="dv">15</span>), monthly_energy, color<span class="op">=</span><span class="st">'black'</span>, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'monthly mean'</span>)</span>
+<span id="cb22-11"><a href="#cb22-11"></a>month_axis(ax)</span>
+<span id="cb22-12"><a href="#cb22-12"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'solar energy (MJ/m² per day)'</span>, title<span class="op">=</span><span class="st">'Ashalim, 2024: daily solar energy'</span>)</span>
+<span id="cb22-13"><a href="#cb22-13"></a>ax.legend()</span>
+<span id="cb22-14"><a href="#cb22-14"></a></span>
+<span id="cb22-15"><a href="#cb22-15"></a><span class="co"># the numbers behind the graph</span></span>
+<span id="cb22-16"><a href="#cb22-16"></a><span class="bu">print</span>(monthly_energy.<span class="bu">round</span>(<span class="dv">1</span>).set_axis(monthly_energy.index.strftime(<span class="st">'%b'</span>)))</span>
+<span id="cb22-17"><a href="#cb22-17"></a><span class="bu">print</span>()</span>
+<span id="cb22-18"><a href="#cb22-18"></a><span class="bu">print</span>(<span class="st">"the 5 days with the least energy:"</span>)</span>
+<span id="cb22-19"><a href="#cb22-19"></a><span class="bu">print</span>(daily_energy.nsmallest(<span class="dv">5</span>).<span class="bu">round</span>(<span class="dv">1</span>))</span>
+<span id="cb22-20"><a href="#cb22-20"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">yearly maximum: </span><span class="sc">{</span>daily_energy<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.1f}</span><span class="ss"> MJ/m² on </span><span class="sc">{</span>daily_energy<span class="sc">.</span>idxmax()<span class="sc">.</span>date()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>date
+Jan    13.5
+Feb    16.3
+Mar    20.9
+Apr    25.3
+May    28.2
+Jun    30.7
+Jul    29.7
+Aug    27.5
+Sep    23.3
+Oct    19.4
+Nov    14.1
+Dec    12.9
+Name: radiation, dtype: float64
+
+the 5 days with the least energy:
+date
+2024-11-25    4.4
+2024-12-20    5.3
+2024-02-06    6.7
+2024-01-27    7.3
+2024-11-24    7.4
+Name: radiation, dtype: float64
+
+yearly maximum: 31.6 MJ/m² on 2024-06-11</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="resampling-answers_files/figure-html/cell-14-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>What I found, and why:</strong> the monthly mean goes from 30.7 MJ/m<span class="math inline">^2</span> in June to 12.9 in December, so the winter is higher than I predicted. The cloudiest day, 25 November, received 4.4 MJ/m<span class="math inline">^2</span>, about a third of a typical November day. The radiation is a power (W/m<span class="math inline">^2</span>), so I took the mean power times the 86,400 seconds of the day.</p>
+</section>
+</section>
+<section id="ai-declaration" class="level2" data-number="63.6">
+<h2 data-number="63.6" class="anchored" data-anchor-id="ai-declaration"><span class="header-section-number">63.6</span> AI declaration</h2>
+<p>This answer key was prepared with Claude Code (Claude), at the instructor’s request: it wrote and ran the code and drafted the text. The instructor is responsible for the content.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../homework/resampling.html" class="pagination-link" aria-label="homework: resampling">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">homework: resampling</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../technical-stuff/technical-stuff.html" class="pagination-link" aria-label="technical stuff">
+        <span class="nav-page-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">technical stuff</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

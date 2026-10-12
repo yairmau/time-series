@@ -1,0 +1,21 @@
+## 2026/2027 Schedule {.unnumbered}
+
+{{< iconify akar-icons clock >}} Lectures are on Tuesdays, from 11:15 to 14:00.  
+{{< iconify flowbite map-pin-alt-solid >}} Etrog classroom, [see map](https://maps.app.goo.gl/RTwdU7VfuCTiDUXMA){target="_blank"}
+
+| Week | Date | Topic | Homework / exam |
+|:----:|:-----|:------|:----------------|
+| 1 | 2026-10-13 |  Resampling | |
+| 2 | 2026-10-20 |  Smoothing | |
+| 3 | 2026-10-27 |  Outliers  | |
+| 4 | 2026-11-03 |  <span style="color:red">Exam 1</span>.  Stationarity  | |
+| 5 | 2026-11-10 | Stationarity | |
+| 6 | 2026-11-17 |  Seasonality | |
+| 7 | 2026-11-24 |  Time Lags | |
+| 8 | 2026-12-01 |  <span style="color:red">Exam 2</span>.  Frequency | |
+|  | <span style="color:red">2026-12-08</span> |  <span style="color:red">No classes (Hanukkah)</span> | |
+| 9 | 2026-12-15 |  Frequency | |
+| 10 | 2026-12-22 |  Rates of change | |
+| 11 | 2026-12-29 |  Forecasting | |
+| 12 | 2027-01-05 |  <span style="color:red">Exam 3</span>.  Tree rings mini project | |
+| 13 | 2027-01-12 |  Final project preparation | |

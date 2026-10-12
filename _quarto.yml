@@ -10,7 +10,7 @@ book:
   google-analytics: "G-DLXS6KFJYP"
   chapters:
     - index.qmd
-    - 2024-2025-schedule.qmd
+    - schedule.qmd
     - who-cares.qmd
     - part: "start here"
       chapters:
@@ -95,13 +95,17 @@ book:
         - forecasting/forecasting-tutorial.ipynb
         - forecasting/filling-gaps.ipynb
         - forecasting/arima.qmd
-    - part: "assignments"
+    - part: "homework"
       chapters:
-        - assignments/evaluation.qmd
-        - assignments/assignment1.qmd
-        - assignments/assignment2.ipynb
-        - assignments/assignment3.ipynb
-        - assignments/final-project.qmd
+        - homework/resampling.qmd
+        - homework/resampling-answers.ipynb
+    # - part: "assignments"
+    #   chapters:
+    #     - assignments/evaluation.qmd
+    #     - assignments/assignment1.qmd
+    #     - assignments/assignment2.ipynb
+    #     - assignments/assignment3.ipynb
+    #     - assignments/final-project.qmd
     - part: "technical stuff"
       chapters:
         - technical-stuff/technical-stuff.qmd
