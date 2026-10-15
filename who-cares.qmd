@@ -6,7 +6,7 @@
 Time has two aspects. There is the arrow, the running river, without which there is no change, no progress, or direction, or creation. And there is the circle or the cycle, without which there is chaos, meaningless succession of instants, a world without clocks or seasons or promises.  
   URSULA K. LE GUIN</div>
 
-You are here because you are interested in how things change, evolve. In this course I want to discuss with you how to make sense of data whose temporal nature is in its very essence. We will talk about randomness, cycles, frequencies, correlations, and more.
+A time series is a sequence of measurements taken over time, usually at regular intervals: the temperature every 10 minutes, the number of infected patients each day, the sea level each year. The order matters. Each point is related to the ones before it, so if you shuffle the data, you destroy it. In this course I want to discuss with you how to make sense of data whose temporal nature is in its very essence. We will talk about randomness, cycles, frequencies, correlations, and more.
 
 
 ## why "Environmental Sciences"

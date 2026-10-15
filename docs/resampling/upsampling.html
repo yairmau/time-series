@@ -890,7 +890,7 @@ window.Quarto = {
 <section id="potential-evapotranspiration-using-penmans-equation" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="potential-evapotranspiration-using-penmans-equation"><span class="header-section-number">7.1</span> Potential Evapotranspiration using Penman’s equation</h2>
 <p>We want to calculate the daily potential evapotranspiration using <a href="http://yairmau.com/surface-hydrology/evapotranspiration/evapotranspiration-lecture.html#net-radiation">Penman’s equation</a>. Part of the calculation involves characterizing the energy budget on soil surface. When direct solar radiation measurements are not available, we can estimate the energy balance by knowing the “cloudless skies mean solar radiation”, <span class="math inline">R_{so}</span>. This is the amount of energy (MJ/m<span class="math inline">^2</span>/d) that hits the surface, assuming no clouds. This radiation depends on the season and on the latitude you are. For Israel, located at latitude 32° N, we can use the following data for 30° (the closest latitude in the table):</p>
-<div id="cell-2" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:09.069450Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:09.069157Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.733461Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.733093Z&quot;}" data-execution_count="1">
+<div id="cell-2" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:09.069450Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:09.069157Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.733461Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.733093Z&quot;}" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -899,13 +899,13 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-7"><a href="#cb1-7"></a>sns.set_theme(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-3" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.734921Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.734814Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.740655Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.740247Z&quot;}" data-execution_count="2">
+<div id="cell-3" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.734921Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.734814Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.740655Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.740247Z&quot;}" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>dates <span class="op">=</span> pd.date_range(start<span class="op">=</span><span class="st">'2021-01-01'</span>, periods<span class="op">=</span><span class="dv">13</span>, freq<span class="op">=</span><span class="st">'MS'</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a>values <span class="op">=</span> [<span class="fl">17.46</span>, <span class="fl">21.65</span>, <span class="fl">25.96</span>, <span class="fl">29.85</span>, <span class="fl">32.11</span>, <span class="fl">33.20</span>, <span class="fl">32.66</span>, <span class="fl">30.44</span>, <span class="fl">26.67</span>, <span class="fl">22.48</span>, <span class="fl">18.30</span>, <span class="fl">16.04</span>, <span class="fl">17.46</span>]</span>
 <span id="cb2-3"><a href="#cb2-3"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'date'</span>: dates, <span class="st">'radiation'</span>: values})</span>
 <span id="cb2-4"><a href="#cb2-4"></a>df <span class="op">=</span> df.set_index(<span class="st">'date'</span>)</span>
 <span id="cb2-5"><a href="#cb2-5"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -979,7 +979,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-4" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.741582Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.741513Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.869574Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.869123Z&quot;}" data-execution_count="3">
+<div id="cell-4" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.741582Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.741513Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.869574Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.869123Z&quot;}" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb3-2"><a href="#cb3-2"></a>ax.plot(df[<span class="st">'radiation'</span>], color<span class="op">=</span><span class="st">'black'</span>, marker<span class="op">=</span><span class="st">'d'</span>, linestyle<span class="op">=</span><span class="st">'None'</span>)</span>
 <span id="cb3-3"><a href="#cb3-3"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="vs">r'radiation (MJ/m$^2$/d)'</span>,</span>
@@ -998,10 +998,10 @@ window.Quarto = {
 </div>
 <p>We only have 12 values for the whole year (the 13th row is just January again, in 2022, so that the interpolation we will do later has something to land on at the end of December), and we can’t use this dataframe to compute daily ET. We need to upsample!</p>
 <p>In the example below, we resample the monthly data into daily data, and do nothing else. Pandas doesn’t know what to do with the new points, so it fills them with NaN.</p>
-<div id="cell-6" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.870617Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.870536Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.874388Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.874117Z&quot;}" data-execution_count="4">
+<div id="cell-6" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.870617Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.870536Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.874388Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.874117Z&quot;}" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>df_nan <span class="op">=</span> df.asfreq(<span class="st">'D'</span>)</span>
 <span id="cb4-2"><a href="#cb4-2"></a>df_nan.head(<span class="dv">33</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
 
@@ -1159,11 +1159,11 @@ window.Quarto = {
 <section id="forwardbackward-fill" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="forwardbackward-fill"><span class="header-section-number">7.2</span> Forward/Backward fill</h2>
 <p>We can forward/backward fill these NaNs:</p>
-<div id="cell-8" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.875564Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.875499Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.877206Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.876863Z&quot;}" data-execution_count="5">
+<div id="cell-8" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.875564Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.875499Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.877206Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.876863Z&quot;}" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>df_forw <span class="op">=</span> df_nan.ffill()</span>
 <span id="cb5-2"><a href="#cb5-2"></a>df_back <span class="op">=</span> df_nan.bfill()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-9" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.878176Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.878096Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.955091Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.954645Z&quot;}" data-execution_count="6">
+<div id="cell-9" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.878176Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.878096Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.955091Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.954645Z&quot;}" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb6-2"><a href="#cb6-2"></a>ax.plot(df[<span class="st">'radiation'</span>], color<span class="op">=</span><span class="st">'black'</span>, marker<span class="op">=</span><span class="st">'d'</span>, linestyle<span class="op">=</span><span class="st">'None'</span>, label<span class="op">=</span><span class="st">"original"</span>)</span>
 <span id="cb6-3"><a href="#cb6-3"></a>ax.plot(df_forw[<span class="st">'radiation'</span>], color<span class="op">=</span><span class="st">'tab:blue'</span>, label<span class="op">=</span><span class="st">"forward fill"</span>)</span>
@@ -1184,9 +1184,9 @@ window.Quarto = {
 </div>
 </div>
 <p>We first used <code>asfreq</code>, and then filled the NaN values with something. Instead of doing this in two steps, we can do the following:</p>
-<div id="cell-11" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.956025Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.955951Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.960197Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.959877Z&quot;}" data-execution_count="7">
+<div id="cell-11" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.956025Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.955951Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.960197Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.959877Z&quot;}" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>df.resample(<span class="st">'D'</span>).ffill()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
@@ -1257,12 +1257,12 @@ window.Quarto = {
 </section>
 <section id="interpolation" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="interpolation"><span class="header-section-number">7.3</span> Interpolation</h2>
-<div id="cell-13" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.961217Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.961149Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.964447Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.964112Z&quot;}" data-execution_count="8">
+<div id="cell-13" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.961217Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.961149Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:10.964447Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:10.964112Z&quot;}" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># the cubic interpolation needs the package scipy to be installed</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a>df_linear <span class="op">=</span> df[<span class="st">'radiation'</span>].resample(<span class="st">'D'</span>).interpolate(method<span class="op">=</span><span class="st">'linear'</span>).to_frame()</span>
 <span id="cb8-3"><a href="#cb8-3"></a>df_cubic <span class="op">=</span> df[<span class="st">'radiation'</span>].resample(<span class="st">'D'</span>).interpolate(method<span class="op">=</span><span class="st">'cubic'</span>).to_frame()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-14" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.965451Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.965382Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:11.041773Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:11.041445Z&quot;}" data-execution_count="9">
+<div id="cell-14" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:10.965451Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:10.965382Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:11.041773Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:11.041445Z&quot;}" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb9-2"><a href="#cb9-2"></a>ax.plot(df[<span class="st">'radiation'</span>], color<span class="op">=</span><span class="st">'black'</span>, marker<span class="op">=</span><span class="st">'d'</span>, linestyle<span class="op">=</span><span class="st">'None'</span>, label<span class="op">=</span><span class="st">"original"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3"></a>ax.plot(df_linear[<span class="st">'radiation'</span>], color<span class="op">=</span><span class="st">'tab:blue'</span>, label<span class="op">=</span><span class="st">"linear interpolation"</span>)</span>
@@ -1292,7 +1292,7 @@ window.Quarto = {
 <h2 data-number="7.4" class="anchored" data-anchor-id="where-do-we-put-the-monthly-values"><span class="header-section-number">7.4</span> Where do we put the monthly values?</h2>
 <p>So far we put each monthly value on the first day of the month. But a monthly value describes the whole month, so the first day is not the best place for it, the middle of the month is. The FAO tables of solar radiation, for example, give the value for the 15th day of each month, as a good estimate of the monthly mean.</p>
 <p>For forward fill the first day is the right place: the value holds for the whole month. For a smooth interpolation, the 15th is better. Let’s move each value to the 15th. The data repeats itself every year, so we can also add December of the year before, to have something to interpolate from at the beginning of January.</p>
-<div id="cell-18" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:11.042895Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:11.042823Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:11.049192Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:11.048773Z&quot;}" data-execution_count="10">
+<div id="cell-18" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:11.042895Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:11.042823Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:11.049192Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:11.048773Z&quot;}" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>df_mid <span class="op">=</span> df.copy()</span>
 <span id="cb10-2"><a href="#cb10-2"></a>df_mid.index <span class="op">=</span> df_mid.index <span class="op">+</span> pd.Timedelta(days<span class="op">=</span><span class="dv">14</span>)   <span class="co"># from the 1st to the 15th of each month</span></span>
 <span id="cb10-3"><a href="#cb10-3"></a>df_mid.loc[pd.Timestamp(<span class="st">'2020-12-15'</span>)] <span class="op">=</span> df[<span class="st">'radiation'</span>].iloc[<span class="dv">11</span>]   <span class="co"># December of the year before</span></span>
@@ -1301,7 +1301,7 @@ window.Quarto = {
 <span id="cb10-6"><a href="#cb10-6"></a><span class="co"># interpolate, and keep only the days of 2021</span></span>
 <span id="cb10-7"><a href="#cb10-7"></a>df_cubic_mid <span class="op">=</span> df_mid[<span class="st">'radiation'</span>].resample(<span class="st">'D'</span>).interpolate(method<span class="op">=</span><span class="st">'cubic'</span>).loc[<span class="st">'2021-01-01'</span>:<span class="st">'2021-12-31'</span>].to_frame()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-19" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:11.050262Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:11.050185Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:11.120409Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:11.120047Z&quot;}" data-execution_count="11">
+<div id="cell-19" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:11.050262Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:11.050185Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:11.120409Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:11.120047Z&quot;}" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb11-2"><a href="#cb11-2"></a>ax.plot(df_cubic[<span class="st">'radiation'</span>], color<span class="op">=</span><span class="st">'tab:orange'</span>, label<span class="op">=</span><span class="st">"values on the 1st"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3"></a>ax.plot(df_cubic_mid[<span class="st">'radiation'</span>], color<span class="op">=</span><span class="st">'tab:green'</span>, label<span class="op">=</span><span class="st">"values on the 15th"</span>)</span>
@@ -1326,13 +1326,22 @@ window.Quarto = {
 <h2 data-number="7.5" class="anchored" data-anchor-id="dealing-with-missing-rows"><span class="header-section-number">7.5</span> Dealing with missing rows</h2>
 <p>There is a difference between missing rows and NaN values. The first is when we have a gap in the index, and the second is when we have a value that is missing.</p>
 <p>Now we will produce two derivative datasets, one where the month of August is full of NaN values, the other where all the rows of the month of August are removed.</p>
-<div id="cell-22" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:11.121526Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:11.121456Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:11.125343Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:11.124937Z&quot;}" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>df_missing <span class="op">=</span> df_cubic[<span class="op">~</span>df_cubic.index.month.isin([<span class="dv">8</span>])]</span>
-<span id="cb12-2"><a href="#cb12-2"></a>df_august_nan <span class="op">=</span> df_cubic.copy()</span>
-<span id="cb12-3"><a href="#cb12-3"></a>df_august_nan.loc[df_august_nan.index.month.isin([<span class="dv">8</span>])] <span class="op">=</span> np.nan</span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="co"># see the difference between the two dataframes</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="bu">print</span>(df_missing[<span class="st">'2021-07-29'</span>:])</span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="bu">print</span>(df_august_nan[<span class="st">'2021-07-29'</span>:])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-22" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:11.121526Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:11.121456Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:11.125343Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:11.124937Z&quot;}" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># True for the dates that are in August (index.month is the month number, from 1 to 12)</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>is_august <span class="op">=</span> df_cubic.index.month.isin([<span class="dv">8</span>])</span>
+<span id="cb12-3"><a href="#cb12-3"></a></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="co"># first dataset: we remove the rows of August</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="co"># (the ~ flips True and False, so we keep the dates that are NOT in August)</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>df_missing <span class="op">=</span> df_cubic[<span class="op">~</span>is_august]</span>
+<span id="cb12-7"><a href="#cb12-7"></a></span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="co"># second dataset: the rows of August stay, but their values become NaN</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="co"># we work on a copy, so the original df_cubic is not changed</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a>df_august_nan <span class="op">=</span> df_cubic.copy()</span>
+<span id="cb12-11"><a href="#cb12-11"></a>df_august_nan.loc[is_august] <span class="op">=</span> np.nan</span>
+<span id="cb12-12"><a href="#cb12-12"></a></span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="co"># see the difference between the two dataframes, starting at the end of July</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="bu">print</span>(df_missing[<span class="st">'2021-07-29'</span>:])</span>
+<span id="cb12-15"><a href="#cb12-15"></a><span class="bu">print</span>(df_august_nan[<span class="st">'2021-07-29'</span>:])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            radiation
 date                 
@@ -1367,7 +1376,7 @@ date
 </div>
 </div>
 <p>When plotting the data, we see that missing rows don’t produce gaps in the lineplot. Depending on the data, we would never know this just by looking at the plot!</p>
-<div id="cell-24" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:11.126374Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:11.126288Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:11.197297Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:11.196936Z&quot;}" data-execution_count="13">
+<div id="cell-24" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:11.126374Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:11.126288Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:11.197297Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:11.196936Z&quot;}" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb14-2"><a href="#cb14-2"></a>ax[<span class="dv">0</span>].plot(df_missing)</span>
 <span id="cb14-3"><a href="#cb14-3"></a>ax[<span class="dv">0</span>].set_ylabel(<span class="st">"missing rows"</span>)</span>
@@ -1383,7 +1392,7 @@ date
 </div>
 </div>
 <p>Use the <code>asfreq</code> method to fill the missing rows with NaNs.</p>
-<div id="cell-26" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:11.198422Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:11.198342Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:11.266879Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:11.266529Z&quot;}" data-execution_count="14">
+<div id="cell-26" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:32:11.198422Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:32:11.198342Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:32:11.266879Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:32:11.266529Z&quot;}" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>df_asfreq <span class="op">=</span> df_missing.asfreq(<span class="st">'D'</span>)</span>
 <span id="cb15-2"><a href="#cb15-2"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb15-3"><a href="#cb15-3"></a>ax[<span class="dv">0</span>].plot(df_asfreq)</span>

@@ -14,7 +14,7 @@ The material here is not comprehensive and `does not` constitute a stand alone c
 {{< iconify ic round-info >}} Course number 71106, 3 academic points  
 {{< iconify mdi teacher >}} Yair Mau (lecturer), Erez Feuer (TA)  
 {{< iconify ion calendar-sharp >}} Tuesdays, from 11:15 to 14:00  
-{{< iconify mdi location >}} Computer [classroom #18](https://goo.gl/maps/rzniv9NuyEs4ETH58)   
+{{< iconify mdi location >}} [Etrog classroom](https://maps.app.goo.gl/HL3mfcP4WVSPE6rz6)   
 {{< iconify mingcute question-fill >}} Office hours: Tuesdays, from 09:45 to 10:45 (you should send an email to let me know you are coming)
 
 
@@ -42,5 +42,7 @@ On successful completion of this module,students should be able to:
 
 ### grading
 
-There will be assignments during the semester (totaling 50% of the final grade), and one final project (50%). 
+* 5 points for active participation during class
+* There will be 3 exams during the semester, each worth 15 points (totaling 45% of the final grade)
+* One final project worth 50 points. 
 
