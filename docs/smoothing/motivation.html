@@ -835,7 +835,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 <p>This is the temperature for the Yatir Forest (Shani station, see <a href="https://maps.app.goo.gl/JXfHcjE2Vn8YbS91A" target="_blank">map</a>), between 2 and 5 of January 2022. Data is in intervals of 10 minutes, and was downloaded from the Israel Meteorological Service.</p>
-<div id="cell-2" class="cell" data-execution_count="16">
+<div id="cell-2" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:04.462997Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:04.462792Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:06.118961Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:06.118537Z&quot;}" data-execution_count="1">
 <details class="code-fold">
 <summary>import stuff</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -843,131 +843,92 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span>
 <span id="cb1-5"><a href="#cb1-5"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> datetime <span class="im">as</span> dt</span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> ticker</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="im">import</span> warnings</span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># Suppress FutureWarnings</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>warnings.simplefilter(action<span class="op">=</span><span class="st">'ignore'</span>, category<span class="op">=</span><span class="pp">FutureWarning</span>)</span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-12"><a href="#cb1-12"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="im">import</span> requests</span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="im">import</span> json</span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="im">import</span> os</span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> ticker</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-8"><a href="#cb1-8"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-3" class="cell" data-execution_count="17">
+<div id="cell-3" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:06.120177Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:06.120079Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:06.124950Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:06.124531Z&quot;}" data-execution_count="2">
 <details class="code-fold">
-<summary>API to download data from IMS</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># read token from file</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'../archive/IMS-token.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
-<span id="cb2-3"><a href="#cb2-3"></a>    TOKEN <span class="op">=</span> <span class="bu">file</span>.readline()</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># 28 = SHANI station</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>STATION_NUM <span class="op">=</span> <span class="dv">28</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>start <span class="op">=</span> <span class="st">"2022/01/01"</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>end <span class="op">=</span> <span class="st">"2022/01/07"</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>filename <span class="op">=</span> <span class="st">'shani_2022_january.json'</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co"># check if the JSON file already exists</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># if so, then load file</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="cf">if</span> os.path.exists(filename):</span>
-<span id="cb2-13"><a href="#cb2-13"></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'r'</span>) <span class="im">as</span> json_file:</span>
-<span id="cb2-14"><a href="#cb2-14"></a>        data <span class="op">=</span> json.load(json_file)</span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="cf">else</span>:</span>
-<span id="cb2-16"><a href="#cb2-16"></a>    <span class="co"># make the API request if the file doesn't exist</span></span>
-<span id="cb2-17"><a href="#cb2-17"></a>    url <span class="op">=</span> <span class="ss">f"https://api.ims.gov.il/v1/envista/stations/</span><span class="sc">{</span>STATION_NUM<span class="sc">}</span><span class="ss">/data/?from=</span><span class="sc">{</span>start<span class="sc">}</span><span class="ss">&amp;to=</span><span class="sc">{</span>end<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a>    headers <span class="op">=</span> {<span class="st">'Authorization'</span>: <span class="ss">f'ApiToken </span><span class="sc">{</span>TOKEN<span class="sc">}</span><span class="ss">'</span>}</span>
-<span id="cb2-19"><a href="#cb2-19"></a>    response <span class="op">=</span> requests.get(url, headers<span class="op">=</span>headers)</span>
-<span id="cb2-20"><a href="#cb2-20"></a>    data <span class="op">=</span> json.loads(response.text.encode(<span class="st">'utf8'</span>))</span>
-<span id="cb2-21"><a href="#cb2-21"></a>    </span>
-<span id="cb2-22"><a href="#cb2-22"></a>    <span class="co"># save the JSON data to a file</span></span>
-<span id="cb2-23"><a href="#cb2-23"></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'w'</span>) <span class="im">as</span> json_file:</span>
-<span id="cb2-24"><a href="#cb2-24"></a>        json.dump(data, json_file)</span>
-<span id="cb2-25"><a href="#cb2-25"></a><span class="co"># show data to see if it's alright</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="co"># data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>load data</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'shani_2022_january.csv'</span>, parse_dates<span class="op">=</span>[<span class="st">'date'</span>], index_col<span class="op">=</span><span class="st">'date'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-4" class="cell" data-execution_count="18">
-<details class="code-fold">
-<summary>load data and pre process it</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>df <span class="op">=</span> pd.json_normalize(data[<span class="st">'data'</span>],record_path<span class="op">=</span>[<span class="st">'channels'</span>], meta<span class="op">=</span>[<span class="st">'datetime'</span>])</span>
-<span id="cb3-2"><a href="#cb3-2"></a>df[<span class="st">'date'</span>] <span class="op">=</span> (pd.to_datetime(df[<span class="st">'datetime'</span>])</span>
-<span id="cb3-3"><a href="#cb3-3"></a>                .dt.tz_localize(<span class="va">None</span>)  <span class="co"># ignores time zone information</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>             )</span>
-<span id="cb3-5"><a href="#cb3-5"></a>df <span class="op">=</span> df.pivot(index<span class="op">=</span><span class="st">'date'</span>, columns<span class="op">=</span><span class="st">'name'</span>, values<span class="op">=</span><span class="st">'value'</span>)</span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co"># df</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div id="cell-5" class="cell" data-execution_count="6">
+<div id="cell-4" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:06.125935Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:06.125858Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:06.128011Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:06.127639Z&quot;}" data-execution_count="3">
 <details class="code-fold">
 <summary>useful dirty trick</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># dirty trick to have dates in the middle of the 24-hour period</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># make minor ticks in the middle, put the labels there!</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># from https://matplotlib.org/stable/gallery/ticks/centered_ticklabels.html</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="kw">def</span> centered_dates(ax):</span>
-<span id="cb4-6"><a href="#cb4-6"></a>    date_form <span class="op">=</span> DateFormatter(<span class="st">"</span><span class="sc">%d</span><span class="st"> %b"</span>)  <span class="co"># %d 3-letter-Month</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a>    <span class="co"># major ticks at midnight, every day</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>    ax.xaxis.set_major_locator(mdates.DayLocator(interval<span class="op">=</span><span class="dv">1</span>))</span>
-<span id="cb4-9"><a href="#cb4-9"></a>    ax.xaxis.set_major_formatter(date_form)</span>
-<span id="cb4-10"><a href="#cb4-10"></a>    <span class="co"># minor ticks at noon, every day</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a>    ax.xaxis.set_minor_locator(mdates.HourLocator(byhour<span class="op">=</span>[<span class="dv">12</span>]))</span>
-<span id="cb4-12"><a href="#cb4-12"></a>    <span class="co"># erase major tick labels</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a>    ax.xaxis.set_major_formatter(ticker.NullFormatter())</span>
-<span id="cb4-14"><a href="#cb4-14"></a>    <span class="co"># set minor tick labels as define above</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a>    ax.xaxis.set_minor_formatter(date_form)</span>
-<span id="cb4-16"><a href="#cb4-16"></a>    <span class="co"># completely erase minor ticks, center tick labels</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a>    <span class="cf">for</span> tick <span class="kw">in</span> ax.xaxis.get_minor_ticks():</span>
-<span id="cb4-18"><a href="#cb4-18"></a>        tick.tick1line.set_markersize(<span class="dv">0</span>)</span>
-<span id="cb4-19"><a href="#cb4-19"></a>        tick.tick2line.set_markersize(<span class="dv">0</span>)</span>
-<span id="cb4-20"><a href="#cb4-20"></a>        tick.label1.set_horizontalalignment(<span class="st">'center'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># dirty trick to have dates in the middle of the 24-hour period</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co"># make minor ticks in the middle, put the labels there!</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># from https://matplotlib.org/stable/gallery/ticks/centered_ticklabels.html</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="kw">def</span> centered_dates(ax):</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    date_form <span class="op">=</span> DateFormatter(<span class="st">"</span><span class="sc">%d</span><span class="st"> %b"</span>)  <span class="co"># %d 3-letter-Month</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="co"># major ticks at midnight, every day</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>    ax.xaxis.set_major_locator(mdates.DayLocator(interval<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb3-9"><a href="#cb3-9"></a>    ax.xaxis.set_major_formatter(date_form)</span>
+<span id="cb3-10"><a href="#cb3-10"></a>    <span class="co"># minor ticks at noon, every day</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>    ax.xaxis.set_minor_locator(mdates.HourLocator(byhour<span class="op">=</span>[<span class="dv">12</span>]))</span>
+<span id="cb3-12"><a href="#cb3-12"></a>    <span class="co"># erase major tick labels</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>    ax.xaxis.set_major_formatter(ticker.NullFormatter())</span>
+<span id="cb3-14"><a href="#cb3-14"></a>    <span class="co"># set minor tick labels as define above</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>    ax.xaxis.set_minor_formatter(date_form)</span>
+<span id="cb3-16"><a href="#cb3-16"></a>    <span class="co"># completely erase minor ticks, center tick labels</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>    <span class="cf">for</span> tick <span class="kw">in</span> ax.xaxis.get_minor_ticks():</span>
+<span id="cb3-18"><a href="#cb3-18"></a>        tick.tick1line.set_markersize(<span class="dv">0</span>)</span>
+<span id="cb3-19"><a href="#cb3-19"></a>        tick.tick2line.set_markersize(<span class="dv">0</span>)</span>
+<span id="cb3-20"><a href="#cb3-20"></a>        tick.label1.set_horizontalalignment(<span class="st">'center'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-6" class="cell" data-execution_count="14">
+<div id="cell-5" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:06.128949Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:06.128884Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:06.302429Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:06.302064Z&quot;}" data-execution_count="4">
 <details class="code-fold">
 <summary>plot</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
-<span id="cb5-2"><a href="#cb5-2"></a>start <span class="op">=</span> <span class="st">"2022-01-02"</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>end <span class="op">=</span> <span class="st">"2022-01-05"</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a>df <span class="op">=</span> df.loc[start:end]</span>
-<span id="cb5-5"><a href="#cb5-5"></a>ax.plot(df[<span class="st">'TD'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb5-6"><a href="#cb5-6"></a>ax.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="dv">5</span>, <span class="fl">17.5</span>],</span>
-<span id="cb5-7"><a href="#cb5-7"></a>       xlim<span class="op">=</span>[df.index[<span class="dv">0</span>], df.index[<span class="op">-</span><span class="dv">1</span>]],</span>
-<span id="cb5-8"><a href="#cb5-8"></a>       ylabel<span class="op">=</span><span class="st">"Temperature (°C)"</span>,</span>
-<span id="cb5-9"><a href="#cb5-9"></a>       title<span class="op">=</span><span class="st">"Yatir Forest, 2022"</span>,</span>
-<span id="cb5-10"><a href="#cb5-10"></a>       yticks<span class="op">=</span>[<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">15</span>])</span>
-<span id="cb5-11"><a href="#cb5-11"></a>centered_dates(ax)</span>
-<span id="cb5-12"><a href="#cb5-12"></a>fig.savefig(<span class="st">"YF-temperature_2022_jan.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb4-2"><a href="#cb4-2"></a>start <span class="op">=</span> <span class="st">"2022-01-02"</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>end <span class="op">=</span> <span class="st">"2022-01-05"</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>df <span class="op">=</span> df.loc[start:end]</span>
+<span id="cb4-5"><a href="#cb4-5"></a>ax.plot(df[<span class="st">'TD'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>ax.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="dv">5</span>, <span class="fl">17.5</span>],</span>
+<span id="cb4-7"><a href="#cb4-7"></a>       xlim<span class="op">=</span>[df.index[<span class="dv">0</span>], df.index[<span class="op">-</span><span class="dv">1</span>]],</span>
+<span id="cb4-8"><a href="#cb4-8"></a>       ylabel<span class="op">=</span><span class="st">"Temperature (°C)"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9"></a>       title<span class="op">=</span><span class="st">"Yatir Forest, 2022"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10"></a>       yticks<span class="op">=</span>[<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">15</span>])</span>
+<span id="cb4-11"><a href="#cb4-11"></a>centered_dates(ax)</span>
+<span id="cb4-12"><a href="#cb4-12"></a>fig.savefig(<span class="st">"YF-temperature_2022_jan.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="motivation_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="motivation_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>We see that the temperature curve has a rough profile. Can we find ways of getting smoother curves?</p>
 <p>We learned how to average over a window with <code>resample</code>. Let’s try that for a 2-hour window:</p>
-<div id="cell-8" class="cell" data-execution_count="15">
+<div id="cell-7" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:06.303563Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:06.303479Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:06.355521Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:06.355051Z&quot;}" data-execution_count="5">
 <details class="code-fold">
 <summary>plot with 2-hour resampled average</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
-<span id="cb6-2"><a href="#cb6-2"></a>ax.plot(df[<span class="st">'TD'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb6-3"><a href="#cb6-3"></a>ax.plot(df[<span class="st">'TD'</span>].resample(<span class="st">'2H'</span>).mean(),</span>
-<span id="cb6-4"><a href="#cb6-4"></a>        color<span class="op">=</span><span class="st">'xkcd:hot pink'</span>, ls<span class="op">=</span><span class="st">'-'</span>,</span>
-<span id="cb6-5"><a href="#cb6-5"></a>        marker<span class="op">=</span><span class="st">"o"</span>, mfc<span class="op">=</span><span class="st">"None"</span>)</span>
-<span id="cb6-6"><a href="#cb6-6"></a>ax.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="dv">5</span>, <span class="fl">17.5</span>],</span>
-<span id="cb6-7"><a href="#cb6-7"></a>       xlim<span class="op">=</span>[df.index[<span class="dv">0</span>], df.index[<span class="op">-</span><span class="dv">1</span>]],</span>
-<span id="cb6-8"><a href="#cb6-8"></a>       ylabel<span class="op">=</span><span class="st">"Temperature (°C)"</span>,</span>
-<span id="cb6-9"><a href="#cb6-9"></a>       title<span class="op">=</span><span class="st">"Yatir Forest, 2022"</span>,</span>
-<span id="cb6-10"><a href="#cb6-10"></a>       yticks<span class="op">=</span>[<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">15</span>])</span>
-<span id="cb6-11"><a href="#cb6-11"></a>centered_dates(ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>df_2h <span class="op">=</span> df[<span class="st">'TD'</span>].resample(<span class="st">'2h'</span>).mean()</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co"># resample labels each window with its beginning, we move the points to the middle of the window</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>df_2h.index <span class="op">=</span> df_2h.index <span class="op">+</span> pd.Timedelta(hours<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb5-6"><a href="#cb5-6"></a>ax.plot(df[<span class="st">'TD'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb5-7"><a href="#cb5-7"></a>ax.plot(df_2h,</span>
+<span id="cb5-8"><a href="#cb5-8"></a>        color<span class="op">=</span><span class="st">'xkcd:hot pink'</span>, ls<span class="op">=</span><span class="st">'-'</span>,</span>
+<span id="cb5-9"><a href="#cb5-9"></a>        marker<span class="op">=</span><span class="st">"o"</span>, mfc<span class="op">=</span><span class="st">"None"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10"></a>ax.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="dv">5</span>, <span class="fl">17.5</span>],</span>
+<span id="cb5-11"><a href="#cb5-11"></a>       xlim<span class="op">=</span>[df.index[<span class="dv">0</span>], df.index[<span class="op">-</span><span class="dv">1</span>]],</span>
+<span id="cb5-12"><a href="#cb5-12"></a>       ylabel<span class="op">=</span><span class="st">"Temperature (°C)"</span>,</span>
+<span id="cb5-13"><a href="#cb5-13"></a>       title<span class="op">=</span><span class="st">"Yatir Forest, 2022"</span>,</span>
+<span id="cb5-14"><a href="#cb5-14"></a>       yticks<span class="op">=</span>[<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">15</span>])</span>
+<span id="cb5-15"><a href="#cb5-15"></a>centered_dates(ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="motivation_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="motivation_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>

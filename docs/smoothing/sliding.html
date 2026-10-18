@@ -757,6 +757,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">homework: resampling answers</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../homework/smoothing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">homework: smoothing</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -771,25 +777,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
+ <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
+ <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">sources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">sources</span></span></a>
   </div>
 </li>
       </ul>
@@ -806,31 +812,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/consecutive_sequence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/outliers_graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -887,7 +893,7 @@ window.Quarto = {
 
 
 <p>This is the temperature for the Yatir Forest, between 2 and 5 of January 2022. Data (<a href="shani_2022_january.csv" download="">download .csv here</a>) is in intervals of 10 minutes, and was downloaded from the Israel Meteorological Service.</p>
-<div id="cell-2" class="cell" data-execution_count="11">
+<div id="cell-2" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:07.345249Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:07.345151Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:08.886127Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:08.885683Z&quot;}" data-execution_count="1">
 <details class="code-fold">
 <summary>import stuff</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -898,16 +904,13 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> datetime <span class="im">as</span> dt</span>
 <span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> ticker</span>
 <span id="cb1-8"><a href="#cb1-8"></a><span class="im">import</span> os</span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="im">import</span> warnings</span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="im">import</span> scipy</span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># Suppress FutureWarnings</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a>warnings.simplefilter(action<span class="op">=</span><span class="st">'ignore'</span>, category<span class="op">=</span><span class="pp">FutureWarning</span>)</span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-14"><a href="#cb1-14"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="im">import</span> scipy</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-11"><a href="#cb1-11"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-3" class="cell" data-execution_count="2">
+<div id="cell-3" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:08.887612Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:08.887451Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:08.890020Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:08.889620Z&quot;}" data-execution_count="2">
 <details class="code-fold">
 <summary>define useful functions</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># dirty trick to have dates in the middle of the 24-hour period</span></span>
@@ -932,13 +935,13 @@ window.Quarto = {
 <span id="cb2-20"><a href="#cb2-20"></a>        tick.label1.set_horizontalalignment(<span class="st">'center'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-4" class="cell" data-execution_count="3">
+<div id="cell-4" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:08.891162Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:08.891078Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:08.895906Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:08.895556Z&quot;}" data-execution_count="3">
 <details class="code-fold">
 <summary>load data</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'shani_2022_january.csv'</span>, parse_dates<span class="op">=</span>[<span class="st">'date'</span>], index_col<span class="op">=</span><span class="st">'date'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-5" class="cell" data-execution_count="4">
+<div id="cell-5" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:08.897117Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:08.897030Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:08.967661Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:08.967299Z&quot;}" data-execution_count="4">
 <details class="code-fold">
 <summary>plot temperature data</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
@@ -1010,19 +1013,20 @@ window.Quarto = {
 <section id="numerics" class="level2" data-number="12.4">
 <h2 data-number="12.4" class="anchored" data-anchor-id="numerics"><span class="header-section-number">12.4</span> numerics</h2>
 <p>Running averages are very common tools in time-series analysis. The <code>pandas</code> package makes life quite simple. For example, in order to calculate the running average of temperature using a rectangular kernel, one writes:</p>
-<div id="cell-10" class="cell" data-execution_count="5">
+<div id="cell-10" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:08.968788Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:08.968716Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:09.015802Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:09.015414Z&quot;}" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>df[<span class="st">'temp_smoothed'</span>] <span class="op">=</span> (</span>
 <span id="cb5-2"><a href="#cb5-2"></a>                       df[<span class="st">'TD'</span>].rolling(window<span class="op">=</span><span class="st">'500min'</span>,</span>
 <span id="cb5-3"><a href="#cb5-3"></a>                                        min_periods<span class="op">=</span><span class="dv">50</span>   <span class="co"># comment this to see what happens</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a>                                        )</span>
-<span id="cb5-5"><a href="#cb5-5"></a>                               .mean()</span>
-<span id="cb5-6"><a href="#cb5-6"></a>                      )</span>
-<span id="cb5-7"><a href="#cb5-7"></a></span>
-<span id="cb5-8"><a href="#cb5-8"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
-<span id="cb5-9"><a href="#cb5-9"></a>ax.plot(df[<span class="st">'TD'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb5-10"><a href="#cb5-10"></a>ax.plot(df[<span class="st">'temp_smoothed'</span>], color<span class="op">=</span><span class="st">'xkcd:hot pink'</span>)</span>
-<span id="cb5-11"><a href="#cb5-11"></a>ax.<span class="bu">set</span>(<span class="op">**</span>plot_settings)</span>
-<span id="cb5-12"><a href="#cb5-12"></a>centered_dates(ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4"></a>                                        <span class="co"># (this window has 50 points, the animations use 51 so the window is centered on a point)</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>                                        )</span>
+<span id="cb5-6"><a href="#cb5-6"></a>                               .mean()</span>
+<span id="cb5-7"><a href="#cb5-7"></a>                      )</span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb5-10"><a href="#cb5-10"></a>ax.plot(df[<span class="st">'TD'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb5-11"><a href="#cb5-11"></a>ax.plot(df[<span class="st">'temp_smoothed'</span>], color<span class="op">=</span><span class="st">'xkcd:hot pink'</span>)</span>
+<span id="cb5-12"><a href="#cb5-12"></a>ax.<span class="bu">set</span>(<span class="op">**</span>plot_settings)</span>
+<span id="cb5-13"><a href="#cb5-13"></a>centered_dates(ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1035,7 +1039,7 @@ window.Quarto = {
 <section id="day-average-of-covid-19-infections" class="level3" data-number="12.4.1">
 <h3 data-number="12.4.1" class="anchored" data-anchor-id="day-average-of-covid-19-infections"><span class="header-section-number">12.4.1</span> 7-day average of COVID-19 infections</h3>
 <p>During the COVID-19 pandemic, we would see graphs like this all the time in the news:</p>
-<div id="cell-12" class="cell" data-execution_count="6">
+<div id="cell-12" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:09.017144Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:09.017044Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:09.028048Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:09.027507Z&quot;}" data-execution_count="6">
 <details class="code-fold">
 <summary>import COVID-19 data for Israel, process it</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># data from https://health.google.com/covid-19/open-data/raw-data?loc=IL</span></span>
@@ -1056,7 +1060,7 @@ window.Quarto = {
 <span id="cb6-16"><a href="#cb6-16"></a>df_covid[<span class="st">'7d_avg'</span>] <span class="op">=</span> df_covid[<span class="st">'new_confirmed'</span>].rolling(window<span class="op">=</span><span class="st">'7D'</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-13" class="cell" data-execution_count="7">
+<div id="cell-13" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:09.029295Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:09.029211Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:09.154563Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:09.154070Z&quot;}" data-execution_count="7">
 <details class="code-fold">
 <summary>plot</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
@@ -1089,7 +1093,7 @@ window.Quarto = {
 <p>Take a look at the moving average next to the question mark. How can it be that high, when all the bars around that date are lower? Is the calculation right?</p>
 <p>The answer is that the result of the moving average is assigned to the right-most date in the running window. This is reasonable for COVID-19 cases: for a given day, I can only calculate a 7-day average based on <strong>past</strong> values, I don’t know what the future will be.</p>
 <p>There is a simple way of assigning the result to the center of the window:</p>
-<div id="cell-15" class="cell" data-execution_count="8">
+<div id="cell-15" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:09.157049Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:09.156724Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:09.159733Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:09.159346Z&quot;}" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>df_covid[<span class="st">'7d_avg_center'</span>] <span class="op">=</span> (</span>
 <span id="cb8-2"><a href="#cb8-2"></a>                             df_covid[<span class="st">'new_confirmed'</span>]</span>
 <span id="cb8-3"><a href="#cb8-3"></a>                                 .rolling(window<span class="op">=</span><span class="st">'7D'</span>,</span>
@@ -1097,7 +1101,7 @@ window.Quarto = {
 <span id="cb8-5"><a href="#cb8-5"></a>                                 .mean()</span>
 <span id="cb8-6"><a href="#cb8-6"></a>                            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="9">
+<div id="cell-16" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:09.161157Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:09.161009Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:09.285632Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:09.285199Z&quot;}" data-execution_count="9">
 <details class="code-fold">
 <summary>plot</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
@@ -1128,7 +1132,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>As a rule, we will used a <strong>centered</strong> moving average (<code>center=True</code>), unless stated otherwise. Also, only use <code>min_periods</code> if you know what you are doing.</p>
+<p>As a rule, we will use a <strong>centered</strong> moving average (<code>center=True</code>), unless stated otherwise. Also, only use <code>min_periods</code> if you know what you are doing.</p>
 </section>
 <section id="gaussian" class="level3" data-number="12.4.2">
 <h3 data-number="12.4.2" class="anchored" data-anchor-id="gaussian"><span class="header-section-number">12.4.2</span> gaussian</h3>
@@ -1145,11 +1149,11 @@ window.Quarto = {
 <li><code>std_gaussian</code> is the standard deviation of your gaussian, <strong>measured in sample points, not time!</strong></li>
 </ul>
 <p>For instance, if we have measurements every 10 minutes, and our window width is 500 minutes, then <code>window_width = 500/10 + 1</code> (first and last included). If we want a standard deviation of 60 minutes, then <code>std_gaussian = 6</code>. The gaussian kernel will look like this:</p>
-<div id="cell-20" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>window_width <span class="op">=</span> <span class="dv">50</span>  <span class="co"># in points = 500 min</span></span>
+<div id="cell-19" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:09.287416Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:09.287309Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:09.396005Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:09.395608Z&quot;}" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>window_width <span class="op">=</span> <span class="dv">51</span>  <span class="co"># in points = 500 min (first and last included)</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a>std <span class="op">=</span> <span class="dv">6</span>  <span class="co"># in points = 60 min</span></span>
 <span id="cb11-3"><a href="#cb11-3"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
-<span id="cb11-4"><a href="#cb11-4"></a>g <span class="op">=</span> scipy.signal.gaussian(window_width, std)</span>
+<span id="cb11-4"><a href="#cb11-4"></a>g <span class="op">=</span> scipy.signal.windows.gaussian(window_width, std)</span>
 <span id="cb11-5"><a href="#cb11-5"></a>ax.plot(g)</span>
 <span id="cb11-6"><a href="#cb11-6"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"window width (points)"</span>,</span>
 <span id="cb11-7"><a href="#cb11-7"></a>       ylabel<span class="op">=</span><span class="st">"kernel weights"</span>,</span>

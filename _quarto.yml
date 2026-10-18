@@ -99,6 +99,7 @@ book:
       chapters:
         - homework/resampling.qmd
         - homework/resampling-answers.ipynb
+        - homework/smoothing.qmd
     # - part: "assignments"
     #   chapters:
     #     - assignments/evaluation.qmd

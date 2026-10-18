@@ -846,8 +846,14 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#its-a-kernel-too" id="toc-its-a-kernel-too" class="nav-link active" data-scroll-target="#its-a-kernel-too"><span class="header-section-number">16.1</span> it’s a kernel too</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -871,7 +877,7 @@ window.Quarto = {
 </header>
 
 
-<p>The Savitzky-Golay filter, also known as <a href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a>, smoothes a noisy signal by performing a polynomial fit over a sliding window.</p>
+<p>The Savitzky-Golay filter smoothes a noisy signal by performing a polynomial fit over a sliding window. It is a close relative of <a href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a>, which also fits local polynomials, but gives more weight to the points near the center of the window.</p>
 Polynomial fit of order 3, window size = 51 pts
 <div style="display: flex; justify-content: center;">
 <iframe width="650" height="366" src="https://www.youtube.com/embed/6mEzPkOcITk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
@@ -882,8 +888,8 @@ Polynomial fit of order 2, window size = 51 pts
 <iframe width="650" height="366" src="https://www.youtube.com/embed/QpSXv8AyLzY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
 </iframe>
 </div>
-<p>The simulations look different because the order of the polynomial makes a very different impression on us, but in reality the outcome of the two filtering is almost identical:</p>
-<div id="cell-3" class="cell" data-execution_count="1">
+<p>The simulations look different because the order of the polynomial makes a very different impression on us, but in reality the outcome of the two filterings is exactly the same, except near the edges of the data:</p>
+<div id="cell-3" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:17.886010Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:17.885922Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:19.446406Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:19.445902Z&quot;}" data-execution_count="1">
 <details class="code-fold">
 <summary>import stuff</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -895,16 +901,13 @@ Polynomial fit of order 2, window size = 51 pts
 <span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> ticker</span>
 <span id="cb1-8"><a href="#cb1-8"></a><span class="im">from</span> scipy.signal <span class="im">import</span> savgol_filter</span>
 <span id="cb1-9"><a href="#cb1-9"></a><span class="im">import</span> os</span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="im">import</span> warnings</span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="im">import</span> scipy</span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># Suppress FutureWarnings</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a>warnings.simplefilter(action<span class="op">=</span><span class="st">'ignore'</span>, category<span class="op">=</span><span class="pp">FutureWarning</span>)</span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-15"><a href="#cb1-15"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="im">import</span> scipy</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-12"><a href="#cb1-12"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-4" class="cell" data-execution_count="2">
+<div id="cell-4" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:19.447916Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:19.447785Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:19.450123Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:19.449805Z&quot;}" data-execution_count="2">
 <details class="code-fold">
 <summary>define useful functions</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># dirty trick to have dates in the middle of the 24-hour period</span></span>
@@ -929,7 +932,7 @@ Polynomial fit of order 2, window size = 51 pts
 <span id="cb2-20"><a href="#cb2-20"></a>        tick.label1.set_horizontalalignment(<span class="st">'center'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-5" class="cell" data-execution_count="3">
+<div id="cell-5" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:19.451168Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:19.451097Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:19.457784Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:19.457302Z&quot;}" data-execution_count="3">
 <details class="code-fold">
 <summary>load data</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'shani_2022_january.csv'</span>, parse_dates<span class="op">=</span>[<span class="st">'date'</span>], index_col<span class="op">=</span><span class="st">'date'</span>)</span>
@@ -938,11 +941,11 @@ Polynomial fit of order 2, window size = 51 pts
 <span id="cb3-4"><a href="#cb3-4"></a>df <span class="op">=</span> df.loc[start:end]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-6" class="cell" data-execution_count="4">
+<div id="cell-6" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:19.458944Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:19.458862Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:19.461695Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:19.461299Z&quot;}" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>df[<span class="st">'sg_3_51'</span>] <span class="op">=</span> savgol_filter(df[<span class="st">'TD'</span>], window_length<span class="op">=</span><span class="dv">51</span>, polyorder<span class="op">=</span><span class="dv">3</span>)</span>
 <span id="cb4-2"><a href="#cb4-2"></a>df[<span class="st">'sg_2_51'</span>] <span class="op">=</span> savgol_filter(df[<span class="st">'TD'</span>], window_length<span class="op">=</span><span class="dv">51</span>, polyorder<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="5">
+<div id="cell-7" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:19.462930Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:19.462815Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:19.551078Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:19.550769Z&quot;}" data-execution_count="5">
 <details class="code-fold">
 <summary>plot temperature data</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
@@ -974,11 +977,12 @@ Polynomial fit of order 2, window size = 51 pts
 </div>
 </div>
 </div>
+<p>In the middle of the data the pink curve is hidden under the mustard one: the two filters are identical there. This is a general property of the filter: orders 2 and 3 give the same smoothing, and so do orders 4 and 5, and so on. They only differ in the first and last 25 points, where the window does not fit inside the data.</p>
 <p>To really see the difference between window width and polynomial order, we need to play with their ratio,</p>
 <p><span class="math display">
 \text{ratio} = \frac{w}{p} = \frac{\text{window width}}{\text{polynomial order}}
 </span></p>
-<div id="cell-9" class="cell" data-execution_count="6">
+<div id="cell-10" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:19.552194Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:19.552109Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:19.554205Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:19.553870Z&quot;}" data-execution_count="6">
 <details class="code-fold">
 <summary>chose only one day</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>start <span class="op">=</span> <span class="st">"2022-01-02 00:00:00"</span></span>
@@ -986,13 +990,13 @@ Polynomial fit of order 2, window size = 51 pts
 <span id="cb6-3"><a href="#cb6-3"></a>df <span class="op">=</span> df.loc[start:end]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-10" class="cell" data-execution_count="7">
+<div id="cell-11" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:19.555410Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:19.555309Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:19.557982Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:19.557618Z&quot;}" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># window_length, polyorder</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>df[<span class="st">'sg_1'</span>] <span class="op">=</span> savgol_filter(df[<span class="st">'TD'</span>], <span class="dv">5</span>, <span class="dv">3</span>)</span>
 <span id="cb7-3"><a href="#cb7-3"></a>df[<span class="st">'sg_2'</span>] <span class="op">=</span> savgol_filter(df[<span class="st">'TD'</span>], <span class="dv">11</span>, <span class="dv">2</span>)</span>
 <span id="cb7-4"><a href="#cb7-4"></a>df[<span class="st">'sg_3'</span>] <span class="op">=</span> savgol_filter(df[<span class="st">'TD'</span>], <span class="dv">25</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="8">
+<div id="cell-12" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:19.559520Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:19.559339Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:19.663693Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:19.663347Z&quot;}" data-execution_count="8">
 <details class="code-fold">
 <summary>compare different ratio choices</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
@@ -1003,7 +1007,7 @@ Polynomial fit of order 2, window size = 51 pts
 <span id="cb8-6"><a href="#cb8-6"></a>plot_sg3, <span class="op">=</span> ax.plot(df[<span class="st">'sg_3'</span>], color<span class="op">=</span><span class="st">'xkcd:royal blue'</span>)</span>
 <span id="cb8-7"><a href="#cb8-7"></a></span>
 <span id="cb8-8"><a href="#cb8-8"></a>ax.legend(handles<span class="op">=</span>[plot_data, plot_sg1, plot_sg2, plot_sg3],</span>
-<span id="cb8-9"><a href="#cb8-9"></a>          labels<span class="op">=</span>[<span class="st">'data'</span>, <span class="vs">r'$w/p=1.5$'</span>, <span class="vs">r'$w/p=5.5$'</span>, <span class="vs">r'$w/p=8.3$'</span>],</span>
+<span id="cb8-9"><a href="#cb8-9"></a>          labels<span class="op">=</span>[<span class="st">'data'</span>, <span class="vs">r'$w/p=1.7$'</span>, <span class="vs">r'$w/p=5.5$'</span>, <span class="vs">r'$w/p=8.3$'</span>],</span>
 <span id="cb8-10"><a href="#cb8-10"></a>          frameon<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb8-11"><a href="#cb8-11"></a></span>
 <span id="cb8-12"><a href="#cb8-12"></a>plot_settings <span class="op">=</span> {</span>
@@ -1031,9 +1035,41 @@ Polynomial fit of order 2, window size = 51 pts
 </div>
 </div>
 <p>The higher the ratio, the more aggressive the smoothing.</p>
+<section id="its-a-kernel-too" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="its-a-kernel-too"><span class="header-section-number">16.1</span> it’s a kernel too</h2>
+<p>The Savitzky-Golay filter is also a sliding weighted average, just like the ones we saw in the previous pages: for each window, the result is the sum of the data points multiplied by weights, that is, by a kernel. Let’s compare the kernel of the Savitzky-Golay filter (51 points, order 3) with a gaussian kernel of the same width:</p>
+<div id="cell-15" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:19.664921Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:19.664837Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:19.722079Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:19.721721Z&quot;}" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">from</span> scipy.signal <span class="im">import</span> savgol_coeffs</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="im">from</span> scipy.signal.windows <span class="im">import</span> gaussian</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a>window_width <span class="op">=</span> <span class="dv">51</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>points <span class="op">=</span> np.arange(window_width) <span class="op">-</span> window_width <span class="op">//</span> <span class="dv">2</span>   <span class="co"># -25, ..., 25</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a></span>
+<span id="cb9-7"><a href="#cb9-7"></a>kernel_sg <span class="op">=</span> savgol_coeffs(window_width, <span class="dv">3</span>)        <span class="co"># the weights of the Savitzky-Golay filter</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>kernel_gauss <span class="op">=</span> gaussian(window_width, <span class="dv">6</span>)</span>
+<span id="cb9-9"><a href="#cb9-9"></a>kernel_gauss <span class="op">=</span> kernel_gauss <span class="op">/</span> kernel_gauss.<span class="bu">sum</span>()  <span class="co"># weights that add up to 1, like the Savitzky-Golay ones</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a></span>
+<span id="cb9-11"><a href="#cb9-11"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb9-12"><a href="#cb9-12"></a>ax.plot(points, kernel_gauss, color<span class="op">=</span><span class="st">'xkcd:royal blue'</span>, label<span class="op">=</span><span class="st">'gaussian'</span>)</span>
+<span id="cb9-13"><a href="#cb9-13"></a>ax.plot(points, kernel_sg, color<span class="op">=</span><span class="st">'xkcd:mustard'</span>, label<span class="op">=</span><span class="st">'Savitzky-Golay, order 3'</span>)</span>
+<span id="cb9-14"><a href="#cb9-14"></a>ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'gray'</span>, lw<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb9-15"><a href="#cb9-15"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"points from the center of the window"</span>,</span>
+<span id="cb9-16"><a href="#cb9-16"></a>       ylabel<span class="op">=</span><span class="st">"kernel weights"</span>,</span>
+<span id="cb9-17"><a href="#cb9-17"></a>       title<span class="op">=</span><span class="st">"two kernels"</span>)</span>
+<span id="cb9-18"><a href="#cb9-18"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="savgol_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Look at the tails of the Savitzky-Golay kernel: some of the weights are <strong>negative</strong>! This is how the filter manages to follow peaks and valleys much better than an ordinary running average, which flattens them.</p>
 <p>There is <strong>a lot</strong> more about the Savitzky-Golay filter, but for our purposes this is enough. If you want some more discussion about how to choose the parameters of the filter, <a href="https://nirpyresearch.com/savitzky-golay-smoothing-method/" target="_blank">read this</a>.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

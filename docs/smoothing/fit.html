@@ -888,32 +888,29 @@ window.Quarto = {
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwiQ8bHa0suDAxVMXvEDHVsXCMIQFnoECA0QAQ&amp;url=https%3A%2F%2Fwww.ynet.co.il%2Fenvironment-science%2Farticle%2Fbkhlgjk49&amp;usg=AOvVaw25yr2RjpAaEYNQ7DXK03AW&amp;opi=89978449" target="_blank">Erez Feuer’s greenhouse</a></p>
-</div></div><div id="cell-2" class="cell" data-execution_count="5">
+</div></div><div id="cell-2" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:14.905555Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:14.905470Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.412239Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.411775Z&quot;}" data-execution_count="1">
 <details class="code-fold">
 <summary>import stuff</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> altair <span class="im">as</span> alt</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> ticker</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> curve_fit</span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-10"><a href="#cb1-10"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># avoid "SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame."</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a>pd.options.mode.chained_assignment <span class="op">=</span> <span class="va">None</span>  <span class="co"># default='warn'</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> ticker</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> curve_fit</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-9"><a href="#cb1-9"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-3" class="cell" data-execution_count="14">
+<div id="cell-3" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.413499Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.413388Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.419185Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.418689Z&quot;}" data-execution_count="2">
 <details class="code-fold">
 <summary>load data from csv</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'greenhouse_cooling.csv'</span>, index_col<span class="op">=</span><span class="st">'time'</span>, parse_dates<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="co"># df</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-4" class="cell" data-execution_count="4">
+<div id="cell-4" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.420898Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.420787Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.520362Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.520031Z&quot;}" data-execution_count="3">
 <details class="code-fold">
 <summary>plot temperatures</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
@@ -940,31 +937,32 @@ window.Quarto = {
 </div>
 </div>
 <p>Every evening, at 20:00, the air conditioning turns on, and we see a fast decrease in temperature:</p>
-<div id="cell-6" class="cell" data-execution_count="35">
+<div id="cell-6" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.521568Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.521475Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.615091Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.614732Z&quot;}" data-execution_count="4">
 <details class="code-fold">
 <summary>chose one evening, plot it</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>df_fit <span class="op">=</span> df[<span class="st">'2023-06-29 20:10:00'</span>:<span class="st">'2023-06-29 22:00:00'</span>]</span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
-<span id="cb4-4"><a href="#cb4-4"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.4</span>)  <span class="co"># Adjust the vertical space between subplots</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a></span>
-<span id="cb4-6"><a href="#cb4-6"></a>ax[<span class="dv">0</span>].plot(df.loc[<span class="st">'2023-06-29 16:10:00'</span>:<span class="st">'2023-06-30 16:00:00'</span>, <span class="st">'T_in'</span>], color<span class="op">=</span><span class="st">'tab:green'</span>)</span>
-<span id="cb4-7"><a href="#cb4-7"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
-<span id="cb4-8"><a href="#cb4-8"></a>       title<span class="op">=</span><span class="st">"temperature inside the greenhouse"</span>)</span>
-<span id="cb4-9"><a href="#cb4-9"></a></span>
-<span id="cb4-10"><a href="#cb4-10"></a>ax[<span class="dv">1</span>].scatter(df_fit[<span class="st">'T_in'</span>].index, df_fit[<span class="st">'T_in'</span>], color<span class="op">=</span><span class="st">'tab:green'</span>)</span>
-<span id="cb4-11"><a href="#cb4-11"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,)</span>
-<span id="cb4-12"><a href="#cb4-12"></a></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co"># formating dates on x axis</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">7</span>, maxticks<span class="op">=</span><span class="dv">11</span>)</span>
-<span id="cb4-15"><a href="#cb4-15"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
-<span id="cb4-16"><a href="#cb4-16"></a>ax[<span class="dv">0</span>].xaxis.set_major_locator(locator)</span>
-<span id="cb4-17"><a href="#cb4-17"></a>ax[<span class="dv">0</span>].xaxis.set_major_formatter(formatter)</span>
-<span id="cb4-18"><a href="#cb4-18"></a></span>
-<span id="cb4-19"><a href="#cb4-19"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">7</span>, maxticks<span class="op">=</span><span class="dv">11</span>)</span>
-<span id="cb4-20"><a href="#cb4-20"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
-<span id="cb4-21"><a href="#cb4-21"></a>ax[<span class="dv">1</span>].xaxis.set_major_locator(locator)</span>
-<span id="cb4-22"><a href="#cb4-22"></a>ax[<span class="dv">1</span>].xaxis.set_major_formatter(formatter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># .copy() because we are going to add a column to df_fit</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>df_fit <span class="op">=</span> df[<span class="st">'2023-06-29 20:10:00'</span>:<span class="st">'2023-06-29 22:00:00'</span>].copy()</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb4-5"><a href="#cb4-5"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.4</span>)  <span class="co"># Adjust the vertical space between subplots</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a>ax[<span class="dv">0</span>].plot(df.loc[<span class="st">'2023-06-29 16:10:00'</span>:<span class="st">'2023-06-30 16:00:00'</span>, <span class="st">'T_in'</span>], color<span class="op">=</span><span class="st">'tab:green'</span>)</span>
+<span id="cb4-8"><a href="#cb4-8"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
+<span id="cb4-9"><a href="#cb4-9"></a>       title<span class="op">=</span><span class="st">"temperature inside the greenhouse"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a>ax[<span class="dv">1</span>].scatter(df_fit[<span class="st">'T_in'</span>].index, df_fit[<span class="st">'T_in'</span>], color<span class="op">=</span><span class="st">'tab:green'</span>)</span>
+<span id="cb4-12"><a href="#cb4-12"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,)</span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co"># formating dates on x axis</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">7</span>, maxticks<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb4-16"><a href="#cb4-16"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
+<span id="cb4-17"><a href="#cb4-17"></a>ax[<span class="dv">0</span>].xaxis.set_major_locator(locator)</span>
+<span id="cb4-18"><a href="#cb4-18"></a>ax[<span class="dv">0</span>].xaxis.set_major_formatter(formatter)</span>
+<span id="cb4-19"><a href="#cb4-19"></a></span>
+<span id="cb4-20"><a href="#cb4-20"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">7</span>, maxticks<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb4-21"><a href="#cb4-21"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
+<span id="cb4-22"><a href="#cb4-22"></a>ax[<span class="dv">1</span>].xaxis.set_major_locator(locator)</span>
+<span id="cb4-23"><a href="#cb4-23"></a>ax[<span class="dv">1</span>].xaxis.set_major_formatter(formatter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -998,7 +996,7 @@ T(t) = T_{\text{env}} + \left(T_0 - T_{\text{env}} \right)e^{-rt}.
 <section id="linear-fit" class="level2 page-columns page-full" data-number="15.1">
 <h2 data-number="15.1" class="anchored" data-anchor-id="linear-fit"><span class="header-section-number">15.1</span> linear fit</h2>
 <p>The following is a <strong>very short</strong> introduction to curve fitting. The natural place to start is with a linear fit.</p>
-<div id="cell-8" class="cell" data-execution_count="5">
+<div id="cell-8" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.616188Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.616111Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.618592Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.618231Z&quot;}" data-execution_count="5">
 <details class="code-fold">
 <summary>linear fit</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># the "fit" process can't deal with datetimes</span></span>
@@ -1011,7 +1009,7 @@ T(t) = T_{\text{env}} + \left(T_0 - T_{\text{env}} \right)e^{-rt}.
 <span id="cb5-8"><a href="#cb5-8"></a>linear_function <span class="op">=</span> np.poly1d(coeffs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-9" class="cell" data-execution_count="6">
+<div id="cell-9" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.619642Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.619570Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.680099Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.679703Z&quot;}" data-execution_count="6">
 <details class="code-fold">
 <summary>see result of linear fit</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
@@ -1055,7 +1053,7 @@ S = \sum_i e_i^2
 </section>
 <section id="polynomial-fit" class="level2" data-number="15.2">
 <h2 data-number="15.2" class="anchored" data-anchor-id="polynomial-fit"><span class="header-section-number">15.2</span> polynomial fit</h2>
-<div id="cell-11" class="cell" data-execution_count="7">
+<div id="cell-11" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.681208Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.681134Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.683244Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.682936Z&quot;}" data-execution_count="7">
 <details class="code-fold">
 <summary>polynomial fit</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># polynomial fit (degree 2)</span></span>
@@ -1063,13 +1061,13 @@ S = \sum_i e_i^2
 <span id="cb8-3"><a href="#cb8-3"></a>coeffs2 <span class="op">=</span> np.polyfit(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>], degree)</span>
 <span id="cb8-4"><a href="#cb8-4"></a>quad_function <span class="op">=</span> np.poly1d(coeffs2)</span>
 <span id="cb8-5"><a href="#cb8-5"></a></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="co"># polynomial fit (degree 2)</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co"># polynomial fit (degree 3)</span></span>
 <span id="cb8-7"><a href="#cb8-7"></a>degree <span class="op">=</span> <span class="dv">3</span></span>
 <span id="cb8-8"><a href="#cb8-8"></a>coeffs3 <span class="op">=</span> np.polyfit(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>], degree)</span>
 <span id="cb8-9"><a href="#cb8-9"></a>cubic_function <span class="op">=</span> np.poly1d(coeffs3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-12" class="cell" data-execution_count="17">
+<div id="cell-12" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.684251Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.684175Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.747224Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.746870Z&quot;}" data-execution_count="8">
 <details class="code-fold">
 <summary>see result of polynomial fit</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
@@ -1098,7 +1096,7 @@ S = \sum_i e_i^2
 <section id="any-function-you-want" class="level2" data-number="15.3">
 <h2 data-number="15.3" class="anchored" data-anchor-id="any-function-you-want"><span class="header-section-number">15.3</span> any function you want</h2>
 <p>Now let’s get back to our original assumption, that the greenhouse cools according to Newton’s cooling law. We can still use the least-squares method for any function we want!</p>
-<div id="cell-14" class="cell" data-execution_count="9">
+<div id="cell-14" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.748248Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.748168Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.749940Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.749654Z&quot;}" data-execution_count="9">
 <details class="code-fold">
 <summary>define new function</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">def</span> cooling(t, T_env, T0, r):</span>
@@ -1109,13 +1107,13 @@ S = \sum_i e_i^2
 <span id="cb10-6"><a href="#cb10-6"></a>    <span class="cf">return</span> T_env <span class="op">+</span> (T0 <span class="op">-</span> T_env)<span class="op">*</span>np.exp(<span class="op">-</span>r<span class="op">*</span>t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-15" class="cell" data-execution_count="10">
+<div id="cell-15" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.750886Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.750816Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.755402Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.755105Z&quot;}" data-execution_count="10">
 <details class="code-fold">
 <summary>use scipy’s curve_fit</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>t <span class="op">=</span> df_fit[<span class="st">'minutes'</span>].values</span>
 <span id="cb11-2"><a href="#cb11-2"></a>y <span class="op">=</span> df_fit[<span class="st">'T_in'</span>].values</span>
 <span id="cb11-3"><a href="#cb11-3"></a></span>
-<span id="cb11-4"><a href="#cb11-4"></a>T_init <span class="op">=</span> df_fit[<span class="st">'T_in'</span>][<span class="dv">0</span>]</span>
+<span id="cb11-4"><a href="#cb11-4"></a>T_init <span class="op">=</span> df_fit[<span class="st">'T_in'</span>].iloc[<span class="dv">0</span>]</span>
 <span id="cb11-5"><a href="#cb11-5"></a></span>
 <span id="cb11-6"><a href="#cb11-6"></a>popt, pcov <span class="op">=</span> curve_fit(f<span class="op">=</span>cooling,             <span class="co"># model function</span></span>
 <span id="cb11-7"><a href="#cb11-7"></a>                     xdata<span class="op">=</span>t,                 <span class="co"># x data</span></span>
@@ -1125,10 +1123,10 @@ S = \sum_i e_i^2
 <span id="cb11-11"><a href="#cb11-11"></a><span class="bu">print</span>(<span class="ss">f"the optimal parameters are </span><span class="sc">{</span>popt<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>the optimal parameters are [14.01663586 21.0074623   0.02121802]</code></pre>
+<pre><code>the optimal parameters are [14.01663585 21.00746229  0.02121802]</code></pre>
 </div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="11">
+<div id="cell-16" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.756495Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.756425Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.814878Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.814517Z&quot;}" data-execution_count="11">
 <details class="code-fold">
 <summary>see result of exponential fit</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>fig, ax <span class="op">=</span> plt.subplots(sharex<span class="op">=</span><span class="va">True</span>)</span>
@@ -1154,14 +1152,14 @@ S = \sum_i e_i^2
 </div>
 <p>That looks really good :)</p>
 <p>We can use curve fitting to retrieve important parameters from our data. Let’s write a function that executes the fit and returns two of the fitted parameters: <code>T_env</code> and <code>r</code>.</p>
-<div id="cell-18" class="cell" data-execution_count="12">
+<div id="cell-18" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.815959Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.815888Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.817998Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.817599Z&quot;}" data-execution_count="12">
 <details class="code-fold">
 <summary>define function to retrieve parameters</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">def</span> run_fit(data):</span>
 <span id="cb14-2"><a href="#cb14-2"></a>    data[<span class="st">'minutes'</span>] <span class="op">=</span> (data.index <span class="op">-</span> data.index[<span class="dv">0</span>]).total_seconds() <span class="op">/</span> <span class="dv">60</span></span>
 <span id="cb14-3"><a href="#cb14-3"></a>    t <span class="op">=</span> data[<span class="st">'minutes'</span>].values</span>
 <span id="cb14-4"><a href="#cb14-4"></a>    y <span class="op">=</span> data[<span class="st">'T_in'</span>].values</span>
-<span id="cb14-5"><a href="#cb14-5"></a>    T_init <span class="op">=</span> data[<span class="st">'T_in'</span>][<span class="dv">0</span>]</span>
+<span id="cb14-5"><a href="#cb14-5"></a>    T_init <span class="op">=</span> data[<span class="st">'T_in'</span>].iloc[<span class="dv">0</span>]</span>
 <span id="cb14-6"><a href="#cb14-6"></a>    popt, pcov <span class="op">=</span> curve_fit(f<span class="op">=</span>cooling,             <span class="co"># model function</span></span>
 <span id="cb14-7"><a href="#cb14-7"></a>                        xdata<span class="op">=</span>t,              <span class="co"># x data</span></span>
 <span id="cb14-8"><a href="#cb14-8"></a>                        ydata<span class="op">=</span>y,              <span class="co"># y data</span></span>
@@ -1171,7 +1169,7 @@ S = \sum_i e_i^2
 </details>
 </div>
 <p>We now apply this function to several consecutive evenings, and we keep the results in a new dataframe.</p>
-<div id="cell-20" class="cell" data-execution_count="13">
+<div id="cell-20" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.819335Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.819203Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.830213Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.829785Z&quot;}" data-execution_count="13">
 <details class="code-fold">
 <summary>define function to retrieve parameters</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>df_night <span class="op">=</span> df.between_time(<span class="st">'20:01'</span>, <span class="st">'22:01'</span>, inclusive<span class="op">=</span><span class="st">'left'</span>)</span>
@@ -1270,7 +1268,7 @@ S = \sum_i e_i^2
 </div>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="14">
+<div id="cell-21" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.831226Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.831151Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.996861Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.996494Z&quot;}" data-execution_count="14">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">3</span>,<span class="dv">1</span>,sharex<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">8</span>))</span>

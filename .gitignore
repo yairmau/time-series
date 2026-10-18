@@ -1,1 +1,4 @@
 /.quarto/
+
+# API tokens must never be committed
+IMS-token.txt
