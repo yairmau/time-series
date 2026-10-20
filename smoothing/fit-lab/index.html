@@ -28,7 +28,7 @@
       </div>
       <div class="control">
         <label for="degree">Polynomial degree <output id="degree-value" for="degree">2</output></label>
-        <input id="degree" type="range" min="0" max="6" step="1" value="2">
+        <input id="degree" type="range" min="0" max="11" step="1" value="2">
         <p id="degree-note" class="note"></p>
       </div>
       <div class="control">
@@ -68,6 +68,7 @@
         </div>
         <svg id="fit-chart" viewBox="0 0 900 380" role="group" aria-label="Observations and fitted curve. Drag points vertically, or focus a point and use the arrow keys."></svg>
         <p class="note">Drag a point up or down, or focus it with Tab and use the arrow keys.</p>
+        <p id="high-degree-note" class="note" hidden>The vertical scale stays with the points. High-degree curves can swing far beyond them and leave the plot.</p>
         <p id="extrapolation-note" class="note" hidden>Shaded regions are outside the observed time range. Predictions there may leave the plot; S still measures errors only at the observed points.</p>
         <div class="fit-metrics" aria-live="polite" aria-atomic="true">
           <div><span id="sse-label">Sum of squared residuals S</span><strong id="sse-value"></strong></div>
@@ -75,7 +76,7 @@
           <div><span>Observations</span><strong id="observations-value"></strong></div>
         </div>
         <p id="fit-equation" class="equation"></p>
-        <p class="note">Displayed coefficients are rounded; S uses the full-precision fit.</p>
+        <p id="equation-note" class="note">Displayed coefficients are rounded; S uses the full-precision fit.</p>
       </section>
     </section>
   </div>

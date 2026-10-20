@@ -29,7 +29,7 @@
     });
     state.edited = false;
     state.selected = Math.min(state.selected, n - 1);
-    $("degree").max = Math.min(6, n - 1);
+    $("degree").max = n - 1;
     state.minValue = Math.min(-4, Math.floor(Math.min(...state.y) - 2));
     state.maxValue = Math.max(12, Math.ceil(Math.max(...state.y) + 2));
   }
@@ -43,10 +43,12 @@
   const line = (svg, x1, y1, x2, y2, attrs = {}) => svg.append(svgNode("line", { x1, y1, x2, y2, ...attrs }));
   function curve(svg, fn, g, stroke, dashed = false) {
     let d = "";
-    for (let i = 0; i <= 400; i++) {
-      const t = g.xmin + (g.xmax - g.xmin) * i / 400;
+    const count = Math.max(400, model.degree * 80);
+    // Include every observation's time so an interpolating curve visibly meets it.
+    const times = [...state.t, ...Array.from({ length: count + 1 }, (_, i) => g.xmin + (g.xmax - g.xmin) * i / count)].sort((a, b) => a - b);
+    times.forEach((t, i) => {
       d += `${i ? "L" : "M"}${g.x(t).toFixed(2)},${g.y(fn(t)).toFixed(2)} `;
-    }
+    });
     svg.append(svgNode("path", { d, fill: "none", stroke, "stroke-width": dashed ? 1.7 : 2.7, ...(dashed ? { "stroke-dasharray": "6 5" } : {}) }));
   }
   function drawFit() {
@@ -56,10 +58,8 @@
     const left = 52, right = width - 20, top = 30, bottom = 326;
     const extrapolate = $("extrapolate").checked;
     const xmin = extrapolate ? -2 : -0.3, xmax = extrapolate ? 12 : 10.3;
-    const extents = state.y.slice();
-    const extentModel = $("manual").checked ? optimal : model;
-    for (let i = 0; i <= 100; i++) extents.push(Fitting.evaluate(extentModel, i / 10));
-    let ymin = Math.min(...extents), ymax = Math.max(...extents);
+    // Keep the observations readable as high-degree curves swing beyond them.
+    let ymin = Math.min(...state.y), ymax = Math.max(...state.y);
     const padding = Math.max(0.65, (ymax - ymin) * 0.18);
     ymin -= padding; ymax += padding;
     if (state.drag) [ymin, ymax] = state.drag.domain;
@@ -108,6 +108,11 @@
     svg.append(curves);
   }
   function equation() {
+    if (model.degree > 6) {
+      const subscript = String(model.degree).replace(/\d/g, digit => "₀₁₂₃₄₅₆₇₈₉"[digit]);
+      const superscript = String(model.degree).replace(/\d/g, digit => "⁰¹²³⁴⁵⁶⁷⁸⁹"[digit]);
+      return `ŷ(t) = a₀ + a₁t + ⋯ + a${subscript}t${superscript}`;
+    }
     const coefficients = Fitting.powerCoefficients(model), terms = [], powers = ["", "t", "t²", "t³", "t⁴", "t⁵", "t⁶"];
     coefficients.forEach((value, i) => {
       if (Math.abs(value) < 1e-9) return;
@@ -118,12 +123,14 @@
     return "ŷ(t) = " + (terms.join("") || "0");
   }
   function python() {
-    let code = `import numpy as np\nimport matplotlib.pyplot as plt\nfrom numpy.polynomial import Polynomial\n\nt = np.array(${JSON.stringify(state.t)})\ny = np.array(${JSON.stringify(state.y)})\n`;
+    const highDegree = !$("manual").checked && +$("degree").value > 6;
+    const polynomialClass = highDegree ? "Chebyshev" : "Polynomial";
+    let code = `import numpy as np\nimport matplotlib.pyplot as plt\nfrom numpy.polynomial import ${polynomialClass}\n\nt = np.array(${JSON.stringify(state.t)})\ny = np.array(${JSON.stringify(state.y)})\n`;
     code += $("manual").checked ? `\n# Your current line: coefficients are in increasing powers of t.\nmodel = Polynomial([${+$("intercept").value}, ${+$("slope").value}])\n`
-      : `\ndegree = ${+$("degree").value}\nmodel = Polynomial.fit(t, y, deg=degree)\n`;
-    code += `predicted = model(t)\nresiduals = y - predicted\nS = np.sum(residuals**2)\nprint(f"Sum of squared residuals: {S:.6f}")\n\nfine_t = np.linspace(${$("extrapolate").checked ? "-2, 12" : "t.min(), t.max()"}, 400)\nfig, ax = plt.subplots()\nax.scatter(t, y, label="Observations")\nax.plot(fine_t, model(fine_t), label="${$("manual").checked ? "Your line" : "Least-squares fit"}")\n`;
+      : `\ndegree = ${+$("degree").value}\n${highDegree ? "# Same degree-p polynomial, expressed in a stable basis for high degrees.\n" : ""}model = ${polynomialClass}.fit(t, y, deg=degree)\n`;
+    code += `predicted = model(t)\nresiduals = y - predicted\nS = np.sum(residuals**2)\nprint(f"Sum of squared residuals: {S:.6f}")\n\nfine_t = np.sort(np.r_[t, np.linspace(${$("extrapolate").checked ? "-2, 12" : "t.min(), t.max()"}, ${Math.max(400, model.degree * 80)})])\nfig, ax = plt.subplots()\nax.scatter(t, y, label="Observations")\nax.plot(fine_t, model(fine_t), label="${$("manual").checked ? "Your line" : "Least-squares fit"}")\n`;
     if ($("residuals").checked) code += 'ax.vlines(t, predicted, y, color="tab:red", alpha=0.5, label="Residuals")\n';
-    code += 'ax.set(xlabel="Time t", ylabel="Value y")\nax.legend()\nplt.show()';
+    code += 'padding = max(0.65, 0.18 * np.ptp(y))\nax.set(xlabel="Time t", ylabel="Value y", ylim=(y.min() - padding, y.max() + padding))\nax.legend()\nplt.show()';
     $("python-code").textContent = code;
   }
   function render() {
@@ -152,6 +159,10 @@
     $("second-value").textContent = manual ? score(optimal.sse) : degree + 1;
     $("observations-value").textContent = state.t.length;
     $("fit-equation").textContent = equation();
+    $("equation-note").textContent = degree > 6
+      ? `${degree + 1} coefficients are fitted to the current observations.`
+      : "Displayed coefficients are rounded; S uses the full-precision fit.";
+    $("high-degree-note").hidden = degree <= 6;
     $("residual-key").hidden = !$("residuals").checked;
     $("truth-key").hidden = !$("truth").checked;
     $("extrapolation-note").hidden = !$("extrapolate").checked;

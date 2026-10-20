@@ -1,8 +1,18 @@
-/* Small ordinary least-squares solver. Scale time, then use Householder QR. */
+/* Ordinary least squares in a scaled Chebyshev basis, using Householder QR.
+   This spans the same degree-p polynomials while remaining usable at degree 29. */
 (function (root) {
   "use strict";
   function evaluate(model, t) {
     const z = (t - model.center) / model.scale;
+    if (model.basis === "chebyshev") {
+      // Clenshaw recurrence avoids expanding large high-degree coefficients.
+      let next = 0, afterNext = 0;
+      for (let j = model.coefficients.length - 1; j >= 1; j--) {
+        const current = model.coefficients[j] + 2 * z * next - afterNext;
+        afterNext = next; next = current;
+      }
+      return model.coefficients[0] + z * next - afterNext;
+    }
     let value = 0;
     for (let j = model.coefficients.length - 1; j >= 0; j--) value = value * z + model.coefficients[j];
     return value;
@@ -25,7 +35,8 @@
     const n = degree + 1, m = t.length;
     const a = t.map(x => {
       const row = [1], z = (x - center) / scale;
-      for (let j = 1; j < n; j++) row.push(row[j - 1] * z);
+      if (n > 1) row.push(z);
+      for (let j = 2; j < n; j++) row.push(2 * z * row[j - 1] - row[j - 2]);
       return row;
     });
     const b = y.slice();
@@ -51,15 +62,27 @@
       for (let j = i + 1; j < n; j++) value -= a[i][j] * coefficients[j];
       coefficients[i] = value / a[i][i];
     }
-    const model = { coefficients, center, scale, degree };
+    const model = { coefficients, center, scale, degree, basis: "chebyshev" };
     return { ...model, ...measure(t, y, model) };
   }
   function powerCoefficients(model) {
-    const result = Array(model.coefficients.length).fill(0);
-    for (let k = 0; k < model.coefficients.length; k++) {
+    let coefficients = model.coefficients;
+    if (model.basis === "chebyshev") {
+      coefficients = Array(model.coefficients.length).fill(0);
+      let previous = [], current = [1];
+      for (let k = 0; k < model.coefficients.length; k++) {
+        current.forEach((value, j) => { coefficients[j] += model.coefficients[k] * value; });
+        const next = Array(current.length + 1).fill(0);
+        current.forEach((value, j) => { next[j + 1] += (k === 0 ? 1 : 2) * value; });
+        previous.forEach((value, j) => { next[j] -= value; });
+        previous = current; current = next;
+      }
+    }
+    const result = Array(coefficients.length).fill(0);
+    for (let k = 0; k < coefficients.length; k++) {
       let choose = 1;
       for (let j = 0; j <= k; j++) {
-        result[j] += model.coefficients[k] * choose * (-model.center) ** (k - j) / model.scale ** k;
+        result[j] += coefficients[k] * choose * (-model.center) ** (k - j) / model.scale ** k;
         choose = choose * (k - j) / (j + 1);
       }
     }

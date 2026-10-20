@@ -13,6 +13,32 @@ function rejects(run, label) {
   if (!threw) throw new Error(`${label}: expected an error`);
 }
 
+// The slider must reach interpolation for every supported point count,
+// without the numerical breakdown of a high-degree power-basis fit.
+for (let n = 5; n <= 30; n++) {
+  const times = Array.from({ length: n }, (_, i) => 10 * i / (n - 1));
+  const values = times.map((x, i) => 1 + 0.09 * (x - 5) ** 2 + 0.5 * Math.sin(i * 9));
+  let previous = Infinity;
+  for (let degree = 0; degree < n; degree++) {
+    const result = fit(times, values, degree);
+    if (!Number.isFinite(result.sse) || result.sse > previous + 1e-8) {
+      throw new Error(`Invalid high-degree minimum: n=${n}, degree=${degree}`);
+    }
+    previous = result.sse;
+    if (degree === n - 1) {
+      result.predictions.forEach((v, i) => near(v, values[i], `degree-${degree} interpolation`, 1e-7));
+    }
+    for (let x = -2; x <= 12; x += 0.1) {
+      if (!Number.isFinite(evaluate(result, x))) throw new Error(`Nonfinite degree-${degree} curve`);
+    }
+  }
+}
+const wiggleTimes = Array.from({ length: 30 }, (_, i) => 10 * i / 29);
+const wiggleValues = wiggleTimes.map((_, i) => i % 2 ? 1 : -1);
+const wiggle = fit(wiggleTimes, wiggleValues, 29);
+wiggle.predictions.forEach((v, i) => near(v, wiggleValues[i], "degree-29 alternating interpolation", 1e-7));
+if (Math.abs(evaluate(wiggle, 5 / 29)) < 100) throw new Error("High-degree oscillation is missing");
+
 const t = [0, 1, 2, 3, 4];
 const y = [1, 2, 1, 4, 2];
 const constant = fit(t, y, 0);
@@ -63,4 +89,4 @@ rejects(() => fit([], [], 0), "empty observations");
 rejects(() => fit([0, 1], [2], 0), "mismatched arrays");
 rejects(() => fit([0, 1], [2, NaN], 0), "nonfinite observations");
 for (const degree of [-1, 1.5, t.length]) rejects(() => fit(t, y, degree), `invalid degree ${degree}`);
-console.log("Fit tests passed: known solutions, minimization, degree, interpolation, scaling, and invalid input.");
+console.log("Fit tests passed: known solutions, minimization, interpolation through degree 29, oscillations, scaling, and invalid input.");

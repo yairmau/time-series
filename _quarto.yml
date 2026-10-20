@@ -36,7 +36,6 @@ book:
         - smoothing/not-only-averages.ipynb
         - smoothing/practice.ipynb
         - smoothing/lab.qmd
-        - smoothing/practice-old.ipynb
         - smoothing/fit.ipynb
         - smoothing/savgol.ipynb
     - part: "outliers and gaps"
