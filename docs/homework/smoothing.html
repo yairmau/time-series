@@ -76,7 +76,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-0cc16e73634f01ca4ea797a13a558e30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../site_libs/quarto-contrib/iconify-1.0.7/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -860,7 +859,11 @@ window.Quarto = {
   <ul>
   <li><a href="#the-data" id="toc-the-data" class="nav-link active" data-scroll-target="#the-data"><span class="header-section-number">64.1</span> the data</a></li>
   <li><a href="#how-to-work" id="toc-how-to-work" class="nav-link" data-scroll-target="#how-to-work"><span class="header-section-number">64.2</span> how to work</a></li>
-  <li><a href="#part-1-how-wide-should-the-window-be" id="toc-part-1-how-wide-should-the-window-be" class="nav-link" data-scroll-target="#part-1-how-wide-should-the-window-be"><span class="header-section-number">64.3</span> part 1: how wide should the window be?</a></li>
+  <li><a href="#part-1-how-wide-should-the-window-be" id="toc-part-1-how-wide-should-the-window-be" class="nav-link" data-scroll-target="#part-1-how-wide-should-the-window-be"><span class="header-section-number">64.3</span> part 1: how wide should the window be?</a>
+  <ul class="collapse">
+  <li><a href="#three-window-widths" id="toc-three-window-widths" class="nav-link" data-scroll-target="#three-window-widths"><span class="header-section-number">64.3.1</span> three window widths</a></li>
+  <li><a href="#a-strange-experiment" id="toc-a-strange-experiment" class="nav-link" data-scroll-target="#a-strange-experiment"><span class="header-section-number">64.3.2</span> a strange experiment</a></li>
+  </ul></li>
   <li><a href="#part-2-spikes-and-steps" id="toc-part-2-spikes-and-steps" class="nav-link" data-scroll-target="#part-2-spikes-and-steps"><span class="header-section-number">64.4</span> part 2: spikes and steps</a></li>
   <li><a href="#part-3-three-ways-to-smooth" id="toc-part-3-three-ways-to-smooth" class="nav-link" data-scroll-target="#part-3-three-ways-to-smooth"><span class="header-section-number">64.5</span> part 3: three ways to smooth</a></li>
   <li><a href="#part-4-think-like-in-the-exam" id="toc-part-4-think-like-in-the-exam" class="nav-link" data-scroll-target="#part-4-think-like-in-the-exam"><span class="header-section-number">64.6</span> part 4: think like in the exam</a></li>
@@ -924,18 +927,8 @@ window.Quarto = {
 </section>
 <section id="part-1-how-wide-should-the-window-be" class="level2" data-number="64.3">
 <h2 data-number="64.3" class="anchored" data-anchor-id="part-1-how-wide-should-the-window-be"><span class="header-section-number">64.3</span> part 1: how wide should the window be?</h2>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<iconify-icon inline="" icon="fa:question-circle-o"></iconify-icon> Three window widths
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
+<section id="three-window-widths" class="level3" data-number="64.3.1">
+<h3 data-number="64.3.1" class="anchored" data-anchor-id="three-window-widths"><span class="header-section-number">64.3.1</span> three window widths</h3>
 <p>Plot your 10 days of temperature together with three centered running averages, with windows of 30 minutes, 3 hours and 12 hours.</p>
 <ul>
 <li><strong>Explain:</strong> what do you gain and what do you lose with each window? Which one would you use to study a cold front that passes in one hour? And to study the daily cycle?</li>
@@ -947,21 +940,9 @@ hint
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>temp <span class="op">=</span> df.loc[<span class="st">'2024-01-05'</span>:<span class="st">'2024-01-14'</span>, <span class="st">'temperature'</span>]</span>
 <span id="cb1-2"><a href="#cb1-2"></a>smooth <span class="op">=</span> temp.rolling(<span class="st">'3h'</span>, center<span class="op">=</span><span class="va">True</span>).mean()   <span class="co"># the window is defined by time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<iconify-icon inline="" icon="fa:question-circle-o"></iconify-icon> A strange experiment
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
+</section>
+<section id="a-strange-experiment" class="level3" data-number="64.3.2">
+<h3 data-number="64.3.2" class="anchored" data-anchor-id="a-strange-experiment"><span class="header-section-number">64.3.2</span> a strange experiment</h3>
 <p>Now plot the data with a centered running average of <strong>24 hours</strong>, and another with <strong>36 hours</strong>.</p>
 <ul>
 <li><strong>Predict:</strong> a bigger window smooths more. What do you expect the 24-hour curve to look like? And the 36-hour one?</li>
@@ -976,9 +957,7 @@ hint
 <span id="cb2-2"><a href="#cb2-2"></a>sine <span class="op">=</span> pd.Series(np.sin(<span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> hours <span class="op">/</span> <span class="dv">24</span>), index<span class="op">=</span>temp.index)   <span class="co"># period of 24 hours</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>sine.rolling(<span class="st">'24h'</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-</div>
-</div>
-</div>
+</section>
 </section>
 <section id="part-2-spikes-and-steps" class="level2" data-number="64.4">
 <h2 data-number="64.4" class="anchored" data-anchor-id="part-2-spikes-and-steps"><span class="header-section-number">64.4</span> part 2: spikes and steps</h2>

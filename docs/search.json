@@ -2677,7 +2677,7 @@
     "href": "homework/smoothing.html#part-1-how-wide-should-the-window-be",
     "title": "64  homework: smoothing",
     "section": "64.3 part 1: how wide should the window be?",
-    "text": "64.3 part 1: how wide should the window be?\n\n\n\n\n\n\n Three window widths\n\n\n\n\n\nPlot your 10 days of temperature together with three centered running averages, with windows of 30 minutes, 3 hours and 12 hours.\n\nExplain: what do you gain and what do you lose with each window? Which one would you use to study a cold front that passes in one hour? And to study the daily cycle?\n\n\n\nhint\n\ntemp = df.loc['2024-01-05':'2024-01-14', 'temperature']\nsmooth = temp.rolling('3h', center=True).mean()   # the window is defined by time\n\n\n\n\n\n\n\n\n\n\n A strange experiment\n\n\n\n\n\nNow plot the data with a centered running average of 24 hours, and another with 36 hours.\n\nPredict: a bigger window smooths more. What do you expect the 24-hour curve to look like? And the 36-hour one?\nExplain: were you right? Try to understand what you see. Look at the phase of the daily cycle, does it have peaks where the data has valleys?\n\n\n\nhint\n\nThink about what happens to a perfect daily cycle inside a window. You can test your idea with a perfect sine:\nhours = (temp.index - temp.index[0]).total_seconds() / 3600\nsine = pd.Series(np.sin(2 * np.pi * hours / 24), index=temp.index)   # period of 24 hours\nsine.rolling('24h', center=True).mean()",
+    "text": "64.3 part 1: how wide should the window be?\n\n64.3.1 three window widths\nPlot your 10 days of temperature together with three centered running averages, with windows of 30 minutes, 3 hours and 12 hours.\n\nExplain: what do you gain and what do you lose with each window? Which one would you use to study a cold front that passes in one hour? And to study the daily cycle?\n\n\n\nhint\n\ntemp = df.loc['2024-01-05':'2024-01-14', 'temperature']\nsmooth = temp.rolling('3h', center=True).mean()   # the window is defined by time\n\n\n\n64.3.2 a strange experiment\nNow plot the data with a centered running average of 24 hours, and another with 36 hours.\n\nPredict: a bigger window smooths more. What do you expect the 24-hour curve to look like? And the 36-hour one?\nExplain: were you right? Try to understand what you see. Look at the phase of the daily cycle, does it have peaks where the data has valleys?\n\n\n\nhint\n\nThink about what happens to a perfect daily cycle inside a window. You can test your idea with a perfect sine:\nhours = (temp.index - temp.index[0]).total_seconds() / 3600\nsine = pd.Series(np.sin(2 * np.pi * hours / 24), index=temp.index)   # period of 24 hours\nsine.rolling('24h', center=True).mean()",
     "crumbs": [
       "homework",
       "<span class='chapter-number'>64</span>  <span class='chapter-title'>homework: smoothing</span>"
@@ -2747,6 +2747,17 @@
     "crumbs": [
       "homework",
       "<span class='chapter-number'>64</span>  <span class='chapter-title'>homework: smoothing</span>"
+    ]
+  },
+  {
+    "objectID": "smoothing/sliding.html#why-smooth-at-all",
+    "href": "smoothing/sliding.html#why-smooth-at-all",
+    "title": "12  sliding window",
+    "section": "12.6 why smooth at all?",
+    "text": "12.6 why smooth at all?\nEverything we did in this chapter throws information away. Why would we want that? Because not all the variability in a time series is relevant to the question we are asking. Smoothing helps in three situations:\n\nReducing measurement noise. Sensors have limited precision, and some of the wiggles in our temperature curve are jitter, not real changes. Averaging neighboring points gives a better estimate of the real value.\nIsolating a time scale. Many processes happen at the same time, at different time scales. Smoothing suppresses the fast ones, so we can see the slow ones: a 30-day average of soil moisture shows the development of a drought, instead of individual rainfall events.\nComputing rates of change. The difference between two noisy neighbors is mostly noise, so derivatives amplify it. Smoothing first gives more stable estimates (more on this in the chapter about rates of change).\n\nBut smoothing does not know what is noise. A moving average damps the variations that are faster than its window, and mostly keeps the slower ones (exactly how, we will see when we get to Fourier). In an hourly temperature record, a 24-hour window erases the daily cycle, which is not noise at all, it is the main signal! Whether smoothing cleans our data or destroys it depends on the question:\n\nSmoothing is a choice about which time scales matter for our analysis.\n\nAnd it always has a price: peaks are lowered and rounded, the timing shifts if the window is not centered, and sudden changes are blurred. Also, neighboring points of a smoothed series share most of their data, so the series has a memory that the original did not have. We will keep this in mind when we talk about autocorrelation.",
+    "crumbs": [
+      "smoothing",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>sliding window</span>"
     ]
   }
 ]

@@ -867,6 +867,7 @@ window.Quarto = {
   <li><a href="#triangular" id="toc-triangular" class="nav-link" data-scroll-target="#triangular"><span class="header-section-number">12.4.3</span> triangular</a></li>
   </ul></li>
   <li><a href="#which-window-shape-and-width-to-choose" id="toc-which-window-shape-and-width-to-choose" class="nav-link" data-scroll-target="#which-window-shape-and-width-to-choose"><span class="header-section-number">12.5</span> which window shape and width to choose?</a></li>
+  <li><a href="#why-smooth-at-all" id="toc-why-smooth-at-all" class="nav-link" data-scroll-target="#why-smooth-at-all"><span class="header-section-number">12.6</span> why smooth at all?</a></li>
   </ul>
 </nav>
     </div>
@@ -1186,6 +1187,20 @@ window.Quarto = {
 <p><img src="kernel_comparison.png" class="img-fluid"></p>
 <p>One important question you need to ask is: what are the time scales associated with the processes I’m interested in? For example, if I’m interested in the daily temperature pattern, getting rid of 1-minute-long fluctuations would probably be ok. On the other hand, if we were to smooth the signal so much that all that can be seen are the temperature changes between summer and winter, then my smoothing got out of hand, and I threw away the very process I wanted to study.</p>
 <p>All this is to say that you need to know in advance a few things about the system you are studying, otherwise you can’t know what is “noise” that can be smoothed away.</p>
+</section>
+<section id="why-smooth-at-all" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="why-smooth-at-all"><span class="header-section-number">12.6</span> why smooth at all?</h2>
+<p>Everything we did in this chapter throws information away. Why would we want that? Because not all the variability in a time series is relevant to the question we are asking. Smoothing helps in three situations:</p>
+<ol type="1">
+<li><strong>Reducing measurement noise.</strong> Sensors have limited precision, and some of the wiggles in our temperature curve are jitter, not real changes. Averaging neighboring points gives a better estimate of the real value.</li>
+<li><strong>Isolating a time scale.</strong> Many processes happen at the same time, at different time scales. Smoothing suppresses the fast ones, so we can see the slow ones: a 30-day average of soil moisture shows the development of a drought, instead of individual rainfall events.</li>
+<li><strong>Computing rates of change.</strong> The difference between two noisy neighbors is mostly noise, so derivatives amplify it. Smoothing first gives more stable estimates (more on this in the chapter about rates of change).</li>
+</ol>
+<p>But smoothing does not know what is noise. A moving average damps the variations that are faster than its window, and mostly keeps the slower ones (exactly how, we will see when we get to Fourier). In an hourly temperature record, a 24-hour window erases the daily cycle, which is not noise at all, it is the main signal! Whether smoothing cleans our data or destroys it depends on the question:</p>
+<blockquote class="blockquote">
+<p>Smoothing is a choice about which time scales matter for our analysis.</p>
+</blockquote>
+<p>And it always has a price: peaks are lowered and rounded, the timing shifts if the window is not centered, and sudden changes are blurred. Also, neighboring points of a smoothed series share most of their data, so the series has a memory that the original did not have. We will keep this in mind when we talk about autocorrelation.</p>
 
 
 </section>

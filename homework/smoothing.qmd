@@ -39,8 +39,7 @@ A wrong prediction is not a mistake, it is where the learning happens. Please do
 
 ## part 1: how wide should the window be?
 
-::: {.callout-note collapse="true" icon=false}
-## {{< iconify fa question-circle-o >}} Three window widths
+### three window widths
 
 Plot your 10 days of temperature together with three centered running averages, with windows of 30 minutes, 3 hours and 12 hours.
 
@@ -53,10 +52,8 @@ temp = df.loc['2024-01-05':'2024-01-14', 'temperature']
 smooth = temp.rolling('3h', center=True).mean()   # the window is defined by time
 ```
 </details>
-:::
 
-::: {.callout-note collapse="true" icon=false}
-## {{< iconify fa question-circle-o >}} A strange experiment
+### a strange experiment
 
 Now plot the data with a centered running average of **24 hours**, and another with **36 hours**.
 
@@ -72,7 +69,6 @@ sine = pd.Series(np.sin(2 * np.pi * hours / 24), index=temp.index)   # period of
 sine.rolling('24h', center=True).mean()
 ```
 </details>
-:::
 
 ## part 2: spikes and steps
 
