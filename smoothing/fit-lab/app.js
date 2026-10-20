@@ -53,6 +53,7 @@
   }
   function drawFit() {
     const svg = $("fit-chart"), width = Math.max(360, Math.min(900, svg.clientWidth));
+    const showFit = $("show-fit").checked;
     svg.replaceChildren();
     svg.setAttribute("viewBox", `0 0 ${width} 380`);
     const left = 52, right = width - 20, top = 30, bottom = 326;
@@ -88,13 +89,13 @@
     text(svg, (left + right) / 2, 371, "Time t", { "text-anchor": "middle" });
     const curves = svgNode("g", { "clip-path": "url(#fit-clip)" });
     if ($("truth").checked) curve(curves, truth, g, color.truth, true);
-    if ($("residuals").checked) state.t.forEach((t, i) => {
+    if (showFit && $("residuals").checked) state.t.forEach((t, i) => {
       line(curves, g.x(t), g.y(state.y[i]), g.x(t), g.y(model.predictions[i]), {
         stroke: color.error, "stroke-width": i === state.selected ? 3.5 : 1.6, opacity: i === state.selected ? 1 : 0.7
       });
       line(curves, g.x(t) - 3, g.y(model.predictions[i]), g.x(t) + 3, g.y(model.predictions[i]), { stroke: color.error });
     });
-    curve(curves, t => Fitting.evaluate(model, t), g, color.fit);
+    if (showFit) curve(curves, t => Fitting.evaluate(model, t), g, color.fit);
     state.t.forEach((t, i) => {
       const dot = svgNode("circle", {
         cx: g.x(t), cy: g.y(state.y[i]), r: i === state.selected ? 7 : 5.5,
@@ -136,6 +137,7 @@
   function render() {
     pending = false;
     const degree = +$("degree").value, manual = $("manual").checked;
+    const showFit = $("show-fit").checked;
     optimal = Fitting.fit(state.t, state.y, degree);
     if (manual) {
       const lineModel = { coefficients: [+$("intercept").value, +$("slope").value], center: 0, scale: 1, degree: 1 };
@@ -147,11 +149,17 @@
     $("degree").disabled = manual;
     $("count-value").textContent = state.t.length;
     $("noise-value").textContent = fixed(+$("noise").value);
-    $("manual-controls").hidden = !manual;
+    $("manual-controls").hidden = !showFit || !manual;
+    $("manual").disabled = !showFit;
+    $("residuals").disabled = !showFit;
     $("intercept-value").textContent = fixed(+$("intercept").value);
     $("slope-value").textContent = fixed(+$("slope").value);
-    $("chart-title").textContent = manual ? "Can you lower the error?" : `Polynomial fit · degree ${degree}`;
-    $("mode-badge").textContent = manual ? "Your line" : "Least squares";
+    $("chart-title").textContent = !showFit ? "Observations" : manual ? "Can you lower the error?" : `Polynomial fit · degree ${degree}`;
+    $("mode-badge").textContent = !showFit ? "Points only" : manual ? "Your line" : "Least squares";
+    $("fit-chart").setAttribute("aria-label", `${showFit ? "Observations and fitted curve" : "Observations"}. Drag points vertically, or focus a point and use the arrow keys.`);
+    $("fit-results").hidden = !showFit;
+    $("fit-code").hidden = !showFit;
+    $("fit-key").hidden = !showFit;
     $("curve-key").textContent = manual ? "Your line" : "Fitted curve";
     $("sse-label").textContent = manual ? "Your line’s S" : "Sum of squared residuals S";
     $("sse-value").textContent = score(model.sse);
@@ -162,11 +170,12 @@
     $("equation-note").textContent = degree > 6
       ? `${degree + 1} coefficients are fitted to the current observations.`
       : "Displayed coefficients are rounded; S uses the full-precision fit.";
-    $("high-degree-note").hidden = degree <= 6;
-    $("residual-key").hidden = !$("residuals").checked;
+    $("high-degree-note").hidden = !showFit || degree <= 6;
+    $("residual-key").hidden = !showFit || !$("residuals").checked;
     $("truth-key").hidden = !$("truth").checked;
-    $("extrapolation-note").hidden = !$("extrapolate").checked;
-    $("prompt").textContent = manual ? "Try to lower S by changing the intercept and slope. Which direction should you move the line? Then compare with “Find the least-squares line”."
+    $("extrapolation-note").hidden = !showFit || !$("extrapolate").checked;
+    $("prompt").textContent = !showFit ? "What kind of curve might describe these points? Choose a degree, then turn on “Show fit” to compare with your prediction."
+      : manual ? "Try to lower S by changing the intercept and slope. Which direction should you move the line? Then compare with “Find the least-squares line”."
       : degree === 0 ? "Where should a horizontal line sit to minimize the squared residuals? Compare its height with the mean of the observed values."
       : degree === state.t.length - 1 ? "This polynomial can pass through every observed point. Reveal the generating curve and look between the points. Does a nearly zero S guarantee a useful model?"
       : state.edited ? "You moved a point. Which other parts of the curve changed? Why can one large residual affect a fit to the whole dataset?"
@@ -188,11 +197,12 @@
     state.seed = 42; state.selected = 5; state.drag = null;
     $("pattern").value = "curve"; $("degree").value = 2; $("count").value = 12; $("noise").value = 0.45;
     $("manual").checked = false; $("intercept").value = 2; $("slope").value = 0;
+    $("show-fit").checked = false;
     $("residuals").checked = true; $("truth").checked = false; $("extrapolate").checked = false;
     generate(); schedule();
   }
   for (const id of ["pattern", "count", "noise"]) $(id).addEventListener("input", () => { generate(); schedule(); });
-  for (const id of ["degree", "intercept", "slope", "residuals", "truth", "extrapolate"]) $(id).addEventListener("input", schedule);
+  for (const id of ["show-fit", "degree", "intercept", "slope", "residuals", "truth", "extrapolate"]) $(id).addEventListener("input", schedule);
   $("manual").addEventListener("change", () => { if ($("manual").checked) $("degree").value = 1; schedule(); });
   $("best-fit").addEventListener("click", () => { $("manual").checked = false; schedule(); });
   $("new-noise").addEventListener("click", () => { state.seed++; generate(); schedule(); });

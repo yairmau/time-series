@@ -15,7 +15,7 @@
   <header>
     <div><p class="eyebrow">TIME SERIES ANALYSIS / FIT</p>
       <h1>One curve. All the points.</h1>
-      <p class="intro">Change the curve’s flexibility. Watch the residuals.</p>
+      <p class="intro">Start with the points. Show the fit when you’re ready.</p>
     </div>
     <button id="reset" class="quiet" type="button">Reset lab</button>
   </header>
@@ -27,6 +27,7 @@
         <p class="note">Synthetic observations, equally spaced in time.</p>
       </div>
       <div class="control">
+        <label class="choice"><input id="show-fit" type="checkbox" aria-controls="fit-chart fit-results fit-code"> Show fit</label>
         <label for="degree">Polynomial degree <output id="degree-value" for="degree">2</output></label>
         <input id="degree" type="range" min="0" max="11" step="1" value="2">
         <p id="degree-note" class="note"></p>
@@ -41,12 +42,12 @@
       </div>
       <fieldset class="control">
         <legend>Show</legend>
-        <label class="choice"><input id="residuals" type="checkbox" checked> Vertical residuals</label>
+        <label class="choice"><input id="residuals" type="checkbox" checked disabled> Vertical residuals</label>
         <label class="choice"><input id="truth" type="checkbox"> The curve that generated the data</label>
         <label class="choice"><input id="extrapolate" type="checkbox"> Beyond the observed time range</label>
       </fieldset>
       <div class="control">
-        <label class="choice"><input id="manual" type="checkbox"> Try a straight line by hand</label>
+        <label class="choice"><input id="manual" type="checkbox" disabled> Try a straight line by hand</label>
         <div id="manual-controls" hidden>
           <label for="intercept">Intercept a₀ <output id="intercept-value" for="intercept"></output></label>
           <input id="intercept" type="range" min="-4" max="8" step="0.05" value="2">
@@ -59,36 +60,38 @@
     </aside>
     <section class="plots" aria-label="Fit and residuals">
       <section class="plot-card">
-        <div class="plot-heading"><h2 id="chart-title">Polynomial fit</h2><span id="mode-badge" class="badge">Least squares</span></div>
+        <div class="plot-heading"><h2 id="chart-title">Observations</h2><span id="mode-badge" class="badge">Points only</span></div>
         <div class="legend">
           <span><i class="point-key"></i>Observations</span>
-          <span><i class="result"></i><span id="curve-key">Fitted curve</span></span>
-          <span id="residual-key"><i class="residual-key"></i>Residuals</span>
+          <span id="fit-key" hidden><i class="result"></i><span id="curve-key">Fitted curve</span></span>
+          <span id="residual-key" hidden><i class="residual-key"></i>Residuals</span>
           <span id="truth-key" hidden><i class="truth-key"></i>Generating curve</span>
         </div>
-        <svg id="fit-chart" viewBox="0 0 900 380" role="group" aria-label="Observations and fitted curve. Drag points vertically, or focus a point and use the arrow keys."></svg>
+        <svg id="fit-chart" viewBox="0 0 900 380" role="group" aria-label="Observations. Drag points vertically, or focus a point and use the arrow keys."></svg>
         <p class="note">Drag a point up or down, or focus it with Tab and use the arrow keys.</p>
         <p id="high-degree-note" class="note" hidden>The vertical scale stays with the points. High-degree curves can swing far beyond them and leave the plot.</p>
         <p id="extrapolation-note" class="note" hidden>Shaded regions are outside the observed time range. Predictions there may leave the plot; S still measures errors only at the observed points.</p>
-        <div class="fit-metrics" aria-live="polite" aria-atomic="true">
-          <div><span id="sse-label">Sum of squared residuals S</span><strong id="sse-value"></strong></div>
-          <div><span id="second-label">Coefficients to fit</span><strong id="second-value"></strong></div>
-          <div><span>Observations</span><strong id="observations-value"></strong></div>
+        <div id="fit-results" hidden>
+          <div class="fit-metrics" aria-live="polite" aria-atomic="true">
+            <div><span id="sse-label">Sum of squared residuals S</span><strong id="sse-value"></strong></div>
+            <div><span id="second-label">Coefficients to fit</span><strong id="second-value"></strong></div>
+            <div><span>Observations</span><strong id="observations-value"></strong></div>
+          </div>
+          <p id="fit-equation" class="equation"></p>
+          <p id="equation-note" class="note">Displayed coefficients are rounded; S uses the full-precision fit.</p>
         </div>
-        <p id="fit-equation" class="equation"></p>
-        <p id="equation-note" class="note">Displayed coefficients are rounded; S uses the full-precision fit.</p>
       </section>
     </section>
   </div>
   <section class="reflection" aria-label="A question to explore">
     <strong>Predict, then try</strong><p id="prompt"></p>
   </section>
-  <details class="code-panel">
+  <details id="fit-code" class="code-panel" hidden>
     <summary>Reproduce this fit in Python</summary>
     <p>This uses the points currently on the graph, including any you moved.</p>
     <pre><code id="python-code"></code></pre>
   </details>
-  <footer>One polynomial is fitted to all displayed observations, with equal weight per point. Everything runs in your browser.</footer>
+  <footer>When shown, one polynomial is fitted to all displayed observations, with equal weight per point. Everything runs in your browser.</footer>
   <noscript><p>This lab needs JavaScript. The <a href="../fit.html" target="_top">fit page</a> also includes a Python example.</p></noscript>
 </main>
 </body>
