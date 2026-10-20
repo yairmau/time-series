@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smoothing lab · Time Series Analysis</title>
+  <meta name="description" content="Explore rolling windows, kernel weights, timing, and the information smoothing keeps or removes.">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="engine.js"></script>
+  <script defer src="data.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+<main>
+  <header>
+    <div><p class="eyebrow">TIME SERIES ANALYSIS / EXPLORE</p><h1>What does your smoother keep?</h1>
+    <p class="intro">Make a prediction. Change one setting. Explain what changed.</p></div>
+    <button id="reset" class="quiet" type="button">Reset lab</button>
+  </header>
+  <nav class="experiments" aria-label="Experiment starting points">
+    <span>Start with a question:</span>
+    <button type="button" data-preset="weather">Which details disappear?</button>
+    <button type="button" data-preset="spike">What becomes of a spike?</button>
+    <button type="button" data-preset="step">When does a change begin?</button>
+    <button type="button" data-preset="freezing">Can a mean hide freezing?</button>
+  </nav>
+  <div class="workspace">
+    <aside class="controls" aria-label="Smoothing settings">
+      <div class="control">
+        <label for="dataset">Data</label>
+        <select id="dataset">
+          <option value="yatir">Yatir Forest · temperature</option>
+          <option value="reykjavik">Reykjavík · temperature</option>
+          <option value="spike">Synthetic · single spike</option>
+          <option value="step">Synthetic · sudden step</option>
+          <option value="cycle">Synthetic · daily cycle + noise</option>
+        </select>
+        <p id="data-note" class="note"></p>
+      </div>
+      <div class="control">
+        <label for="size">Window width <output id="size-value" for="size"></output></label>
+        <input id="size" type="range" min="1" max="145" step="2" value="31">
+        <p id="span-note" class="note"></p>
+      </div>
+      <div class="control">
+        <label for="statistic">Calculate in each window</label>
+        <select id="statistic">
+          <option value="mean">Weighted mean</option>
+          <option value="median">Median</option>
+          <option value="min">Minimum</option>
+          <option value="max">Maximum</option>
+          <option value="fraction">Percentage below a threshold</option>
+        </select>
+      </div>
+      <div class="control">
+        <label for="kernel">Kernel</label>
+        <select id="kernel">
+          <option value="boxcar">Rectangular · equal weights</option>
+          <option value="triang">Triangular</option>
+          <option value="gaussian">Gaussian</option>
+        </select>
+        <p id="kernel-note" class="note"></p>
+      </div>
+      <div id="sigma-control" class="control" hidden>
+        <label for="sigma">Gaussian width <output id="sigma-value" for="sigma"></output></label>
+        <input id="sigma" type="range" min="10" max="100" step="1" value="35">
+        <p class="note">Standard deviation, measured in sample intervals.</p>
+      </div>
+      <div id="threshold-control" class="control" hidden>
+        <label for="threshold">Threshold <output id="threshold-value" for="threshold"></output></label>
+        <input id="threshold" type="range" min="-15" max="20" step="0.5" value="0">
+      </div>
+      <fieldset class="control">
+        <legend>Put the result at the…</legend>
+        <label class="choice"><input type="radio" name="alignment" value="center" checked> Center of the window</label>
+        <label class="choice"><input type="radio" name="alignment" value="trailing"> End of the window (past only)</label>
+      </fieldset>
+      <div class="control">
+        <label for="edges">At incomplete windows</label>
+        <select id="edges">
+          <option value="full">Leave a gap · require all observations</option>
+          <option value="partial">Use available observations</option>
+        </select>
+      </div>
+      <fieldset class="control">
+        <legend>Show on the graph</legend>
+        <label class="choice"><input id="raw" type="checkbox" checked> Original observations</label>
+        <label class="choice"><input id="band" type="checkbox"> Window minimum–maximum band</label>
+        <label class="choice"><input id="residual" type="checkbox"> Residual: original − result</label>
+        <p id="display-note" class="note"></p>
+      </fieldset>
+    </aside>
+    <section class="plots" aria-label="Results">
+      <div class="plot-card">
+        <div class="plot-heading"><h2 id="chart-title">Temperature &amp; rolling mean</h2><span id="alignment-badge" class="badge"></span></div>
+        <div class="legend"><span id="raw-legend"><i class="raw"></i>Original</span><span><i class="result"></i><span id="result-legend">Current result</span></span><span id="pin-legend" hidden><i class="pinned"></i>Pinned comparison</span><span id="band-legend" hidden><i class="band"></i>Window min–max</span></div>
+        <svg id="main-chart" viewBox="0 0 900 350" role="img" aria-label="Original observations and rolling result. Click to inspect a window."></svg>
+        <p class="note">Click or tap the graph to inspect a window. The shaded strip marks its observations.</p>
+        <div class="view-controls">
+          <label for="view">View <select id="view"></select></label>
+          <label class="pan-control" for="pan">Move through the record <input id="pan" type="range" min="0" max="100" step="1" value="0"></label>
+        </div>
+        <div class="actions">
+          <button id="pin" type="button">Pin this curve to compare</button>
+          <button id="clear-pin" class="quiet" type="button" disabled>Clear comparison</button>
+          <button id="export" class="quiet" type="button">Download results CSV</button>
+        </div>
+        <p id="pin-note" class="note"></p>
+      </div>
+      <div id="residual-card" class="plot-card" hidden>
+        <h2>What was removed?</h2>
+        <svg id="residual-chart" viewBox="0 0 900 190" role="img" aria-label="Original observations minus the rolling result"></svg>
+        <p class="note">The residual contains everything the smoother removed. Some of it may be meaningful signal.</p>
+      </div>
+      <section class="plot-card inspector" aria-labelledby="inspect-title">
+        <div class="plot-heading"><h2 id="inspect-title">Inside one window</h2><button id="play" class="quiet" type="button" aria-pressed="false">▶ Slide the window</button></div>
+        <label for="position">Inspect a position <output id="position-value" for="position"></output></label>
+        <input id="position" type="range" min="0" max="863" value="432" step="1">
+        <div class="readouts" aria-live="polite" aria-atomic="true">
+          <div><span>Observations available</span><strong id="count-value"></strong></div>
+          <div><span id="result-label">Weighted mean</span><strong id="result-value"></strong></div>
+          <div><span>Uses future observations?</span><strong id="future-value"></strong></div>
+        </div>
+        <svg id="window-chart" viewBox="0 0 900 245" role="img" aria-label="Observations and normalized weights inside the selected window"></svg>
+        <p id="calculation" class="calculation"></p>
+        <p id="edge-note" class="note"></p>
+      </section>
+    </section>
+  </div>
+  <section class="reflection" aria-label="Discussion prompt"><strong>Explain what you see</strong><p id="challenge"></p></section>
+  <details class="code-panel"><summary>Reproduce these settings in Python</summary>
+    <p>The code uses the same observations, weights, alignment, and edge rule. Change a setting above to update it.</p>
+    <pre><code id="python-code"></code></pre>
+  </details>
+  <footer>Real weather records from the course; synthetic signals are labeled. Windows use an odd number of equally spaced observations. No data is uploaded.</footer>
+  <noscript><p>This interactive lab needs JavaScript. The <a href="../practice.html" target="_top">practice page</a> includes Python solutions you can run instead.</p></noscript>
+</main>
+</body>
+</html>

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.41">
+<meta name="generator" content="quarto-1.5.54">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>15&nbsp; fit – Time Series Analysis</title>
+<title>17&nbsp; fit – Time Series Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -65,17 +65,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../smoothing/savgol.html" rel="next">
-<link href="../smoothing/practice.html" rel="prev">
+<link href="../smoothing/practice-old.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b288e077f13cdc2375eec65dc093508f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0cc16e73634f01ca4ea797a13a558e30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }, 1000); 
 });
 </script>
-</head><body class="nav-sidebar floating slimcontent"><div id="progress-bar" style="width: 0%; height:4px; background-color: rgb(89 127 235);; position: fixed; top: 0px; z-index: 2000;"></div>
+</head><body class="nav-sidebar floating"><div id="progress-bar" style="width: 0%; height:4px; background-color: rgb(89 127 235);; position: fixed; top: 0px; z-index: 2000;"></div>
 
 <script id="progressbar" type="text/javascript">
 
@@ -152,9 +152,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -211,7 +208,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../smoothing/motivation.html">smoothing</a></li><li class="breadcrumb-item"><a href="../smoothing/fit.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">fit</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../smoothing/motivation.html">smoothing</a></li><li class="breadcrumb-item"><a href="../smoothing/fit.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">fit</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -221,7 +218,7 @@ window.Quarto = {
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
@@ -380,14 +377,26 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../smoothing/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">smoothing lab</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/practice-old.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Practice Old</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../smoothing/fit.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">fit</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">fit</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../smoothing/savgol.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></span></a>
   </div>
 </li>
       </ul>
@@ -404,49 +413,49 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/outlier-identification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">outlier identification</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">outlier identification</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/robust-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">robust analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">robust analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/sliding-algorithms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">sliding algorithms</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">sliding algorithms</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/substituting-outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">substituting outliers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">substituting outliers</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/outliers_challenge.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">challenge</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">challenge</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/outliers_challenge_part2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">challenge part 2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">challenge part 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/fill-missing-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">filling missing values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">filling missing values</span></span></a>
   </div>
 </li>
       </ul>
@@ -463,49 +472,49 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/random.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">random variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">random variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/AR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">autoregressive processes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">autoregressive processes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/autocorrelation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/stationarity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">stationarity</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">stationarity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/ACF_and_PACF_graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ACF and PACF graphs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">ACF and PACF graphs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/from_AR_to_ARIMA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/practice_ARIMA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">practice</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">practice</span></span></a>
   </div>
 </li>
       </ul>
@@ -522,25 +531,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../seasonality/seasonal-decomposition-from-scratch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">seasonal decomposition from scratch</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">seasonal decomposition from scratch</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../seasonality/theory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">theory</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">theory</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../seasonality/widget.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">widgets</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">widgets</span></span></a>
   </div>
 </li>
       </ul>
@@ -557,25 +566,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/DTW.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">dynamic time warping</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">dynamic time warping</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/lags_TA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">time lags practice</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">time lags practice</span></span></a>
   </div>
 </li>
       </ul>
@@ -592,79 +601,79 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/dft-and-fft.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">DFT and FFT</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">DFT and FFT</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/sound.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">sound &amp; music</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">sound &amp; music</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/frequencies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">frequencies</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">frequencies</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/convolution-theorem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">convolution theorem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">convolution theorem</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/fft_practice_temperature.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">practice 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">practice 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/fft_practice_stomata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">practice 2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">practice 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/fft_practice_stayin_alive.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">practice 3</span></span></a>
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">practice 3</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/filtering_temp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">filtering 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">filtering 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/filtering_scipy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">filtering 2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">filtering 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/filtering_hummus.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">filtering 3</span></span></a>
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">filtering 3</span></span></a>
   </div>
 </li>
       </ul>
@@ -681,25 +690,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/does-order-matter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">does order matter?</span></span></a>
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">does order matter?</span></span></a>
   </div>
 </li>
       </ul>
@@ -716,25 +725,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/forecasting-tutorial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">forecasting tutorial</span></span></a>
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">forecasting tutorial</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/filling-gaps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">filling gaps</span></span></a>
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">filling gaps</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
   </div>
 </li>
       </ul>
@@ -751,13 +760,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../homework/resampling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">homework: resampling</span></span></a>
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">homework: resampling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../homework/resampling-answers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">homework: resampling answers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">homework: resampling answers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../homework/smoothing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">homework: smoothing</span></span></a>
   </div>
 </li>
       </ul>
@@ -774,25 +789,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
+ <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">sources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">sources</span></span></a>
   </div>
 </li>
       </ul>
@@ -809,31 +824,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/consecutive_sequence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">74</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/outliers_graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">75</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -849,28 +864,18 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#linear-fit" id="toc-linear-fit" class="nav-link active" data-scroll-target="#linear-fit"><span class="header-section-number">15.1</span> linear fit</a></li>
-  <li><a href="#polynomial-fit" id="toc-polynomial-fit" class="nav-link" data-scroll-target="#polynomial-fit"><span class="header-section-number">15.2</span> polynomial fit</a></li>
-  <li><a href="#any-function-you-want" id="toc-any-function-you-want" class="nav-link" data-scroll-target="#any-function-you-want"><span class="header-section-number">15.3</span> any function you want</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content column-page-right" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../smoothing/motivation.html">smoothing</a></li><li class="breadcrumb-item"><a href="../smoothing/fit.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">fit</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../smoothing/motivation.html">smoothing</a></li><li class="breadcrumb-item"><a href="../smoothing/fit.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">fit</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">fit</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/smoothing/fit.ipynb">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">fit</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/smoothing/fit.ipynb">View Source</a></li></ul></div></div>
 </div>
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page-right">
 
     
   
@@ -882,443 +887,123 @@ window.Quarto = {
 </header>
 
 
-<p>We will make a little parenthesis to talk about a very important topic: <strong>fitting</strong>.</p>
-<p>See below temperature data inside and outside a greenhouse, for a period of about 2 weeks.</p>
-<p><img src="gh_erez.jpg" class="img-fluid"></p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwiQ8bHa0suDAxVMXvEDHVsXCMIQFnoECA0QAQ&amp;url=https%3A%2F%2Fwww.ynet.co.il%2Fenvironment-science%2Farticle%2Fbkhlgjk49&amp;usg=AOvVaw25yr2RjpAaEYNQ7DXK03AW&amp;opi=89978449" target="_blank">Erez Feuer’s greenhouse</a></p>
-</div></div><div id="cell-2" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:14.905555Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:14.905470Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.412239Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.411775Z&quot;}" data-execution_count="1">
-<details class="code-fold">
-<summary>import stuff</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> ticker</span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> curve_fit</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-9"><a href="#cb1-9"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div id="cell-3" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.413499Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.413388Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.419185Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.418689Z&quot;}" data-execution_count="2">
-<details class="code-fold">
-<summary>load data from csv</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'greenhouse_cooling.csv'</span>, index_col<span class="op">=</span><span class="st">'time'</span>, parse_dates<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># df</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div id="cell-4" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.420898Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.420787Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.520362Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.520031Z&quot;}" data-execution_count="3">
-<details class="code-fold">
-<summary>plot temperatures</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a>ax.plot(df[<span class="st">'T_in'</span>], c<span class="op">=</span><span class="st">'tab:blue'</span>, label<span class="op">=</span><span class="st">'inside'</span>)</span>
-<span id="cb3-4"><a href="#cb3-4"></a>ax.plot(df[<span class="st">'T_out'</span>], c<span class="op">=</span><span class="st">'tab:orange'</span>, label<span class="op">=</span><span class="st">'outside'</span>)</span>
-<span id="cb3-5"><a href="#cb3-5"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
-<span id="cb3-6"><a href="#cb3-6"></a>       title<span class="op">=</span><span class="st">"greenhouse temperatures"</span>)</span>
-<span id="cb3-7"><a href="#cb3-7"></a></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co"># formating dates on x axis</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">7</span>, maxticks<span class="op">=</span><span class="dv">11</span>)</span>
-<span id="cb3-10"><a href="#cb3-10"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
-<span id="cb3-11"><a href="#cb3-11"></a>ax.xaxis.set_major_locator(locator)</span>
-<span id="cb3-12"><a href="#cb3-12"></a>ax.xaxis.set_major_formatter(formatter)</span>
-<span id="cb3-13"><a href="#cb3-13"></a></span>
-<span id="cb3-14"><a href="#cb3-14"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="fit_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Every evening, at 20:00, the air conditioning turns on, and we see a fast decrease in temperature:</p>
-<div id="cell-6" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.521568Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.521475Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.615091Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.614732Z&quot;}" data-execution_count="4">
-<details class="code-fold">
-<summary>chose one evening, plot it</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># .copy() because we are going to add a column to df_fit</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>df_fit <span class="op">=</span> df[<span class="st">'2023-06-29 20:10:00'</span>:<span class="st">'2023-06-29 22:00:00'</span>].copy()</span>
-<span id="cb4-3"><a href="#cb4-3"></a></span>
-<span id="cb4-4"><a href="#cb4-4"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
-<span id="cb4-5"><a href="#cb4-5"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.4</span>)  <span class="co"># Adjust the vertical space between subplots</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a></span>
-<span id="cb4-7"><a href="#cb4-7"></a>ax[<span class="dv">0</span>].plot(df.loc[<span class="st">'2023-06-29 16:10:00'</span>:<span class="st">'2023-06-30 16:00:00'</span>, <span class="st">'T_in'</span>], color<span class="op">=</span><span class="st">'tab:green'</span>)</span>
-<span id="cb4-8"><a href="#cb4-8"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
-<span id="cb4-9"><a href="#cb4-9"></a>       title<span class="op">=</span><span class="st">"temperature inside the greenhouse"</span>)</span>
-<span id="cb4-10"><a href="#cb4-10"></a></span>
-<span id="cb4-11"><a href="#cb4-11"></a>ax[<span class="dv">1</span>].scatter(df_fit[<span class="st">'T_in'</span>].index, df_fit[<span class="st">'T_in'</span>], color<span class="op">=</span><span class="st">'tab:green'</span>)</span>
-<span id="cb4-12"><a href="#cb4-12"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,)</span>
-<span id="cb4-13"><a href="#cb4-13"></a></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="co"># formating dates on x axis</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">7</span>, maxticks<span class="op">=</span><span class="dv">11</span>)</span>
-<span id="cb4-16"><a href="#cb4-16"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
-<span id="cb4-17"><a href="#cb4-17"></a>ax[<span class="dv">0</span>].xaxis.set_major_locator(locator)</span>
-<span id="cb4-18"><a href="#cb4-18"></a>ax[<span class="dv">0</span>].xaxis.set_major_formatter(formatter)</span>
-<span id="cb4-19"><a href="#cb4-19"></a></span>
-<span id="cb4-20"><a href="#cb4-20"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">7</span>, maxticks<span class="op">=</span><span class="dv">11</span>)</span>
-<span id="cb4-21"><a href="#cb4-21"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
-<span id="cb4-22"><a href="#cb4-22"></a>ax[<span class="dv">1</span>].xaxis.set_major_locator(locator)</span>
-<span id="cb4-23"><a href="#cb4-23"></a>ax[<span class="dv">1</span>].xaxis.set_major_formatter(formatter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="fit_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The AC is able to bring the temperature down, but up to a limit. The AC can work at a maximum given power, and the cooler it is outside, the more effectively the AC will be able to bring down the temperature inside the greenhouse. We can imagine that the AC behaves as an effective external environment to the greenhouse, and the greenhouse cools down according to <a href="https://en.wikipedia.org/wiki/Newton%27s_law_of_cooling">Newton’s law of cooling</a>:</p>
+<p>We have observations <span class="math inline">(t_i, y_i)</span> and want a curve that describes their pattern. <strong>Fitting means choosing the coefficients of that curve so that its predictions are close to the observations.</strong></p>
+<section id="choose-a-curve" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="choose-a-curve"><span class="header-section-number">17.1</span> choose a curve</h2>
+<p>A polynomial of degree <span class="math inline">p</span> has the form</p>
 <p><span class="math display">
-\frac{dT}{dt} = r\cdot (T_{\text{env}}-T)
+\widehat{y}(t) = a_0 + a_1 t + a_2 t^2 + \cdots + a_p t^p.
 </span></p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<ul>
-<li><span class="math inline">T=</span> the greenhouse temperature</li>
-<li><span class="math inline">T_{\text{env}}=</span> the outside environment temperature</li>
-<li><span class="math inline">r=</span> coefficient of heat transfer.</li>
-</ul>
-</div></div><p>The cooling rate is proportional to the difference in temperature between the inside and outside. Assuming <span class="math inline">T_{\text{env}}</span> and <span class="math inline">r</span> to be constant, the solution of this differential equation is:</p>
-<p><span class="math display">
-T(t) = T_{\text{env}} + \left(T_0 - T_{\text{env}} \right)e^{-rt}.
-</span></p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<ul>
-<li><span class="math inline">T_0=</span> the initial greenhouse temperature</li>
-</ul>
-</div></div><p>We want to check if the temperature measured inside the greenhouse behaves like Newton’s law of cooling, and if so, what can we say about the cooling coefficient <span class="math inline">r</span> and about <span class="math inline">T_{\text{env}}</span>.</p>
-<section id="linear-fit" class="level2 page-columns page-full" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="linear-fit"><span class="header-section-number">15.1</span> linear fit</h2>
-<p>The following is a <strong>very short</strong> introduction to curve fitting. The natural place to start is with a linear fit.</p>
-<div id="cell-8" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.616188Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.616111Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.618592Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.618231Z&quot;}" data-execution_count="5">
-<details class="code-fold">
-<summary>linear fit</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># the "fit" process can't deal with datetimes</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="co"># we therefore make a new column 'minutes', that will be used here</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>df_fit[<span class="st">'minutes'</span>] <span class="op">=</span> (df_fit.index <span class="op">-</span> df_fit.index[<span class="dv">0</span>]).total_seconds() <span class="op">/</span> <span class="dv">60</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># linear Fit (degree 1)</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a>degree <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a>coeffs <span class="op">=</span> np.polyfit(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>], degree)</span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co"># linear Function</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a>linear_function <span class="op">=</span> np.poly1d(coeffs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div id="cell-9" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.619642Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.619570Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.680099Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.679703Z&quot;}" data-execution_count="6">
-<details class="code-fold">
-<summary>see result of linear fit</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
-<span id="cb6-2"><a href="#cb6-2"></a></span>
-<span id="cb6-3"><a href="#cb6-3"></a>ax.scatter(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>],</span>
-<span id="cb6-4"><a href="#cb6-4"></a>           color<span class="op">=</span><span class="st">'tab:green'</span>, label<span class="op">=</span><span class="st">'data'</span>)</span>
-<span id="cb6-5"><a href="#cb6-5"></a>ax.plot(df_fit[<span class="st">'minutes'</span>], linear_function(df_fit[<span class="st">'minutes'</span>]),</span>
-<span id="cb6-6"><a href="#cb6-6"></a>        color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'linear fit'</span>)</span>
-<span id="cb6-7"><a href="#cb6-7"></a></span>
-<span id="cb6-8"><a href="#cb6-8"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'minutes'</span>,</span>
-<span id="cb6-9"><a href="#cb6-9"></a>       ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
-<span id="cb6-10"><a href="#cb6-10"></a>       title<span class="op">=</span><span class="st">"temperature inside the greenhouse"</span>)</span>
-<span id="cb6-11"><a href="#cb6-11"></a></span>
-<span id="cb6-12"><a href="#cb6-12"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="bu">print</span>(<span class="ss">f"starting at </span><span class="sc">{</span>coeffs[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss"> degrees,</span><span class="ch">\n</span><span class="ss">the temperature decreases by </span><span class="sc">{</span><span class="op">-</span>coeffs[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss"> degrees every minute."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>starting at 19.80 degrees,
-the temperature decreases by 0.05 degrees every minute.</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="fit_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The line above is the “best” straight line that describes our data. Defining the residual as the difference between our data and our model (straight line),</p>
-<p><span class="math display">
-e = T_{\text{data}} - T_{\text{model}},
-</span></p>
-<p>the straight line above is the one that <strong>minimizes</strong> the sum of the squares of residuals. For this reason, the method used above to fit a curve to the data is called “least-squares method”.</p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p>it minimizes the sum</p>
-<p><span class="math display">
-S = \sum_i e_i^2
-</span></p>
-</div></div><p>Can we do better than a straight line?</p>
-</section>
-<section id="polynomial-fit" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="polynomial-fit"><span class="header-section-number">15.2</span> polynomial fit</h2>
-<div id="cell-11" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.681208Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.681134Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.683244Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.682936Z&quot;}" data-execution_count="7">
-<details class="code-fold">
-<summary>polynomial fit</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># polynomial fit (degree 2)</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>degree <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>coeffs2 <span class="op">=</span> np.polyfit(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>], degree)</span>
-<span id="cb8-4"><a href="#cb8-4"></a>quad_function <span class="op">=</span> np.poly1d(coeffs2)</span>
-<span id="cb8-5"><a href="#cb8-5"></a></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="co"># polynomial fit (degree 3)</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a>degree <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a>coeffs3 <span class="op">=</span> np.polyfit(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>], degree)</span>
-<span id="cb8-9"><a href="#cb8-9"></a>cubic_function <span class="op">=</span> np.poly1d(coeffs3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div id="cell-12" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.684251Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.684175Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.747224Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.746870Z&quot;}" data-execution_count="8">
-<details class="code-fold">
-<summary>see result of polynomial fit</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
-<span id="cb9-2"><a href="#cb9-2"></a></span>
-<span id="cb9-3"><a href="#cb9-3"></a>ax.scatter(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>],</span>
-<span id="cb9-4"><a href="#cb9-4"></a>           color<span class="op">=</span><span class="st">'tab:green'</span>, label<span class="op">=</span><span class="st">'data'</span>)</span>
-<span id="cb9-5"><a href="#cb9-5"></a>ax.plot(df_fit[<span class="st">'minutes'</span>], quad_function(df_fit[<span class="st">'minutes'</span>]),</span>
-<span id="cb9-6"><a href="#cb9-6"></a>        color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'order = 2'</span>)</span>
-<span id="cb9-7"><a href="#cb9-7"></a>ax.plot(df_fit[<span class="st">'minutes'</span>], cubic_function(df_fit[<span class="st">'minutes'</span>]),</span>
-<span id="cb9-8"><a href="#cb9-8"></a>        color<span class="op">=</span><span class="st">'tab:olive'</span>, label<span class="op">=</span><span class="st">'order = 3'</span>)</span>
-<span id="cb9-9"><a href="#cb9-9"></a></span>
-<span id="cb9-10"><a href="#cb9-10"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'minutes'</span>,</span>
-<span id="cb9-11"><a href="#cb9-11"></a>       ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
-<span id="cb9-12"><a href="#cb9-12"></a>       title<span class="op">=</span><span class="st">"temperature inside the greenhouse"</span>)</span>
-<span id="cb9-13"><a href="#cb9-13"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="fit_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="any-function-you-want" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="any-function-you-want"><span class="header-section-number">15.3</span> any function you want</h2>
-<p>Now let’s get back to our original assumption, that the greenhouse cools according to Newton’s cooling law. We can still use the least-squares method for any function we want!</p>
-<div id="cell-14" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.748248Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.748168Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.749940Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.749654Z&quot;}" data-execution_count="9">
-<details class="code-fold">
-<summary>define new function</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">def</span> cooling(t, T_env, T0, r):</span>
-<span id="cb10-2"><a href="#cb10-2"></a>    <span class="co">"""</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co">    t = time</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">    other stuff = parameters to be fitted</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">    """</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a>    <span class="cf">return</span> T_env <span class="op">+</span> (T0 <span class="op">-</span> T_env)<span class="op">*</span>np.exp(<span class="op">-</span>r<span class="op">*</span>t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div id="cell-15" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.750886Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.750816Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.755402Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.755105Z&quot;}" data-execution_count="10">
-<details class="code-fold">
-<summary>use scipy’s curve_fit</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>t <span class="op">=</span> df_fit[<span class="st">'minutes'</span>].values</span>
-<span id="cb11-2"><a href="#cb11-2"></a>y <span class="op">=</span> df_fit[<span class="st">'T_in'</span>].values</span>
-<span id="cb11-3"><a href="#cb11-3"></a></span>
-<span id="cb11-4"><a href="#cb11-4"></a>T_init <span class="op">=</span> df_fit[<span class="st">'T_in'</span>].iloc[<span class="dv">0</span>]</span>
-<span id="cb11-5"><a href="#cb11-5"></a></span>
-<span id="cb11-6"><a href="#cb11-6"></a>popt, pcov <span class="op">=</span> curve_fit(f<span class="op">=</span>cooling,             <span class="co"># model function</span></span>
-<span id="cb11-7"><a href="#cb11-7"></a>                     xdata<span class="op">=</span>t,                 <span class="co"># x data</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a>                     ydata<span class="op">=</span>y,                 <span class="co"># y data</span></span>
-<span id="cb11-9"><a href="#cb11-9"></a>                     p0<span class="op">=</span>(<span class="dv">2</span>, T_init, <span class="fl">0.5</span>),     <span class="co"># initial guess of the parameters</span></span>
-<span id="cb11-10"><a href="#cb11-10"></a>                     )</span>
-<span id="cb11-11"><a href="#cb11-11"></a><span class="bu">print</span>(<span class="ss">f"the optimal parameters are </span><span class="sc">{</span>popt<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>the optimal parameters are [14.01663585 21.00746229  0.02121802]</code></pre>
-</div>
-</div>
-<div id="cell-16" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.756495Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.756425Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.814878Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.814517Z&quot;}" data-execution_count="11">
-<details class="code-fold">
-<summary>see result of exponential fit</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>fig, ax <span class="op">=</span> plt.subplots(sharex<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-2"><a href="#cb13-2"></a></span>
-<span id="cb13-3"><a href="#cb13-3"></a>ax.scatter(df_fit[<span class="st">'minutes'</span>], df_fit[<span class="st">'T_in'</span>],</span>
-<span id="cb13-4"><a href="#cb13-4"></a>           color<span class="op">=</span><span class="st">'tab:green'</span>, label<span class="op">=</span><span class="st">'data'</span>)</span>
-<span id="cb13-5"><a href="#cb13-5"></a>ax.plot(t, cooling(t, <span class="op">*</span>popt),</span>
-<span id="cb13-6"><a href="#cb13-6"></a>        color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'exponential fit'</span>)</span>
-<span id="cb13-7"><a href="#cb13-7"></a></span>
-<span id="cb13-8"><a href="#cb13-8"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'minutes'</span>,</span>
-<span id="cb13-9"><a href="#cb13-9"></a>       ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
-<span id="cb13-10"><a href="#cb13-10"></a>       title<span class="op">=</span><span class="st">"temperature inside the greenhouse"</span>)</span>
-<span id="cb13-11"><a href="#cb13-11"></a></span>
-<span id="cb13-12"><a href="#cb13-12"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="fit_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>That looks really good :)</p>
-<p>We can use curve fitting to retrieve important parameters from our data. Let’s write a function that executes the fit and returns two of the fitted parameters: <code>T_env</code> and <code>r</code>.</p>
-<div id="cell-18" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.815959Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.815888Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.817998Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.817599Z&quot;}" data-execution_count="12">
-<details class="code-fold">
-<summary>define function to retrieve parameters</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">def</span> run_fit(data):</span>
-<span id="cb14-2"><a href="#cb14-2"></a>    data[<span class="st">'minutes'</span>] <span class="op">=</span> (data.index <span class="op">-</span> data.index[<span class="dv">0</span>]).total_seconds() <span class="op">/</span> <span class="dv">60</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>    t <span class="op">=</span> data[<span class="st">'minutes'</span>].values</span>
-<span id="cb14-4"><a href="#cb14-4"></a>    y <span class="op">=</span> data[<span class="st">'T_in'</span>].values</span>
-<span id="cb14-5"><a href="#cb14-5"></a>    T_init <span class="op">=</span> data[<span class="st">'T_in'</span>].iloc[<span class="dv">0</span>]</span>
-<span id="cb14-6"><a href="#cb14-6"></a>    popt, pcov <span class="op">=</span> curve_fit(f<span class="op">=</span>cooling,             <span class="co"># model function</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a>                        xdata<span class="op">=</span>t,              <span class="co"># x data</span></span>
-<span id="cb14-8"><a href="#cb14-8"></a>                        ydata<span class="op">=</span>y,              <span class="co"># y data</span></span>
-<span id="cb14-9"><a href="#cb14-9"></a>                        p0<span class="op">=</span>(<span class="dv">2</span>, T_init, <span class="fl">0.5</span>),   <span class="co"># initial guess of the parameters</span></span>
-<span id="cb14-10"><a href="#cb14-10"></a>                        )</span>
-<span id="cb14-11"><a href="#cb14-11"></a>    <span class="cf">return</span> popt[<span class="dv">0</span>],popt[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>We now apply this function to several consecutive evenings, and we keep the results in a new dataframe.</p>
-<div id="cell-20" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.819335Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.819203Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.830213Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.829785Z&quot;}" data-execution_count="13">
-<details class="code-fold">
-<summary>define function to retrieve parameters</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>df_night <span class="op">=</span> df.between_time(<span class="st">'20:01'</span>, <span class="st">'22:01'</span>, inclusive<span class="op">=</span><span class="st">'left'</span>)</span>
-<span id="cb15-2"><a href="#cb15-2"></a></span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="co"># group by day and apply the function</span></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="co"># this is where the magic happens.</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="co"># if you are not familiar with "groupby", this will be hard to understand</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a>result_series <span class="op">=</span> df_night.groupby(df_night.index.date).<span class="bu">apply</span>(run_fit)</span>
-<span id="cb15-7"><a href="#cb15-7"></a></span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="co"># convert the series to a dataframe</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a>result_df <span class="op">=</span> pd.DataFrame(result_series.tolist(), index<span class="op">=</span>result_series.index, columns<span class="op">=</span>[<span class="st">'T_env'</span>, <span class="st">'r'</span>])</span>
-<span id="cb15-10"><a href="#cb15-10"></a>result_df.index <span class="op">=</span> pd.to_datetime(result_df.index)</span>
-<span id="cb15-11"><a href="#cb15-11"></a>result_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="13">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<p>The hat on <span class="math inline">\widehat{y}</span> means a <strong>predicted value</strong>. The coefficients <span class="math inline">a_0, a_1, \ldots, a_p</span> are the numbers we fit.</p>
+<table class="caption-top table">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">T_env</th>
-<th data-quarto-table-cell-role="th">r</th>
+<th style="text-align: center;">Degree (also called order)</th>
+<th>Shape</th>
+<th style="text-align: center;">Coefficients to fit</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2023-06-25</td>
-<td>13.275540</td>
-<td>0.019354</td>
+<td style="text-align: center;">0</td>
+<td>A horizontal line</td>
+<td style="text-align: center;">1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2023-06-26</td>
-<td>13.331949</td>
-<td>0.027034</td>
+<td style="text-align: center;">1</td>
+<td>A straight line: intercept and slope</td>
+<td style="text-align: center;">2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2023-06-27</td>
-<td>13.254827</td>
-<td>0.018753</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-06-28</td>
-<td>13.392919</td>
-<td>0.020449</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-06-29</td>
-<td>14.016636</td>
-<td>0.021218</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-06-30</td>
-<td>13.807517</td>
-<td>0.021749</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-07-01</td>
-<td>14.994207</td>
-<td>0.023504</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-07-02</td>
-<td>14.314220</td>
-<td>0.023705</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-07-03</td>
-<td>14.585848</td>
-<td>0.019438</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-07-04</td>
-<td>14.377220</td>
-<td>0.019504</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-07-05</td>
-<td>14.814939</td>
-<td>0.021202</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2023-07-06</td>
-<td>14.667792</td>
-<td>0.022264</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2023-07-07</td>
-<td>15.535115</td>
-<td>0.024421</td>
+<td style="text-align: center;">2</td>
+<td>A parabola: also able to bend</td>
+<td style="text-align: center;">3</td>
 </tr>
 </tbody>
 </table>
-
-</div>
-</div>
-</div>
-<div id="cell-21" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-18T11:35:16.831226Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-18T11:35:16.831151Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-18T11:35:16.996861Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-18T11:35:16.996494Z&quot;}" data-execution_count="14">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">3</span>,<span class="dv">1</span>,sharex<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">8</span>))</span>
-<span id="cb16-2"><a href="#cb16-2"></a></span>
-<span id="cb16-3"><a href="#cb16-3"></a>ax[<span class="dv">0</span>].plot(df[<span class="st">'T_in'</span>], c<span class="op">=</span><span class="st">'tab:blue'</span>, label<span class="op">=</span><span class="st">'inside'</span>)</span>
-<span id="cb16-4"><a href="#cb16-4"></a>ax[<span class="dv">0</span>].plot(df[<span class="st">'T_out'</span>], c<span class="op">=</span><span class="st">'tab:orange'</span>, label<span class="op">=</span><span class="st">'outside'</span>)</span>
-<span id="cb16-5"><a href="#cb16-5"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">'temperature (°C)'</span>,</span>
-<span id="cb16-6"><a href="#cb16-6"></a>          title<span class="op">=</span><span class="st">"actual temperatures"</span>,</span>
-<span id="cb16-7"><a href="#cb16-7"></a>          ylim<span class="op">=</span>[<span class="dv">10</span>,<span class="dv">45</span>])</span>
-<span id="cb16-8"><a href="#cb16-8"></a></span>
-<span id="cb16-9"><a href="#cb16-9"></a><span class="co"># formating dates on x axis</span></span>
-<span id="cb16-10"><a href="#cb16-10"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">7</span>, maxticks<span class="op">=</span><span class="dv">11</span>)</span>
-<span id="cb16-11"><a href="#cb16-11"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
-<span id="cb16-12"><a href="#cb16-12"></a>ax[<span class="dv">0</span>].xaxis.set_major_locator(locator)</span>
-<span id="cb16-13"><a href="#cb16-13"></a>ax[<span class="dv">0</span>].xaxis.set_major_formatter(formatter)</span>
-<span id="cb16-14"><a href="#cb16-14"></a></span>
-<span id="cb16-15"><a href="#cb16-15"></a>ax[<span class="dv">0</span>].legend(ncol<span class="op">=</span><span class="dv">2</span>, loc<span class="op">=</span><span class="st">'upper center'</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb16-16"><a href="#cb16-16"></a></span>
-<span id="cb16-17"><a href="#cb16-17"></a>ax[<span class="dv">1</span>].plot(result_df[<span class="st">'r'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb16-18"><a href="#cb16-18"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="vs">r"parameter $r$"</span>,</span>
-<span id="cb16-19"><a href="#cb16-19"></a>          ylim<span class="op">=</span>[<span class="dv">0</span>, <span class="fl">0.04</span>])</span>
-<span id="cb16-20"><a href="#cb16-20"></a></span>
-<span id="cb16-21"><a href="#cb16-21"></a>ax[<span class="dv">2</span>].plot(result_df[<span class="st">'T_env'</span>], color<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb16-22"><a href="#cb16-22"></a>ax2b <span class="op">=</span> ax[<span class="dv">2</span>].twinx()</span>
-<span id="cb16-23"><a href="#cb16-23"></a>ax2b.plot(df_night[<span class="st">'T_out'</span>].resample(<span class="st">'D'</span>).mean(), color<span class="op">=</span><span class="st">'tab:orange'</span>)</span>
-<span id="cb16-24"><a href="#cb16-24"></a>ax[<span class="dv">2</span>].<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="dv">12</span>, <span class="dv">17</span>])</span>
-<span id="cb16-25"><a href="#cb16-25"></a>ax2b.<span class="bu">set</span>(ylim<span class="op">=</span>[<span class="dv">19</span>, <span class="dv">24</span>],</span>
-<span id="cb16-26"><a href="#cb16-26"></a>        ylabel<span class="op">=</span><span class="st">'outside temperature'</span>)</span>
-<span id="cb16-27"><a href="#cb16-27"></a><span class="co"># color the xticks</span></span>
-<span id="cb16-28"><a href="#cb16-28"></a><span class="cf">for</span> tick <span class="kw">in</span> ax[<span class="dv">2</span>].get_yticklabels():</span>
-<span id="cb16-29"><a href="#cb16-29"></a>    tick.set_color(<span class="st">'tab:orange'</span>)</span>
-<span id="cb16-30"><a href="#cb16-30"></a><span class="co"># color the xlabel</span></span>
-<span id="cb16-31"><a href="#cb16-31"></a>ax[<span class="dv">2</span>].set_ylabel(<span class="vs">r'"outside" temp.'</span><span class="op">+</span><span class="st">'</span><span class="ch">\n</span><span class="st">inferred from</span><span class="ch">\n</span><span class="st">analysis'</span>, color<span class="op">=</span><span class="st">'tab:orange'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>Text(0, 0.5, '"outside" temp.\ninferred from\nanalysis')</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="fit_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Conclusions:</p>
+<p>For a straight line, <span class="math inline">a_0</span> is the predicted value at <span class="math inline">t=0</span>, and <span class="math inline">a_1</span> is the change in the prediction per unit of time. Higher degrees allow more complicated shapes.</p>
+</section>
+<section id="what-do-we-minimize" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="what-do-we-minimize"><span class="header-section-number">17.2</span> what do we minimize?</h2>
+<p>For each observation, measure the <strong>vertical difference</strong> between the observed value and the curve at the same time. This difference is the <strong>residual</strong>:</p>
+<p><span class="math display">
+e_i = y_i - \widehat{y}(t_i).
+</span></p>
+<p>A point above the curve has a positive residual; a point below has a negative one. In <strong>least squares</strong>, we choose the coefficients that minimize</p>
+<p><span class="math display">
+S = \sum_{i=1}^{n} e_i^2
+  = \sum_{i=1}^{n} \left[y_i - \widehat{y}(t_i)\right]^2.
+</span></p>
+<p>We square the residuals so that positive and negative differences do not cancel. Squaring also gives large residuals more influence. Each observation has equal weight in this lesson.</p>
+</section>
+<section id="how-is-the-fit-performed" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="how-is-the-fit-performed"><span class="header-section-number">17.3</span> how is the fit performed?</h2>
 <ol type="1">
-<li>The cooling coefficient <span class="math inline">r</span> seems quite stable throughout the two weeks of measurements. This probably says that the greenhouse and AC properties did not change much. For instance, the greenhouse thermal insulation stayed constant, and the AC power output stayed constant.</li>
-<li>The AC tracks very well the outside temperature! This is to say: the AC works better (more easily) when temperatures outsides are low, and vice-versa.</li>
+<li><strong>Choose the degree.</strong> This decides which shapes the model can take.</li>
+<li><strong>Use all the observations together.</strong> Each choice of coefficients gives predicted values, residuals, and a value of <span class="math inline">S</span>.</li>
+<li><strong>Find the coefficients with the smallest <span class="math inline">S</span>.</strong> For a polynomial, a least-squares solver calculates these coefficients directly. You do not need to search by hand.</li>
 </ol>
+<p>The degree stays fixed during that calculation. <strong>You choose the degree; the fitting algorithm chooses the coefficients.</strong></p>
+<p>For degree 0, the best constant is the <strong>mean of the observations</strong>. For degree 1, the algorithm finds the best intercept and slope. A fitted curve generally does not pass through every point.</p>
+</section>
+<section id="fit-lab" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="fit-lab"><span class="header-section-number">17.4</span> fit lab</h2>
+<p>Change one setting at a time. Try to predict the effect before moving a slider.</p>
+<p><a href="fit-lab/index.html" target="_blank" rel="noopener"><strong>Open the fit lab in a full browser tab</strong></a></p>
+<iframe id="fit-lab-frame" src="fit-lab/index.html" title="Interactive polynomial fitting lab: degree, noise, movable points, residuals, and least squares" style="width:100%;height:1050px;border:1px solid #dce4e8;border-radius:12px;" loading="lazy"></iframe>
+<script>
+window.addEventListener("message", function (event) {
+  const frame = document.getElementById("fit-lab-frame");
+  if (event.source === frame.contentWindow && event.origin === window.location.origin &&
+      event.data && event.data.type === "fit-lab-height" && Number.isFinite(event.data.height)) {
+    frame.style.height = Math.max(500, Math.min(6000, event.data.height)) + "px";
+  }
+});
+</script>
+<p>Try these three experiments:</p>
+<ol type="1">
+<li><strong>Find a line yourself.</strong> Choose “Roughly straight” and turn on “Try a straight line by hand”. Change the intercept and slope to reduce <span class="math inline">S</span>, then ask for the least-squares line.</li>
+<li><strong>Give the curve more freedom.</strong> Keep the points fixed and increase the degree. Watch <span class="math inline">S</span>, then reveal the curve that generated the data. Does the smaller error always mean a better description of that curve?</li>
+<li><strong>Move one point.</strong> Drag a point upward. Which parts of the fitted curve change? Watch the curve and its total squared error.</li>
+</ol>
+<section id="a-smaller-error-is-not-the-whole-story" class="level3" data-number="17.4.1">
+<h3 data-number="17.4.1" class="anchored" data-anchor-id="a-smaller-error-is-not-the-whole-story"><span class="header-section-number">17.4.1</span> a smaller error is not the whole story</h3>
+<p>On the <strong>same observations</strong>, increasing the polynomial degree cannot increase the minimum <span class="math inline">S</span>: the simpler polynomial is still one of the available choices. But extra flexibility can also fit the noise. A curve that closely follows the observed points may behave poorly between them or outside their time range.</p>
+<p>Choose the degree with your scientific question and the expected shape in mind. The lowest error on the fitted observations is only part of that decision.</p>
+</section>
+</section>
+<section id="a-small-python-example" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="a-small-python-example"><span class="header-section-number">17.5</span> a small Python example</h2>
+<p>Here we choose degree 1. The call to <code>Polynomial.fit</code> finds its coefficients; the remaining lines evaluate the predictions and calculate <span class="math inline">S</span>. Change <code>degree</code> to 0 or 2 and compare.</p>
+<div id="465debb9" class="cell">
+<details class="code-fold">
+<summary>a small Python example</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> numpy.polynomial <span class="im">import</span> Polynomial</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a>t <span class="op">=</span> np.array([<span class="fl">0.</span>, <span class="fl">1.</span>, <span class="fl">2.</span>, <span class="fl">3.</span>, <span class="fl">4.</span>, <span class="fl">5.</span>])</span>
+<span id="cb1-6"><a href="#cb1-6"></a>y <span class="op">=</span> np.array([<span class="fl">1.</span>, <span class="fl">1.9</span>, <span class="fl">2.2</span>, <span class="fl">3.1</span>, <span class="fl">3.8</span>, <span class="fl">4.</span>])</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a>degree <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>model <span class="op">=</span> Polynomial.fit(t, y, deg<span class="op">=</span>degree)</span>
+<span id="cb1-10"><a href="#cb1-10"></a>predicted <span class="op">=</span> model(t)</span>
+<span id="cb1-11"><a href="#cb1-11"></a>residuals <span class="op">=</span> y <span class="op">-</span> predicted</span>
+<span id="cb1-12"><a href="#cb1-12"></a>S <span class="op">=</span> np.<span class="bu">sum</span>(residuals<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="bu">print</span>(<span class="ss">f"Sum of squared residuals: </span><span class="sc">{</span>S<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a>fine_t <span class="op">=</span> np.linspace(t.<span class="bu">min</span>(), t.<span class="bu">max</span>(), <span class="dv">200</span>)</span>
+<span id="cb1-16"><a href="#cb1-16"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb1-17"><a href="#cb1-17"></a>ax.scatter(t, y, label<span class="op">=</span><span class="st">"Observations"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18"></a>ax.plot(fine_t, model(fine_t), label<span class="op">=</span><span class="st">"Least-squares fit"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19"></a>ax.vlines(t, predicted, y, color<span class="op">=</span><span class="st">"tab:red"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">"Residuals"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Time t"</span>, ylabel<span class="op">=</span><span class="st">"Value y"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21"></a>ax.legend()</span>
+<span id="cb1-22"><a href="#cb1-22"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The lab’s expandable Python section uses your current points and settings. See the <a href="https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.Polynomial.fit.html">NumPy documentation</a> for the fitting function.</p>
+<p>In the <a href="../smoothing/savgol.html">next lesson</a>, we will use this same polynomial-fitting idea inside a small moving neighborhood and keep the fitted value at its center.</p>
 
 
 </section>
@@ -1406,6 +1091,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1567,6 +1254,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -1792,15 +1480,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
+<nav class="page-navigation column-page-right">
   <div class="nav-page nav-page-previous">
-      <a href="../smoothing/practice.html" class="pagination-link" aria-label="practice">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">practice</span></span>
+      <a href="../smoothing/practice-old.html" class="pagination-link" aria-label="Practice Old">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Practice Old</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../smoothing/savgol.html" class="pagination-link" aria-label="Savitzky–Golay">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

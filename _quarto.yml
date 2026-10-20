@@ -1,6 +1,9 @@
 project:
   type: book
   output-dir: docs
+  resources:
+    - smoothing/lab/**
+    - smoothing/fit-lab/**
 
 book:
   title: "Time Series Analysis"
@@ -32,6 +35,8 @@ book:
         - smoothing/sliding.ipynb
         - smoothing/not-only-averages.ipynb
         - smoothing/practice.ipynb
+        - smoothing/lab.qmd
+        - smoothing/practice-old.ipynb
         - smoothing/fit.ipynb
         - smoothing/savgol.ipynb
     - part: "outliers and gaps"
@@ -161,4 +166,3 @@ format:
   #   documentclass: scrreprt
   #   include-in-header:
   #     - latex_preamble.tex
-    

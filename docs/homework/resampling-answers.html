@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.41">
+<meta name="generator" content="quarto-1.5.54">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>63&nbsp; homework: resampling answers – Time Series Analysis</title>
+<title>65&nbsp; homework: resampling answers – Time Series Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../technical-stuff/technical-stuff.html" rel="next">
+<link href="../homework/smoothing.html" rel="next">
 <link href="../homework/resampling.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -72,10 +72,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b288e077f13cdc2375eec65dc093508f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0cc16e73634f01ca4ea797a13a558e30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -211,7 +211,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../homework/resampling.html">homework</a></li><li class="breadcrumb-item"><a href="../homework/resampling-answers.html"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">homework: resampling answers</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../homework/resampling.html">homework</a></li><li class="breadcrumb-item"><a href="../homework/resampling-answers.html"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">homework: resampling answers</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -380,14 +380,26 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../smoothing/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">smoothing lab</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../smoothing/practice-old.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Practice Old</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../smoothing/fit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">fit</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">fit</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../smoothing/savgol.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Savitzky–Golay</span></span></a>
   </div>
 </li>
       </ul>
@@ -404,49 +416,49 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/outlier-identification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">outlier identification</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">outlier identification</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/robust-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">robust analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">robust analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/sliding-algorithms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">sliding algorithms</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">sliding algorithms</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/substituting-outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">substituting outliers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">substituting outliers</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/outliers_challenge.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">challenge</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">challenge</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/outliers_challenge_part2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">challenge part 2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">challenge part 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../outliers/fill-missing-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">filling missing values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">filling missing values</span></span></a>
   </div>
 </li>
       </ul>
@@ -463,49 +475,49 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/random.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">random variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">random variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/AR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">autoregressive processes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">autoregressive processes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/autocorrelation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">autocorrelation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/stationarity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">stationarity</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">stationarity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/ACF_and_PACF_graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">ACF and PACF graphs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">ACF and PACF graphs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/from_AR_to_ARIMA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">from AR to ARIMA</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stationarity/practice_ARIMA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">practice</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">practice</span></span></a>
   </div>
 </li>
       </ul>
@@ -522,25 +534,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../seasonality/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../seasonality/seasonal-decomposition-from-scratch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">seasonal decomposition from scratch</span></span></a>
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">seasonal decomposition from scratch</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../seasonality/theory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">theory</span></span></a>
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">theory</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../seasonality/widget.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">widgets</span></span></a>
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">widgets</span></span></a>
   </div>
 </li>
       </ul>
@@ -557,25 +569,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/DTW.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">dynamic time warping</span></span></a>
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">dynamic time warping</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lags/lags_TA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">time lags practice</span></span></a>
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">time lags practice</span></span></a>
   </div>
 </li>
       </ul>
@@ -592,79 +604,79 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/dft-and-fft.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">DFT and FFT</span></span></a>
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">DFT and FFT</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/sound.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">sound &amp; music</span></span></a>
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">sound &amp; music</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/frequencies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">frequencies</span></span></a>
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">frequencies</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/convolution-theorem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">convolution theorem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">convolution theorem</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/fft_practice_temperature.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">practice 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">practice 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/fft_practice_stomata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">practice 2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">practice 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/fft_practice_stayin_alive.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">practice 3</span></span></a>
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">practice 3</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/filtering_temp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">filtering 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">filtering 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/filtering_scipy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">filtering 2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">filtering 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../frequency/filtering_hummus.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">filtering 3</span></span></a>
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">filtering 3</span></span></a>
   </div>
 </li>
       </ul>
@@ -681,25 +693,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../rates-of-change/does-order-matter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">does order matter?</span></span></a>
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">does order matter?</span></span></a>
   </div>
 </li>
       </ul>
@@ -716,25 +728,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/forecasting-tutorial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">forecasting tutorial</span></span></a>
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">forecasting tutorial</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/filling-gaps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">filling gaps</span></span></a>
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">filling gaps</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
   </div>
 </li>
       </ul>
@@ -751,13 +763,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../homework/resampling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">homework: resampling</span></span></a>
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">homework: resampling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../homework/resampling-answers.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">homework: resampling answers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">homework: resampling answers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../homework/smoothing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">homework: smoothing</span></span></a>
   </div>
 </li>
       </ul>
@@ -774,25 +792,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
+ <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">sources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">sources</span></span></a>
   </div>
 </li>
       </ul>
@@ -809,31 +827,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/consecutive_sequence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">74</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/outliers_graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">75</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -854,30 +872,30 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#import-data-and-basic-processing" id="toc-import-data-and-basic-processing" class="nav-link active" data-scroll-target="#import-data-and-basic-processing"><span class="header-section-number">63.1</span> Import data and basic processing</a></li>
-  <li><a href="#part-1-the-classics" id="toc-part-1-the-classics" class="nav-link" data-scroll-target="#part-1-the-classics"><span class="header-section-number">63.2</span> Part 1: the classics</a>
+  <li><a href="#import-data-and-basic-processing" id="toc-import-data-and-basic-processing" class="nav-link active" data-scroll-target="#import-data-and-basic-processing"><span class="header-section-number">65.1</span> Import data and basic processing</a></li>
+  <li><a href="#part-1-the-classics" id="toc-part-1-the-classics" class="nav-link" data-scroll-target="#part-1-the-classics"><span class="header-section-number">65.2</span> Part 1: the classics</a>
   <ul class="collapse">
-  <li><a href="#graph-1-daily-maximum-humidity-bonus-daily-minimum" id="toc-graph-1-daily-maximum-humidity-bonus-daily-minimum" class="nav-link" data-scroll-target="#graph-1-daily-maximum-humidity-bonus-daily-minimum"><span class="header-section-number">63.2.1</span> Graph 1: daily maximum humidity (bonus: daily minimum)</a></li>
-  <li><a href="#graph-2-rainy-days-per-month" id="toc-graph-2-rainy-days-per-month" class="nav-link" data-scroll-target="#graph-2-rainy-days-per-month"><span class="header-section-number">63.2.2</span> Graph 2: rainy days per month</a></li>
-  <li><a href="#graph-3-hours-of-sun-per-day" id="toc-graph-3-hours-of-sun-per-day" class="nav-link" data-scroll-target="#graph-3-hours-of-sun-per-day"><span class="header-section-number">63.2.3</span> Graph 3: hours of sun per day</a></li>
+  <li><a href="#graph-1-daily-maximum-humidity-bonus-daily-minimum" id="toc-graph-1-daily-maximum-humidity-bonus-daily-minimum" class="nav-link" data-scroll-target="#graph-1-daily-maximum-humidity-bonus-daily-minimum"><span class="header-section-number">65.2.1</span> Graph 1: daily maximum humidity (bonus: daily minimum)</a></li>
+  <li><a href="#graph-2-rainy-days-per-month" id="toc-graph-2-rainy-days-per-month" class="nav-link" data-scroll-target="#graph-2-rainy-days-per-month"><span class="header-section-number">65.2.2</span> Graph 2: rainy days per month</a></li>
+  <li><a href="#graph-3-hours-of-sun-per-day" id="toc-graph-3-hours-of-sun-per-day" class="nav-link" data-scroll-target="#graph-3-hours-of-sun-per-day"><span class="header-section-number">65.2.3</span> Graph 3: hours of sun per day</a></li>
   </ul></li>
-  <li><a href="#part-2-one-signal-many-time-scales" id="toc-part-2-one-signal-many-time-scales" class="nav-link" data-scroll-target="#part-2-one-signal-many-time-scales"><span class="header-section-number">63.3</span> Part 2: one signal, many time scales</a></li>
-  <li><a href="#part-3-think-like-in-the-exam" id="toc-part-3-think-like-in-the-exam" class="nav-link" data-scroll-target="#part-3-think-like-in-the-exam"><span class="header-section-number">63.4</span> Part 3: think like in the exam</a></li>
-  <li><a href="#bonus-my-own-graphs" id="toc-bonus-my-own-graphs" class="nav-link" data-scroll-target="#bonus-my-own-graphs"><span class="header-section-number">63.5</span> Bonus: my own graphs</a>
+  <li><a href="#part-2-one-signal-many-time-scales" id="toc-part-2-one-signal-many-time-scales" class="nav-link" data-scroll-target="#part-2-one-signal-many-time-scales"><span class="header-section-number">65.3</span> Part 2: one signal, many time scales</a></li>
+  <li><a href="#part-3-think-like-in-the-exam" id="toc-part-3-think-like-in-the-exam" class="nav-link" data-scroll-target="#part-3-think-like-in-the-exam"><span class="header-section-number">65.4</span> Part 3: think like in the exam</a></li>
+  <li><a href="#bonus-my-own-graphs" id="toc-bonus-my-own-graphs" class="nav-link" data-scroll-target="#bonus-my-own-graphs"><span class="header-section-number">65.5</span> Bonus: my own graphs</a>
   <ul class="collapse">
-  <li><a href="#bonus-graph-1-the-daily-temperature-range" id="toc-bonus-graph-1-the-daily-temperature-range" class="nav-link" data-scroll-target="#bonus-graph-1-the-daily-temperature-range"><span class="header-section-number">63.5.1</span> Bonus graph 1: the daily temperature range</a></li>
-  <li><a href="#bonus-graph-2-the-daily-solar-energy" id="toc-bonus-graph-2-the-daily-solar-energy" class="nav-link" data-scroll-target="#bonus-graph-2-the-daily-solar-energy"><span class="header-section-number">63.5.2</span> Bonus graph 2: the daily solar energy</a></li>
+  <li><a href="#bonus-graph-1-the-daily-temperature-range" id="toc-bonus-graph-1-the-daily-temperature-range" class="nav-link" data-scroll-target="#bonus-graph-1-the-daily-temperature-range"><span class="header-section-number">65.5.1</span> Bonus graph 1: the daily temperature range</a></li>
+  <li><a href="#bonus-graph-2-the-daily-solar-energy" id="toc-bonus-graph-2-the-daily-solar-energy" class="nav-link" data-scroll-target="#bonus-graph-2-the-daily-solar-energy"><span class="header-section-number">65.5.2</span> Bonus graph 2: the daily solar energy</a></li>
   </ul></li>
-  <li><a href="#ai-declaration" id="toc-ai-declaration" class="nav-link" data-scroll-target="#ai-declaration"><span class="header-section-number">63.6</span> AI declaration</a></li>
+  <li><a href="#ai-declaration" id="toc-ai-declaration" class="nav-link" data-scroll-target="#ai-declaration"><span class="header-section-number">65.6</span> AI declaration</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../homework/resampling.html">homework</a></li><li class="breadcrumb-item"><a href="../homework/resampling-answers.html"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">homework: resampling answers</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../homework/resampling.html">homework</a></li><li class="breadcrumb-item"><a href="../homework/resampling-answers.html"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">homework: resampling answers</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">homework: resampling answers</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/homework/resampling-answers.ipynb"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">homework: resampling answers</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/homework/resampling-answers.ipynb"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -895,8 +913,8 @@ window.Quarto = {
 
 
 <p><strong>Station:</strong> Ashalim, 2024, 10-minute data from the IMS (<code>ashalim_2024.csv</code>), in the Negev desert.</p>
-<section id="import-data-and-basic-processing" class="level2" data-number="63.1">
-<h2 data-number="63.1" class="anchored" data-anchor-id="import-data-and-basic-processing"><span class="header-section-number">63.1</span> Import data and basic processing</h2>
+<section id="import-data-and-basic-processing" class="level2" data-number="65.1">
+<h2 data-number="65.1" class="anchored" data-anchor-id="import-data-and-basic-processing"><span class="header-section-number">65.1</span> Import data and basic processing</h2>
 <div id="e26f1609" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:28.528139Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:28.527867Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.476711Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.476244Z&quot;}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -950,7 +968,7 @@ window.Quarto = {
 <th data-quarto-table-cell-role="th">temperature</th>
 <th data-quarto-table-cell-role="th">rain</th>
 </tr>
-<tr class="even">
+<tr class="odd">
 <th data-quarto-table-cell-role="th">date</th>
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
@@ -1047,10 +1065,10 @@ dtype: int64</code></pre>
 </div>
 <p>295 of the 52,704 records of the year are missing (0.6%). The longest gap is 1.5 days, on 28-29 January, and there are also 8 hours missing on 23 July. Careful: the sum of a day without records is 0, not NaN, so a day without data looks like a day without rain or sun.</p>
 </section>
-<section id="part-1-the-classics" class="level2" data-number="63.2">
-<h2 data-number="63.2" class="anchored" data-anchor-id="part-1-the-classics"><span class="header-section-number">63.2</span> Part 1: the classics</h2>
-<section id="graph-1-daily-maximum-humidity-bonus-daily-minimum" class="level3" data-number="63.2.1">
-<h3 data-number="63.2.1" class="anchored" data-anchor-id="graph-1-daily-maximum-humidity-bonus-daily-minimum"><span class="header-section-number">63.2.1</span> Graph 1: daily maximum humidity (bonus: daily minimum)</h3>
+<section id="part-1-the-classics" class="level2" data-number="65.2">
+<h2 data-number="65.2" class="anchored" data-anchor-id="part-1-the-classics"><span class="header-section-number">65.2</span> Part 1: the classics</h2>
+<section id="graph-1-daily-maximum-humidity-bonus-daily-minimum" class="level3" data-number="65.2.1">
+<h3 data-number="65.2.1" class="anchored" data-anchor-id="graph-1-daily-maximum-humidity-bonus-daily-minimum"><span class="header-section-number">65.2.1</span> Graph 1: daily maximum humidity (bonus: daily minimum)</h3>
 <p><strong>My prediction:</strong> at night the air cools and the humidity rises, while in the afternoon the desert air is dry. I expect a daily maximum of 70-95% and a minimum of 10-30%, with the maximum varying little compared with the minimum.</p>
 <div id="d5a4a2ea" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.594057Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.593972Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.713825Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.713437Z&quot;}" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># one resample, three statistics: the daily minimum, mean and maximum</span></span>
@@ -1097,8 +1115,8 @@ max   87.0  89.0  84.0  86.0  84.0  85.0  88.0  91.0  87.0  83.0  91.0  86.0</co
 </div>
 <p><strong>What I found, and why:</strong> the maximum is high (85-95%) and the minimum is low (10-40%), as expected. But I was wrong about the variability: the maximum varies as much as the minimum (standard deviation of 11 points), and the daily mean varies the most (13 points). On dry days (1 March, 24 April, 24-25 October) the whole curve collapses, even the daily maximum falls to 22-32%.</p>
 </section>
-<section id="graph-2-rainy-days-per-month" class="level3" data-number="63.2.2">
-<h3 data-number="63.2.2" class="anchored" data-anchor-id="graph-2-rainy-days-per-month"><span class="header-section-number">63.2.2</span> Graph 2: rainy days per month</h3>
+<section id="graph-2-rainy-days-per-month" class="level3" data-number="65.2.2">
+<h3 data-number="65.2.2" class="anchored" data-anchor-id="graph-2-rainy-days-per-month"><span class="header-section-number">65.2.2</span> Graph 2: rainy days per month</h3>
 <p><strong>My prediction:</strong> very few rainy days, all in winter, many of them just traces. With at least 5 mm I expect almost none.</p>
 <div id="089be69b" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.714997Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.714915Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.800769Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.800309Z&quot;}" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># the rain of each day is the sum of its 10-minute records</span></span>
@@ -1153,8 +1171,8 @@ dtype: int64</code></pre>
 </div>
 <p><strong>What I found, and why:</strong> there are 17 days with rain above 0 mm, 7 with at least 1 mm, and none with at least 5 mm. So the answer to “how many rainy days?” depends on the definition. The year was drier than I expected (17.1 mm in total), and the smallest non-zero value is 0.1 mm, the resolution of the gauge. The station was off on 28-29 January, right after the wettest day, so we don’t know what happened then.</p>
 </section>
-<section id="graph-3-hours-of-sun-per-day" class="level3" data-number="63.2.3">
-<h3 data-number="63.2.3" class="anchored" data-anchor-id="graph-3-hours-of-sun-per-day"><span class="header-section-number">63.2.3</span> Graph 3: hours of sun per day</h3>
+<section id="graph-3-hours-of-sun-per-day" class="level3" data-number="65.2.3">
+<h3 data-number="65.2.3" class="anchored" data-anchor-id="graph-3-hours-of-sun-per-day"><span class="header-section-number">65.2.3</span> Graph 3: hours of sun per day</h3>
 <p><strong>My prediction:</strong> clear skies, so a smooth curve, about 14 hours in June and 10 hours in December, with dips on cloudy winter days. The 1 W/m<span class="math inline">^2</span> threshold should be the closest to the real day length, and 120 W/m<span class="math inline">^2</span> should lose 1-2 hours.</p>
 <div id="e590e324" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.801853Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.801774Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.898062Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.897742Z&quot;}" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># a day without records would have a sum of 0, and look like a day without sun!</span></span>
@@ -1209,8 +1227,8 @@ date
 <p><strong>What I found, and why:</strong> the 1 W/m<span class="math inline">^2</span> line matches the real day length (computed from the latitude: 14.2 h in June, 10.1 h in December) within a few minutes. Higher thresholds cut the morning and the evening: on 21 June, 10 W/m<span class="math inline">^2</span> loses 20 minutes, 50 W/m<span class="math inline">^2</span> about 1 hour, and 120 W/m<span class="math inline">^2</span> 2 hours. The 120 line also drops sharply on cloudy days, which the low thresholds ignore. So there is no single correct threshold: low for the day length (the photoperiod of a plant), high for bright sunshine. I removed 4 days with too few records, otherwise 28 January would show 0 hours of sun.</p>
 </section>
 </section>
-<section id="part-2-one-signal-many-time-scales" class="level2" data-number="63.3">
-<h2 data-number="63.3" class="anchored" data-anchor-id="part-2-one-signal-many-time-scales"><span class="header-section-number">63.3</span> Part 2: one signal, many time scales</h2>
+<section id="part-2-one-signal-many-time-scales" class="level2" data-number="65.3">
+<h2 data-number="65.3" class="anchored" data-anchor-id="part-2-one-signal-many-time-scales"><span class="header-section-number">65.3</span> Part 2: one signal, many time scales</h2>
 <p><strong>My prediction:</strong> the daily cycle is clear in the hourly data and disappears with daily means. Only the seasons survive in the monthly data. Since the daily cycle is large in the desert, I expect the standard deviation to drop noticeably from hourly to daily.</p>
 <div id="a4e7c9d8" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.899244Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.899155Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.186358Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.185977Z&quot;}" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>temp <span class="op">=</span> df[<span class="st">'temperature'</span>]</span>
@@ -1252,8 +1270,8 @@ dtype: float64</code></pre>
 <p><strong>What I found, and why:</strong> the daily cycle is huge (about 14 °C on average), still visible with 6-hour means, and gone with daily means. The weekly means lose the day-to-day weather (the hot spell of 24-25 April is just a small bump), and the monthly means keep only the seasons. The standard deviation drops from 7.8 to 6.2 °C when the daily cycle disappears, as predicted, and then hardly changes. Note that each point is drawn at the end of its period, which is why the monthly curve starts in February.</p>
 <p>The resolution must be finer than the process we study: the researcher of the leaf and the cloud needs minutes, while the one studying a drought can use weeks or months.</p>
 </section>
-<section id="part-3-think-like-in-the-exam" class="level2" data-number="63.4">
-<h2 data-number="63.4" class="anchored" data-anchor-id="part-3-think-like-in-the-exam"><span class="header-section-number">63.4</span> Part 3: think like in the exam</h2>
+<section id="part-3-think-like-in-the-exam" class="level2" data-number="65.4">
+<h2 data-number="65.4" class="anchored" data-anchor-id="part-3-think-like-in-the-exam"><span class="header-section-number">65.4</span> Part 3: think like in the exam</h2>
 <p><strong>1. The monthly mean of the rain.</strong></p>
 <div id="787e76de" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.187751Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.187654Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.195499Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.195088Z&quot;}" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># the mean of the records is the wrong way, the sum is the right way</span></span>
@@ -1278,7 +1296,7 @@ dtype: float64</code></pre>
 <th data-quarto-table-cell-role="th">sum of the records (mm per month)</th>
 <th data-quarto-table-cell-role="th">records in the month</th>
 </tr>
-<tr class="even">
+<tr class="odd">
 <th data-quarto-table-cell-role="th">date</th>
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
@@ -1423,10 +1441,10 @@ circular mean: 0 °</code></pre>
 </div>
 <p>350° and 10° are both nearly north, but the ordinary mean is 180°, which is south. Angles live on a circle, where 0° and 360° are the same. We should average the vectors (sines and cosines) and convert back to an angle, which gives 0°, north. (This dataset has no wind direction, so the code only illustrates the numbers of the question.)</p>
 </section>
-<section id="bonus-my-own-graphs" class="level2" data-number="63.5">
-<h2 data-number="63.5" class="anchored" data-anchor-id="bonus-my-own-graphs"><span class="header-section-number">63.5</span> Bonus: my own graphs</h2>
-<section id="bonus-graph-1-the-daily-temperature-range" class="level3" data-number="63.5.1">
-<h3 data-number="63.5.1" class="anchored" data-anchor-id="bonus-graph-1-the-daily-temperature-range"><span class="header-section-number">63.5.1</span> Bonus graph 1: the daily temperature range</h3>
+<section id="bonus-my-own-graphs" class="level2" data-number="65.5">
+<h2 data-number="65.5" class="anchored" data-anchor-id="bonus-my-own-graphs"><span class="header-section-number">65.5</span> Bonus: my own graphs</h2>
+<section id="bonus-graph-1-the-daily-temperature-range" class="level3" data-number="65.5.1">
+<h3 data-number="65.5.1" class="anchored" data-anchor-id="bonus-graph-1-the-daily-temperature-range"><span class="header-section-number">65.5.1</span> Bonus graph 1: the daily temperature range</h3>
 <p>The question: how large is the difference between the daily maximum and minimum temperature, and does it change during the year?</p>
 <p><strong>My prediction:</strong> a range of 12-18 °C, larger in the dry summer and smaller in winter.</p>
 <div id="d07e628f" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.211037Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.210969Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.288434Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.288100Z&quot;}" data-execution_count="12">
@@ -1483,8 +1501,8 @@ dtype: float64</code></pre>
 </div>
 <p><strong>What I found, and why:</strong> the mean range is 14.2 °C, as predicted, and it is smaller in winter (12-13 °C). But the largest month is June (17.3 °C), not the whole summer. I did not look for the reason, but June had the hottest day of the year (41.1 °C), so probably dry, hot spells.</p>
 </section>
-<section id="bonus-graph-2-the-daily-solar-energy" class="level3" data-number="63.5.2">
-<h3 data-number="63.5.2" class="anchored" data-anchor-id="bonus-graph-2-the-daily-solar-energy"><span class="header-section-number">63.5.2</span> Bonus graph 2: the daily solar energy</h3>
+<section id="bonus-graph-2-the-daily-solar-energy" class="level3" data-number="65.5.2">
+<h3 data-number="65.5.2" class="anchored" data-anchor-id="bonus-graph-2-the-daily-solar-energy"><span class="header-section-number">65.5.2</span> Bonus graph 2: the daily solar energy</h3>
 <p>The question: how much solar energy reaches the ground each day, in MJ/m<span class="math inline">^2</span>, and how much do clouds subtract?</p>
 <p><strong>My prediction:</strong> about 28-30 MJ/m<span class="math inline">^2</span> in summer and 8-12 in winter, with cloudy days below half of that.</p>
 <div id="84eb7042" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.289608Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.289519Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.366955Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.366607Z&quot;}" data-execution_count="13">
@@ -1546,8 +1564,8 @@ yearly maximum: 31.6 MJ/m² on 2024-06-11</code></pre>
 <p><strong>What I found, and why:</strong> the monthly mean goes from 30.7 MJ/m<span class="math inline">^2</span> in June to 12.9 in December, so the winter is higher than I predicted. The cloudiest day, 25 November, received 4.4 MJ/m<span class="math inline">^2</span>, about a third of a typical November day. The radiation is a power (W/m<span class="math inline">^2</span>), so I took the mean power times the 86,400 seconds of the day.</p>
 </section>
 </section>
-<section id="ai-declaration" class="level2" data-number="63.6">
-<h2 data-number="63.6" class="anchored" data-anchor-id="ai-declaration"><span class="header-section-number">63.6</span> AI declaration</h2>
+<section id="ai-declaration" class="level2" data-number="65.6">
+<h2 data-number="65.6" class="anchored" data-anchor-id="ai-declaration"><span class="header-section-number">65.6</span> AI declaration</h2>
 <p>This answer key was prepared with Claude Code (Claude), at the instructor’s request: it wrote and ran the code and drafted the text. The instructor is responsible for the content.</p>
 
 
@@ -1636,6 +1654,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1797,6 +1817,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -2025,12 +2046,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../homework/resampling.html" class="pagination-link" aria-label="homework: resampling">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">homework: resampling</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">homework: resampling</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../technical-stuff/technical-stuff.html" class="pagination-link" aria-label="technical stuff">
-        <span class="nav-page-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">technical stuff</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../homework/smoothing.html" class="pagination-link" aria-label="homework: smoothing">
+        <span class="nav-page-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">homework: smoothing</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

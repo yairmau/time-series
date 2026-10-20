@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fit lab · Time Series Analysis</title>
+  <meta name="description" content="Move points, change polynomial degree, and see how least squares finds a curve.">
+  <link rel="stylesheet" href="../lab/styles.css">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="engine.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+<main>
+  <header>
+    <div><p class="eyebrow">TIME SERIES ANALYSIS / FIT</p>
+      <h1>One curve. All the points.</h1>
+      <p class="intro">Change the curve’s flexibility. Watch the residuals.</p>
+    </div>
+    <button id="reset" class="quiet" type="button">Reset lab</button>
+  </header>
+  <div class="workspace">
+    <aside class="controls" aria-label="Fit settings">
+      <div class="control">
+        <label for="pattern">Start with some points</label>
+        <select id="pattern"><option value="curve">Gently curved</option><option value="line">Roughly straight</option><option value="wave">A wave</option></select>
+        <p class="note">Synthetic observations, equally spaced in time.</p>
+      </div>
+      <div class="control">
+        <label for="degree">Polynomial degree <output id="degree-value" for="degree">2</output></label>
+        <input id="degree" type="range" min="0" max="6" step="1" value="2">
+        <p id="degree-note" class="note"></p>
+      </div>
+      <div class="control">
+        <label for="count">Number of points <output id="count-value" for="count">12</output></label>
+        <input id="count" type="range" min="5" max="30" step="1" value="12">
+        <label for="noise">Noise amount <output id="noise-value" for="noise">0.45</output></label>
+        <input id="noise" type="range" min="0" max="1.5" step="0.05" value="0.45">
+        <button id="new-noise" class="quiet" type="button">New noise sample</button>
+        <p class="note">Changing the degree keeps the same points. Changing the data settings creates a fresh set.</p>
+      </div>
+      <fieldset class="control">
+        <legend>Show</legend>
+        <label class="choice"><input id="residuals" type="checkbox" checked> Vertical residuals</label>
+        <label class="choice"><input id="truth" type="checkbox"> The curve that generated the data</label>
+        <label class="choice"><input id="extrapolate" type="checkbox"> Beyond the observed time range</label>
+      </fieldset>
+      <div class="control">
+        <label class="choice"><input id="manual" type="checkbox"> Try a straight line by hand</label>
+        <div id="manual-controls" hidden>
+          <label for="intercept">Intercept a₀ <output id="intercept-value" for="intercept"></output></label>
+          <input id="intercept" type="range" min="-4" max="8" step="0.05" value="2">
+          <label for="slope">Slope a₁ <output id="slope-value" for="slope"></output></label>
+          <input id="slope" type="range" min="-1.5" max="1.5" step="0.01" value="0">
+          <p class="note">ŷ = a₀ + a₁t. Move the line and try to lower S.</p>
+          <button id="best-fit" type="button">Find the least-squares line</button>
+        </div>
+      </div>
+    </aside>
+    <section class="plots" aria-label="Fit and residuals">
+      <section class="plot-card">
+        <div class="plot-heading"><h2 id="chart-title">Polynomial fit</h2><span id="mode-badge" class="badge">Least squares</span></div>
+        <div class="legend">
+          <span><i class="point-key"></i>Observations</span>
+          <span><i class="result"></i><span id="curve-key">Fitted curve</span></span>
+          <span id="residual-key"><i class="residual-key"></i>Residuals</span>
+          <span id="truth-key" hidden><i class="truth-key"></i>Generating curve</span>
+        </div>
+        <svg id="fit-chart" viewBox="0 0 900 380" role="group" aria-label="Observations and fitted curve. Drag points vertically, or focus a point and use the arrow keys."></svg>
+        <p class="note">Drag a point up or down, or focus it with Tab and use the arrow keys.</p>
+        <p id="extrapolation-note" class="note" hidden>Shaded regions are outside the observed time range. Predictions there may leave the plot; S still measures errors only at the observed points.</p>
+        <div class="fit-metrics" aria-live="polite" aria-atomic="true">
+          <div><span id="sse-label">Sum of squared residuals S</span><strong id="sse-value"></strong></div>
+          <div><span id="second-label">Coefficients to fit</span><strong id="second-value"></strong></div>
+          <div><span>Observations</span><strong id="observations-value"></strong></div>
+        </div>
+        <p id="fit-equation" class="equation"></p>
+        <p class="note">Displayed coefficients are rounded; S uses the full-precision fit.</p>
+      </section>
+    </section>
+  </div>
+  <section class="reflection" aria-label="A question to explore">
+    <strong>Predict, then try</strong><p id="prompt"></p>
+  </section>
+  <details class="code-panel">
+    <summary>Reproduce this fit in Python</summary>
+    <p>This uses the points currently on the graph, including any you moved.</p>
+    <pre><code id="python-code"></code></pre>
+  </details>
+  <footer>One polynomial is fitted to all displayed observations, with equal weight per point. Everything runs in your browser.</footer>
+  <noscript><p>This lab needs JavaScript. The <a href="../fit.html" target="_top">fit page</a> also includes a Python example.</p></noscript>
+</main>
+</body>
+</html>
