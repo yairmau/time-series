@@ -1,4 +1,4 @@
-## homework: resampling
+## HW: resampling
 
 This homework comes right after the first session, where we discussed resampling. Read all the instructions before you start.
 
@@ -25,7 +25,7 @@ Spend your time on the first kind, and get help for the second (AI, a classmate,
 
 Go to the [IMS website](https://ims.gov.il/en/data_gov){target="_blank"}, and choose a weather station we have not worked with yet (not Jerusalem, Shani or Tel Aviv). Download 10-minute data for a full year, any year. You will need temperature, rainfall, relative humidity and global radiation. If your station does not measure one of them, choose another station.
 
-Download this <a href="/homework/homework-resampling-template.ipynb" download>Jupyter Notebook template</a>. It already loads the data for you, because that part is not what we are here to learn.
+Download this <a href="/homework/HW-resampling-template.ipynb" download>Jupyter Notebook template</a>. It already loads the data for you, because that part is not what we are here to learn.
 
 ## how to work
 

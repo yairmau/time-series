@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.54">
+<meta name="generator" content="quarto-1.6.41">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,10 +72,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b288e077f13cdc2375eec65dc093508f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-0cc16e73634f01ca4ea797a13a558e30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -824,7 +824,7 @@ document.addEventListener("DOMContentLoaded", function() {
    
   <ul>
   <li><a href="#forward-fill" id="toc-forward-fill" class="nav-link active" data-scroll-target="#forward-fill"><span class="header-section-number">25.1</span> Forward fill</a></li>
-  <li><a href="#backwrds-fill" id="toc-backwrds-fill" class="nav-link" data-scroll-target="#backwrds-fill"><span class="header-section-number">25.2</span> Backwrds fill</a></li>
+  <li><a href="#backward-fill" id="toc-backward-fill" class="nav-link" data-scroll-target="#backward-fill"><span class="header-section-number">25.2</span> Backward fill</a></li>
   <li><a href="#interpolation" id="toc-interpolation" class="nav-link" data-scroll-target="#interpolation"><span class="header-section-number">25.3</span> Interpolation</a>
   <ul class="collapse">
   <li><a href="#linear" id="toc-linear" class="nav-link" data-scroll-target="#linear"><span class="header-section-number">25.3.1</span> linear</a></li>
@@ -832,7 +832,10 @@ document.addEventListener("DOMContentLoaded", function() {
   </ul></li>
   <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest"><span class="header-section-number">25.4</span> random forest</a></li>
   <li><a href="#sarimax" id="toc-sarimax" class="nav-link" data-scroll-target="#sarimax"><span class="header-section-number">26</span> SARIMAX</a></li>
-  <li><a href="#sarimax-cross-fade" id="toc-sarimax-cross-fade" class="nav-link" data-scroll-target="#sarimax-cross-fade"><span class="header-section-number">27</span> SARIMAX cross fade</a></li>
+  <li><a href="#sarimax-cross-fade" id="toc-sarimax-cross-fade" class="nav-link" data-scroll-target="#sarimax-cross-fade"><span class="header-section-number">27</span> SARIMAX cross fade</a>
+  <ul class="collapse">
+  <li><a href="#which-method" id="toc-which-method" class="nav-link" data-scroll-target="#which-method"><span class="header-section-number">27.1</span> which method?</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -858,7 +861,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="1">
+<p>Download the data <a href="../outliers/data_missing.csv" download="">here</a>, and put it in the same folder as this notebook. The column <code>original</code> is a temperature time series, and <code>mis_1</code>, <code>mis_2</code> and <code>mis_3</code> are copies of it with missing values: <code>mis_1</code> has short gaps (up to 4 hours), <code>mis_2</code> has gaps of up to 20 hours, and <code>mis_3</code> has long gaps, from 8 hours to 7 days.</p>
+<div id="cell-2" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:49.448952Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:49.448828Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:51.751711Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:51.751076Z&quot;}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -870,17 +874,13 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb1-9"><a href="#cb1-9"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> DateFormatter</span>
 <span id="cb1-10"><a href="#cb1-10"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
 <span id="cb1-11"><a href="#cb1-11"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> ticker</span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="im">import</span> warnings</span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="co"># Suppress FutureWarnings</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a>warnings.simplefilter(action<span class="op">=</span><span class="st">'ignore'</span>, category<span class="op">=</span><span class="pp">FutureWarning</span>)</span>
-<span id="cb1-15"><a href="#cb1-15"></a>warnings.simplefilter(action<span class="op">=</span><span class="st">'ignore'</span>, category<span class="op">=</span><span class="pp">UserWarning</span>)</span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-17"><a href="#cb1-17"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="im">import</span> random</span>
-<span id="cb1-19"><a href="#cb1-19"></a></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-13"><a href="#cb1-13"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"ticks"</span>, font_scale<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># white graphs, with large and legible letters</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="im">import</span> random</span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-2" class="cell" data-execution_count="2">
+<div id="cell-3" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:51.753431Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:51.753239Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:51.757007Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:51.756394Z&quot;}" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> plot_all_columns(data):</span>
 <span id="cb2-2"><a href="#cb2-2"></a>    column_list <span class="op">=</span> data.columns</span>
 <span id="cb2-3"><a href="#cb2-3"></a>    </span>
@@ -900,7 +900,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb2-17"><a href="#cb2-17"></a></span>
 <span id="cb2-18"><a href="#cb2-18"></a>    <span class="cf">return</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-3" class="cell" data-execution_count="3">
+<div id="cell-4" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:51.758046Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:51.757966Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:51.761489Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:51.761094Z&quot;}" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">def</span> plot_missing_vals(original, new, title<span class="op">=</span><span class="st">''</span>):</span>
 <span id="cb3-2"><a href="#cb3-2"></a>    column_list <span class="op">=</span> original.columns</span>
 <span id="cb3-3"><a href="#cb3-3"></a>    </span>
@@ -921,20 +921,24 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb3-18"><a href="#cb3-18"></a>        <span class="cf">else</span>:</span>
 <span id="cb3-19"><a href="#cb3-19"></a>            ax[i].set_title(title)</span>
 <span id="cb3-20"><a href="#cb3-20"></a>        ax[i].<span class="bu">set</span>(ylabel<span class="op">=</span>column)</span>
-<span id="cb3-21"><a href="#cb3-21"></a>        <span class="co"># calculate and display MSE</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a>        mse <span class="op">=</span> mean_squared_error(original[column_list[<span class="dv">0</span>]], new[column])</span>
-<span id="cb3-23"><a href="#cb3-23"></a>        ax[i].text(<span class="fl">0.01</span>, <span class="fl">0.95</span>, <span class="ss">f'MSE: </span><span class="sc">{</span>mse<span class="sc">:.4f}</span><span class="ss">'</span>, transform<span class="op">=</span>ax[i].transAxes, fontsize<span class="op">=</span><span class="dv">12</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>)</span>
-<span id="cb3-24"><a href="#cb3-24"></a>    </span>
-<span id="cb3-25"><a href="#cb3-25"></a>    locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">3</span>, maxticks<span class="op">=</span><span class="dv">7</span>)</span>
-<span id="cb3-26"><a href="#cb3-26"></a>    formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
-<span id="cb3-27"><a href="#cb3-27"></a>    ax[i].xaxis.set_major_locator(locator)</span>
-<span id="cb3-28"><a href="#cb3-28"></a>    ax[i].xaxis.set_major_formatter(formatter)</span>
-<span id="cb3-29"><a href="#cb3-29"></a></span>
-<span id="cb3-30"><a href="#cb3-30"></a>    <span class="cf">return</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-21"><a href="#cb3-21"></a>        <span class="co"># calculate and display MSE, only at the points that are missing in df</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>        gap <span class="op">=</span> df[column].isna()</span>
+<span id="cb3-23"><a href="#cb3-23"></a>        <span class="cf">if</span> gap.<span class="bu">any</span>():</span>
+<span id="cb3-24"><a href="#cb3-24"></a>            mse <span class="op">=</span> mean_squared_error(original[column_list[<span class="dv">0</span>]][gap], new[column][gap])</span>
+<span id="cb3-25"><a href="#cb3-25"></a>            ax[i].text(<span class="fl">0.01</span>, <span class="fl">0.95</span>, <span class="ss">f'MSE at the gaps: </span><span class="sc">{</span>mse<span class="sc">:.4f}</span><span class="ss">'</span>, transform<span class="op">=</span>ax[i].transAxes, fontsize<span class="op">=</span><span class="dv">12</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>)</span>
+<span id="cb3-26"><a href="#cb3-26"></a>    </span>
+<span id="cb3-27"><a href="#cb3-27"></a>    locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">3</span>, maxticks<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb3-28"><a href="#cb3-28"></a>    formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
+<span id="cb3-29"><a href="#cb3-29"></a>    ax[i].xaxis.set_major_locator(locator)</span>
+<span id="cb3-30"><a href="#cb3-30"></a>    ax[i].xaxis.set_major_formatter(formatter)</span>
+<span id="cb3-31"><a href="#cb3-31"></a></span>
+<span id="cb3-32"><a href="#cb3-32"></a>    <span class="cf">return</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-4" class="cell" data-execution_count="4">
+<div id="cell-5" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:51.762563Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:51.762493Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:51.773445Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:51.772828Z&quot;}" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'data_missing.csv'</span>, index_col<span class="op">=</span><span class="st">'date'</span>, parse_dates<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb4-2"><a href="#cb4-2"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># tell pandas that the data is regular, one point every 2 hours (SARIMAX needs this)</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>df <span class="op">=</span> df.asfreq(<span class="st">'2h'</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 
@@ -948,7 +952,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <th data-quarto-table-cell-role="th">mis_2</th>
 <th data-quarto-table-cell-role="th">mis_3</th>
 </tr>
-<tr class="odd">
+<tr class="even">
 <th data-quarto-table-cell-role="th">date</th>
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
@@ -1041,7 +1045,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="5">
+<div id="cell-6" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:51.774529Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:51.774431Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:51.914155Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:51.913727Z&quot;}" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>plot_all_columns(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1053,8 +1057,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 <section id="forward-fill" class="level2" data-number="25.1">
 <h2 data-number="25.1" class="anchored" data-anchor-id="forward-fill"><span class="header-section-number">25.1</span> Forward fill</h2>
-<div id="cell-7" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>df_ffil <span class="op">=</span> df.fillna(method<span class="op">=</span><span class="st">'ffill'</span>)</span>
+<div id="cell-8" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:51.915433Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:51.915319Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:52.096928Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:52.096538Z&quot;}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>df_ffil <span class="op">=</span> df.ffill()</span>
 <span id="cb6-2"><a href="#cb6-2"></a>plot_missing_vals(df, df_ffil, title<span class="op">=</span><span class="st">'ffill'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1065,10 +1069,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div>
 </section>
-<section id="backwrds-fill" class="level2" data-number="25.2">
-<h2 data-number="25.2" class="anchored" data-anchor-id="backwrds-fill"><span class="header-section-number">25.2</span> Backwrds fill</h2>
-<div id="cell-9" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>df_bfil <span class="op">=</span> df.fillna(method<span class="op">=</span><span class="st">'bfill'</span>)</span>
+<section id="backward-fill" class="level2" data-number="25.2">
+<h2 data-number="25.2" class="anchored" data-anchor-id="backward-fill"><span class="header-section-number">25.2</span> Backward fill</h2>
+<div id="cell-10" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:52.098628Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:52.098531Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:52.264467Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:52.264048Z&quot;}" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>df_bfil <span class="op">=</span> df.bfill()</span>
 <span id="cb7-2"><a href="#cb7-2"></a>plot_missing_vals(df, df_bfil, title<span class="op">=</span><span class="st">'bfill'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1083,7 +1087,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <h2 data-number="25.3" class="anchored" data-anchor-id="interpolation"><span class="header-section-number">25.3</span> Interpolation</h2>
 <section id="linear" class="level3" data-number="25.3.1">
 <h3 data-number="25.3.1" class="anchored" data-anchor-id="linear"><span class="header-section-number">25.3.1</span> linear</h3>
-<div id="cell-11" class="cell" data-execution_count="8">
+<div id="cell-12" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:52.266084Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:52.265995Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:52.431092Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:52.430607Z&quot;}" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>interpolated_df <span class="op">=</span> df.interpolate(method<span class="op">=</span><span class="st">'linear'</span>)</span>
 <span id="cb8-2"><a href="#cb8-2"></a>plot_missing_vals(df, interpolated_df, title<span class="op">=</span><span class="st">'linear interpolation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1104,7 +1108,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>Source: <a href="https://kluge.in-chemnitz.de/opensource/spline/" class="uri">https://kluge.in-chemnitz.de/opensource/spline/</a></p>
-</div></div><div id="cell-14" class="cell" data-execution_count="9">
+</div></div><div id="cell-15" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:52.432653Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:52.432563Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:52.598755Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:52.598373Z&quot;}" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>interpolated_cubic_df <span class="op">=</span> df.interpolate(method<span class="op">=</span><span class="st">'cubic'</span>)</span>
 <span id="cb9-2"><a href="#cb9-2"></a>plot_missing_vals(df, interpolated_cubic_df, title<span class="op">=</span><span class="st">'cubic interpolation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1115,7 +1119,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="10">
+<div id="cell-16" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:52.600278Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:52.600182Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:52.777064Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:52.776226Z&quot;}" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>plot_missing_vals(interpolated_df, interpolated_cubic_df, title<span class="op">=</span><span class="st">'linear vs cubic interpolation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1125,7 +1129,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="11">
+<div id="cell-17" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:52.779399Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:52.779274Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:53.034568Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:53.033965Z&quot;}" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>interpolated_poly_df <span class="op">=</span> df.interpolate(method<span class="op">=</span><span class="st">'polynomial'</span>, order<span class="op">=</span><span class="dv">3</span>)</span>
 <span id="cb11-2"><a href="#cb11-2"></a>plot_missing_vals(df, interpolated_poly_df, title<span class="op">=</span><span class="st">'polynomial interpolation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1136,7 +1140,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="12">
+<div id="cell-18" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:53.036141Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:53.036044Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:53.269451Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:53.268201Z&quot;}" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>plot_missing_vals(interpolated_cubic_df, interpolated_poly_df, title<span class="op">=</span><span class="st">'cubic vs polynomial interpolation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1151,8 +1155,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </section>
 <section id="random-forest" class="level2" data-number="25.4">
 <h2 data-number="25.4" class="anchored" data-anchor-id="random-forest"><span class="header-section-number">25.4</span> random forest</h2>
-<p>Here we explore the use of a commnly used Machine learning model - RandomForest</p>
-<div id="cell-19" class="cell" data-execution_count="13">
+<p>Here we explore the use of a commonly used Machine learning model - RandomForest</p>
+<div id="cell-20" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:53.271945Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:53.271808Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:53.275560Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:53.274383Z&quot;}" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a></span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="kw">def</span> fillna_randomforest(series):</span>
 <span id="cb13-3"><a href="#cb13-3"></a>    <span class="co"># Ensure the series index is a datetime object</span></span>
@@ -1172,7 +1176,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb13-17"><a href="#cb13-17"></a>    y_train <span class="op">=</span> observed.values</span>
 <span id="cb13-18"><a href="#cb13-18"></a>    </span>
 <span id="cb13-19"><a href="#cb13-19"></a>    <span class="co"># Train the Random Forest regression model</span></span>
-<span id="cb13-20"><a href="#cb13-20"></a>    model <span class="op">=</span> RandomForestRegressor()</span>
+<span id="cb13-20"><a href="#cb13-20"></a>    model <span class="op">=</span> RandomForestRegressor(random_state<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb13-21"><a href="#cb13-21"></a>    model.fit(X_train, y_train)</span>
 <span id="cb13-22"><a href="#cb13-22"></a>    </span>
 <span id="cb13-23"><a href="#cb13-23"></a>    <span class="co"># Create features for missing data and predict</span></span>
@@ -1185,7 +1189,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb13-30"><a href="#cb13-30"></a></span>
 <span id="cb13-31"><a href="#cb13-31"></a>    <span class="cf">return</span> series_filled</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="14">
+<div id="cell-21" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:53.277773Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:53.277623Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:53.557400Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:53.556919Z&quot;}" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>columns <span class="op">=</span> df.columns</span>
 <span id="cb14-2"><a href="#cb14-2"></a>df_rf <span class="op">=</span> df.copy()</span>
 <span id="cb14-3"><a href="#cb14-3"></a><span class="cf">for</span> i, column <span class="kw">in</span> <span class="bu">enumerate</span>(columns):</span>
@@ -1193,8 +1197,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb14-5"><a href="#cb14-5"></a>        <span class="cf">continue</span></span>
 <span id="cb14-6"><a href="#cb14-6"></a>    df_rf[column] <span class="op">=</span> fillna_randomforest(df_rf[column])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>plot_missing_vals(df, df_rf, title<span class="op">=</span><span class="st">'fandomforest'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-22" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:53.558672Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:53.558594Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:53.744728Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:53.744074Z&quot;}" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>plot_missing_vals(df, df_rf, title<span class="op">=</span><span class="st">'random forest'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1203,178 +1207,253 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div>
 </div>
+<p>How good is each method? Let’s compare the mean squared error, only at the points that were missing (smaller is better):</p>
+<div id="cell-24" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:53.746615Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:53.746521Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:53.759576Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:53.759183Z&quot;}" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>methods <span class="op">=</span> {<span class="st">'forward fill'</span>: df_ffil, <span class="st">'backward fill'</span>: df_bfil, <span class="st">'linear'</span>: interpolated_df,</span>
+<span id="cb16-2"><a href="#cb16-2"></a>           <span class="st">'cubic'</span>: interpolated_cubic_df, <span class="st">'polynomial'</span>: interpolated_poly_df, <span class="st">'random forest'</span>: df_rf}</span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a>mse_table <span class="op">=</span> pd.DataFrame({name: {column: mean_squared_error(df.loc[df[column].isna(), <span class="st">'original'</span>],</span>
+<span id="cb16-5"><a href="#cb16-5"></a>                                                            result.loc[df[column].isna(), column])</span>
+<span id="cb16-6"><a href="#cb16-6"></a>                                 <span class="cf">for</span> column <span class="kw">in</span> [<span class="st">'mis_1'</span>, <span class="st">'mis_2'</span>, <span class="st">'mis_3'</span>]}</span>
+<span id="cb16-7"><a href="#cb16-7"></a>                          <span class="cf">for</span> name, result <span class="kw">in</span> methods.items()})</span>
+<span id="cb16-8"><a href="#cb16-8"></a>mse_table.<span class="bu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">forward fill</th>
+<th data-quarto-table-cell-role="th">backward fill</th>
+<th data-quarto-table-cell-role="th">linear</th>
+<th data-quarto-table-cell-role="th">cubic</th>
+<th data-quarto-table-cell-role="th">polynomial</th>
+<th data-quarto-table-cell-role="th">random forest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">mis_1</td>
+<td>2.89</td>
+<td>3.74</td>
+<td>0.69</td>
+<td>0.15</td>
+<td>0.15</td>
+<td>1.70</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mis_2</td>
+<td>19.50</td>
+<td>24.88</td>
+<td>8.63</td>
+<td>5.94</td>
+<td>5.94</td>
+<td>4.14</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">mis_3</td>
+<td>25.71</td>
+<td>26.86</td>
+<td>18.69</td>
+<td>251.74</td>
+<td>251.74</td>
+<td>4.39</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 </section>
 <section id="sarimax" class="level1" data-number="26">
 <h1 data-number="26"><span class="header-section-number">26</span> SARIMAX</h1>
-<div id="cell-23" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Model Building and Imputation</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="co"># Build a SARIMA model on the data with gaps</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a>seasonal_period <span class="op">=</span> <span class="dv">24</span><span class="op">/</span><span class="dv">2</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a>model <span class="op">=</span> SARIMAX(df[<span class="st">'mis_3'</span>], order<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>), seasonal_order<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, seasonal_period), enforce_stationarity<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb16-5"><a href="#cb16-5"></a>results <span class="op">=</span> model.fit(disp<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb16-6"><a href="#cb16-6"></a></span>
-<span id="cb16-7"><a href="#cb16-7"></a><span class="co"># Impute missing values one by one</span></span>
-<span id="cb16-8"><a href="#cb16-8"></a>ts_data_filled <span class="op">=</span> df[<span class="st">'mis_3'</span>].copy()</span>
-<span id="cb16-9"><a href="#cb16-9"></a>missing_indices <span class="op">=</span> df[<span class="st">'mis_3'</span>].loc[df[<span class="st">'mis_3'</span>].isna()]</span>
-<span id="cb16-10"><a href="#cb16-10"></a><span class="cf">for</span> missing_index <span class="kw">in</span> missing_indices.index:</span>
-<span id="cb16-11"><a href="#cb16-11"></a>    ts_data_filled[missing_index] <span class="op">=</span> results.predict(start<span class="op">=</span>missing_index, end<span class="op">=</span>missing_index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Advanced, optional.</strong> The next two methods use SARIMAX models, which we will understand better after the chapter on stationarity. Another way of filling gaps by forecasting can be found in <a href="../forecasting/filling-gaps.html">filling gaps</a>.</p>
+<div id="cell-27" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:53.760785Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:53.760703Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:54.686486Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:54.685899Z&quot;}" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Model Building and Imputation</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="co"># Build a SARIMA model on the data with gaps</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>seasonal_period <span class="op">=</span> <span class="dv">24</span><span class="op">/</span><span class="dv">2</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>model <span class="op">=</span> SARIMAX(df[<span class="st">'mis_3'</span>], order<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>), seasonal_order<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, seasonal_period), enforce_stationarity<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb17-5"><a href="#cb17-5"></a>results <span class="op">=</span> model.fit(disp<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb17-6"><a href="#cb17-6"></a></span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="co"># Impute missing values one by one</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a>ts_data_filled <span class="op">=</span> df[<span class="st">'mis_3'</span>].copy()</span>
+<span id="cb17-9"><a href="#cb17-9"></a>missing_indices <span class="op">=</span> df[<span class="st">'mis_3'</span>].loc[df[<span class="st">'mis_3'</span>].isna()]</span>
+<span id="cb17-10"><a href="#cb17-10"></a><span class="cf">for</span> missing_index <span class="kw">in</span> missing_indices.index:</span>
+<span id="cb17-11"><a href="#cb17-11"></a>    ts_data_filled[missing_index] <span class="op">=</span> results.predict(start<span class="op">=</span>missing_index, end<span class="op">=</span>missing_index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
-<span id="cb17-2"><a href="#cb17-2"></a>ax.plot(ts_data_filled, label<span class="op">=</span><span class="st">'Imputed Data'</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
-<span id="cb17-3"><a href="#cb17-3"></a>ax.plot(df[<span class="st">'original'</span>], label<span class="op">=</span><span class="st">'Original Data'</span>, color<span class="op">=</span><span class="st">'tab:blue'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb17-4"><a href="#cb17-4"></a>ax.plot(df[<span class="st">'mis_3'</span>], label<span class="op">=</span><span class="st">'Data with Gaps'</span>, color<span class="op">=</span><span class="st">'tab:blue'</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb17-5"><a href="#cb17-5"></a>ax.set_ylabel(<span class="st">'temperature'</span>)</span>
-<span id="cb17-6"><a href="#cb17-6"></a>ax.set_title(<span class="st">'SARIMAX'</span>)</span>
-<span id="cb17-7"><a href="#cb17-7"></a><span class="co"># calculate and display MSE</span></span>
-<span id="cb17-8"><a href="#cb17-8"></a>mse <span class="op">=</span> mean_squared_error(df[<span class="st">'original'</span>], ts_data_filled)</span>
-<span id="cb17-9"><a href="#cb17-9"></a>ax.text(<span class="fl">0.01</span>, <span class="fl">0.95</span>, <span class="ss">f'MSE: </span><span class="sc">{</span>mse<span class="sc">:.4f}</span><span class="ss">'</span>, transform<span class="op">=</span>ax.transAxes, fontsize<span class="op">=</span><span class="dv">14</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>)</span>
-<span id="cb17-10"><a href="#cb17-10"></a><span class="co"># ax.legend()</span></span>
-<span id="cb17-11"><a href="#cb17-11"></a></span>
-<span id="cb17-12"><a href="#cb17-12"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">3</span>, maxticks<span class="op">=</span><span class="dv">7</span>)</span>
-<span id="cb17-13"><a href="#cb17-13"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
-<span id="cb17-14"><a href="#cb17-14"></a>ax.xaxis.set_major_locator(locator)</span>
-<span id="cb17-15"><a href="#cb17-15"></a>ax.xaxis.set_major_formatter(formatter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-28" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:54.687779Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:54.687701Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:54.766817Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:54.766187Z&quot;}" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb18-2"><a href="#cb18-2"></a>ax.plot(ts_data_filled, label<span class="op">=</span><span class="st">'Imputed Data'</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb18-3"><a href="#cb18-3"></a>ax.plot(df[<span class="st">'original'</span>], label<span class="op">=</span><span class="st">'Original Data'</span>, color<span class="op">=</span><span class="st">'tab:blue'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb18-4"><a href="#cb18-4"></a>ax.plot(df[<span class="st">'mis_3'</span>], label<span class="op">=</span><span class="st">'Data with Gaps'</span>, color<span class="op">=</span><span class="st">'tab:blue'</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb18-5"><a href="#cb18-5"></a>ax.set_ylabel(<span class="st">'temperature'</span>)</span>
+<span id="cb18-6"><a href="#cb18-6"></a>ax.set_title(<span class="st">'SARIMAX'</span>)</span>
+<span id="cb18-7"><a href="#cb18-7"></a><span class="co"># calculate and display MSE, only at the missing points</span></span>
+<span id="cb18-8"><a href="#cb18-8"></a>gap <span class="op">=</span> df[<span class="st">'mis_3'</span>].isna()</span>
+<span id="cb18-9"><a href="#cb18-9"></a>mse <span class="op">=</span> mean_squared_error(df[<span class="st">'original'</span>][gap], ts_data_filled[gap])</span>
+<span id="cb18-10"><a href="#cb18-10"></a>ax.text(<span class="fl">0.01</span>, <span class="fl">0.95</span>, <span class="ss">f'MSE at the gaps: </span><span class="sc">{</span>mse<span class="sc">:.4f}</span><span class="ss">'</span>, transform<span class="op">=</span>ax.transAxes, fontsize<span class="op">=</span><span class="dv">14</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>)</span>
+<span id="cb18-11"><a href="#cb18-11"></a><span class="co"># ax.legend()</span></span>
+<span id="cb18-12"><a href="#cb18-12"></a></span>
+<span id="cb18-13"><a href="#cb18-13"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">3</span>, maxticks<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb18-14"><a href="#cb18-14"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
+<span id="cb18-15"><a href="#cb18-15"></a>ax.xaxis.set_major_locator(locator)</span>
+<span id="cb18-16"><a href="#cb18-16"></a>ax.xaxis.set_major_formatter(formatter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="fill-missing-values_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="fill-missing-values_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The above looks good at the begining of the gap but at the end of the gap it looks bad. That is because we are forcasting and not filling in between the lines…</p>
+<p>The above looks good at the beginning of the gap but at the end of the gap it looks bad. That is because we are forecasting and not filling in between the lines…</p>
 </section>
 <section id="sarimax-cross-fade" class="level1" data-number="27">
 <h1 data-number="27"><span class="header-section-number">27</span> SARIMAX cross fade</h1>
-<div id="cell-26" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">def</span> find_nan_gaps_indexes_datetime(series):</span>
-<span id="cb18-2"><a href="#cb18-2"></a>    <span class="co">"""</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="co">    Find and pair the start and end datetime indexes of gaps in a pandas Series with a datetime index containing NaN values.</span></span>
-<span id="cb18-4"><a href="#cb18-4"></a></span>
-<span id="cb18-5"><a href="#cb18-5"></a><span class="co">    Parameters:</span></span>
-<span id="cb18-6"><a href="#cb18-6"></a><span class="co">    series (pandas Series): The input pandas Series with a datetime index containing NaN gaps.</span></span>
-<span id="cb18-7"><a href="#cb18-7"></a></span>
-<span id="cb18-8"><a href="#cb18-8"></a><span class="co">    Returns:</span></span>
-<span id="cb18-9"><a href="#cb18-9"></a><span class="co">    list of tuples: A list of tuples where each tuple contains the start datetime index and end datetime index of a gap.</span></span>
-<span id="cb18-10"><a href="#cb18-10"></a><span class="co">    """</span></span>
-<span id="cb18-11"><a href="#cb18-11"></a>    is_nan <span class="op">=</span> series.isna().values</span>
-<span id="cb18-12"><a href="#cb18-12"></a>    start_indexes <span class="op">=</span> np.where(is_nan <span class="op">&amp;</span> <span class="op">~</span>np.roll(is_nan, <span class="dv">1</span>))[<span class="dv">0</span>]</span>
-<span id="cb18-13"><a href="#cb18-13"></a>    end_indexes <span class="op">=</span> np.where(is_nan <span class="op">&amp;</span> <span class="op">~</span>np.roll(is_nan, <span class="op">-</span><span class="dv">1</span>))[<span class="dv">0</span>]</span>
-<span id="cb18-14"><a href="#cb18-14"></a></span>
-<span id="cb18-15"><a href="#cb18-15"></a>    <span class="co"># If the last gap extends to the end of the Series, add its end index</span></span>
-<span id="cb18-16"><a href="#cb18-16"></a>    <span class="cf">if</span> is_nan[<span class="op">-</span><span class="dv">1</span>]:</span>
-<span id="cb18-17"><a href="#cb18-17"></a>        end_indexes <span class="op">=</span> np.append(end_indexes, <span class="bu">len</span>(series) <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb18-18"><a href="#cb18-18"></a></span>
-<span id="cb18-19"><a href="#cb18-19"></a>    <span class="co"># Pair start and end datetime indexes together</span></span>
-<span id="cb18-20"><a href="#cb18-20"></a>    gap_pairs <span class="op">=</span> [(series.index[start], series.index[end]) <span class="cf">for</span> start, end <span class="kw">in</span> <span class="bu">zip</span>(start_indexes, end_indexes)]</span>
-<span id="cb18-21"><a href="#cb18-21"></a>    </span>
-<span id="cb18-22"><a href="#cb18-22"></a>    <span class="cf">return</span> gap_pairs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-30" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:54.768314Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:54.768208Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:54.770949Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:54.770316Z&quot;}" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">def</span> find_nan_gaps_indexes_datetime(series):</span>
+<span id="cb19-2"><a href="#cb19-2"></a>    <span class="co">"""</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="co">    Find and pair the start and end datetime indexes of gaps in a pandas Series with a datetime index containing NaN values.</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="co">    Parameters:</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a><span class="co">    series (pandas Series): The input pandas Series with a datetime index containing NaN gaps.</span></span>
+<span id="cb19-7"><a href="#cb19-7"></a></span>
+<span id="cb19-8"><a href="#cb19-8"></a><span class="co">    Returns:</span></span>
+<span id="cb19-9"><a href="#cb19-9"></a><span class="co">    list of tuples: A list of tuples where each tuple contains the start datetime index and end datetime index of a gap.</span></span>
+<span id="cb19-10"><a href="#cb19-10"></a><span class="co">    """</span></span>
+<span id="cb19-11"><a href="#cb19-11"></a>    is_nan <span class="op">=</span> series.isna().values</span>
+<span id="cb19-12"><a href="#cb19-12"></a>    start_indexes <span class="op">=</span> np.where(is_nan <span class="op">&amp;</span> <span class="op">~</span>np.roll(is_nan, <span class="dv">1</span>))[<span class="dv">0</span>]</span>
+<span id="cb19-13"><a href="#cb19-13"></a>    end_indexes <span class="op">=</span> np.where(is_nan <span class="op">&amp;</span> <span class="op">~</span>np.roll(is_nan, <span class="op">-</span><span class="dv">1</span>))[<span class="dv">0</span>]</span>
+<span id="cb19-14"><a href="#cb19-14"></a></span>
+<span id="cb19-15"><a href="#cb19-15"></a>    <span class="co"># If the last gap extends to the end of the Series, add its end index</span></span>
+<span id="cb19-16"><a href="#cb19-16"></a>    <span class="cf">if</span> is_nan[<span class="op">-</span><span class="dv">1</span>]:</span>
+<span id="cb19-17"><a href="#cb19-17"></a>        end_indexes <span class="op">=</span> np.append(end_indexes, <span class="bu">len</span>(series) <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb19-18"><a href="#cb19-18"></a></span>
+<span id="cb19-19"><a href="#cb19-19"></a>    <span class="co"># Pair start and end datetime indexes together</span></span>
+<span id="cb19-20"><a href="#cb19-20"></a>    gap_pairs <span class="op">=</span> [(series.index[start], series.index[end]) <span class="cf">for</span> start, end <span class="kw">in</span> <span class="bu">zip</span>(start_indexes, end_indexes)]</span>
+<span id="cb19-21"><a href="#cb19-21"></a>    </span>
+<span id="cb19-22"><a href="#cb19-22"></a>    <span class="cf">return</span> gap_pairs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-27" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">def</span> forward_reverse_SARIMAX(ts_data, order<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), seasonal_order<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">12</span>), seasonal_period<span class="op">=</span><span class="dv">12</span>, enforce_stationarity<span class="op">=</span><span class="va">True</span>):</span>
-<span id="cb19-2"><a href="#cb19-2"></a>    <span class="co"># The function forward_reverse_SARIMAX aims to impute missing values in a time series dataset using a</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a>    <span class="co"># SARIMAX model approach, both in the original and reversed order of the data. Initially, it builds a </span></span>
-<span id="cb19-4"><a href="#cb19-4"></a>    <span class="co"># SARIMAX model on the provided dataset to predict and fill in the missing values. Then, it reverses </span></span>
-<span id="cb19-5"><a href="#cb19-5"></a>    <span class="co"># the time series data, applies another SARIMAX model on this reversed data, and imputes the missing </span></span>
-<span id="cb19-6"><a href="#cb19-6"></a>    <span class="co"># values again. After obtaining the imputed datasets from both forward and reverse directions, the </span></span>
-<span id="cb19-7"><a href="#cb19-7"></a>    <span class="co"># function iteratively blends the imputed values from both models for each missing point, adjusting </span></span>
-<span id="cb19-8"><a href="#cb19-8"></a>    <span class="co"># the weight given to the forward and reverse imputations based on the position within the missing data gap. </span></span>
-<span id="cb19-9"><a href="#cb19-9"></a>    <span class="co"># This blended approach aims to leverage the predictive insights from both the preceding and succeeding </span></span>
-<span id="cb19-10"><a href="#cb19-10"></a>    <span class="co"># data points, potentially providing a more accurate and balanced imputation for the missing values.</span></span>
-<span id="cb19-11"><a href="#cb19-11"></a>    </span>
-<span id="cb19-12"><a href="#cb19-12"></a>    <span class="co"># Model Building and Imputation</span></span>
-<span id="cb19-13"><a href="#cb19-13"></a>    <span class="co"># Build a SARIMA model on the data with gaps</span></span>
-<span id="cb19-14"><a href="#cb19-14"></a>    model <span class="op">=</span> SARIMAX(ts_data, order<span class="op">=</span>order, seasonal_order<span class="op">=</span>seasonal_order, enforce_stationarity<span class="op">=</span>enforce_stationarity)</span>
-<span id="cb19-15"><a href="#cb19-15"></a>    results <span class="op">=</span> model.fit(disp<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb19-16"><a href="#cb19-16"></a></span>
-<span id="cb19-17"><a href="#cb19-17"></a>    <span class="co"># Impute missing values one by one</span></span>
-<span id="cb19-18"><a href="#cb19-18"></a>    ts_data_filled <span class="op">=</span> ts_data.copy()</span>
-<span id="cb19-19"><a href="#cb19-19"></a>    missing_indices <span class="op">=</span> ts_data.loc[ts_data.isna()]</span>
-<span id="cb19-20"><a href="#cb19-20"></a>    <span class="cf">for</span> missing_index <span class="kw">in</span> missing_indices.index:</span>
-<span id="cb19-21"><a href="#cb19-21"></a>        ts_data_filled[missing_index] <span class="op">=</span> results.predict(start<span class="op">=</span>missing_index, end<span class="op">=</span>missing_index)</span>
-<span id="cb19-22"><a href="#cb19-22"></a>    </span>
-<span id="cb19-23"><a href="#cb19-23"></a></span>
-<span id="cb19-24"><a href="#cb19-24"></a>    <span class="co"># Reverse the time series</span></span>
-<span id="cb19-25"><a href="#cb19-25"></a>    ts_data_reversed <span class="op">=</span> ts_data.iloc[::<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb19-26"><a href="#cb19-26"></a></span>
-<span id="cb19-27"><a href="#cb19-27"></a>    <span class="co"># Build SARIMAX model on reversed data</span></span>
-<span id="cb19-28"><a href="#cb19-28"></a>    model_reversed <span class="op">=</span> SARIMAX(ts_data_reversed, order<span class="op">=</span>order, seasonal_order<span class="op">=</span>seasonal_order, enforce_stationarity<span class="op">=</span>enforce_stationarity)</span>
-<span id="cb19-29"><a href="#cb19-29"></a>    results_reversed <span class="op">=</span> model_reversed.fit(disp<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb19-30"><a href="#cb19-30"></a></span>
-<span id="cb19-31"><a href="#cb19-31"></a>    <span class="co"># Impute missing values in reversed data</span></span>
-<span id="cb19-32"><a href="#cb19-32"></a>    ts_data_filled_reversed <span class="op">=</span> ts_data_reversed.copy()</span>
-<span id="cb19-33"><a href="#cb19-33"></a>    missing_indices_reversed <span class="op">=</span> ts_data_reversed.loc[ts_data_reversed.isna()]</span>
-<span id="cb19-34"><a href="#cb19-34"></a>    <span class="cf">for</span> missing_index <span class="kw">in</span> missing_indices_reversed.index:</span>
-<span id="cb19-35"><a href="#cb19-35"></a>        ts_data_filled_reversed[missing_index] <span class="op">=</span> results_reversed.predict(start<span class="op">=</span>missing_index, end<span class="op">=</span>missing_index)</span>
-<span id="cb19-36"><a href="#cb19-36"></a></span>
-<span id="cb19-37"><a href="#cb19-37"></a>    <span class="co"># Reverse the imputed data back to original order</span></span>
-<span id="cb19-38"><a href="#cb19-38"></a>    ts_data_filled_reversed <span class="op">=</span> ts_data_filled_reversed.iloc[::<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb19-39"><a href="#cb19-39"></a></span>
-<span id="cb19-40"><a href="#cb19-40"></a></span>
-<span id="cb19-41"><a href="#cb19-41"></a>    <span class="co"># Initialize a series to hold the combined predictions</span></span>
-<span id="cb19-42"><a href="#cb19-42"></a>    ts_data_combined <span class="op">=</span> ts_data.copy()</span>
-<span id="cb19-43"><a href="#cb19-43"></a></span>
-<span id="cb19-44"><a href="#cb19-44"></a>    <span class="co"># Iterate over each gap</span></span>
-<span id="cb19-45"><a href="#cb19-45"></a>    <span class="cf">for</span> gap_start, gap_end <span class="kw">in</span> find_nan_gaps_indexes_datetime(ts_data):</span>
-<span id="cb19-46"><a href="#cb19-46"></a>        <span class="co"># print(gap_start)</span></span>
-<span id="cb19-47"><a href="#cb19-47"></a>        <span class="co"># Calculate the number of periods in the gap</span></span>
-<span id="cb19-48"><a href="#cb19-48"></a>        gap <span class="op">=</span> ts_data[gap_start:gap_end]</span>
-<span id="cb19-49"><a href="#cb19-49"></a>        gap_length <span class="op">=</span> <span class="bu">len</span>(gap)</span>
-<span id="cb19-50"><a href="#cb19-50"></a>        </span>
-<span id="cb19-51"><a href="#cb19-51"></a>        <span class="co"># Iterate over each index in the gap</span></span>
-<span id="cb19-52"><a href="#cb19-52"></a>        <span class="co"># for i, index in enumerate(pd.date_range(start=gap_start, end=gap_end, freq=ts_data.index.freq)):</span></span>
-<span id="cb19-53"><a href="#cb19-53"></a>        <span class="cf">for</span> i, index <span class="kw">in</span> <span class="bu">enumerate</span>(gap.index):</span>
-<span id="cb19-54"><a href="#cb19-54"></a>            forward_weight <span class="op">=</span> (gap_length <span class="op">-</span> i) <span class="op">/</span> gap_length</span>
-<span id="cb19-55"><a href="#cb19-55"></a>            backward_weight <span class="op">=</span> i <span class="op">/</span> gap_length</span>
-<span id="cb19-56"><a href="#cb19-56"></a>            combined_prediction <span class="op">=</span> (ts_data_filled.at[index] <span class="op">*</span> forward_weight <span class="op">+</span></span>
-<span id="cb19-57"><a href="#cb19-57"></a>                                ts_data_filled_reversed.at[index] <span class="op">*</span> backward_weight)</span>
-<span id="cb19-58"><a href="#cb19-58"></a>            ts_data_combined.at[index] <span class="op">=</span> combined_prediction</span>
-<span id="cb19-59"><a href="#cb19-59"></a>    </span>
-<span id="cb19-60"><a href="#cb19-60"></a>    <span class="cf">return</span> ts_data_combined</span>
-<span id="cb19-61"><a href="#cb19-61"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-31" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:54.772306Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:54.772165Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:54.776332Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:54.775735Z&quot;}" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">def</span> forward_reverse_SARIMAX(ts_data, order<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), seasonal_order<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">12</span>), seasonal_period<span class="op">=</span><span class="dv">12</span>, enforce_stationarity<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb20-2"><a href="#cb20-2"></a>    <span class="co"># The function forward_reverse_SARIMAX aims to impute missing values in a time series dataset using a</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>    <span class="co"># SARIMAX model approach, both in the original and reversed order of the data. Initially, it builds a </span></span>
+<span id="cb20-4"><a href="#cb20-4"></a>    <span class="co"># SARIMAX model on the provided dataset to predict and fill in the missing values. Then, it reverses </span></span>
+<span id="cb20-5"><a href="#cb20-5"></a>    <span class="co"># the time series data, applies another SARIMAX model on this reversed data, and imputes the missing </span></span>
+<span id="cb20-6"><a href="#cb20-6"></a>    <span class="co"># values again. After obtaining the imputed datasets from both forward and reverse directions, the </span></span>
+<span id="cb20-7"><a href="#cb20-7"></a>    <span class="co"># function iteratively blends the imputed values from both models for each missing point, adjusting </span></span>
+<span id="cb20-8"><a href="#cb20-8"></a>    <span class="co"># the weight given to the forward and reverse imputations based on the position within the missing data gap. </span></span>
+<span id="cb20-9"><a href="#cb20-9"></a>    <span class="co"># This blended approach aims to leverage the predictive insights from both the preceding and succeeding </span></span>
+<span id="cb20-10"><a href="#cb20-10"></a>    <span class="co"># data points, potentially providing a more accurate and balanced imputation for the missing values.</span></span>
+<span id="cb20-11"><a href="#cb20-11"></a>    </span>
+<span id="cb20-12"><a href="#cb20-12"></a>    <span class="co"># Model Building and Imputation</span></span>
+<span id="cb20-13"><a href="#cb20-13"></a>    <span class="co"># Build a SARIMA model on the data with gaps</span></span>
+<span id="cb20-14"><a href="#cb20-14"></a>    model <span class="op">=</span> SARIMAX(ts_data, order<span class="op">=</span>order, seasonal_order<span class="op">=</span>seasonal_order, enforce_stationarity<span class="op">=</span>enforce_stationarity)</span>
+<span id="cb20-15"><a href="#cb20-15"></a>    results <span class="op">=</span> model.fit(disp<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb20-16"><a href="#cb20-16"></a></span>
+<span id="cb20-17"><a href="#cb20-17"></a>    <span class="co"># Impute missing values one by one</span></span>
+<span id="cb20-18"><a href="#cb20-18"></a>    ts_data_filled <span class="op">=</span> ts_data.copy()</span>
+<span id="cb20-19"><a href="#cb20-19"></a>    missing_indices <span class="op">=</span> ts_data.loc[ts_data.isna()]</span>
+<span id="cb20-20"><a href="#cb20-20"></a>    <span class="cf">for</span> missing_index <span class="kw">in</span> missing_indices.index:</span>
+<span id="cb20-21"><a href="#cb20-21"></a>        ts_data_filled[missing_index] <span class="op">=</span> results.predict(start<span class="op">=</span>missing_index, end<span class="op">=</span>missing_index)</span>
+<span id="cb20-22"><a href="#cb20-22"></a>    </span>
+<span id="cb20-23"><a href="#cb20-23"></a></span>
+<span id="cb20-24"><a href="#cb20-24"></a>    <span class="co"># Reverse the time series: the same dates, with the values in reverse order (so the dates are still increasing)</span></span>
+<span id="cb20-25"><a href="#cb20-25"></a>    ts_data_reversed <span class="op">=</span> ts_data.iloc[::<span class="op">-</span><span class="dv">1</span>].copy()</span>
+<span id="cb20-26"><a href="#cb20-26"></a>    ts_data_reversed.index <span class="op">=</span> ts_data.index</span>
+<span id="cb20-27"><a href="#cb20-27"></a></span>
+<span id="cb20-28"><a href="#cb20-28"></a>    <span class="co"># Build SARIMAX model on reversed data</span></span>
+<span id="cb20-29"><a href="#cb20-29"></a>    model_reversed <span class="op">=</span> SARIMAX(ts_data_reversed, order<span class="op">=</span>order, seasonal_order<span class="op">=</span>seasonal_order, enforce_stationarity<span class="op">=</span>enforce_stationarity)</span>
+<span id="cb20-30"><a href="#cb20-30"></a>    results_reversed <span class="op">=</span> model_reversed.fit(disp<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb20-31"><a href="#cb20-31"></a></span>
+<span id="cb20-32"><a href="#cb20-32"></a>    <span class="co"># Impute missing values in reversed data</span></span>
+<span id="cb20-33"><a href="#cb20-33"></a>    ts_data_filled_reversed <span class="op">=</span> ts_data_reversed.copy()</span>
+<span id="cb20-34"><a href="#cb20-34"></a>    missing_indices_reversed <span class="op">=</span> ts_data_reversed.loc[ts_data_reversed.isna()]</span>
+<span id="cb20-35"><a href="#cb20-35"></a>    <span class="cf">for</span> missing_index <span class="kw">in</span> missing_indices_reversed.index:</span>
+<span id="cb20-36"><a href="#cb20-36"></a>        ts_data_filled_reversed[missing_index] <span class="op">=</span> results_reversed.predict(start<span class="op">=</span>missing_index, end<span class="op">=</span>missing_index)</span>
+<span id="cb20-37"><a href="#cb20-37"></a></span>
+<span id="cb20-38"><a href="#cb20-38"></a>    <span class="co"># Reverse the imputed data back to original order</span></span>
+<span id="cb20-39"><a href="#cb20-39"></a>    ts_data_filled_reversed <span class="op">=</span> ts_data_filled_reversed.iloc[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb20-40"><a href="#cb20-40"></a>    ts_data_filled_reversed.index <span class="op">=</span> ts_data.index</span>
+<span id="cb20-41"><a href="#cb20-41"></a></span>
+<span id="cb20-42"><a href="#cb20-42"></a></span>
+<span id="cb20-43"><a href="#cb20-43"></a>    <span class="co"># Initialize a series to hold the combined predictions</span></span>
+<span id="cb20-44"><a href="#cb20-44"></a>    ts_data_combined <span class="op">=</span> ts_data.copy()</span>
+<span id="cb20-45"><a href="#cb20-45"></a></span>
+<span id="cb20-46"><a href="#cb20-46"></a>    <span class="co"># Iterate over each gap</span></span>
+<span id="cb20-47"><a href="#cb20-47"></a>    <span class="cf">for</span> gap_start, gap_end <span class="kw">in</span> find_nan_gaps_indexes_datetime(ts_data):</span>
+<span id="cb20-48"><a href="#cb20-48"></a>        <span class="co"># print(gap_start)</span></span>
+<span id="cb20-49"><a href="#cb20-49"></a>        <span class="co"># Calculate the number of periods in the gap</span></span>
+<span id="cb20-50"><a href="#cb20-50"></a>        gap <span class="op">=</span> ts_data[gap_start:gap_end]</span>
+<span id="cb20-51"><a href="#cb20-51"></a>        gap_length <span class="op">=</span> <span class="bu">len</span>(gap)</span>
+<span id="cb20-52"><a href="#cb20-52"></a>        </span>
+<span id="cb20-53"><a href="#cb20-53"></a>        <span class="co"># Iterate over each index in the gap</span></span>
+<span id="cb20-54"><a href="#cb20-54"></a>        <span class="co"># for i, index in enumerate(pd.date_range(start=gap_start, end=gap_end, freq=ts_data.index.freq)):</span></span>
+<span id="cb20-55"><a href="#cb20-55"></a>        <span class="cf">for</span> i, index <span class="kw">in</span> <span class="bu">enumerate</span>(gap.index):</span>
+<span id="cb20-56"><a href="#cb20-56"></a>            forward_weight <span class="op">=</span> (gap_length <span class="op">-</span> i) <span class="op">/</span> gap_length</span>
+<span id="cb20-57"><a href="#cb20-57"></a>            backward_weight <span class="op">=</span> i <span class="op">/</span> gap_length</span>
+<span id="cb20-58"><a href="#cb20-58"></a>            combined_prediction <span class="op">=</span> (ts_data_filled.at[index] <span class="op">*</span> forward_weight <span class="op">+</span></span>
+<span id="cb20-59"><a href="#cb20-59"></a>                                ts_data_filled_reversed.at[index] <span class="op">*</span> backward_weight)</span>
+<span id="cb20-60"><a href="#cb20-60"></a>            ts_data_combined.at[index] <span class="op">=</span> combined_prediction</span>
+<span id="cb20-61"><a href="#cb20-61"></a>    </span>
+<span id="cb20-62"><a href="#cb20-62"></a>    <span class="cf">return</span> ts_data_combined</span>
+<span id="cb20-63"><a href="#cb20-63"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-28" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>f_r_SARIMAX <span class="op">=</span> forward_reverse_SARIMAX(df[<span class="st">'mis_3'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-32" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:54.777850Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:54.777756Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:56.669173Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:56.668725Z&quot;}" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>f_r_SARIMAX <span class="op">=</span> forward_reverse_SARIMAX(df[<span class="st">'mis_3'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-29" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
-<span id="cb21-2"><a href="#cb21-2"></a>ax.plot(f_r_SARIMAX, label<span class="op">=</span><span class="st">'Imputed Data'</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
-<span id="cb21-3"><a href="#cb21-3"></a>ax.plot(df[<span class="st">'original'</span>], label<span class="op">=</span><span class="st">'Original Data'</span>, color<span class="op">=</span><span class="st">'tab:blue'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb21-4"><a href="#cb21-4"></a>ax.plot(df[<span class="st">'mis_3'</span>], label<span class="op">=</span><span class="st">'Data with Gaps'</span>, color<span class="op">=</span><span class="st">'tab:blue'</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb21-5"><a href="#cb21-5"></a>ax.set_ylabel(<span class="st">'temperature'</span>)</span>
-<span id="cb21-6"><a href="#cb21-6"></a>ax.set_title(<span class="st">'forward reverse SARIMAX'</span>)</span>
-<span id="cb21-7"><a href="#cb21-7"></a><span class="co"># calculate and display MSE</span></span>
-<span id="cb21-8"><a href="#cb21-8"></a>mse <span class="op">=</span> mean_squared_error(df[<span class="st">'original'</span>], f_r_SARIMAX)</span>
-<span id="cb21-9"><a href="#cb21-9"></a>ax.text(<span class="fl">0.01</span>, <span class="fl">0.95</span>, <span class="ss">f'MSE: </span><span class="sc">{</span>mse<span class="sc">:.4f}</span><span class="ss">'</span>, transform<span class="op">=</span>ax.transAxes, fontsize<span class="op">=</span><span class="dv">14</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>)</span>
-<span id="cb21-10"><a href="#cb21-10"></a><span class="co"># ax.legend()</span></span>
-<span id="cb21-11"><a href="#cb21-11"></a></span>
-<span id="cb21-12"><a href="#cb21-12"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">3</span>, maxticks<span class="op">=</span><span class="dv">7</span>)</span>
-<span id="cb21-13"><a href="#cb21-13"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
-<span id="cb21-14"><a href="#cb21-14"></a>ax.xaxis.set_major_locator(locator)</span>
-<span id="cb21-15"><a href="#cb21-15"></a>ax.xaxis.set_major_formatter(formatter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-33" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:56.670484Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:56.670409Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:56.741941Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:56.741408Z&quot;}" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb22-2"><a href="#cb22-2"></a>ax.plot(f_r_SARIMAX, label<span class="op">=</span><span class="st">'Imputed Data'</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb22-3"><a href="#cb22-3"></a>ax.plot(df[<span class="st">'original'</span>], label<span class="op">=</span><span class="st">'Original Data'</span>, color<span class="op">=</span><span class="st">'tab:blue'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb22-4"><a href="#cb22-4"></a>ax.plot(df[<span class="st">'mis_3'</span>], label<span class="op">=</span><span class="st">'Data with Gaps'</span>, color<span class="op">=</span><span class="st">'tab:blue'</span>, alpha<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb22-5"><a href="#cb22-5"></a>ax.set_ylabel(<span class="st">'temperature'</span>)</span>
+<span id="cb22-6"><a href="#cb22-6"></a>ax.set_title(<span class="st">'forward reverse SARIMAX'</span>)</span>
+<span id="cb22-7"><a href="#cb22-7"></a><span class="co"># calculate and display MSE, only at the missing points</span></span>
+<span id="cb22-8"><a href="#cb22-8"></a>gap <span class="op">=</span> df[<span class="st">'mis_3'</span>].isna()</span>
+<span id="cb22-9"><a href="#cb22-9"></a>mse <span class="op">=</span> mean_squared_error(df[<span class="st">'original'</span>][gap], f_r_SARIMAX[gap])</span>
+<span id="cb22-10"><a href="#cb22-10"></a>ax.text(<span class="fl">0.01</span>, <span class="fl">0.95</span>, <span class="ss">f'MSE at the gaps: </span><span class="sc">{</span>mse<span class="sc">:.4f}</span><span class="ss">'</span>, transform<span class="op">=</span>ax.transAxes, fontsize<span class="op">=</span><span class="dv">14</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>)</span>
+<span id="cb22-11"><a href="#cb22-11"></a><span class="co"># ax.legend()</span></span>
+<span id="cb22-12"><a href="#cb22-12"></a></span>
+<span id="cb22-13"><a href="#cb22-13"></a>locator <span class="op">=</span> mdates.AutoDateLocator(minticks<span class="op">=</span><span class="dv">3</span>, maxticks<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb22-14"><a href="#cb22-14"></a>formatter <span class="op">=</span> mdates.ConciseDateFormatter(locator)</span>
+<span id="cb22-15"><a href="#cb22-15"></a>ax.xaxis.set_major_locator(locator)</span>
+<span id="cb22-16"><a href="#cb22-16"></a>ax.xaxis.set_major_formatter(formatter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="fill-missing-values_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="fill-missing-values_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-30" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Calculate MSE</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a>mse_fr <span class="op">=</span> mean_squared_error(df[<span class="st">'original'</span>], f_r_SARIMAX)</span>
-<span id="cb22-3"><a href="#cb22-3"></a>mse_rf <span class="op">=</span> mean_squared_error(df[<span class="st">'original'</span>], df_rf[<span class="st">'mis_3'</span>])</span>
-<span id="cb22-4"><a href="#cb22-4"></a></span>
-<span id="cb22-5"><a href="#cb22-5"></a><span class="bu">print</span>(<span class="st">"Mean Squared Error sarimax:"</span>, mse_fr)</span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="bu">print</span>(<span class="st">"Mean Squared Error rand:"</span>, mse_rf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-34" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:56.743099Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:56.743008Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:56.746393Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:56.745906Z&quot;}" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># Calculate MSE, only at the missing points of mis_3</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>gap <span class="op">=</span> df[<span class="st">'mis_3'</span>].isna()</span>
+<span id="cb23-3"><a href="#cb23-3"></a>mse_fr <span class="op">=</span> mean_squared_error(df[<span class="st">'original'</span>][gap], f_r_SARIMAX[gap])</span>
+<span id="cb23-4"><a href="#cb23-4"></a>mse_rf <span class="op">=</span> mean_squared_error(df[<span class="st">'original'</span>][gap], df_rf[<span class="st">'mis_3'</span>][gap])</span>
+<span id="cb23-5"><a href="#cb23-5"></a></span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="bu">print</span>(<span class="st">"Mean Squared Error sarimax:"</span>, mse_fr)</span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="bu">print</span>(<span class="st">"Mean Squared Error rand:"</span>, mse_rf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Mean Squared Error sarimax: 1.0961749546737887
-Mean Squared Error rand: 1.4924638305799802</code></pre>
+<pre><code>Mean Squared Error sarimax: 3.210912201484622
+Mean Squared Error rand: 4.3851873425517764</code></pre>
 </div>
 </div>
+<section id="which-method" class="level2" data-number="27.1">
+<h2 data-number="27.1" class="anchored" data-anchor-id="which-method"><span class="header-section-number">27.1</span> which method?</h2>
+<p>There is no best method for everything, it depends on the size of the gaps (see the table above, with the errors only at the missing points):</p>
+<ul>
+<li><strong>Short gaps</strong> (<code>mis_1</code>): interpolation works great, and the cubic and polynomial are the best. Filling forward or backward is much worse.</li>
+<li><strong>Long gaps</strong> (<code>mis_3</code>): the cubic and the polynomial go wild (an error more than 10 times larger than the straight line!), and even the straight line misses the daily cycle. The random forest and SARIMAX learn the daily cycle from the rest of the data, and do much better.</li>
+</ul>
+<p>Whatever the method, the filled values are <strong>guesses, not measurements</strong>. Keep track of which values were filled (see “substituting outliers”), and think twice before filling gaps that are longer than the time scale of the process you are studying.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1460,8 +1539,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1623,7 +1700,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

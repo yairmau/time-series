@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.54">
+<meta name="generator" content="quarto-1.6.41">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -58,10 +58,10 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b288e077f13cdc2375eec65dc093508f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-0cc16e73634f01ca4ea797a13a558e30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -850,13 +850,13 @@ window.Quarto = {
    
   <ul>
   <li><a href="#visual-inspection" id="toc-visual-inspection" class="nav-link active" data-scroll-target="#visual-inspection"><span class="header-section-number">19.1</span> visual inspection</a></li>
-  <li><a href="#z-score" id="toc-z-score" class="nav-link" data-scroll-target="#z-score"><span class="header-section-number">19.2</span> Z-score</a>
+  <li><a href="#common-sense-first" id="toc-common-sense-first" class="nav-link" data-scroll-target="#common-sense-first"><span class="header-section-number">19.2</span> common sense first</a></li>
+  <li><a href="#z-score" id="toc-z-score" class="nav-link" data-scroll-target="#z-score"><span class="header-section-number">19.3</span> Z-score</a>
   <ul class="collapse">
-  <li><a href="#attention" id="toc-attention" class="nav-link" data-scroll-target="#attention"><span class="header-section-number">19.2.1</span> ATTENTION!</a></li>
+  <li><a href="#attention" id="toc-attention" class="nav-link" data-scroll-target="#attention"><span class="header-section-number">19.3.1</span> ATTENTION!</a></li>
   </ul></li>
-  <li><a href="#iqr" id="toc-iqr" class="nav-link" data-scroll-target="#iqr"><span class="header-section-number">19.3</span> IQR</a></li>
-  <li><a href="#non-stationary-time-series" id="toc-non-stationary-time-series" class="nav-link" data-scroll-target="#non-stationary-time-series"><span class="header-section-number">19.4</span> non-stationary time series</a></li>
-  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources"><span class="header-section-number">19.5</span> Sources</a></li>
+  <li><a href="#iqr" id="toc-iqr" class="nav-link" data-scroll-target="#iqr"><span class="header-section-number">19.4</span> IQR</a></li>
+  <li><a href="#non-stationary-time-series" id="toc-non-stationary-time-series" class="nav-link" data-scroll-target="#non-stationary-time-series"><span class="header-section-number">19.5</span> non-stationary time series</a></li>
   </ul>
 </nav>
     </div>
@@ -884,7 +884,7 @@ window.Quarto = {
 
 <section id="visual-inspection" class="level2" data-number="19.1">
 <h2 data-number="19.1" class="anchored" data-anchor-id="visual-inspection"><span class="header-section-number">19.1</span> visual inspection</h2>
-<p>I produced a stationary signal and added to it a few ouliers. Can you tell where just by looking at the graph? <img src="signal_39_stationary.png" class="img-fluid"></p>
+<p>I produced a stationary signal (one whose mean and spread do not change with time) and added to it a few outliers. Can you tell where just by looking at the graph? <img src="signal_39_stationary.png" class="img-fluid"></p>
 <p>The easiest way of identifying the outliers is:</p>
 <ul>
 <li>First plot the time series.</li>
@@ -894,8 +894,19 @@ window.Quarto = {
 <p><img src="outliers_visual_inspection.png" class="img-fluid"></p>
 <p>If all you have is this one time series, you’re done, congratulations. However, it is often the case that one has very long time series, or a great number of time series to analyze. In this case it is impractical to use the visual inspection method. We would like to devise an algorithm to automate this task.</p>
 </section>
-<section id="z-score" class="level2 page-columns page-full" data-number="19.2">
-<h2 data-number="19.2" class="anchored" data-anchor-id="z-score"><span class="header-section-number">19.2</span> Z-score</h2>
+<section id="common-sense-first" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="common-sense-first"><span class="header-section-number">19.2</span> common sense first</h2>
+<p>Before any statistics, there are a few checks that use physics, and not mathematics. They catch many of the real problems in environmental data:</p>
+<ul>
+<li><strong>Physical limits.</strong> Values that the world (or the sensor) cannot produce: a relative humidity of 130%, a negative rainfall.</li>
+<li><strong>Codes for “no data”.</strong> Many data providers write -9999 or 999 where there is no measurement. These look like gigantic outliers, and they ruin the mean if we forget about them.</li>
+<li><strong>Stuck sensors.</strong> The same value repeated again and again, a plateau (we will find some in the challenge).</li>
+<li><strong>Impossible changes.</strong> A temperature that jumps 10 °C in 10 minutes.</li>
+</ul>
+<p>Only after these checks it makes sense to ask the statistical question: which points are <em>unusual</em>?</p>
+</section>
+<section id="z-score" class="level2 page-columns page-full" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="z-score"><span class="header-section-number">19.3</span> Z-score</h2>
 <p>The Z-score is the distance, in units of 1 standard deviation, of a point in the series with respect to the mean:</p>
 <p><span class="math display">
 z  = \frac{x-\mu}{\sigma},
@@ -911,12 +922,12 @@ z  = \frac{x-\mu}{\sigma},
 <li><span class="math inline">\sigma=</span> time series standard deviation.</li>
 </ul>
 </div></div><p>The process of converting a time series into a Z-score series is called <strong>standardization</strong>. This will be useful in the next topic, when we talk about the correlation between two time series.</p>
-<p>A common choice is to consider an outlier a point whose Z-score is greater that 3, in absolute value. In other words: If a point is more than 3 standard deviations away form the mean, then we call it an outlier.</p>
+<p>A common choice is to consider an outlier a point whose Z-score is greater than 3, in absolute value. In other words: If a point is more than 3 standard deviations away from the mean, then we call it an outlier.</p>
 <p><img src="outliers_3sigma.png" class="img-fluid"></p>
 <p>You can now use this algorithm to any number of time series, let the computer do the hard work.</p>
 <p>Of course, there is nothing sacred about the number 3. You can choose any Z-score you want to perform an analysis on your own data, depending on your needs.</p>
-<section id="attention" class="level3 page-columns page-full" data-number="19.2.1">
-<h3 data-number="19.2.1" class="anchored" data-anchor-id="attention"><span class="header-section-number">19.2.1</span> ATTENTION!</h3>
+<section id="attention" class="level3 page-columns page-full" data-number="19.3.1">
+<h3 data-number="19.3.1" class="anchored" data-anchor-id="attention"><span class="header-section-number">19.3.1</span> ATTENTION!</h3>
 <p>For data that is gaussianly distributed, we expect that 99.73% of data to fall within 3 standard deviations from the mean. In other words, 0.27% of points would be considered as <em>outliers</em> according to the Z-score method.</p>
 <p><img src="Normal_Distribution_Sigma.png" class="img-fluid"></p>
 
@@ -932,8 +943,8 @@ z  = \frac{x-\mu}{\sigma},
 </div></div><p>We should have this in mind always. We wouldn’t want to single out good data as something weird. Our true task is to identify which points in our time series were sampled from a different distribution. This can be a very challenging task.</p>
 </section>
 </section>
-<section id="iqr" class="level2 page-columns page-full" data-number="19.3">
-<h2 data-number="19.3" class="anchored" data-anchor-id="iqr"><span class="header-section-number">19.3</span> IQR</h2>
+<section id="iqr" class="level2 page-columns page-full" data-number="19.4">
+<h2 data-number="19.4" class="anchored" data-anchor-id="iqr"><span class="header-section-number">19.4</span> IQR</h2>
 <p>Another super common criterion for identifying outliers is the IQR, or InterQuartile Range.</p>
 <p>Take a look at the statistics below of the time series we have been working with so far. The IQR is the distance between the first quartile (Q1) and the third quartile (Q3), where exactly 50% of the data is.</p>
 <p>The algorithm here is to determine two thresholds, whose distance is 1.5 times the IQR from Q1 and Q3. Whatever falls outside these two thresholds is an outlier.</p>
@@ -947,8 +958,8 @@ z  = \frac{x-\mu}{\sigma},
 <p><img src="outliers_1.5IQR.png" class="img-fluid"></p>
 <p>It works pretty well! Notice that now we have an additional outlier (a bit before 06:00). What do we do with that?</p>
 </section>
-<section id="non-stationary-time-series" class="level2" data-number="19.4">
-<h2 data-number="19.4" class="anchored" data-anchor-id="non-stationary-time-series"><span class="header-section-number">19.4</span> non-stationary time series</h2>
+<section id="non-stationary-time-series" class="level2" data-number="19.5">
+<h2 data-number="19.5" class="anchored" data-anchor-id="non-stationary-time-series"><span class="header-section-number">19.5</span> non-stationary time series</h2>
 <p>I have produced a new time series, one that on average goes up with time. Can you point in the graph where are the outliers?</p>
 <p><img src="signal_40_non_stationary.png" class="img-fluid"></p>
 <p>Now, see what happens when we apply the previous two methods to this time series.</p>
@@ -957,9 +968,6 @@ z  = \frac{x-\mu}{\sigma},
 <p><strong>IQR</strong></p>
 <p><img src="outliers_1.5IQR_seed40.png" class="img-fluid"></p>
 <p>What happened? Do you have ideas how to solve this?</p>
-</section>
-<section id="sources" class="level2" data-number="19.5">
-<h2 data-number="19.5" class="anchored" data-anchor-id="sources"><span class="header-section-number">19.5</span> Sources</h2>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -1052,8 +1060,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1215,7 +1221,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

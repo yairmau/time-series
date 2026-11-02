@@ -101,9 +101,12 @@ book:
         - forecasting/arima.qmd
     - part: "homework"
       chapters:
-        - homework/resampling.qmd
-        - homework/resampling-answers.ipynb
-        - homework/smoothing.qmd
+        - homework/HW-resampling.qmd
+        - homework/HW-resampling-answers.ipynb
+        - homework/HW-smoothing.qmd
+        - homework/HW-smoothing-answers.ipynb
+        - homework/HW-outliers.qmd
+        # - homework/HW-outliers-answers.ipynb
     # - part: "assignments"
     #   chapters:
     #     - assignments/evaluation.qmd

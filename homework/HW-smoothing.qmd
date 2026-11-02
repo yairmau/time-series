@@ -1,4 +1,4 @@
-## homework: smoothing
+## HW: smoothing
 
 This homework comes right after the second session, where we discussed smoothing. Read all the instructions before you start.
 
@@ -23,9 +23,9 @@ Spend your time on the first kind, and get help for the second (AI, a classmate,
 
 ## the data
 
-Use the station and the year of the [previous homework](/homework/resampling.html). You will work with the temperature of **10 consecutive days**, for example in January or in June. Choose a period without gaps if you can (the template shows you how to check).
+Use the station and the year of the [previous homework](/homework/HW-resampling.html). You will work with the temperature of **10 consecutive days**, for example in January or in June. Choose a period without gaps if you can (the template shows you how to check).
 
-Download this <a href="/homework/homework-smoothing-template.ipynb" download>Jupyter Notebook template</a>. It already loads the data for you.
+Download this <a href="/homework/HW-smoothing-template.ipynb" download>Jupyter Notebook template</a>. It already loads the data for you.
 
 ## how to work
 
