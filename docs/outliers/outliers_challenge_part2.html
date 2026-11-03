@@ -835,7 +835,8 @@ document.addEventListener("DOMContentLoaded", function() {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#outliers-and-missing-values" id="toc-outliers-and-missing-values" class="nav-link active" data-scroll-target="#outliers-and-missing-values"><span class="header-section-number">24.1</span> outliers and missing values</a></li>
+  <li><a href="#try-the-interactive-lab" id="toc-try-the-interactive-lab" class="nav-link active" data-scroll-target="#try-the-interactive-lab">Try the interactive lab</a></li>
+  <li><a href="#outliers-and-missing-values" id="toc-outliers-and-missing-values" class="nav-link" data-scroll-target="#outliers-and-missing-values"><span class="header-section-number">24.1</span> outliers and missing values</a></li>
   <li><a href="#cleaning-df1-from-outliers" id="toc-cleaning-df1-from-outliers" class="nav-link" data-scroll-target="#cleaning-df1-from-outliers"><span class="header-section-number">24.2</span> cleaning df1 from outliers</a>
   <ul class="collapse">
   <li><a href="#method-1-rolling-standard-deviation-envelope" id="toc-method-1-rolling-standard-deviation-envelope" class="nav-link" data-scroll-target="#method-1-rolling-standard-deviation-envelope"><span class="header-section-number">24.2.1</span> method 1: rolling standard deviation envelope</a></li>
@@ -867,10 +868,26 @@ document.addEventListener("DOMContentLoaded", function() {
 </header>
 
 
+<section id="try-the-interactive-lab" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="try-the-interactive-lab">Try the interactive lab</h2>
+<p>Explore the challenge data before writing the cleaning code: change the window and threshold, compare SD, IQR and MAD, and inspect a stuck sensor. Then turn flagged points into gaps.</p>
+<p><a href="lab/index.html" target="_blank" rel="noopener"><strong>Open the outliers &amp; gaps lab in a full browser tab</strong></a></p>
+<iframe id="outliers-lab-frame" src="lab/index.html" title="Interactive outliers and gaps lab: detection windows, thresholds, stuck sensors and interpolation" style="width:100%;height:1650px;border:1px solid #dce4e8;border-radius:12px;" loading="lazy"></iframe>
+<script>
+window.addEventListener("message", function (event) {
+  const frame = document.getElementById("outliers-lab-frame");
+  if (event.source === frame.contentWindow && event.origin === window.location.origin &&
+      event.data && event.data.type === "outliers-lab-height" && Number.isFinite(event.data.height)) {
+    frame.style.height = Math.max(500, Math.min(8000, event.data.height)) + "px";
+  }
+});
+</script>
+<p>A flag is a prompt to investigate. Keep the original observations and record every removal and estimate separately.</p>
+</section>
 <section id="outliers-and-missing-values" class="level2" data-number="24.1">
 <h2 data-number="24.1" class="anchored" data-anchor-id="outliers-and-missing-values"><span class="header-section-number">24.1</span> outliers and missing values</h2>
 <p>Here you have 3 dataframes that need cleaning. Use the methods learned in class to process the data.</p>
-<div id="cell-2" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:44.237169Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:44.237057Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:45.750594Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:45.749886Z&quot;}" data-execution_count="1">
+<div id="cell-3" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:44.237169Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:44.237057Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:45.750594Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:45.749886Z&quot;}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -882,7 +899,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb1-9"><a href="#cb1-9"></a></span>
 <span id="cb1-10"><a href="#cb1-10"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-3" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:45.752253Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:45.752038Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:45.829538Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:45.828809Z&quot;}" data-execution_count="2">
+<div id="cell-4" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:45.752253Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:45.752038Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:45.829538Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:45.828809Z&quot;}" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>df1 <span class="op">=</span> pd.read_csv(<span class="st">'cleaning1.csv'</span>, </span>
 <span id="cb2-2"><a href="#cb2-2"></a>                  index_col<span class="op">=</span><span class="st">'date'</span>,     <span class="co"># set the column date as index </span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>                  parse_dates<span class="op">=</span><span class="va">True</span>)     <span class="co"># turn to datetime format</span></span>
@@ -1006,7 +1023,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div>
 </div>
-<div id="cell-4" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:45.830989Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:45.830875Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:45.839539Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:45.838998Z&quot;}" data-execution_count="3">
+<div id="cell-5" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:45.830989Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:45.830875Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:45.839539Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:45.838998Z&quot;}" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>df2 <span class="op">=</span> pd.read_csv(<span class="st">'cleaning2_formated.csv'</span>, </span>
 <span id="cb3-2"><a href="#cb3-2"></a>                  index_col<span class="op">=</span><span class="st">'datetime'</span>,     <span class="co"># set the column date as index </span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>                  parse_dates<span class="op">=</span><span class="va">True</span>)     <span class="co"># turn to datetime format</span></span>
@@ -1091,7 +1108,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div>
 </div>
-<div id="cell-5" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:45.841334Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:45.841191Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:45.846601Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:45.846008Z&quot;}" data-execution_count="4">
+<div id="cell-6" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:45.841334Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:45.841191Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:45.846601Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:45.846008Z&quot;}" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>df3 <span class="op">=</span> pd.read_csv(<span class="st">'cleaning3_formated.csv'</span>, </span>
 <span id="cb4-2"><a href="#cb4-2"></a>                  index_col<span class="op">=</span><span class="st">'time'</span>,     <span class="co"># set the column date as index </span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>                  parse_dates<span class="op">=</span><span class="va">True</span>,     <span class="co"># turn to datetime format</span></span>
@@ -1170,7 +1187,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <section id="method-1-rolling-standard-deviation-envelope" class="level3" data-number="24.2.1">
 <h3 data-number="24.2.1" class="anchored" data-anchor-id="method-1-rolling-standard-deviation-envelope"><span class="header-section-number">24.2.1</span> method 1: rolling standard deviation envelope</h3>
 <p>Visual inspection of all the data:</p>
-<div id="cell-7" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:45.848340Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:45.848182Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:45.851271Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:45.850648Z&quot;}" data-execution_count="5">
+<div id="cell-8" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:45.848340Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:45.848182Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:45.851271Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:45.850648Z&quot;}" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">def</span> plot_all_columns(data):</span>
 <span id="cb5-2"><a href="#cb5-2"></a>    column_list <span class="op">=</span> data.columns</span>
 <span id="cb5-3"><a href="#cb5-3"></a>    </span>
@@ -1190,7 +1207,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb5-17"><a href="#cb5-17"></a></span>
 <span id="cb5-18"><a href="#cb5-18"></a>    <span class="cf">return</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-8" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:45.852721Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:45.852583Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:46.166752Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:46.165921Z&quot;}" data-execution_count="6">
+<div id="cell-9" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:45.852721Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:45.852583Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:46.166752Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:46.165921Z&quot;}" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>plot_all_columns(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1201,7 +1218,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div>
 <p>Applying the rolling <code>std</code> method on column A:</p>
-<div id="cell-10" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:46.168502Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:46.168215Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:46.184969Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:46.184370Z&quot;}" data-execution_count="7">
+<div id="cell-11" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:46.168502Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:46.168215Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:46.184969Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:46.184370Z&quot;}" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># find the rolling std</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>df1[<span class="st">'A_std'</span>] <span class="op">=</span> df1[<span class="st">'A'</span>].rolling(<span class="dv">50</span>, center<span class="op">=</span><span class="va">True</span>, min_periods<span class="op">=</span><span class="dv">1</span>).std()</span>
 <span id="cb7-3"><a href="#cb7-3"></a><span class="co"># find the rolling mean</span></span>
@@ -1420,7 +1437,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <section id="plotting-the-results" class="level3" data-number="24.2.2">
 <h3 data-number="24.2.2" class="anchored" data-anchor-id="plotting-the-results"><span class="header-section-number">24.2.2</span> plotting the results:</h3>
 <p>Use <code>%matplotlib widget</code> to visually inspect the results.</p>
-<div id="cell-12" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:46.188627Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:46.188479Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:47.147985Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:47.147354Z&quot;}" data-execution_count="8">
+<div id="cell-13" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:46.188627Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:46.188479Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:47.147985Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:47.147354Z&quot;}" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">4</span>))</span>
 <span id="cb8-2"><a href="#cb8-2"></a></span>
 <span id="cb8-3"><a href="#cb8-3"></a>ax.plot(df1[<span class="st">'A'</span>], c<span class="op">=</span><span class="st">'r'</span>, label<span class="op">=</span><span class="st">'original'</span>)</span>
@@ -1438,7 +1455,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div>
 <p>Now let’s write a function so we can easily apply it to all our data:</p>
-<div id="cell-14" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:47.149331Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:47.149228Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:47.151808Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:47.151382Z&quot;}" data-execution_count="9">
+<div id="cell-15" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:47.149331Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:47.149228Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:47.151808Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:47.151382Z&quot;}" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">def</span> rolling_std_envelope(series, window_size<span class="op">=</span><span class="dv">50</span>, k<span class="op">=</span><span class="dv">2</span>):</span>
 <span id="cb9-2"><a href="#cb9-2"></a>    data <span class="op">=</span> series.rename(<span class="st">'original'</span>).to_frame()</span>
 <span id="cb9-3"><a href="#cb9-3"></a>    data[<span class="st">'std'</span>] <span class="op">=</span> data[<span class="st">'original'</span>].rolling(window_size, center<span class="op">=</span><span class="va">True</span>, min_periods<span class="op">=</span><span class="dv">1</span>).std()</span>
@@ -1456,7 +1473,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb9-15"><a href="#cb9-15"></a>    <span class="cf">return</span> data[<span class="st">'filtered'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s test the new function:</p>
-<div id="cell-16" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:47.153401Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:47.153286Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:47.321927Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:47.321471Z&quot;}" data-execution_count="10">
+<div id="cell-17" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:47.153401Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:47.153286Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:47.321927Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:47.321471Z&quot;}" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">4</span>))</span>
 <span id="cb10-2"><a href="#cb10-2"></a></span>
 <span id="cb10-3"><a href="#cb10-3"></a>ax.plot(df1[<span class="st">'A'</span>], c<span class="op">=</span><span class="st">'r'</span>, label<span class="op">=</span><span class="st">'original'</span>)</span>
@@ -1471,12 +1488,12 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div>
 <p>Now let’s reload <code>df1</code> so it will be clean (without all the added columns from before) and apply the function on all columns:</p>
-<div id="cell-18" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:47.323483Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:47.323380Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:47.379504Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:47.378860Z&quot;}" data-execution_count="11">
+<div id="cell-19" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:47.323483Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:47.323380Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:47.379504Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:47.378860Z&quot;}" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>df1 <span class="op">=</span> pd.read_csv(<span class="st">'cleaning1.csv'</span>, </span>
 <span id="cb11-2"><a href="#cb11-2"></a>                  index_col<span class="op">=</span><span class="st">'date'</span>,     <span class="co"># set the column date as index </span></span>
 <span id="cb11-3"><a href="#cb11-3"></a>                  parse_dates<span class="op">=</span><span class="va">True</span>)     <span class="co"># turn to datetime format</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-19" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:47.380835Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:47.380747Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:47.385282Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:47.384847Z&quot;}" data-execution_count="12">
+<div id="cell-20" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:47.380835Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:47.380747Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:47.385282Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:47.384847Z&quot;}" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>df1_filtered <span class="op">=</span> df1.copy()</span>
 <span id="cb12-2"><a href="#cb12-2"></a>df1_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
@@ -1598,7 +1615,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 </div>
 </div>
-<div id="cell-20" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:47.386772Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:47.386665Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:47.409184Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:47.408543Z&quot;}" data-execution_count="13">
+<div id="cell-21" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:47.386772Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:47.386665Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:47.409184Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:47.408543Z&quot;}" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>columns <span class="op">=</span> df1_filtered.columns</span>
 <span id="cb13-2"><a href="#cb13-2"></a></span>
 <span id="cb13-3"><a href="#cb13-3"></a><span class="cf">for</span> column <span class="kw">in</span> columns:</span>
@@ -1606,7 +1623,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span id="cb13-5"><a href="#cb13-5"></a>    df1_filtered[column] <span class="op">=</span> filtered_column</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now let’s plot the results:</p>
-<div id="cell-22" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:47.410622Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:47.410538Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:48.454879Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:48.454430Z&quot;}" data-execution_count="14">
+<div id="cell-23" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:47.410622Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:47.410538Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:48.454879Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:48.454430Z&quot;}" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="bu">len</span>(columns),<span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="bu">len</span>(columns)<span class="op">*</span><span class="dv">2</span>))</span>
 <span id="cb14-2"><a href="#cb14-2"></a></span>
 <span id="cb14-3"><a href="#cb14-3"></a><span class="cf">for</span> i, column <span class="kw">in</span> <span class="bu">enumerate</span>(columns):</span>
@@ -1629,7 +1646,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>Now what about the plateaus in the series D?<br>
 That’s another form of outliers.<br>
 The following function will find rows which have at least <code>n</code> equal following values and replace them with NaNs.</p>
-<div id="cell-24" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:48.456110Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:48.456010Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:48.458703Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:48.458310Z&quot;}" data-execution_count="15">
+<div id="cell-25" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:48.456110Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:48.456010Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:48.458703Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:48.458310Z&quot;}" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># function to copy paste:</span></span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="kw">def</span> conseq_series(series, N):</span>
 <span id="cb15-3"><a href="#cb15-3"></a>    <span class="co">"""</span></span>
@@ -1669,7 +1686,7 @@ The following function will find rows which have at least <code>n</code> equal f
 <span id="cb15-37"><a href="#cb15-37"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s apply it to the <code>df1_filtered</code> df so we will end with a cleaner signal</p>
-<div id="cell-26" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:48.460300Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:48.460195Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:48.649357Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:48.648948Z&quot;}" data-execution_count="16">
+<div id="cell-27" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-02T11:35:48.460300Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-02T11:35:48.460195Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-02T11:35:48.649357Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-02T11:35:48.648948Z&quot;}" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">4</span>))</span>
 <span id="cb16-2"><a href="#cb16-2"></a>ax.plot(df1_filtered[<span class="st">'D'</span>], color<span class="op">=</span><span class="st">"tab:red"</span>, label<span class="op">=</span><span class="st">'original'</span>)</span>
 <span id="cb16-3"><a href="#cb16-3"></a>ax.plot(conseq_series(df1_filtered[<span class="st">'D'</span>], <span class="dv">10</span>), c<span class="op">=</span><span class="st">'tab:blue'</span>, label<span class="op">=</span><span class="st">'filtered'</span>)</span>

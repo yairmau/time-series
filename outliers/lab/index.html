@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Outliers &amp; gaps lab · Time Series Analysis</title>
+  <meta name="description" content="Explore outlier thresholds, rolling windows, stuck sensors and gap filling with the course challenge data.">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="engine.js"></script><script defer src="data.js"></script><script defer src="app.js"></script>
+</head>
+<body><main>
+  <header><div><p class="eyebrow">TIME SERIES ANALYSIS / TA LAB</p>
+    <h1>Suspicious point, or real signal?</h1>
+    <p class="intro">Predict what will change. Move one slider. Make a case for what to keep.</p></div>
+    <button id="reset" class="quiet" type="button">Reset lab</button></header>
+  <nav class="mode-switch" aria-label="Lab stages">
+    <button id="detect-mode" type="button" aria-pressed="true">1 · Find suspicious values</button>
+    <button id="fill-mode" type="button" aria-pressed="false">2 · Fill the gaps</button>
+  </nav>
+  <nav class="experiments" aria-label="Experiment starting points">
+    <span>Start with a question:</span>
+    <button type="button" data-preset="spike">Can a spike hide itself?</button>
+    <button type="button" data-preset="cluster">When is a window too small?</button>
+    <button type="button" data-preset="stuck">What about a stuck sensor?</button>
+    <button type="button" data-preset="step">Is a level shift an outlier?</button>
+    <button type="button" data-preset="gap">How long is too long to fill?</button>
+  </nav>
+  <section id="detect-stage" class="workspace" aria-label="Outlier detection">
+    <aside class="controls" aria-label="Detection settings">
+      <div class="control"><label for="dataset">Data</label><select id="dataset">
+        <optgroup label="Synthetic · known signal and faults">
+          <option value="spike">One spike + changing baseline</option><option value="cluster">A cluster of bad readings</option>
+          <option value="stuck">A stuck sensor</option><option value="step">A genuine level shift</option>
+        </optgroup><optgroup id="course-datasets" label="Course challenge files · excerpts"></optgroup>
+      </select><p id="data-note" class="note"></p><a id="data-source" class="note" target="_blank" rel="noopener" hidden>Source CSV</a></div>
+      <div id="synthetic-controls" class="control">
+        <label for="amplitude">Event height <output id="amplitude-value" for="amplitude"></output></label>
+        <input id="amplitude" type="range" min="0" max="25" step="0.5" value="8">
+        <div id="length-control"><label for="event-length">Event length <output id="length-value" for="event-length"></output></label>
+        <input id="event-length" type="range" min="1" max="61" step="2" value="9"></div>
+      </div>
+      <div class="control"><label for="method">Detection rule</label><select id="method">
+        <option value="z">Z-score · mean ± k × SD</option><option value="iqr">IQR · quartile fences</option><option value="mad" selected>MAD · median ± k × scaled MAD</option>
+      </select><p id="formula" class="note"></p></div>
+      <div class="control"><label for="scope">Estimate the reference from…</label><select id="scope">
+        <option value="rolling">A sliding window</option><option value="global">The whole displayed record</option>
+      </select><label for="size">Window width <output id="size-value" for="size"></output></label>
+      <input id="size" type="range" min="5" max="201" step="2" value="31"><p id="span-note" class="note"></p>
+      <label for="alignment">Window position</label><select id="alignment"><option value="center">Centered · past + future</option><option value="trailing">Trailing · current + past</option></select>
+      <label class="choice"><input id="full" type="checkbox"> Require a complete window</label>
+      <p class="note">Otherwise use available values, with at least 3. The tested point is included.</p></div>
+      <div class="control"><label for="threshold">Threshold multiplier k <output id="threshold-value" for="threshold"></output></label>
+        <input id="threshold" type="range" min="0.5" max="6" step="0.1" value="3">
+        <p class="note">A larger k makes wider limits. The same k has different meanings for IQR and SD/MAD.</p></div>
+      <div class="control"><label class="choice"><input id="plateau" type="checkbox"> Also flag repeated-value runs</label>
+        <label for="run">Minimum run <output id="run-value" for="run"></output></label>
+        <input id="run" type="range" min="3" max="101" step="1" value="10">
+        <p class="note">Exact equality, consecutive samples. A flat record is a reason to investigate, not proof of failure.</p></div>
+      <label id="truth-control" class="choice"><input id="truth" type="checkbox"> Reveal the known signal and faults</label>
+    </aside>
+    <div class="plots">
+      <section class="plot-card"><div class="plot-heading"><h2 id="detect-title">One spike + changing baseline</h2><span id="rule-badge" class="badge"></span></div>
+        <div class="legend"><span><i class="raw"></i>Observed</span><span><i class="band"></i>Detection limits</span><span><i class="flag"></i>Flagged ×</span><span id="truth-legend" hidden><i class="truth"></i>Known signal</span><span id="pin-legend" hidden><i class="pinned"></i>Pinned limits</span></div>
+        <svg id="detect-chart" viewBox="0 0 900 350" role="img" aria-label="Observations, detection limits and flagged points. Select a sample to inspect its window."></svg>
+        <p class="note">Click the graph or move the inspector slider. Shading shows the selected window. Limits describe this rule, not a confidence interval.</p>
+        <div id="detection-metrics" class="readouts" aria-live="polite"></div>
+        <div class="actions"><button id="pin" type="button">Pin limits to compare</button><button id="clear-pin" class="quiet" type="button" disabled>Clear comparison</button><button id="transfer" type="button">Flagged → gaps →</button></div>
+        <p id="pin-note" class="note"></p><p class="note">“Flagged → gaps” makes a separate working copy. The observations remain unchanged.</p>
+      </section>
+      <section class="plot-card inspector"><h2>Inside one window</h2>
+        <label for="position">Inspect a sample <output id="position-value" for="position"></output></label>
+        <input id="position" type="range" min="0" max="240" step="1" value="120">
+        <svg id="window-chart" viewBox="0 0 900 235" role="img" aria-label="Selected observations and the limits used to judge the inspected sample"></svg>
+        <div id="window-metrics" class="readouts"></div><p id="calculation" class="calculation"></p>
+        <p id="window-note" class="note"></p>
+      </section>
+    </div>
+  </section>
+  <section id="fill-stage" class="workspace" aria-label="Gap filling" hidden>
+    <aside class="controls" aria-label="Gap filling settings">
+      <div class="control"><label for="gap-data">Data and gaps</label><select id="gap-data">
+        <option value="mis_1">Temperature · short gaps (mis_1)</option><option value="mis_2">Temperature · medium gaps (mis_2)</option>
+        <option value="mis_3">Temperature · long gaps (mis_3)</option><option value="custom">Temperature · move your own gap</option>
+        <option id="transfer-option" value="transfer" disabled>Flagged points from stage 1</option>
+      </select><p id="gap-data-note" class="note"></p></div>
+      <div id="custom-gap-controls" class="control" hidden>
+        <label for="gap-length">Missing samples <output id="gap-length-value" for="gap-length"></output></label>
+        <input id="gap-length" type="range" min="1" max="84" step="1" value="12">
+        <label for="gap-position">Gap starts at <output id="gap-position-value" for="gap-position"></output></label>
+        <input id="gap-position" type="range" min="0" max="732" step="1" value="180">
+        <p class="note">Temperature is sampled every 2 hours. The hidden original is held out of every method.</p></div>
+      <div class="control"><label for="fill-method">Fill method</label><select id="fill-method">
+        <option value="none">Leave gaps</option><option value="forward">Forward fill</option><option value="backward">Backward fill</option>
+        <option value="linear" selected>Linear interpolation</option><option value="cubic">Natural cubic spline</option>
+      </select><p id="fill-method-note" class="note"></p></div>
+      <div class="control"><label for="max-gap">Fill runs no longer than <output id="max-gap-value" for="max-gap"></output></label>
+        <input id="max-gap" type="range" min="1" max="201" step="1" value="201">
+        <p class="note">Longer runs stay entirely missing. Linear and cubic methods need observations on both sides.</p></div>
+      <div class="control"><label for="gap-view">View</label><select id="gap-view"><option value="focus">Zoom to a gap</option><option value="all">Whole record</option></select>
+        <label for="gap-inspect">Gap to inspect</label><select id="gap-inspect"></select><p id="gap-summary" class="note"></p></div>
+      <label id="gap-truth-control" class="choice"><input id="gap-truth" type="checkbox"> Reveal the held-out original and errors</label>
+    </aside>
+    <div class="plots">
+      <section class="plot-card"><div class="plot-heading"><h2 id="gap-title">What belongs in the gap?</h2><span class="badge">Filled values are estimates</span></div>
+        <div class="legend"><span><i class="raw"></i>Available observations</span><span><i class="filled"></i>Filled · dashed</span><span id="gap-truth-legend" hidden><i class="truth"></i>Held-out original</span></div>
+        <svg id="gap-chart" viewBox="0 0 900 380" role="img" aria-label="Available observations, filled estimates and optional held-out original values"></svg>
+        <div id="gap-metrics" class="readouts" aria-live="polite"></div>
+        <p id="gap-note" class="calculation"></p>
+      </section>
+      <section class="plot-card"><h2>Compare on the same missing samples</h2>
+        <p class="note">Each method sees only available observations. The maximum-run rule applies to every method; results cover the whole record, even when zoomed in.</p>
+        <div class="table-wrap"><table><thead><tr><th scope="col">Method</th><th scope="col">Filled / missing</th><th scope="col">RMSE on filled samples</th></tr></thead><tbody id="comparison"></tbody></table></div>
+        <p id="score-note" class="note"></p>
+      </section>
+    </div>
+  </section>
+  <section class="reflection"><strong>Pause &amp; explain</strong><p id="challenge"></p></section>
+  <div class="actions"><button id="export" class="quiet" type="button">Download this experiment CSV</button><span class="note">Keeps input, flags, gaps and estimates in separate columns.</span></div>
+  <details class="code-panel"><summary>Reproduce the current settings in Python</summary><p>Download the experiment CSV above, then run this code in the same folder. It recalculates from the input column; the reference values are never used to fit the method.</p><pre><code id="python-code"></code></pre></details>
+  <details class="code-panel"><summary>Teaching notes &amp; calculation choices</summary>
+    <ol><li>Start with one spike: compare SD and MAD, then increase the spike height.</li><li>Use the cluster: make the window shorter than the event, then much longer. Try a whole-record reference.</li><li>Use the stuck sensor or challenge D: turn on repeated-value detection. Why can a plateau escape a statistical envelope?</li><li>Try the genuine level shift: a flag does not establish that the data is wrong.</li><li>Send flags to the gap stage, or use the temperature gaps. Predict before revealing the held-out original.</li></ol>
+    <p>The challenge files have no supplied ground-truth labels. Only synthetic examples show known injected faults. Course excerpts retain their original spacing; the whole-record option uses that excerpt, not the full CSV.</p>
+    <p>SD uses n − 1. Quartiles use linear interpolation. MAD is computed around the median of <em>each same window</em>, then multiplied by 1.4826. Zero spread gives a collapsed envelope: any unequal value outside it is flagged. Equality with a limit is not flagged. A run rule uses the entire consecutive run and can use future readings, even with a trailing envelope.</p>
+    <p>The cubic option uses a <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.CubicSpline.html" target="_blank" rel="noopener">natural cubic spline</a> with zero second derivative at the first and last available observations. This differs from the default boundary conditions of the notebook’s <code>interpolate(method='cubic')</code>. It may overshoot. No method uses the held-out reference.</p>
+    <p>RMSE = square root of the average squared error, evaluated only where the input was missing and a finite estimate and reference are available. Check coverage before comparing methods. It cannot be measured for genuinely unknown values.</p>
+    <p><a href="../outliers_challenge.html" target="_top">Challenge 1 · import the files</a> · <a href="../outliers_challenge_part2.html" target="_top">Challenge 2 · clean the data</a> · <a href="../fill-missing-values.html" target="_top">Filling missing values</a></p>
+  </details>
+  <footer>Course data: cleaning1.csv, cleaning2_formated.csv, cleaning3_formated.csv and data_missing.csv. Everything runs in your browser. No data is uploaded.</footer>
+  <noscript><p>This lab needs JavaScript. Use the <a href="../outliers_challenge_part2.html" target="_top">challenge notebook</a> for the Python version.</p></noscript>
+</main></body></html>

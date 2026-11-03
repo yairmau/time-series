@@ -4,6 +4,7 @@ project:
   resources:
     - smoothing/lab/**
     - smoothing/fit-lab/**
+    - outliers/lab/**
 
 book:
   title: "Time Series Analysis"
