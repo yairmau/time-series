@@ -37,6 +37,51 @@ function click(id) { $(id).click(); flush(); }
 flush();
 assert($("detect-chart").querySelectorAll("path").length > 0, "Default graph missing");
 assert(!$("detect-stage").hidden && $("fill-stage").hidden, "Wrong default stage");
+function assertRawDisplay() {
+  assert(!$("detection-enabled").checked, "Detection should be off");
+  assert($("inspector").hidden && $("detection-metrics").hidden, "Raw display reveals decisions");
+  assert($("limits-legend").hidden && $("flags-legend").hidden && $("pin-legend").hidden, "Raw display reveals overlay legends");
+  assert(!$("detect-chart").querySelector('[stroke="#087f79"], [stroke="#bc482b"], [stroke="#b07b22"], rect'), "Raw chart contains detection overlays");
+  assert($("transfer").disabled && $("pin").disabled, "Detection actions should be disabled");
+}
+assertRawDisplay();
+click("export");
+let csvRows = (await downloaded.text()).split("\n").slice(1).map(row => row.split(","));
+assert(csvRows.every(row => row[3] === "0" && row[1] === row[5] && row[8] === "" && row[9] === ""), "Off-state export removed observations or exposed limits");
+assert($("python-code").textContent.includes("Detection is off"), "Off-state Python should not run detection");
+check("detection-enabled", true);
+assert(!$("inspector").hidden && !$("detection-metrics").hidden, "Enabling detection did not reveal decisions");
+click("pin"); const originalMetrics = $("detection-metrics").textContent;
+check("show-envelope", false);
+assert(!$("detect-chart").querySelector('[stroke="#087f79"], [stroke="#b07b22"], rect'), "Envelope switch left limits or shading visible");
+assert($("detect-chart").querySelector('[stroke="#bc482b"]'), "Hiding envelope also hid flags");
+assert($("detection-metrics").textContent === originalMetrics, "Display-only envelope switch changed decisions");
+check("detection-enabled", false); assertRawDisplay();
+check("detection-enabled", true);
+assert($("detection-metrics").textContent === originalMetrics, "Detection toggle did not restore identical results");
+assert(!$("show-envelope").checked, "Detection toggle reset envelope preference");
+check("show-envelope", true); assert(!$("pin-legend").hidden, "Pinned limits not restored");
+click("clear-pin"); change("method", "fixed"); check("use-lower", false); change("upper-limit", 20);
+assert($("reference-controls").hidden && $("multiplier-control").hidden, "Fixed rule still exposes statistical controls");
+assert(!$("fixed-controls").hidden, "Fixed threshold controls missing");
+assert($("calculation").textContent.includes("FLAGGED"), "Upper-only threshold missed the spike");
+click("export");
+csvRows = (await downloaded.text()).split("\n").slice(1).map(row => row.split(","));
+assert(csvRows.every(row => row[3] === String(+(Number(row[1]) > 20)) && row[8] === "" && row[9] === "20"), "Fixed-threshold CSV differs from the configured upper-only rule");
+assert($("python-code").textContent.includes("flagged = (s > 20)"), "Python does not match upper-only rule");
+await Deno.mkdir("/tmp/outliers-lab-qa", { recursive: true });
+await Deno.writeTextFile("/tmp/outliers-lab-qa/fixed.py", $("python-code").textContent);
+change("upper-slider", 19); assert($("upper-limit").value === "19", "Threshold slider and numeric field are not synchronized");
+change("amplitude", 12); assert($("upper-limit").value === "19", "Fixed threshold moved with event height");
+change("upper-limit", ""); assert(!$("fixed-error").hidden && $("transfer").disabled, "Blank enabled threshold accepted");
+check("use-lower", true); change("lower-limit", 0); check("use-upper", false);
+assert($("fixed-error").hidden, "Disabled blank threshold should not invalidate lower-only rule");
+check("use-upper", true); assert(!$("fixed-error").hidden, "Invalid numeric threshold confused with disabled threshold in cache");
+change("upper-limit", 20); change("lower-limit", 21);
+assert(!$("fixed-error").hidden && $("pin").disabled, "Reversed thresholds accepted");
+change("lower-limit", 0); assert($("fixed-error").hidden, "Valid limits did not clear error");
+click("transfer"); assert($("gap-data").value === "transfer", "Fixed-threshold cleaning did not transfer to gaps");
+click("reset"); check("detection-enabled", true);
 for (const key of ["spike", "cluster", "stuck", "step", ...Object.keys(OutlierData.challenges)]) {
   change("dataset", key);
   for (const method of ["z", "iqr", "mad"]) {
@@ -46,7 +91,7 @@ for (const key of ["spike", "cluster", "stuck", "step", ...Object.keys(OutlierDa
   change("scope", "global"); assert($("size").disabled, "Global reference should disable width");
   change("scope", "rolling"); change("alignment", "trailing"); change("alignment", "center");
 }
-click("reset"); click("pin"); change("threshold", 5);
+click("reset"); check("detection-enabled", true); click("pin"); change("threshold", 5);
 assert(!$("pin-legend").hidden, "Pinned comparison missing"); click("clear-pin");
 change("dataset", "challenge1D"); check("plateau", true);
 assert(+document.querySelectorAll("#detection-metrics strong")[2].textContent >= 709, "Known 709-sample run was not flagged");
@@ -69,7 +114,7 @@ await Deno.mkdir("/tmp/outliers-lab-qa", { recursive: true });
 await Deno.writeTextFile("/tmp/outliers-lab-qa/outliers-gaps.csv", await downloaded.text());
 await Deno.writeTextFile("/tmp/outliers-lab-qa/gaps.py", $("python-code").textContent);
 assert((await downloaded.text()).startsWith("time,input,raw,flagged"), "CSV columns missing");
-click("reset"); click("export");
+click("reset"); check("detection-enabled", true); click("export");
 await Deno.writeTextFile("/tmp/outliers-lab-qa/outliers-detection.csv", await downloaded.text());
 await Deno.writeTextFile("/tmp/outliers-lab-qa/detection.py", $("python-code").textContent);
 for (const button of document.querySelectorAll("[data-preset]")) { button.click(); flush(); }

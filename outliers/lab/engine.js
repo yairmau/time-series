@@ -40,18 +40,32 @@
     return mask;
   }
   function detect(values, options) {
-    const { size = 31, k = 3, method = "mad", scope = "rolling", alignment = "center", full = false, plateau = false, run = 10 } = options;
-    if (!Number.isInteger(size) || size < 3 || size % 2 !== 1) throw new Error("Window must be odd and at least 3");
-    if (!finite(k) || k < 0) throw new Error("Threshold must be nonnegative");
-    const globalStats = scope === "global" ? summarize(values, method, k) : null;
+    const { enabled = true, size = 31, k = 3, method = "mad", scope = "rolling", alignment = "center", full = false, plateau = false, run = 10, lower = null, upper = null } = options;
+    const empty = (error = null) => ({
+      error, stats: values.map(() => ({ count: 0, center: null, scale: null, low: null, high: null, start: 0, end: values.length - 1 })),
+      envelope: values.map(() => false), stuck: values.map(() => false), flagged: values.map(() => false),
+      cleaned: values.map(v => finite(v) ? v : null)
+    });
+    if (!enabled) return empty();
+    const fixed = method === "fixed";
+    if (fixed) {
+      if (lower === null && upper === null) return empty("Enable at least one threshold.");
+      if ((lower !== null && !finite(lower)) || (upper !== null && !finite(upper))) return empty("Enter a valid number for each enabled threshold.");
+      if (lower !== null && upper !== null && lower > upper) return empty("The lower threshold must be less than or equal to the upper threshold.");
+    } else {
+      if (!Number.isInteger(size) || size < 3 || size % 2 !== 1) throw new Error("Window must be odd and at least 3");
+      if (!finite(k) || k < 0) throw new Error("Threshold must be nonnegative");
+    }
+    const globalStats = !fixed && scope === "global" ? summarize(values, method, k) : null;
     const stats = values.map((_, i) => {
+      if (fixed) return { count: 0, center: null, scale: null, low: lower, high: upper, start: 0, end: values.length - 1 };
       const start = scope === "global" ? 0 : alignment === "center" ? i - (size - 1) / 2 : i - size + 1;
       const end = scope === "global" ? values.length - 1 : start + size - 1;
       let s = globalStats || summarize(values.slice(Math.max(0, start), Math.min(values.length, end + 1)), method, k);
       if (full && scope !== "global" && s.count < size) s = { ...s, center: null, scale: null, low: null, high: null };
       return { ...s, start, end };
     });
-    const envelope = values.map((v, i) => finite(v) && finite(stats[i].low) && (v < stats[i].low || v > stats[i].high));
+    const envelope = values.map((v, i) => finite(v) && ((finite(stats[i].low) && v < stats[i].low) || (finite(stats[i].high) && v > stats[i].high)));
     const stuck = plateau ? plateauMask(values, run) : values.map(() => false);
     const flagged = envelope.map((v, i) => v || stuck[i]);
     return { stats, envelope, stuck, flagged, cleaned: values.map((v, i) => flagged[i] || !finite(v) ? null : v) };

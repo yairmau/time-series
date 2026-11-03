@@ -2,7 +2,7 @@
   "use strict";
   const $ = id => document.getElementById(id), E = OutlierLab, finite = Number.isFinite;
   const colors = { raw: "#8798a4", limit: "#087f79", flag: "#bc482b", truth: "#7662a6", grid: "#e2e9ec", pin: "#b07b22" };
-  const methodNames = { z: "Z-score", iqr: "IQR", mad: "MAD / Hampel" };
+  const methodNames = { fixed: "Fixed thresholds", z: "Z-score", iqr: "IQR", mad: "MAD / Hampel" };
   const fillNames = { none: "Leave gaps", forward: "Forward fill", backward: "Backward fill", linear: "Linear interpolation", cubic: "Natural cubic spline" };
   const syntheticNames = { spike: "One spike + changing baseline", cluster: "A cluster of bad readings", stuck: "A stuck sensor", step: "A genuine level shift" };
   const fmt = (x, n = 2) => finite(x) ? Number(x.toFixed(n)).toString() : "—";
@@ -22,19 +22,38 @@
     return short ? time.slice(5, 10) : time.slice(5, 10) + " " + time.slice(11, 16);
   }
   function options() {
-    return { size: +$("size").value, k: +$("threshold").value, method: $("method").value, scope: $("scope").value,
-      alignment: $("alignment").value, full: $("full").checked, plateau: $("plateau").checked, run: +$("run").value };
+    const limit = side => !$("use-" + side).checked ? null : $(side + "-limit").value.trim() === "" ? NaN : Number($(side + "-limit").value);
+    return { enabled: $("detection-enabled").checked, size: +$("size").value, k: +$("threshold").value, method: $("method").value, scope: $("scope").value,
+      alignment: $("alignment").value, full: $("full").checked, plateau: $("plateau").checked, run: +$("run").value,
+      lower: limit("lower"), upper: limit("upper") };
   }
   function description(o) {
+    if (!o.enabled) return "Detection off";
+    if (o.method === "fixed") return `Fixed thresholds · ${[finite(o.lower) ? `below ${fmt(o.lower)}` : "", finite(o.upper) ? `above ${fmt(o.upper)}` : ""].filter(Boolean).join(" or ")}${o.plateau ? ` · runs ≥ ${o.run}` : ""}`;
     return `${methodNames[o.method]} · k=${o.k} · ${o.scope === "global" ? "whole record" : `${o.size} samples, ${o.alignment}`}${o.plateau ? ` · runs ≥ ${o.run}` : ""}`;
   }
-  function chooseData() {
+  function syncLimitSliders() {
+    const values = dataset.values.filter(finite), lo = Math.min(...values), hi = Math.max(...values), pad = Math.max(1, (hi - lo) * 0.2);
+    const limits = ["lower", "upper"].map(side => Number($(side + "-limit").value)).filter(finite);
+    for (const side of ["lower", "upper"]) {
+      const slider = $(side + "-slider"), field = $(side + "-limit");
+      slider.min = Math.min(lo - pad, ...limits); slider.max = Math.max(hi + pad, ...limits); slider.step = "any";
+      if (field.value.trim() !== "" && finite(Number(field.value))) slider.value = field.value;
+    }
+  }
+  function chooseData(resetLimits = true) {
     const key = $("dataset").value;
     dataset = OutlierData.challenges[key] || { ...E.synthetic(key, +$("amplitude").value, +$("event-length").value), label: syntheticNames[key] };
     detectionKey = ""; pinned = null;
     $("position").max = dataset.values.length - 1;
     $("position").value = dataset.synthetic ? 120 : Math.floor(dataset.values.length / 2);
     $("truth").checked = false;
+    if (resetLimits) {
+      const values = dataset.values.filter(finite).sort((a, b) => a - b);
+      $("lower-limit").value = Number(E.quantile(values, 0.05).toPrecision(6));
+      $("upper-limit").value = Number(E.quantile(values, 0.95).toPrecision(6));
+    }
+    syncLimitSliders();
   }
   function node(tag, attrs = {}, text) {
     const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
@@ -110,11 +129,24 @@
     }
   }
   function renderDetection() {
-    const o = options(), key = JSON.stringify(o);
+    const o = options(), key = JSON.stringify(o, (_, value) => typeof value === "number" && !finite(value) ? String(value) : value);
     if (key !== detectionKey) { detected = E.detect(dataset.values, o); detectionKey = key; }
-    const pos = +$("position").value, s = detected.stats[pos], reveal = $("truth").checked && dataset.synthetic;
-    const low = detected.stats.map(x => x.low), high = detected.stats.map(x => x.high), center = detected.stats.map(x => x.center);
-    const global = o.scope === "global";
+    const active = o.enabled && !detected.error, fixed = o.method === "fixed", showEnvelope = active && $("show-envelope").checked;
+    const pos = +$("position").value, s = detected.stats[pos], reveal = active && $("truth").checked && dataset.synthetic;
+    const low = detected.stats.map(x => x.low), high = detected.stats.map(x => x.high);
+    const global = fixed || o.scope === "global";
+    $("fixed-controls").hidden = !fixed; $("reference-controls").hidden = fixed; $("multiplier-control").hidden = fixed;
+    $("fixed-error").hidden = !detected.error; $("fixed-error").textContent = detected.error || "";
+    for (const side of ["lower", "upper"]) {
+      $(side + "-limit").disabled = $(side + "-slider").disabled = !$("use-" + side).checked;
+      $(side + "-limit").setAttribute("aria-invalid", !!detected.error && $("use-" + side).checked ? "true" : "false");
+    }
+    $("show-envelope").disabled = !active; $("truth").disabled = !active;
+    $("limits-legend").hidden = !showEnvelope; $("flags-legend").hidden = !active;
+    $("detection-metrics").hidden = !active; $("inspector").hidden = !active; $("pin-note").hidden = !active;
+    $("pin").disabled = $("transfer").disabled = !active;
+    $("detect-chart").style.cursor = active ? "crosshair" : "default";
+    $("detect-chart").setAttribute("aria-label", active ? "Observations, flagged points and optional detection limits. Select a sample to inspect." : "Raw observations. Detection is off.");
     $("synthetic-controls").hidden = !dataset.synthetic; $("length-control").hidden = !["cluster", "stuck"].includes($("dataset").value);
     $("truth-control").hidden = !dataset.synthetic; $("truth-legend").hidden = !reveal;
     $("amplitude-value").textContent = `${$("amplitude").value} units`; $("length-value").textContent = `${$("event-length").value} samples`;
@@ -122,37 +154,47 @@
     for (const id of ["size", "alignment", "full"]) $(id).disabled = global;
     $("run").disabled = !o.plateau;
     $("span-note").textContent = global ? `Reference uses all ${dataset.values.length} samples in this record.` : `Spacing: ${duration(dataset.minutes)}. First-to-last window span: ${duration((o.size - 1) * dataset.minutes)}.`;
-    $("formula").textContent = o.method === "z" ? "Limits = mean ± k × sample SD (n − 1)." : o.method === "iqr" ? "Lower = Q1 − k × IQR; upper = Q3 + k × IQR." : "Limits = median ± k × 1.4826 × MAD.";
+    $("formula").textContent = fixed ? "Flag observations outside your fixed limits, in the data's units. No window or multiplier is used." : o.method === "z" ? "Limits = mean ± k × sample SD (n − 1)." : o.method === "iqr" ? "Lower = Q1 − k × IQR; upper = Q3 + k × IQR." : "Limits = median ± k × 1.4826 × MAD.";
     $("data-note").textContent = dataset.synthetic ? ($("dataset").value === "step" ? "Synthetic example: this level shift is genuine. It is not an injected sensor fault." : "Synthetic example with a known changing signal and injected sensor faults. Reveal the reference after predicting.") : `Unchanged excerpt, rows ${dataset.offset + 1}–${dataset.offset + dataset.values.length} of ${dataset.source}. No supplied fault labels.`;
     $("data-source").hidden = !dataset.source; if (dataset.source) $("data-source").href = "../" + dataset.source;
-    $("detect-title").textContent = dataset.label; $("rule-badge").textContent = global ? "Whole record" : o.alignment === "center" ? "Centered window" : "Trailing window";
-    const arrays = [dataset.values, low, high]; if (reveal) arrays.push(dataset.truth); if (pinned) arrays.push(pinned.low, pinned.high);
+    $("detect-title").textContent = dataset.label; $("rule-badge").textContent = !o.enabled ? "Detection off" : detected.error ? "Check thresholds" : fixed ? "Fixed thresholds" : global ? "Whole record" : o.alignment === "center" ? "Centered window" : "Trailing window";
+    $("detect-chart-note").textContent = !o.enabled ? "Start with the observations. Turn on Show detection to reveal what the rule flags. Your settings are kept when you switch it off again." : detected.error ? detected.error : fixed ? "Click the graph or use the inspector. The same thresholds apply at every time; values equal to a limit are kept." : "Click the graph or move the inspector slider. Show envelope controls the limits and window shading. These are detection limits, not a confidence interval.";
+    const arrays = [dataset.values]; if (showEnvelope) arrays.push(low, high); if (reveal) arrays.push(dataset.truth); if (showEnvelope && pinned) arrays.push(pinned.low, pinned.high);
     const p = chart("detect-chart", dataset, arrays, 0, dataset.values.length - 1, 350);
-    shade(p, s.start, s.end); band(p, low, high);
-    if (pinned) { path(p.svg, pinned.low, p, colors.pin, { "stroke-dasharray": "5 4" }); path(p.svg, pinned.high, p, colors.pin, { "stroke-dasharray": "5 4" }); }
+    if (showEnvelope) { if (!global) shade(p, s.start, s.end); band(p, low, high); }
+    if (showEnvelope && pinned) { path(p.svg, pinned.low, p, colors.pin, { "stroke-dasharray": "5 4" }); path(p.svg, pinned.high, p, colors.pin, { "stroke-dasharray": "5 4" }); }
     path(p.svg, dataset.values, p, colors.raw, { "stroke-width": 1.5 });
     if (reveal) path(p.svg, dataset.truth, p, colors.truth, { "stroke-dasharray": "5 4" });
-    markers(p, dataset.values, detected.flagged, dataset.values.length < 300);
-    line(p.svg, p.x(pos), p.top, p.x(pos), p.bottom, { stroke: "#243746", "stroke-dasharray": "3 4", opacity: 0.6 });
-    if (finite(dataset.values[pos])) p.svg.append(node("circle", { cx: p.x(pos), cy: p.y(dataset.values[pos]), r: 5, fill: "none", stroke: "#243746", "stroke-width": 2 }));
+    markers(p, dataset.values, active ? detected.flagged : null, dataset.values.length < 300);
+    if (active) {
+      line(p.svg, p.x(pos), p.top, p.x(pos), p.bottom, { stroke: "#243746", "stroke-dasharray": "3 4", opacity: 0.6 });
+      if (finite(dataset.values[pos])) p.svg.append(node("circle", { cx: p.x(pos), cy: p.y(dataset.values[pos]), r: 5, fill: "none", stroke: "#243746", "stroke-width": 2 }));
+    }
     const metrics = [["Flagged / observed", `${count(detected.flagged)} / ${dataset.values.filter(finite).length}`]];
     if (reveal) {
       metrics.push(["Injected faults missed", count(dataset.faults.map((v, i) => v && !detected.flagged[i]))], ["Uncorrupted points flagged", count(detected.flagged.map((v, i) => v && !dataset.faults[i]))]);
-    } else metrics.push(["Envelope flags", count(detected.envelope)], ["Repeated-run flags", count(detected.stuck)]);
+    } else metrics.push([fixed ? "Threshold flags" : "Envelope flags", count(detected.envelope)], ["Repeated-run flags", count(detected.stuck)]);
     readouts("detection-metrics", metrics);
-    $("pin-legend").hidden = !pinned; $("clear-pin").disabled = !pinned;
+    $("pin-legend").hidden = !showEnvelope || !pinned; $("clear-pin").disabled = !active || !pinned;
     $("pin-note").textContent = pinned ? `Pinned: ${pinned.description} · ${pinned.count} flagged. Changing the data clears the comparison.` : "Pin one rule, then change the window, multiplier or method. Counts above apply to the whole displayed record; the two rules may flag the same point.";
+    if (!active) {
+      $("window-chart").replaceChildren(); $("window-metrics").replaceChildren(); $("calculation").textContent = "";
+      $("challenge").textContent = detected.error ? "Set valid limits, then inspect which points they flag." : "Look at the raw series first. Which points look suspicious, and why? Choose a rule, predict its choices, then turn on Show detection.";
+      pythonDetection(o); return;
+    }
+    $("inspector-title").textContent = fixed ? "Inspect a sample" : "Inside one window";
     $("position-value").textContent = labelAt(dataset, pos);
     const a = global ? 0 : Math.max(0, s.start), b = global ? dataset.values.length - 1 : Math.min(dataset.values.length - 1, s.end);
     const localLow = dataset.values.map(() => s.low), localHigh = dataset.values.map(() => s.high);
-    const w = chart("window-chart", dataset, [dataset.values, localLow, localHigh], a, b, 235);
-    band(w, localLow, localHigh); path(w.svg, dataset.values, w, colors.raw); markers(w, dataset.values, null, true);
-    if (finite(s.center)) line(w.svg, w.left, w.y(s.center), w.right, w.y(s.center), { stroke: colors.limit, "stroke-dasharray": "4 4" });
+    const w = chart("window-chart", dataset, showEnvelope ? [dataset.values, localLow, localHigh] : [dataset.values], a, b, 235);
+    if (showEnvelope) band(w, localLow, localHigh);
+    path(w.svg, dataset.values, w, colors.raw); markers(w, dataset.values, null, true);
+    if (showEnvelope && finite(s.center)) line(w.svg, w.left, w.y(s.center), w.right, w.y(s.center), { stroke: colors.limit, "stroke-dasharray": "4 4" });
     if (finite(dataset.values[pos])) w.svg.append(node("circle", { cx: w.x(pos), cy: w.y(dataset.values[pos]), r: 5, fill: detected.flagged[pos] ? colors.flag : "#243746", stroke: "white", "stroke-width": 1.5 }));
-    readouts("window-metrics", [["Available in reference", s.count], [o.method === "z" ? "Mean / sample SD" : o.method === "iqr" ? "Median / IQR" : "Median / scaled MAD", `${fmt(s.center)} / ${fmt(s.scale)}`], ["Detection limits", `${fmt(s.low)} … ${fmt(s.high)}`]]);
-    $("calculation").textContent = !finite(dataset.values[pos]) ? "This sample is already missing. It is omitted from the reference and is not counted as an outlier." : `Observed value: ${fmt(dataset.values[pos])}. ${detected.flagged[pos] ? `FLAGGED by ${[detected.envelope[pos] ? "the envelope" : "", detected.stuck[pos] ? "the repeated-run rule" : ""].filter(Boolean).join(" and ")}.` : finite(s.low) ? "Inside or on the limits; not flagged." : "No envelope decision: too few observations or an incomplete required window."}`;
-    $("window-note").textContent = (s.scale === 0 ? "Spread is zero: the limits collapse. Any value outside them is flagged. " : "") + (global ? "The entire displayed record supplies the reference. " : o.alignment === "center" ? "Centered windows use future samples. " : "The envelope uses only the current and earlier samples. ") + "The tested value contributes to its own limits." + (o.plateau ? " Repeated-run detection examines the whole run, including future samples." : "");
-    $("challenge").textContent = $("dataset").value === "step" ? "This change is real by construction. Which points does your detector flag? Why would deleting them be a mistake? What extra information would distinguish a real change from a sensor recalibration?" : $("dataset").value === "stuck" || $("dataset").value === "challenge1D" ? "Move inside the plateau. Why can a flat stretch look normal to the envelope? Turn on repeated-value detection. Would exactly repeated readings always mean the sensor is broken?" : $("dataset").value === "cluster" ? "Make the window shorter than the bad event, then longer than it. Can the corrupted readings become their own normal? What happens when the window also spans a large change in the real signal?" : "Pin the SD limits, then switch to MAD. Can making the spike taller also widen its own limits? Try whole-record detection. Name a normal point you would worry about deleting.";
+    readouts("window-metrics", fixed ? [["Observed value", fmt(dataset.values[pos])], ["Lower limit", finite(s.low) ? fmt(s.low) : "Off"], ["Upper limit", finite(s.high) ? fmt(s.high) : "Off"]] : [["Available in reference", s.count], [o.method === "z" ? "Mean / sample SD" : o.method === "iqr" ? "Median / IQR" : "Median / scaled MAD", `${fmt(s.center)} / ${fmt(s.scale)}`], ["Detection limits", `${fmt(s.low)} … ${fmt(s.high)}`]]);
+    $("calculation").textContent = !finite(dataset.values[pos]) ? "This sample is already missing. It is not counted as an outlier." : `Observed value: ${fmt(dataset.values[pos])}. ${detected.flagged[pos] ? `FLAGGED by ${[detected.envelope[pos] ? fixed ? "the fixed thresholds" : "the envelope" : "", detected.stuck[pos] ? "the repeated-run rule" : ""].filter(Boolean).join(" and ")}.` : finite(s.low) || finite(s.high) ? "Inside or on the enabled limits; not flagged." : "No envelope decision: too few observations or an incomplete required window."}`;
+    $("window-note").textContent = (fixed ? "The limits are numbers you choose; the data and window do not change them." : (s.scale === 0 ? "Spread is zero: the limits collapse. Any value outside them is flagged. " : "") + (global ? "The entire displayed record supplies the reference. " : o.alignment === "center" ? "Centered windows use future samples. " : "The envelope uses only the current and earlier samples. ") + "The tested value contributes to its own limits.") + (o.plateau ? " Repeated-run detection examines the whole run, including future samples." : "");
+    $("challenge").textContent = fixed ? "Choose a threshold before revealing the detections. Can one fixed limit catch the bad readings while keeping a changing baseline? Try an upper limit only, then compare with a rolling rule." : $("dataset").value === "step" ? "This change is real by construction. Which points does your detector flag? Why would deleting them be a mistake? What extra information would distinguish a real change from a sensor recalibration?" : $("dataset").value === "stuck" || $("dataset").value === "challenge1D" ? "Move inside the plateau. Why can a flat stretch look normal to the envelope? Turn on repeated-value detection. Would exactly repeated readings always mean the sensor is broken?" : $("dataset").value === "cluster" ? "Make the window shorter than the bad event, then longer than it. Can the corrupted readings become their own normal? What happens when the window also spans a large change in the real signal?" : "Pin the SD limits, then switch to MAD. Can making the spike taller also widen its own limits? Try whole-record detection. Name a normal point you would worry about deleting.";
     pythonDetection(o);
   }
   function makeGapData() {
@@ -219,12 +261,19 @@
     pythonGaps(method, maxGap);
   }
   function pythonDetection(o) {
-    let code = `import numpy as np\nimport pandas as pd\n\ndf = pd.read_csv("outliers-detection.csv")\ns = df["input"]  # raw observations; keep unchanged\nwindow, k = ${o.size}, ${o.k}\n\ndef limits(a):\n    a = a[np.isfinite(a)]\n    if len(a) < 3:\n        return np.nan, np.nan\n`;
-    code += o.method === "z" ? "    center, spread = np.mean(a), np.std(a, ddof=1)\n    return center - k*spread, center + k*spread\n" : o.method === "iqr" ? "    q1, q3 = np.quantile(a, [0.25, 0.75])\n    return q1 - k*(q3-q1), q3 + k*(q3-q1)\n" : "    center = np.median(a)\n    spread = 1.4826 * np.median(np.abs(a - center))\n    return center - k*spread, center + k*spread\n";
-    if (o.scope === "global") code += "\nlow, high = limits(s.to_numpy())\n";
-    else code += `\nr = s.rolling(window, center=${o.alignment === "center" ? "True" : "False"}, min_periods=${o.full ? "window" : "3"})\nlow = r.apply(lambda a: limits(a)[0], raw=True)\nhigh = r.apply(lambda a: limits(a)[1], raw=True)\n`;
-    code += "flagged = (s < low) | (s > high)\n";
-    if (o.plateau) code += `groups = s.ne(s.shift()).cumsum()\nrun_length = s.groupby(groups).transform("size")\nflagged |= s.notna() & (run_length >= ${o.run})\n`;
+    let code = 'import numpy as np\nimport pandas as pd\n\ndf = pd.read_csv("outliers-detection.csv")\ns = df["input"]  # raw observations; keep unchanged\n';
+    if (!o.enabled || detected.error) code += `\n# ${detected.error || "Detection is off: no points are flagged or removed."}\nflagged = pd.Series(False, index=s.index)\n`;
+    else if (o.method === "fixed") {
+      const rules = [finite(o.lower) ? `(s < ${o.lower})` : "", finite(o.upper) ? `(s > ${o.upper})` : ""].filter(Boolean);
+      code += `\n# Fixed limits, in the same units as the observations.\nflagged = ${rules.join(" | ")}\n`;
+    } else {
+      code += `window, k = ${o.size}, ${o.k}\n\ndef limits(a):\n    a = a[np.isfinite(a)]\n    if len(a) < 3:\n        return np.nan, np.nan\n`;
+      code += o.method === "z" ? "    center, spread = np.mean(a), np.std(a, ddof=1)\n    return center - k*spread, center + k*spread\n" : o.method === "iqr" ? "    q1, q3 = np.quantile(a, [0.25, 0.75])\n    return q1 - k*(q3-q1), q3 + k*(q3-q1)\n" : "    center = np.median(a)\n    spread = 1.4826 * np.median(np.abs(a - center))\n    return center - k*spread, center + k*spread\n";
+      if (o.scope === "global") code += "\nlow, high = limits(s.to_numpy())\n";
+      else code += `\nr = s.rolling(window, center=${o.alignment === "center" ? "True" : "False"}, min_periods=${o.full ? "window" : "3"})\nlow = r.apply(lambda a: limits(a)[0], raw=True)\nhigh = r.apply(lambda a: limits(a)[1], raw=True)\n`;
+      code += "flagged = (s < low) | (s > high)\n";
+    }
+    if (o.enabled && !detected.error && o.plateau) code += `groups = s.ne(s.shift()).cumsum()\nrun_length = s.groupby(groups).transform("size")\nflagged |= s.notna() & (run_length >= ${o.run})\n`;
     code += "df['recomputed_flagged'] = flagged\ndf['recomputed_cleaned'] = s.mask(flagged)\nprint(df[['input', 'recomputed_flagged', 'recomputed_cleaned']])\n";
     $("python-code").textContent = code;
   }
@@ -244,28 +293,35 @@
   function reset() {
     mode = "detect"; pinned = null; transfer = null; $("transfer-option").disabled = true;
     for (const [id, value] of Object.entries({ dataset: "spike", method: "mad", scope: "rolling", size: 31, alignment: "center", threshold: 3, run: 10, amplitude: 8, "event-length": 9, "gap-data": "mis_1", "fill-method": "linear", "gap-length": 12, "gap-position": 180, "max-gap": 201, "gap-view": "focus" })) $(id).value = value;
-    for (const id of ["full", "plateau", "truth", "gap-truth"]) $(id).checked = false;
+    for (const id of ["full", "plateau", "truth", "gap-truth", "detection-enabled"]) $(id).checked = false;
+    for (const id of ["show-envelope", "use-lower", "use-upper"]) $(id).checked = true;
     $("gap-inspect").replaceChildren(); chooseData(); schedule();
   }
   Object.entries(OutlierData.challenges).forEach(([key, data]) => { const opt = document.createElement("option"); opt.value = key; opt.textContent = data.label; $("course-datasets").append(opt); });
   $("dataset").addEventListener("change", () => { chooseData(); schedule(); });
   for (const id of ["amplitude", "event-length"]) $(id).addEventListener("input", () => {
     const position = $("position").value, reveal = $("truth").checked;
-    chooseData(); $("position").value = position; $("truth").checked = reveal; schedule();
+    chooseData(false); $("position").value = position; $("truth").checked = reveal; schedule();
   });
-  for (const id of ["method", "scope", "size", "alignment", "full", "threshold", "plateau", "run", "truth", "position", "gap-data", "gap-length", "gap-position", "fill-method", "max-gap", "gap-view", "gap-inspect", "gap-truth"]) $(id).addEventListener("input", schedule);
+  for (const id of ["method", "scope", "size", "alignment", "full", "threshold", "plateau", "run", "truth", "position", "gap-data", "gap-length", "gap-position", "fill-method", "max-gap", "gap-view", "gap-inspect", "gap-truth", "detection-enabled", "show-envelope", "use-lower", "use-upper"]) $(id).addEventListener("input", schedule);
+  for (const side of ["lower", "upper"]) {
+    $(side + "-slider").addEventListener("input", () => { $(side + "-limit").value = Number(Number($(side + "-slider").value).toPrecision(6)); schedule(); });
+    $(side + "-limit").addEventListener("input", () => { syncLimitSliders(); schedule(); });
+  }
   $("method").addEventListener("change", () => { $("threshold").value = $("method").value === "iqr" ? 1.5 : 3; schedule(); });
   $("gap-data").addEventListener("change", () => { $("gap-inspect").value = 0; $("gap-truth").checked = false; schedule(); });
   $("detect-mode").addEventListener("click", () => { mode = "detect"; schedule(); });
   $("fill-mode").addEventListener("click", () => { mode = "fill"; schedule(); });
   $("reset").addEventListener("click", reset);
-  $("pin").addEventListener("click", () => { renderDetection(); pinned = { low: detected.stats.map(s => s.low), high: detected.stats.map(s => s.high), count: count(detected.flagged), description: description(options()) }; schedule(); });
+  $("pin").addEventListener("click", () => { renderDetection(); if (!options().enabled || detected.error) return; pinned = { low: detected.stats.map(s => s.low), high: detected.stats.map(s => s.high), count: count(detected.flagged), description: description(options()) }; schedule(); });
   $("clear-pin").addEventListener("click", () => { pinned = null; schedule(); });
   $("transfer").addEventListener("click", () => {
-    renderDetection(); transfer = { ...dataset, values: detected.cleaned.slice(), raw: dataset.values.slice(), flags: detected.flagged.slice(), description: description(options()) };
+    renderDetection(); if (!options().enabled || detected.error) return;
+    transfer = { ...dataset, values: detected.cleaned.slice(), raw: dataset.values.slice(), flags: detected.flagged.slice(), description: description(options()) };
     $("transfer-option").disabled = false; $("gap-data").value = "transfer"; $("gap-inspect").replaceChildren(); $("gap-truth").checked = false; mode = "fill"; schedule();
   });
   $("detect-chart").addEventListener("click", event => {
+    if (!options().enabled || detected.error) return;
     const svg = $("detect-chart"), rect = svg.getBoundingClientRect(), width = svg.viewBox.baseVal.width;
     const x = (event.clientX - rect.left) / rect.width * width;
     $("position").value = Math.round(Math.max(0, Math.min(1, (x - 58) / (width - 73))) * (dataset.values.length - 1)); schedule();

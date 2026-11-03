@@ -4,8 +4,8 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Outliers &amp; gaps lab · Time Series Analysis</title>
   <meta name="description" content="Explore outlier thresholds, rolling windows, stuck sensors and gap filling with the course challenge data.">
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="engine.js"></script><script defer src="data.js"></script><script defer src="app.js"></script>
+  <link rel="stylesheet" href="styles.css?v=20261103-thresholds">
+  <script defer src="engine.js?v=20261103-thresholds"></script><script defer src="data.js"></script><script defer src="app.js?v=20261103-thresholds"></script>
 </head>
 <body><main>
   <header><div><p class="eyebrow">TIME SERIES ANALYSIS / TA LAB</p>
@@ -39,16 +39,27 @@
         <input id="event-length" type="range" min="1" max="61" step="2" value="9"></div>
       </div>
       <div class="control"><label for="method">Detection rule</label><select id="method">
+        <option value="fixed">Fixed thresholds · choose the limits</option>
         <option value="z">Z-score · mean ± k × SD</option><option value="iqr">IQR · quartile fences</option><option value="mad" selected>MAD · median ± k × scaled MAD</option>
       </select><p id="formula" class="note"></p></div>
-      <div class="control"><label for="scope">Estimate the reference from…</label><select id="scope">
+      <div id="fixed-controls" class="control" hidden>
+        <label class="choice"><input id="use-lower" type="checkbox" checked> Flag values below a lower limit</label>
+        <input id="lower-limit" type="number" step="any" value="10" aria-label="Lower threshold" aria-describedby="fixed-note fixed-error">
+        <input id="lower-slider" type="range" min="0" max="30" step="0.1" value="10" aria-label="Adjust lower threshold">
+        <label class="choice"><input id="use-upper" type="checkbox" checked> Flag values above an upper limit</label>
+        <input id="upper-limit" type="number" step="any" value="20" aria-label="Upper threshold" aria-describedby="fixed-note fixed-error">
+        <input id="upper-slider" type="range" min="0" max="30" step="0.1" value="20" aria-label="Adjust upper threshold">
+        <p id="fixed-note" class="note">Limits use the data's units and stay constant across time. Values equal to a limit are kept.</p>
+        <p id="fixed-error" class="note error" role="status" aria-live="polite" hidden></p>
+      </div>
+      <div id="reference-controls" class="control"><label for="scope">Estimate the reference from…</label><select id="scope">
         <option value="rolling">A sliding window</option><option value="global">The whole displayed record</option>
       </select><label for="size">Window width <output id="size-value" for="size"></output></label>
       <input id="size" type="range" min="5" max="201" step="2" value="31"><p id="span-note" class="note"></p>
       <label for="alignment">Window position</label><select id="alignment"><option value="center">Centered · past + future</option><option value="trailing">Trailing · current + past</option></select>
       <label class="choice"><input id="full" type="checkbox"> Require a complete window</label>
       <p class="note">Otherwise use available values, with at least 3. The tested point is included.</p></div>
-      <div class="control"><label for="threshold">Threshold multiplier k <output id="threshold-value" for="threshold"></output></label>
+      <div id="multiplier-control" class="control"><label for="threshold">Threshold multiplier k <output id="threshold-value" for="threshold"></output></label>
         <input id="threshold" type="range" min="0.5" max="6" step="0.1" value="3">
         <p class="note">A larger k makes wider limits. The same k has different meanings for IQR and SD/MAD.</p></div>
       <div class="control"><label class="choice"><input id="plateau" type="checkbox"> Also flag repeated-value runs</label>
@@ -59,14 +70,18 @@
     </aside>
     <div class="plots">
       <section class="plot-card"><div class="plot-heading"><h2 id="detect-title">One spike + changing baseline</h2><span id="rule-badge" class="badge"></span></div>
-        <div class="legend"><span><i class="raw"></i>Observed</span><span><i class="band"></i>Detection limits</span><span><i class="flag"></i>Flagged ×</span><span id="truth-legend" hidden><i class="truth"></i>Known signal</span><span id="pin-legend" hidden><i class="pinned"></i>Pinned limits</span></div>
+        <div class="display-controls" aria-label="Teaching display">
+          <label class="choice"><input id="detection-enabled" type="checkbox"> Show detection</label>
+          <label class="choice"><input id="show-envelope" type="checkbox" checked disabled> Show envelope</label>
+        </div>
+        <div class="legend"><span><i class="raw"></i>Observed</span><span id="limits-legend" hidden><i class="band"></i>Detection limits</span><span id="flags-legend" hidden><i class="flag"></i>Flagged ×</span><span id="truth-legend" hidden><i class="truth"></i>Known signal</span><span id="pin-legend" hidden><i class="pinned"></i>Pinned limits</span></div>
         <svg id="detect-chart" viewBox="0 0 900 350" role="img" aria-label="Observations, detection limits and flagged points. Select a sample to inspect its window."></svg>
-        <p class="note">Click the graph or move the inspector slider. Shading shows the selected window. Limits describe this rule, not a confidence interval.</p>
+        <p id="detect-chart-note" class="note">Start with the observations. Turn on Show detection to reveal what the rule flags.</p>
         <div id="detection-metrics" class="readouts" aria-live="polite"></div>
         <div class="actions"><button id="pin" type="button">Pin limits to compare</button><button id="clear-pin" class="quiet" type="button" disabled>Clear comparison</button><button id="transfer" type="button">Flagged → gaps →</button></div>
         <p id="pin-note" class="note"></p><p class="note">“Flagged → gaps” makes a separate working copy. The observations remain unchanged.</p>
       </section>
-      <section class="plot-card inspector"><h2>Inside one window</h2>
+      <section id="inspector" class="plot-card inspector" hidden><h2 id="inspector-title">Inside one window</h2>
         <label for="position">Inspect a sample <output id="position-value" for="position"></output></label>
         <input id="position" type="range" min="0" max="240" step="1" value="120">
         <svg id="window-chart" viewBox="0 0 900 235" role="img" aria-label="Selected observations and the limits used to judge the inspected sample"></svg>
@@ -117,6 +132,8 @@
   <div class="actions"><button id="export" class="quiet" type="button">Download this experiment CSV</button><span class="note">Keeps input, flags, gaps and estimates in separate columns.</span></div>
   <details class="code-panel"><summary>Reproduce the current settings in Python</summary><p>Download the experiment CSV above, then run this code in the same folder. It recalculates from the input column; the reference values are never used to fit the method.</p><pre><code id="python-code"></code></pre></details>
   <details class="code-panel"><summary>Teaching notes &amp; calculation choices</summary>
+    <p>Begin with <strong>Show detection</strong> off to discuss the raw series. Turn it on to reveal the flags and counts. <strong>Show envelope</strong> controls the limits separately. Turning detection off preserves your settings and removes all detection overlays; exports contain no flags or removals while it is off.</p>
+    <p><strong>Fixed thresholds</strong> flag values below your lower limit or above your upper limit, with either side optional. There is no rolling calculation. The starting limits are suggestions from the displayed data; you can change them with the sliders or type exact values. They stay fixed when you change a synthetic event's height or length.</p>
     <ol><li>Start with one spike: compare SD and MAD, then increase the spike height.</li><li>Use the cluster: make the window shorter than the event, then much longer. Try a whole-record reference.</li><li>Use the stuck sensor or challenge D: turn on repeated-value detection. Why can a plateau escape a statistical envelope?</li><li>Try the genuine level shift: a flag does not establish that the data is wrong.</li><li>Send flags to the gap stage, or use the temperature gaps. Predict before revealing the held-out original.</li></ol>
     <p>The challenge files have no supplied ground-truth labels. Only synthetic examples show known injected faults. Course excerpts retain their original spacing; the whole-record option uses that excerpt, not the full CSV.</p>
     <p>SD uses n − 1. Quartiles use linear interpolation. MAD is computed around the median of <em>each same window</em>, then multiplied by 1.4826. Zero spread gives a collapsed envelope: any unequal value outside it is flagged. Equality with a limit is not flagged. A run rule uses the entire consecutive run and can use future readings, even with a trailing envelope.</p>

@@ -4,6 +4,31 @@ function assert(condition, message = "Assertion failed") { if (!condition) throw
 function near(a, b, epsilon = 1e-10) { assert(Math.abs(a - b) <= epsilon, `${a} != ${b}`); }
 function equal(a, b) { assert(JSON.stringify(a) === JSON.stringify(b), `${JSON.stringify(a)} != ${JSON.stringify(b)}`); }
 
+Deno.test("fixed thresholds support either side, keep equality and ignore missing values", () => {
+  const values = [-2, 0, 2, 4, null, NaN];
+  equal(E.detect(values, { method: "fixed", lower: 0, upper: 2 }).flagged, [true, false, false, true, false, false]);
+  equal(E.detect(values, { method: "fixed", lower: 0 }).flagged, [true, false, false, false, false, false]);
+  equal(E.detect(values, { method: "fixed", upper: 2 }).flagged, [false, false, false, true, false, false]);
+  equal(E.detect([2, 3], { method: "fixed", lower: 2, upper: 2 }).cleaned, [2, null]);
+  const a = E.detect(values, { method: "fixed", lower: 0, upper: 2, size: 5 });
+  const b = E.detect(values, { method: "fixed", lower: 0, upper: 2, size: 201, scope: "global", full: true, k: 6 });
+  equal(a, b);
+});
+Deno.test("invalid fixed thresholds give no decisions or removals", () => {
+  for (const limits of [{}, { lower: 4, upper: 2 }, { lower: NaN, upper: 2 }, { upper: Infinity }]) {
+    const result = E.detect([1, 2, 9], { method: "fixed", plateau: true, ...limits });
+    assert(result.error); assert(result.flagged.every(v => !v)); equal(result.cleaned, [1, 2, 9]);
+  }
+});
+Deno.test("disabled detection removes neither outliers nor plateaus and has no limits", () => {
+  const values = [1, 1, 1, 1, 9, null];
+  for (const method of ["fixed", "z", "iqr", "mad"]) {
+    const result = E.detect(values, { enabled: false, method, lower: 0, upper: 2, plateau: true, run: 3 });
+    equal(result.cleaned, values); assert(result.flagged.every(v => !v)); assert(result.stuck.every(v => !v));
+    assert(result.stats.every(s => s.low === null && s.high === null));
+  }
+});
+
 Deno.test("sample SD and linearly interpolated quartile fences match hand calculations", () => {
   const z = E.summarize([1, 2, 3, 4, 5], "z", 2);
   near(z.center, 3); near(z.scale, Math.sqrt(2.5)); near(z.low, 3 - 2 * Math.sqrt(2.5));
