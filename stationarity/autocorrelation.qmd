@@ -105,7 +105,13 @@ The correlation is thus the expected value of the product of standardized time s
 
 ### curious fact 2
 
-There is a *magnificent* geometric interpretation for the correlation of two time series. We can imagine that each time standardized series $Z_X$ and $Z_Y$ is a unit vector in an $N$-dimensional space. Then the expected value $E[Z_X Z_Y]$ can be seen as the dot product of these two vectors. The dot product of two vectors is
+There is a *magnificent* geometric interpretation for the correlation of two time series. Take the standardized series $Z_X$ and $Z_Y$, and scale each of them down by $1/\sqrt{N}$:
+
+$$
+\vec{a} = \frac{Z_X}{\sqrt{N}}, \qquad \vec{b} = \frac{Z_Y}{\sqrt{N}}.
+$$
+
+These are now unit vectors ($|\vec{a}|=|\vec{b}|=1$) in an $N$-dimensional space, because $\sum_i Z_{X,i}^2 = N$ (go ahead, check it from the definition of $\sigma$). The dot product of two vectors is
 
 $$
 \vec{a}\cdot\vec{b} = |a|\, |b| \cos(\theta),
@@ -118,16 +124,23 @@ $$
 \vec{a}\cdot\vec{b} = a_1b_1 + a_2b_2 + \cdots + a_Nb_N
 $$
 :::
-Because we are dealing with unit vectors, we have
+
+Because $\vec{a}$ and $\vec{b}$ are unit vectors, $\vec{a}\cdot\vec{b}=\cos(\theta)$. But the dot product is also
 
 $$
-\vec{Z_X}\cdot\vec{Z_Y} = \cos(\theta).
+\vec{a}\cdot\vec{b} = \sum_{i=1}^N \frac{Z_{X,i}}{\sqrt N}\frac{Z_{Y,i}}{\sqrt N} = \frac{1}{N}\sum_{i=1}^N Z_{X,i}Z_{Y,i} = E[Z_X Z_Y] = \text{corr}(X,Y).
+$$
+
+So we have
+
+$$
+\text{corr}(X,Y) = \cos(\theta).
 $$
 
 The correlation between $X$ and $Y$ has to be between $-1$ and $1$ because the cosine of the angle between them is also bounded by these values. Furthermore, when two time series have zero correlation, this means that they are orthogonal ($\theta=\pi/2$) in this $N$-dimensional space. Mind. Blown.
 
 ::: {.column-margin}
-In this geometric interpretation, the standard deviation is simply the L2 (Euclidean) norm of the time series. This is why we get a unit vector Z-score when we divide by the standard deviation.
+Note that the standardized series $Z_X$ itself is *not* a unit vector — its norm is $\sqrt{N}$, since $\sum_i Z_{X,i}^2 = N$. It only becomes a unit vector once we also divide by $\sqrt{N}$, as $\vec{a}$ does above.
 :::
 
 ## autocorrelation
