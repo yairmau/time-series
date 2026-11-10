@@ -131,9 +131,8 @@ book:
       - behind-the-scenes/make_your_own_website.qmd
   sidebar:
     collapse-level: 1
+    header: "[← Back to yairmau.com](https://yairmau.com/){.back-home}"
     tools:
-      - icon: house-fill
-        href: https://yairmau.com/
       - icon: bookmark-fill
         href: /sources.html
       - icon: asterisk

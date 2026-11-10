@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.41">
+<meta name="generator" content="quarto-1.7.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,8 +21,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -67,15 +68,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../homework/HW-smoothing.html" rel="next">
 <link href="../homework/HW-resampling.html" rel="prev">
 <link href="../archive/clock-history.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b288e077f13cdc2375eec65dc093508f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a588049bcf6ba0aff1d03aeee07a0105.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0cc16e73634f01ca4ea797a13a558e30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-ee0acfef5549ad2fea8ffff538b25b71.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -135,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }, 1000); 
 });
 </script>
-</head><body class="nav-sidebar floating"><div id="progress-bar" style="width: 0%; height:4px; background-color: rgb(89 127 235);; position: fixed; top: 0px; z-index: 2000;"></div>
+</head><body class="nav-sidebar floating quarto-light"><div id="progress-bar" style="width: 0%; height:4px; background-color: rgb(89 127 235);; position: fixed; top: 0px; z-index: 2000;"></div>
 
 <script id="progressbar" type="text/javascript">
 
@@ -223,7 +225,9 @@ window.Quarto = {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
+<p><a href="https://yairmau.com/" class="back-home">← Back to yairmau.com</a></p>
+</div></div>
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="../archive/clock-history.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -231,7 +235,6 @@ window.Quarto = {
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Time Series Analysis</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://yairmau.com/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-house-fill"></i></a>
     <a href="../sources.html" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-bookmark-fill"></i></a>
     <a href="../things-to-remember.html" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-asterisk"></i></a>
     <a href="https://github.com/yairmau/time-series/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
@@ -927,7 +930,7 @@ window.Quarto = {
 <p><strong>Station:</strong> Ashalim, 2024, 10-minute data from the IMS (<code>ashalim_2024.csv</code>), in the Negev desert.</p>
 <section id="import-data-and-basic-processing" class="level2" data-number="64.1">
 <h2 data-number="64.1" class="anchored" data-anchor-id="import-data-and-basic-processing"><span class="header-section-number">64.1</span> Import data and basic processing</h2>
-<div id="e26f1609" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:28.528139Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:28.527867Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.476711Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.476244Z&quot;}" data-execution_count="1">
+<div id="e26f1609" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:28.528139Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:28.527867Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.476711Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.476244Z&quot;}}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -943,7 +946,7 @@ window.Quarto = {
 <span id="cb1-13"><a href="#cb1-13"></a>    ax.xaxis.set_major_locator(mdates.MonthLocator())</span>
 <span id="cb1-14"><a href="#cb1-14"></a>    ax.xaxis.set_major_formatter(mdates.DateFormatter(<span class="st">'%b'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="39704413" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.477992Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.477877Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.587913Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.587455Z&quot;}" data-execution_count="2">
+<div id="39704413" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.477992Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.477877Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.587913Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.587455Z&quot;}}" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>filename <span class="op">=</span> <span class="st">"ashalim_2024.csv"</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="co"># the IMS writes '-' where there is no measurement</span></span>
@@ -1043,7 +1046,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Let’s check the data.</p>
-<div id="ae936534" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.588905Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.588829Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.593063Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.592617Z&quot;}" data-execution_count="3">
+<div id="ae936534" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.588905Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.588829Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.593063Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.592617Z&quot;}}" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># the time between consecutive records should always be 10 minutes: look for longer gaps</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>step <span class="op">=</span> df.index.to_series().diff()</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="bu">print</span>(<span class="st">"gaps longer than 30 minutes:"</span>)</span>
@@ -1082,7 +1085,7 @@ dtype: int64</code></pre>
 <section id="graph-1-daily-maximum-humidity-bonus-daily-minimum" class="level3" data-number="64.2.1">
 <h3 data-number="64.2.1" class="anchored" data-anchor-id="graph-1-daily-maximum-humidity-bonus-daily-minimum"><span class="header-section-number">64.2.1</span> Graph 1: daily maximum humidity (bonus: daily minimum)</h3>
 <p><strong>My prediction:</strong> at night the air cools and the humidity rises, while in the afternoon the desert air is dry. I expect a daily maximum of 70-95% and a minimum of 10-30%, with the maximum varying little compared with the minimum.</p>
-<div id="d5a4a2ea" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.594057Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.593972Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.713825Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.713437Z&quot;}" data-execution_count="4">
+<div id="d5a4a2ea" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.594057Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.593972Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.713825Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.713437Z&quot;}}" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># one resample, three statistics: the daily minimum, mean and maximum</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>daily_hum <span class="op">=</span> df[<span class="st">'humidity'</span>].resample(<span class="st">'D'</span>).agg([<span class="st">'min'</span>, <span class="st">'mean'</span>, <span class="st">'max'</span>])</span>
 <span id="cb5-3"><a href="#cb5-3"></a></span>
@@ -1130,7 +1133,7 @@ max   87.0  89.0  84.0  86.0  84.0  85.0  88.0  91.0  87.0  83.0  91.0  86.0</co
 <section id="graph-2-rainy-days-per-month" class="level3" data-number="64.2.2">
 <h3 data-number="64.2.2" class="anchored" data-anchor-id="graph-2-rainy-days-per-month"><span class="header-section-number">64.2.2</span> Graph 2: rainy days per month</h3>
 <p><strong>My prediction:</strong> very few rainy days, all in winter, many of them just traces. With at least 5 mm I expect almost none.</p>
-<div id="089be69b" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.714997Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.714915Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.800769Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.800309Z&quot;}" data-execution_count="5">
+<div id="089be69b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.714997Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.714915Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.800769Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.800309Z&quot;}}" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># the rain of each day is the sum of its 10-minute records</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>daily_rain <span class="op">=</span> df[<span class="st">'rain'</span>].resample(<span class="st">'D'</span>).<span class="bu">sum</span>()</span>
 <span id="cb7-3"><a href="#cb7-3"></a></span>
@@ -1186,7 +1189,7 @@ dtype: int64</code></pre>
 <section id="graph-3-hours-of-sun-per-day" class="level3" data-number="64.2.3">
 <h3 data-number="64.2.3" class="anchored" data-anchor-id="graph-3-hours-of-sun-per-day"><span class="header-section-number">64.2.3</span> Graph 3: hours of sun per day</h3>
 <p><strong>My prediction:</strong> clear skies, so a smooth curve, about 14 hours in June and 10 hours in December, with dips on cloudy winter days. The 1 W/m<span class="math inline">^2</span> threshold should be the closest to the real day length, and 120 W/m<span class="math inline">^2</span> should lose 1-2 hours.</p>
-<div id="e590e324" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.801853Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.801774Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.898062Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.897742Z&quot;}" data-execution_count="6">
+<div id="e590e324" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.801853Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.801774Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:29.898062Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:29.897742Z&quot;}}" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># a day without records would have a sum of 0, and look like a day without sun!</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="co"># so we keep only the days with at least 90% of the records (144 records per day)</span></span>
 <span id="cb9-3"><a href="#cb9-3"></a>valid_records <span class="op">=</span> df[<span class="st">'radiation'</span>].resample(<span class="st">'D'</span>).count()</span>
@@ -1242,7 +1245,7 @@ date
 <section id="part-2-one-signal-many-time-scales" class="level2" data-number="64.3">
 <h2 data-number="64.3" class="anchored" data-anchor-id="part-2-one-signal-many-time-scales"><span class="header-section-number">64.3</span> Part 2: one signal, many time scales</h2>
 <p><strong>My prediction:</strong> the daily cycle is clear in the hourly data and disappears with daily means. Only the seasons survive in the monthly data. Since the daily cycle is large in the desert, I expect the standard deviation to drop noticeably from hourly to daily.</p>
-<div id="a4e7c9d8" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.899244Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.899155Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.186358Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.185977Z&quot;}" data-execution_count="7">
+<div id="a4e7c9d8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:29.899244Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:29.899155Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.186358Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.185977Z&quot;}}" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>temp <span class="op">=</span> df[<span class="st">'temperature'</span>]</span>
 <span id="cb11-2"><a href="#cb11-2"></a></span>
 <span id="cb11-3"><a href="#cb11-3"></a><span class="co"># the same variable at five resolutions: only the resampling rule changes</span></span>
@@ -1285,7 +1288,7 @@ dtype: float64</code></pre>
 <section id="part-3-think-like-in-the-exam" class="level2" data-number="64.4">
 <h2 data-number="64.4" class="anchored" data-anchor-id="part-3-think-like-in-the-exam"><span class="header-section-number">64.4</span> Part 3: think like in the exam</h2>
 <p><strong>1. The monthly mean of the rain.</strong></p>
-<div id="787e76de" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.187751Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.187654Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.195499Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.195088Z&quot;}" data-execution_count="8">
+<div id="787e76de" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.187751Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.187654Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.195499Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.195088Z&quot;}}" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># the mean of the records is the wrong way, the sum is the right way</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a>wrong <span class="op">=</span> df[<span class="st">'rain'</span>].resample(<span class="st">'ME'</span>).mean()</span>
 <span id="cb13-3"><a href="#cb13-3"></a>right <span class="op">=</span> df[<span class="st">'rain'</span>].resample(<span class="st">'ME'</span>).<span class="bu">sum</span>()</span>
@@ -1396,7 +1399,7 @@ dtype: float64</code></pre>
 </div>
 <p>They computed the average rain per 10-minute record, in mm per 10 minutes, and not the monthly total (in January, 0.0011 mm instead of 4.5 mm). Rain is an amount that accumulates, so we must <strong>sum</strong> it. Temperature is a state, so we <strong>average</strong> it. The function must match the physical meaning of the variable.</p>
 <p><strong>2. Three ways to compute the yearly mean.</strong></p>
-<div id="86f46d6e" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.196532Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.196458Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.202445Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.202146Z&quot;}" data-execution_count="9">
+<div id="86f46d6e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.196532Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.196458Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.202445Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.202146Z&quot;}}" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># 1. the mean of all the records</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a>mean_all <span class="op">=</span> df[<span class="st">'temperature'</span>].mean()</span>
 <span id="cb14-3"><a href="#cb14-3"></a></span>
@@ -1421,7 +1424,7 @@ monthly means, weighted days: 20.503 °C</code></pre>
 </div>
 <p>They differ by less than 0.04 °C. The mean of the monthly means is the lowest, because it gives the 29 days of February the same weight as the 31 days of January, and overweights the cold months. Weighting by days helps, but January has 2 days without data. With complete data I prefer the mean of the daily means. The mean of the monthly means is for when we only have monthly values.</p>
 <p><strong>3. The maximum of the daily means.</strong></p>
-<div id="c8a0c3ed" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.203485Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.203417Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.207116Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.206786Z&quot;}" data-execution_count="10">
+<div id="c8a0c3ed" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.203485Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.203417Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.207116Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.206786Z&quot;}}" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># the maximum of the daily means: first the daily means, then the largest of them</span></span>
 <span id="cb16-2"><a href="#cb16-2"></a>daily_mean_t <span class="op">=</span> df[<span class="st">'temperature'</span>].resample(<span class="st">'D'</span>).mean()</span>
 <span id="cb16-3"><a href="#cb16-3"></a><span class="bu">print</span>(<span class="ss">f"maximum of the daily means: </span><span class="sc">{</span>daily_mean_t<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.1f}</span><span class="ss"> °C on </span><span class="sc">{</span>daily_mean_t<span class="sc">.</span>idxmax()<span class="sc">.</span>date()<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -1437,7 +1440,7 @@ daily mean on the day of the maximum: 30.5 °C</code></pre>
 </div>
 <p>No.&nbsp;The maximum of the daily means is 31.4 °C (12 July), and the maximum temperature of the year is 41.1 °C (15 June). On 15 June the temperature was above 37 °C from 11:00 to 16:00, but the cold night brought the daily mean down to 30.5 °C, an ordinary summer value. For the heat stress of a plant the extreme matters, and for the energy needed to cool a building the mean matters.</p>
 <p><strong>4. Optional: the wind direction.</strong></p>
-<div id="0f7bda6e" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.208099Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.208031Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.210080Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.209774Z&quot;}" data-execution_count="11">
+<div id="0f7bda6e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.208099Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.208031Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.210080Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.209774Z&quot;}}" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># the ordinary mean does not work for angles</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a>angles <span class="op">=</span> np.array([<span class="dv">350</span>, <span class="dv">10</span>])</span>
 <span id="cb18-3"><a href="#cb18-3"></a><span class="bu">print</span>(<span class="st">"ordinary mean:"</span>, angles.mean(), <span class="st">"°"</span>)</span>
@@ -1459,7 +1462,7 @@ circular mean: 0 °</code></pre>
 <h3 data-number="64.5.1" class="anchored" data-anchor-id="bonus-graph-1-the-daily-temperature-range"><span class="header-section-number">64.5.1</span> Bonus graph 1: the daily temperature range</h3>
 <p>The question: how large is the difference between the daily maximum and minimum temperature, and does it change during the year?</p>
 <p><strong>My prediction:</strong> a range of 12-18 °C, larger in the dry summer and smaller in winter.</p>
-<div id="d07e628f" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.211037Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.210969Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.288434Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.288100Z&quot;}" data-execution_count="12">
+<div id="d07e628f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.211037Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.210969Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.288434Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.288100Z&quot;}}" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># the daily range is the daily maximum minus the daily minimum, then we take the monthly mean</span></span>
 <span id="cb20-2"><a href="#cb20-2"></a>daily_t <span class="op">=</span> df[<span class="st">'temperature'</span>].resample(<span class="st">'D'</span>).agg([<span class="st">'min'</span>, <span class="st">'max'</span>])</span>
 <span id="cb20-3"><a href="#cb20-3"></a>daily_range <span class="op">=</span> daily_t[<span class="st">'max'</span>] <span class="op">-</span> daily_t[<span class="st">'min'</span>]</span>
@@ -1517,7 +1520,7 @@ dtype: float64</code></pre>
 <h3 data-number="64.5.2" class="anchored" data-anchor-id="bonus-graph-2-the-daily-solar-energy"><span class="header-section-number">64.5.2</span> Bonus graph 2: the daily solar energy</h3>
 <p>The question: how much solar energy reaches the ground each day, in MJ/m<span class="math inline">^2</span>, and how much do clouds subtract?</p>
 <p><strong>My prediction:</strong> about 28-30 MJ/m<span class="math inline">^2</span> in summer and 8-12 in winter, with cloudy days below half of that.</p>
-<div id="84eb7042" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.289608Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.289519Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.366955Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.366607Z&quot;}" data-execution_count="13">
+<div id="84eb7042" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-12T13:01:30.289608Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-12T13:01:30.289519Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-12T13:01:30.366955Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-12T13:01:30.366607Z&quot;}}" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># the radiation is a power (W/m²): the mean power of the day times the seconds in a day gives the energy (J/m²)</span></span>
 <span id="cb22-2"><a href="#cb22-2"></a><span class="co"># we use the mean, and not the sum, so that missing records do not reduce the result</span></span>
 <span id="cb22-3"><a href="#cb22-3"></a><span class="co"># days with too few records (defined in Graph 3) are discarded</span></span>
@@ -1585,287 +1588,293 @@ yearly maximum: 31.6 MJ/m² on 2024-06-11</code></pre>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
+      return false;
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
         }
-        return container.innerHTML
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1873,185 +1882,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../homework/HW-resampling.html" class="pagination-link" aria-label="HW: resampling">

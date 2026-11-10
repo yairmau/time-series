@@ -1,4 +1,27 @@
+/*-- scss:defaults --*/
+
+// Midnight palette, shared with yairmau.com
+$primary: #0d1f2d;
+$link-color: #0071eb;
+$body-color: #1e2a33;
+$navbar-bg: #0d1f2d;
+$navbar-fg: #ffffff;
+$code-block-bg: #f0f5f9;
+
 /*-- scss:rules --*/
+
+// Thin underlines on links inside running text, so they don't rely on color alone
+#quarto-document-content :is(p, li) a:not(.btn) {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba($link-color, 0.4);
+  text-underline-offset: 2px;
+
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
 // @import url('https://fonts.cdnfonts.com/css/latin-modern-roman?styles=545');                
 
 /* make navbar of the same width and website ::content */
@@ -64,4 +87,20 @@ section.footnotes hr {
   font-weight: bold;
   line-height: 1;
   display: block;
+}
+
+// Link back to the main site, at the top of the sidebar
+.back-home {
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+#quarto-sidebar-header {
+  margin-bottom: 0.25rem;
 }
