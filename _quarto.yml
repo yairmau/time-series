@@ -114,7 +114,7 @@ book:
     #     - assignments/assignment1.qmd
     #     - assignments/assignment2.ipynb
     #     - assignments/assignment3.ipynb
-    #     - assignments/final-project.qmd
+    - assignments/final-project.qmd
     - part: "technical stuff"
       chapters:
         - technical-stuff/technical-stuff.qmd

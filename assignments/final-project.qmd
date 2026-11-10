@@ -1,87 +1,8 @@
-## final project
+# final project {.unnumbered}
 
 In this final project, you have the opportunity to explore and analyze a dataset of your choosing. This project is designed to apply and showcase the skills you've acquired in this class. 
 
-## dataset selection
-
-Although this is class is for "Environment" students and we like environmental data, we are open to all types of time series, be it stock market, audio, economy, demography, etc. The most important thing should be that you find it interesting. So, you are free to choose whatever time series dataset you want as long as it meets the following criteria: 
-
-1. Real Data - The dataset must be composed of real, authentic data.
-1. Appropriate Size: It should be sufficiently large to support meaningful analysis, with a recommended **minimum** being equal to a 3-year meteorological dataset featuring 4 variables (e.g., temperature, humidity) sampled bi-hourly.
-1. Uniqueness: To ensure a diverse range of projects, your dataset should not duplicate another student's choice exactly. Variations of similar data types (e.g., weather data from different locations or periods) are acceptable.
-
-### data approval
-The whole project is based on the dataset you choose, and we want to make sure you chose a fitting dataset. So you are required to upload to the moodle a half-page description of your dataset and the basic analyses you with to accomplish. It should include description of the subject, the size (number of rows and columns), the source, and the basic tools you will be using. Should be in `.pdf` format. If the dataset is not too large you can upload it as well.
-
-**The deadline for this is January 21th**.  Late submissions will be penalized with a 10-point penalty.
-
-
-## Technical Requirements
-
-Your analysis must include techniques from each of the following pools.
-
-**ATTENTION!** You don't need to do each analysis in the order they are listed below. Each analysis should be included in the report according to your best judgement. Where does it fit best? Don't deliver a supermarket list of analyses, try to integrate the different tools inside a coherent story you are telling us.
-
-### Pool 1: implement at least 3
-
-Resampling
-
-* down sampling
-* up sampling
-
-Smoothing
-
-* moving average with a well-chosen kernel
-* LOESS (Savitzky-Golay)
-* FFT
-
-### Pool 2: implement at least 3
-
-Outlier identification
-
-* visual 
-* sliding windows (Z-score, IQR, MAD, etc)
-
-Gap filling
-
-* interpolation
-* advanced (SARIMAX, Randomforest, Exponential Smoothing etc.)
-
-### Pool 3: implement at least 5
-
-Seasonal decomposition and frequencies
-
-* classic (additive or multiplicative)
-* decompose by FFT filtering
-* frequency analysis: FFT
-
-Lags
-
-* cross correlation
-* DTW
-
-Derivative
-
-* gradient
-* using FFT
-* using LOESS
-
-### Pool 4: implement all
-
-Study your signal.  
-Don't do that for the whole dataset. Choose a particular signal and characterize it.
-
-* Stationarity
-* ACF
-* PACF
-* ARIMA
-    * define order
-    * generate synthetic time series
-
-
-
-
-## Project Objectives
+## project objectives
 
 The primary goal is to derive insights from your dataset using the analytical tools covered in the course. 
 
@@ -95,26 +16,73 @@ Make sure you follow the spirit of the quote above. Tell us what is interesting 
 
 We don't want a mindless string of numbers and graphs. We want a story.
 
-## Report Structure
+## project proposal
 
-Your final report should include:
+You will write a half-page project proposal, and submit it on Moodle for approval.
 
-* **Introduction:** Describe the chosen dataset, including its source and significance.
-* **Exploratory Analysis:** Present an initial exploration of the data.
-* **Detailed Analysis:** Divide this section into subsections, each addressing a specific question. For each question, describe the analysis performed, present your findings, and include relevant figures.
+* Which dataset did you choose? Describe it.
+* What interesting questions would you like to answer?
+* Before you do the work, what do you expect to find?
+* Which tools learned in this course do you intend to use? How are they relevant to answering your questions?
+
+**Deadline:** 17 November 2026, at 11:00. Upload on our Moodle page the `.pdf` of your proposal.
+
+## dataset selection
+
+Although this class is for "Environment" students and we like environmental data, we are open to all types of time series, be it stock market, audio, economy, demography, etc. The most important thing should be that you find it interesting. So, you are free to choose whatever time series dataset you want as long as it meets the following criteria: 
+
+1. Real Data - The dataset must be composed of real, authentic data.
+1. Appropriate Size: It should be sufficiently large to support meaningful analysis, with a recommended **minimum** being equal to a 3-year meteorological dataset featuring 4 variables (e.g., temperature, humidity) sampled bi-hourly.
+1. Uniqueness: To ensure a diverse range of projects, your dataset should not duplicate another student's choice exactly. Variations of similar data types (e.g., weather data from different locations or periods) are acceptable.
+
+## technical requirements
+
+You are encouraged to use as many tools learned in this course as possible, but don't force a given analysis that doesn't fit your needs.
+Each analysis should be included in the report according to your best judgement. Where does it fit best? Don't deliver a supermarket list of analyses, try to integrate the different tools inside a coherent story you are telling us.
+
+## deliverables
+
+Your final project contains two main products to be submitted:
+
+* A final report, in `.pdf` format, with at most 15 pages.
+* A single jupyter notebook `.ipynb`, together with the `.csv` needed to run it.
+
+## final report
+
+Your final report will include:
+
+* **Introduction:** Describe the chosen dataset, including its source and significance. Present the main questions you'd like to answer.
+* **Detailed Analysis:** Divide this section into subsections, each addressing a specific question. For each question, describe the analysis performed, present your findings, and include relevant figures and numbers.
 * **Conclusions and Pitfalls:** Summarize your findings and describe the difficulties you encountered when analyzing your data, and how you solved them.
 
-### What to submit
+## jupyter notebook
 
-1. A written report in `.pdf` format.
-1. An `.ipynb` file with your complete code. Should be full of comments and executable with no errors.  
-**NOTE!** This is not a coding class and we will not grade your code, anyway we do want to see it and will appreciate if it is well written and organized.
-1. The dataset, preferably in `.csv` format.
+Your jupyter notebook will present all the calculations and analyses performed in this final project. Make use of both code cells for python code and markdown cells for basic structure and explanations. This notebook will be submitted together with the `.csv` file used to analyze your data. We need to be able to run ourselves the whole notebook without any errors. In markdown cells, explain in a few words what analysis follows. You don't need to write a lot of words, since the final report will do much of the talking.
 
-### When to submit
+## evaluation
 
-Check on Moodle the exact deadline. A delayed submission will be penalized with 2 points per day. No submissions will be allowed 7 days after the deadline.
+Your final project will be evaluated according to the following criteria:
 
-### How to submit
+- **40% Presentation:** How the graphs look, labels, general organization, markdown, and clean code.
+- **30% Discussion:** Explain what you did, what you found out, etc.
+- **15% Depth of analysis:** Analyze/explore the data with different levels of complexity.
+- **10% Replicability:** Ensure your code runs flawlessly.
+- **5% Code commenting:** Explain in your code what you are doing; this is good for everyone, especially for yourself.
 
-Via the course’s Moodle (under the ‘Final Projects’ section).
+These five criteria add up to 100%. On top of that:
+
+- **+5% Bonus:** For originality, creative problem-solving, or notable analysis.
+
+## submission and interview
+
+Check on Moodle the exact deadline. When I decide on a precise date, I'll update this page too.
+
+Submit the deliverables listed above (report, notebook, and dataset) on Moodle.
+
+**Interview**
+
+As discussed during the lectures, this year we will use a new tool to help with evaluation. Upon uploading your report, you will be interviewed by an automatic system. With your computer camera and microphone on, you will answer out loud the questions that appear on the screen. The goal of this interview is to help us evaluate if you understand what's in your report, that you are responsible for the content written there.
+
+## AI usage
+
+Refer to the [AI policy](/basics/AI-policy.html) page.

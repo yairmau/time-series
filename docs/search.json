@@ -2695,6 +2695,116 @@
     ]
   },
   {
+    "objectID": "assignments/final-project.html",
+    "href": "assignments/final-project.html",
+    "title": "final project",
+    "section": "",
+    "text": "project objectives\nIn this final project, you have the opportunity to explore and analyze a dataset of your choosing. This project is designed to apply and showcase the skills you’ve acquired in this class.\nThe primary goal is to derive insights from your dataset using the analytical tools covered in the course.\nMake sure you follow the spirit of the quote above. Tell us what is interesting about your dataset, and what questions you wish to answer with the tools learned in this course.\nWe don’t want a mindless string of numbers and graphs. We want a story.",
+    "crumbs": [
+      "final project"
+    ]
+  },
+  {
+    "objectID": "assignments/final-project.html#project-objectives",
+    "href": "assignments/final-project.html#project-objectives",
+    "title": "final project",
+    "section": "",
+    "text": "The purpose of computing is insight, not numbers.\n— Richard Hamming\n\n\n\nComputers are useless. They can only give you answers.\n— Pablo Picasso",
+    "crumbs": [
+      "final project"
+    ]
+  },
+  {
+    "objectID": "assignments/final-project.html#project-proposal",
+    "href": "assignments/final-project.html#project-proposal",
+    "title": "final project",
+    "section": "project proposal",
+    "text": "project proposal\nYou will write a half-page project proposal, and submit it on Moodle for approval.\n\nWhich dataset did you choose? Describe it.\nWhat interesting questions would you like to answer?\nBefore you do the work, what do you expect to find?\nWhich tools learned in this course do you intend to use? How are they relevant to answering your questions?\n\nDeadline: 17 November 2026, at 11:00. Upload on our Moodle page the .pdf of your proposal.",
+    "crumbs": [
+      "final project"
+    ]
+  },
+  {
+    "objectID": "assignments/final-project.html#dataset-selection",
+    "href": "assignments/final-project.html#dataset-selection",
+    "title": "final project",
+    "section": "dataset selection",
+    "text": "dataset selection\nAlthough this class is for “Environment” students and we like environmental data, we are open to all types of time series, be it stock market, audio, economy, demography, etc. The most important thing should be that you find it interesting. So, you are free to choose whatever time series dataset you want as long as it meets the following criteria:\n\nReal Data - The dataset must be composed of real, authentic data.\nAppropriate Size: It should be sufficiently large to support meaningful analysis, with a recommended minimum being equal to a 3-year meteorological dataset featuring 4 variables (e.g., temperature, humidity) sampled bi-hourly.\nUniqueness: To ensure a diverse range of projects, your dataset should not duplicate another student’s choice exactly. Variations of similar data types (e.g., weather data from different locations or periods) are acceptable.",
+    "crumbs": [
+      "final project"
+    ]
+  },
+  {
+    "objectID": "assignments/final-project.html#technical-requirements",
+    "href": "assignments/final-project.html#technical-requirements",
+    "title": "final project",
+    "section": "technical requirements",
+    "text": "technical requirements\nYou are encouraged to use as many tools learned in this course as possible, but don’t force a given analysis that doesn’t fit your needs. Each analysis should be included in the report according to your best judgement. Where does it fit best? Don’t deliver a supermarket list of analyses, try to integrate the different tools inside a coherent story you are telling us.",
+    "crumbs": [
+      "final project"
+    ]
+  },
+  {
+    "objectID": "assignments/final-project.html#deliverables",
+    "href": "assignments/final-project.html#deliverables",
+    "title": "final project",
+    "section": "deliverables",
+    "text": "deliverables\nYour final project contains two main products to be submitted:\n\nA final report, in .pdf format, with at most 15 pages.\nA single jupyter notebook .ipynb, together with the .csv needed to run it.",
+    "crumbs": [
+      "final project"
+    ]
+  },
+  {
+    "objectID": "assignments/final-project.html#final-report",
+    "href": "assignments/final-project.html#final-report",
+    "title": "final project",
+    "section": "final report",
+    "text": "final report\nYour final report will include:\n\nIntroduction: Describe the chosen dataset, including its source and significance. Present the main questions you’d like to answer.\nDetailed Analysis: Divide this section into subsections, each addressing a specific question. For each question, describe the analysis performed, present your findings, and include relevant figures and numbers.\nConclusions and Pitfalls: Summarize your findings and describe the difficulties you encountered when analyzing your data, and how you solved them.",
+    "crumbs": [
+      "final project"
+    ]
+  },
+  {
+    "objectID": "assignments/final-project.html#jupyter-notebook",
+    "href": "assignments/final-project.html#jupyter-notebook",
+    "title": "final project",
+    "section": "jupyter notebook",
+    "text": "jupyter notebook\nYour jupyter notebook will present all the calculations and analyses performed in this final project. Make use of both code cells for python code and markdown cells for basic structure and explanations. This notebook will be submitted together with the .csv file used to analyze your data. We need to be able to run ourselves the whole notebook without any errors. In markdown cells, explain in a few words what analysis follows. You don’t need to write a lot of words, since the final report will do much of the talking.",
+    "crumbs": [
+      "final project"
+    ]
+  },
+  {
+    "objectID": "assignments/final-project.html#evaluation",
+    "href": "assignments/final-project.html#evaluation",
+    "title": "final project",
+    "section": "evaluation",
+    "text": "evaluation\nYour final project will be evaluated according to the following criteria:\n\n40% Presentation: How the graphs look, labels, general organization, markdown, and clean code.\n30% Discussion: Explain what you did, what you found out, etc.\n15% Depth of analysis: Analyze/explore the data with different levels of complexity.\n10% Replicability: Ensure your code runs flawlessly.\n5% Code commenting: Explain in your code what you are doing; this is good for everyone, especially for yourself.\n\nThese five criteria add up to 100%. On top of that:\n\n+5% Bonus: For originality, creative problem-solving, or notable analysis.",
+    "crumbs": [
+      "final project"
+    ]
+  },
+  {
+    "objectID": "assignments/final-project.html#submission-and-interview",
+    "href": "assignments/final-project.html#submission-and-interview",
+    "title": "final project",
+    "section": "submission and interview",
+    "text": "submission and interview\nCheck on Moodle the exact deadline. When I decide on a precise date, I’ll update this page too.\nSubmit the deliverables listed above (report, notebook, and dataset) on Moodle.\nInterview\nAs discussed during the lectures, this year we will use a new tool to help with evaluation. Upon uploading your report, you will be interviewed by an automatic system. With your computer camera and microphone on, you will answer out loud the questions that appear on the screen. The goal of this interview is to help us evaluate if you understand what’s in your report, that you are responsible for the content written there.",
+    "crumbs": [
+      "final project"
+    ]
+  },
+  {
+    "objectID": "assignments/final-project.html#ai-usage",
+    "href": "assignments/final-project.html#ai-usage",
+    "title": "final project",
+    "section": "AI usage",
+    "text": "AI usage\nRefer to the AI policy page.",
+    "crumbs": [
+      "final project"
+    ]
+  },
+  {
     "objectID": "technical-stuff/technical-stuff.html",
     "href": "technical-stuff/technical-stuff.html",
     "title": "68  technical stuff",
