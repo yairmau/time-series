@@ -945,8 +945,10 @@ X = \{21,25,25,20,26,25\}
 </div></div><section id="curious-fact-1" class="level3" data-number="29.4.1">
 <h3 data-number="29.4.1" class="anchored" data-anchor-id="curious-fact-1"><span class="header-section-number">29.4.1</span> curious fact 1</h3>
 <p>Isn’t the expression for the correlation suspiciously similar to something we just saw in the last lecture?</p>
-<p>Remember that we defined de Z-score as <span class="math display">
-Z  = \frac{x-\mu}{\sigma},
+<p>Remember that we defined the Z-score of a single data point as <span class="math display">
+z  = \frac{x-\mu}{\sigma},
+</span> where <span class="math inline">x</span> is a specific data point. If we apply this to every point of the time series <span class="math inline">X</span>, we get a new, standardized series <span class="math inline">Z_X</span>, whose <span class="math inline">i</span>-th element is <span class="math display">
+Z_{X,i} = \frac{X_i-\mu_X}{\sigma_X}.
 </span></p>
 <p>Therefore, we can interpret the correlation as the expected value of <span class="math inline">Z_X</span> times <span class="math inline">Z_Y</span>:</p>
 <p><span class="math display">

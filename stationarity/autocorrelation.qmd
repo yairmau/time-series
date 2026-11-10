@@ -86,9 +86,13 @@ Source: [Wikimedia](https://commons.wikimedia.org/wiki/File:Correlation_examples
 ### curious fact 1
 Isn't the expression for the correlation suspiciously similar to something we just saw in the last lecture?
 
-Remember that we defined de Z-score as
+Remember that we defined the Z-score of a single data point as
 $$
-Z  = \frac{x-\mu}{\sigma},
+z  = \frac{x-\mu}{\sigma},
+$$
+where $x$ is a specific data point. If we apply this to every point of the time series $X$, we get a new, standardized series $Z_X$, whose $i$-th element is
+$$
+Z_{X,i} = \frac{X_i-\mu_X}{\sigma_X}.
 $$
 
 Therefore, we can interpret the correlation as the expected value of $Z_X$ times $Z_Y$:
