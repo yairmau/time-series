@@ -1,0 +1,58 @@
+# circling back
+
+We opened this chapter with three questions and a short wish list of goals (see [motivation](motivation.qmd)). At the time we had no vocabulary to answer them with anything more than intuition. Now we do: random variables and white noise, AR processes, stationarity and characteristic roots, the autocorrelation function, and its confidence bands. Let's go back and actually answer those questions.
+
+## "if I know the temperature now, what does that tell me about 10, 100, 1000 minutes from now?"
+
+The honest answer is: **it depends entirely on the process**, and the tool that tells you exactly how much is the autocorrelation function $\hat\rho_{XX}(\tau)$ itself.
+
+* For **white noise** ($\phi=0$ in an AR(1)), the answer is "nothing at all." $\hat\rho_{XX}(\tau)\approx 0$ for every $\tau\neq 0$ — knowing $X_t$ gives you no information whatsoever about $X_{t+10}$, let alone $X_{t+1000}$.
+* For a **stationary AR(1)** with $0<|\phi|<1$, memory decays geometrically: $\rho_{XX}(\tau)=\phi^{|\tau|}$. A small $\phi$ forgets almost immediately; a $\phi$ close to 1 forgets slowly, but it *always* forgets eventually, because $|\phi|<1$ guarantees $\phi^{|\tau|}\to 0$ as $\tau\to\infty$. This is exactly the stationarity condition from the [stationarity](stationarity.qmd) chapter — "the characteristic root lies outside the unit circle" is, in plain language, a guarantee that the process eventually *does* forget.
+* For a **stationary AR(2) with complex characteristic roots**, the answer oscillates on its way down: knowing $X_t$ tells you something useful about $X_{t+10}$, something of the opposite sign about $X_{t+10+\text{half a pseudo-period}}$, and so on, all while the envelope shrinks geometrically with the modulus of the root. This is precisely the "fast oscillation" vs. "slow oscillation" AR(2) examples from the autocorrelation widget — a smaller root modulus forgets (and oscillates) fast, a root modulus close to 1 lingers for a long pseudo-period before fading.
+* For a **random walk** ($\phi=1$) or a **drifting trend**, there is no decay at all — $\hat\rho_{XX}(\tau)$ stays close to 1 for a very long range of $\tau$. But notice this is the non-stationary extreme: it isn't that the process has an unusually long memory in the useful sense, it's that it has *no* mean to return to, so "knowing $X_t$" really just means "knowing roughly where the whole trajectory currently is," not anything about its short-term dynamics. (It's also the case, as we noted when first drawing these bands, where the whole Bartlett/confidence-interval machinery is on shaky ground — the formula assumes stationarity, which a random walk doesn't have.)
+
+## "the same applies to the past — how heavily does past information inform today's measurement?"
+
+By exactly the same amount, in the other direction. Looking back at the definition,
+
+$$
+\rho_{XX}(\tau) = \frac{E\left[(X_t-\mu)(X_{t+\tau}-\mu)\right]}{\sigma^2},
+$$
+
+swapping the roles of "past" and "future" just swaps the sign of $\tau$, and the autocorrelation function is symmetric: $\rho_{XX}(\tau)=\rho_{XX}(-\tau)$. Whatever decay (or lack of decay) governs how much $X_t$ tells you about $X_{t+\tau}$ governs, identically, how much $X_{t-\tau}$ tells you about $X_t$. There was never a second question to answer here — it's the same curve, read in the other direction. Go back to the [autocorrelation widget](autocorrelation.qmd#try-it-yourself) and slide $\tau$ to both negative and positive values on any example — the curve is a mirror image of itself around $\tau=0$.
+
+## "information degradation: how fast does information from a signal degrade, and get swamped by noise?"
+
+We now have two complementary, precise answers to this, one about *rate* and one about a *cutoff*.
+
+**Rate.** The decay rate of $\rho_{XX}(\tau)$ *is* the degradation rate. A small $|\phi|$, or characteristic roots sitting well outside the unit circle, degrade fast. Roots sitting just outside the unit circle, close to its boundary, degrade slowly. A root exactly on the unit circle (the random walk) never degrades at all, which is exactly why it is excluded from stationarity.
+
+**Cutoff.** But "decays" is a continuous notion, and at some point you have to say "the signal is gone, I'm just looking at noise now." That's exactly what the 95% confidence band from [ACF and PACF graphs](ACF_and_PACF_graphs.ipynb) gives you: a precise, statistical answer to "has the correlation decayed enough that I can no longer distinguish it from pure sampling noise?" Once $\hat\rho_{XX}(\tau)$ enters that band, you've found the lag where the signal has, operationally, been swamped by noise. That's not a metaphor — it's a 5%-level hypothesis test against $H_0:$ this lag's autocorrelation is zero.
+
+<div class="alert alert-info">
+"Information degradation" has a precise operational definition: the lag $\tau$ at which $\hat\rho_{XX}(\tau)$ first drops inside the $\pm z_{\alpha/2}\cdot\text{StdErr}(\hat\rho_{XX}(\tau))$ confidence band and stays there.
+</div>
+
+There's a second layer the PACF adds, which the plain ACF can't give you: *how much* of what looks like "memory" at lag $\tau$ is actually new, direct information, versus just an echo carried along the chain from earlier lags. An AR(2) process is, by construction, directly informed only by its two immediately preceding values — any apparent correlation at lag 5 is entirely indirect, relayed through lags 1 through 4. The PACF cuts through that and tells you the *order* of direct dependence — which, not coincidentally, is exactly how we used it to recover "this must have been an AR(2)" in the ACF/PACF chapter.
+
+## "noise, signal, trend, cycles" — now with real definitions
+
+The first goal in the motivation page was simply to "discuss what is noise, signal, trend, cycles, etc." We can now be precise about each:
+
+* **noise**: a sequence of iid random variables, zero autocorrelation beyond lag 0 ([random variables](random.qmd)). The honest floor underneath everything else.
+* **trend**: a time-varying mean. It directly violates the first condition of weak stationarity, which is exactly why a trending series' ACF stays near 1 for a long range of $\tau$ without ever really "meaning" anything about short-term memory.
+* **cycle**: a periodic or pseudo-periodic component. In the AR(p) framework this is what complex characteristic roots produce — a cycle with frequency $f_0 = \frac{1}{2\pi}\cos^{-1}\!\left(\phi_1/2\sqrt{-\phi_2}\right)$ for AR(2), decaying at a rate set by how close the roots sit to the unit circle.
+* **signal**: whatever structured, autocorrelated part of a series remains once you subtract out drift — the part an AR/MA-type model can actually describe, as opposed to the irreducible noise floor.
+
+## the framework and the toolbox
+
+That was the second and third goals: "learn a useful framework," and "acquire statistical and time-series tools." Here's the short inventory we built, in the order it gets applied to a new series:
+
+1. **Stationarity check** (characteristic roots vs. the unit circle): is this series even in a regime where "memory" and "autocorrelation" are stable, well-defined concepts? If not — random walk, trend — the rest of the toolbox needs to be used cautiously, if at all.
+2. **ACF**: how much, and over what range of lags, does the series remember itself?
+3. **Confidence band**: at what lag does that memory become statistically indistinguishable from noise?
+4. **PACF**: of the memory that *is* real, how many lags of it are direct, rather than relayed through shorter lags? This gives you a candidate order $p$ for an AR model.
+
+## what's next
+
+The fourth goal — forecasting — is exactly where we're headed. Diagnosing a series with the tools above (is it stationary? how much memory? what order?) is the necessary first step before you can responsibly fit a model to it. [From AR to ARIMA](from_AR_to_ARIMA.ipynb) takes the AR(p) process we've built here, completes it with its mirror-image sibling (MA(q)), and starts using the ACF and PACF not just to *describe* a series, but to *choose* a model for it.

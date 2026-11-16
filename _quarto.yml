@@ -57,6 +57,7 @@ book:
         - stationarity/autocorrelation.qmd
         - stationarity/stationarity.qmd
         - stationarity/ACF_and_PACF_graphs.ipynb
+        - stationarity/circling-back.qmd
         - stationarity/from_AR_to_ARIMA.ipynb
         - stationarity/practice_ARIMA.ipynb
     - part: "seasonality"
@@ -153,9 +154,6 @@ format:
     highlight-style: kate-custom.theme #kate #solarized # kate # tango # breeze # ayu # monokai # breezedark # espresso
     include-in-header:
       - includes.html
-      # progress bar and back to top button. solution from here: https://github.com/quarto-dev/quarto-cli/discussions/3842#discussioncomment-4591721
-      # - back-to-top.html
-      - progressbar.html
     code-line-numbers: true
     code-tools:
       source: repo  # https://quarto.org/docs/output-formats/html-code.html#code-tools
