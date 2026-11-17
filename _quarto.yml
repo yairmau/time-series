@@ -5,6 +5,8 @@ project:
     - smoothing/lab/**
     - smoothing/fit-lab/**
     - outliers/lab/**
+    - stationarity/practice-lab/**
+    - stationarity/practice-data/**
 
 book:
   title: "Time Series Analysis"

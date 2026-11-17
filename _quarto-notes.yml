@@ -1,0 +1,6 @@
+# Linked supplementary pages, without adding numbered chapters to the book.
+# quarto render stationarity/dickey-fuller.qmd --profile notes
+project:
+  type: default
+  render:
+    - stationarity/dickey-fuller.qmd

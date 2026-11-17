@@ -882,23 +882,24 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#white-noise" id="toc-white-noise" class="nav-link active" data-scroll-target="#white-noise"><span class="header-section-number">35</span> White noise</a></li>
-  <li><a href="#random-walk" id="toc-random-walk" class="nav-link" data-scroll-target="#random-walk"><span class="header-section-number">36</span> Random walk</a>
+  <li><a href="#white-noise" id="toc-white-noise" class="nav-link active" data-scroll-target="#white-noise"><span class="header-section-number">34.1</span> White noise</a></li>
+  <li><a href="#random-walk" id="toc-random-walk" class="nav-link" data-scroll-target="#random-walk"><span class="header-section-number">34.2</span> Random walk</a></li>
+  <li><a href="#ar1-how-much-of-yesterday-remains" id="toc-ar1-how-much-of-yesterday-remains" class="nav-link" data-scroll-target="#ar1-how-much-of-yesterday-remains"><span class="header-section-number">34.3</span> AR(1): how much of yesterday remains?</a>
   <ul class="collapse">
-  <li><a href="#differencing" id="toc-differencing" class="nav-link" data-scroll-target="#differencing"><span class="header-section-number">36.1</span> Differencing</a></li>
+  <li><a href="#arp-choose-the-coefficients" id="toc-arp-choose-the-coefficients" class="nav-link" data-scroll-target="#arp-choose-the-coefficients"><span class="header-section-number">34.3.1</span> AR(p): choose the coefficients</a></li>
   </ul></li>
-  <li><a href="#ar1" id="toc-ar1" class="nav-link" data-scroll-target="#ar1"><span class="header-section-number">37</span> AR(1)</a>
+  <li><a href="#does-it-look-stationary" id="toc-does-it-look-stationary" class="nav-link" data-scroll-target="#does-it-look-stationary"><span class="header-section-number">34.4</span> Does it look stationary?</a></li>
+  <li><a href="#the-augmented-dickeyfuller-test" id="toc-the-augmented-dickeyfuller-test" class="nav-link" data-scroll-target="#the-augmented-dickeyfuller-test"><span class="header-section-number">34.5</span> The Augmented Dickey–Fuller test</a></li>
+  <li><a href="#temperature-which-window-are-we-describing" id="toc-temperature-which-window-are-we-describing" class="nav-link" data-scroll-target="#temperature-which-window-are-we-describing"><span class="header-section-number">34.6</span> Temperature: which window are we describing?</a>
   <ul class="collapse">
-  <li><a href="#arp" id="toc-arp" class="nav-link" data-scroll-target="#arp"><span class="header-section-number">37.1</span> AR(p)</a>
+  <li><a href="#change-the-window" id="toc-change-the-window" class="nav-link" data-scroll-target="#change-the-window"><span class="header-section-number">34.6.1</span> Change the window</a></li>
+  </ul></li>
+  <li><a href="#fit-temperature-then-let-it-run" id="toc-fit-temperature-then-let-it-run" class="nav-link" data-scroll-target="#fit-temperature-then-let-it-run"><span class="header-section-number">34.7</span> Fit temperature, then let it run</a></li>
+  <li><a href="#differencing-remove-a-trend-then-fit" id="toc-differencing-remove-a-trend-then-fit" class="nav-link" data-scroll-target="#differencing-remove-a-trend-then-fit"><span class="header-section-number">34.8</span> Differencing: remove a trend, then fit</a>
   <ul class="collapse">
-  <li><a href="#using-specific-phi-values" id="toc-using-specific-phi-values" class="nav-link" data-scroll-target="#using-specific-phi-values"><span class="header-section-number">37.1.1</span> using specific <span class="math inline">\phi</span> values</a></li>
-  <li><a href="#weak-stationarity" id="toc-weak-stationarity" class="nav-link" data-scroll-target="#weak-stationarity"><span class="header-section-number">37.1.2</span> Weak stationarity</a></li>
+  <li><a href="#compare-zero-one-and-two-differences" id="toc-compare-zero-one-and-two-differences" class="nav-link" data-scroll-target="#compare-zero-one-and-two-differences"><span class="header-section-number">34.8.1</span> Compare zero, one, and two differences</a></li>
   </ul></li>
-  </ul></li>
-  <li><a href="#acf" id="toc-acf" class="nav-link" data-scroll-target="#acf"><span class="header-section-number">38</span> ACF</a>
-  <ul class="collapse">
-  <li><a href="#now-lets-work-with-actual-data" id="toc-now-lets-work-with-actual-data" class="nav-link" data-scroll-target="#now-lets-work-with-actual-data"><span class="header-section-number">38.1</span> Now let’s work with actual data</a></li>
-  </ul></li>
+  <li><a href="#a-small-step-toward-arima-optional" id="toc-a-small-step-toward-arima-optional" class="nav-link" data-scroll-target="#a-small-step-toward-arima-optional"><span class="header-section-number">34.9</span> A small step toward ARIMA (optional)</a></li>
   </ul>
 </nav>
     </div>
@@ -907,7 +908,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../stationarity/motivation.html">stationarity</a></li><li class="breadcrumb-item"><a href="../stationarity/practice_ARIMA.html"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">practice</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">practice</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/stationarity/practice_ARIMA.ipynb"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">practice</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/stationarity/practice_ARIMA.ipynb">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -924,92 +925,109 @@ window.Quarto = {
 </header>
 
 
-<p>If you don’t have it yet, please <a href="../archive/data/jerusalem2019.csv" download="">download here</a> the meteorological data fro 2019 in Jerusalem.</p>
-<div id="cell-1" class="cell" data-execution_count="1">
+<p><a href="practice-data/stationarity-practice.ipynb" download="">download this notebook</a> · <a href="practice-data/jerusalem_daily_2020_2022.csv">daily temperature CSV</a> · <a href="practice-data/jerusalem_hourly_july_2022.csv">hourly temperature CSV</a></p>
+<p>Put the three files in one folder and run the cells in order. Required packages: <code>numpy</code>, <code>pandas</code>, <code>matplotlib</code>, <code>statsmodels</code>.</p>
+<div id="f53c3a9d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:10.676801Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:10.676695Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:12.020006Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:12.019640Z&quot;}}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> statsmodels.tsa.arima_process <span class="im">import</span> ArmaProcess</span>
-<span id="cb1-6"><a href="#cb1-6"></a>np.random.seed(<span class="dv">49</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> statsmodels.tsa.stattools <span class="im">import</span> adfuller</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="im">from</span> statsmodels.tsa.ar_model <span class="im">import</span> AutoReg</span>
 <span id="cb1-7"><a href="#cb1-7"></a></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># %matplotlib widget</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">49</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a>plt.rcParams.update({<span class="st">"figure.figsize"</span>: (<span class="dv">10</span>, <span class="dv">3</span>), <span class="st">"axes.spines.top"</span>: <span class="va">False</span>,</span>
+<span id="cb1-10"><a href="#cb1-10"></a>                     <span class="st">"axes.spines.right"</span>: <span class="va">False</span>})</span>
+<span id="cb1-11"><a href="#cb1-11"></a>n <span class="op">=</span> <span class="dv">1000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="white-noise" class="level1" data-number="35">
-<h1 data-number="35"><span class="header-section-number">35</span> White noise</h1>
-<p>If we randomly draw values from the same distribution we will get white noise.</p>
-<div id="cell-3" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># generate binary noise random ones and zeroes with equal distribution</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>binary_noise <span class="op">=</span> np.random.choice([<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>], size<span class="op">=</span>n)</span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># generate gaussian noise with mean 0 and standard deviation 1</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>gaussian_noise <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-4" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># plot:</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>,<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">4</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-3"><a href="#cb3-3"></a>ax[<span class="dv">0</span>].plot(binary_noise)</span>
-<span id="cb3-4"><a href="#cb3-4"></a>ax[<span class="dv">0</span>].set_title(<span class="st">'binary'</span>)</span>
-<span id="cb3-5"><a href="#cb3-5"></a></span>
-<span id="cb3-6"><a href="#cb3-6"></a>ax[<span class="dv">1</span>].plot(gaussian_noise)</span>
-<span id="cb3-7"><a href="#cb3-7"></a>ax[<span class="dv">1</span>].set_title(<span class="st">'gaussian'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>Text(0.5, 1.0, 'gaussian')</code></pre>
-</div>
+<section id="white-noise" class="level2" data-number="34.1">
+<h2 data-number="34.1" class="anchored" data-anchor-id="white-noise"><span class="header-section-number">34.1</span> White noise</h2>
+<p>Draw each observation independently from the same distribution. Here the mean is zero and the variance is one. The observations change; the distribution does not.</p>
+<div id="6ac65b95" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:12.022156Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:12.021978Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:12.337731Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:12.337146Z&quot;}}" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>binary_noise <span class="op">=</span> rng.choice([<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>], size<span class="op">=</span>n)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>gaussian_noise <span class="op">=</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>ax[<span class="dv">0</span>].plot(binary_noise, linewidth<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a>ax[<span class="dv">0</span>].set_title(<span class="st">"Binary white noise"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>ax[<span class="dv">1</span>].plot(gaussian_noise, linewidth<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(title<span class="op">=</span><span class="st">"Gaussian white noise"</span>, xlabel<span class="op">=</span><span class="st">"Time step"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>fig.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-4-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="practice_ARIMA_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="random-walk" class="level1" data-number="36">
-<h1 data-number="36"><span class="header-section-number">36</span> Random walk</h1>
-<p>If we cumulatively sum the white noise, we then get a random walk</p>
-<div id="cell-6" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>walk_binary <span class="op">=</span> binary_noise.cumsum()</span>
-<span id="cb5-2"><a href="#cb5-2"></a>walk_gaussian <span class="op">=</span> gaussian_noise.cumsum()</span>
-<span id="cb5-3"><a href="#cb5-3"></a></span>
-<span id="cb5-4"><a href="#cb5-4"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>,<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">4</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb5-5"><a href="#cb5-5"></a>ax[<span class="dv">0</span>].plot(walk_binary)</span>
-<span id="cb5-6"><a href="#cb5-6"></a>ax[<span class="dv">0</span>].set_title(<span class="st">'walk binary'</span>)</span>
-<span id="cb5-7"><a href="#cb5-7"></a></span>
-<span id="cb5-8"><a href="#cb5-8"></a>ax[<span class="dv">1</span>].plot(walk_gaussian)</span>
-<span id="cb5-9"><a href="#cb5-9"></a>ax[<span class="dv">1</span>].set_title(<span class="st">'walk gaussian'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>Text(0.5, 1.0, 'walk gaussian')</code></pre>
-</div>
+<section id="random-walk" class="level2" data-number="34.2">
+<h2 data-number="34.2" class="anchored" data-anchor-id="random-walk"><span class="header-section-number">34.2</span> Random walk</h2>
+<p>Now accumulate the noise:</p>
+<p><span class="math display">X_t = X_{t-1} + \varepsilon_t.</span></p>
+<p>A positive or negative shock changes the level permanently. For independent, zero-mean shocks of variance <span class="math inline">\sigma_\varepsilon^2</span> and a fixed starting value, <span class="math inline">\operatorname{Var}(X_t)=t\sigma_\varepsilon^2</span>: the variance grows with time.</p>
+<div id="92abd040" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:12.342811Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:12.342493Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:12.552819Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:12.552289Z&quot;}}" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>walk_binary <span class="op">=</span> binary_noise.cumsum()</span>
+<span id="cb3-2"><a href="#cb3-2"></a>walk_gaussian <span class="op">=</span> gaussian_noise.cumsum()</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-5"><a href="#cb3-5"></a>ax[<span class="dv">0</span>].plot(walk_binary)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>ax[<span class="dv">0</span>].set_title(<span class="st">"Accumulated binary noise"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7"></a>ax[<span class="dv">1</span>].plot(walk_gaussian)</span>
+<span id="cb3-8"><a href="#cb3-8"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(title<span class="op">=</span><span class="st">"Accumulated Gaussian noise"</span>, xlabel<span class="op">=</span><span class="st">"Time step"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9"></a>fig.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-5-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="practice_ARIMA_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="differencing" class="level2" data-number="36.1">
-<h2 data-number="36.1" class="anchored" data-anchor-id="differencing"><span class="header-section-number">36.1</span> Differencing</h2>
-<p>Given an array<br>
-<span class="math display">a = [a_0, a_1, a_2, ..., a_{n-1}]</span> the operation performed by <code>np.diff(a)</code> can be represented as:<br>
-<span class="math display">\Delta a = [\Delta a_1, \Delta a_2, ..., \Delta a_{n-1}]</span> where<br>
-<span class="math display">\Delta a_i = a_{i} - a_{i-1} \quad \text{for} \quad i = 1, 2, ..., n-1</span></p>
-<p><strong>If we difference the random walk we will get the white noise.</strong></p>
-<div id="cell-8" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>,<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">4</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb7-2"><a href="#cb7-2"></a>ax[<span class="dv">0</span>].plot(binary_noise, label<span class="op">=</span><span class="st">'original'</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a>ax[<span class="dv">0</span>].plot(np.diff(walk_binary, prepend<span class="op">=</span><span class="dv">0</span>), label<span class="op">=</span><span class="st">'diff'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
-<span id="cb7-4"><a href="#cb7-4"></a>ax[<span class="dv">0</span>].set_title(<span class="st">'binary'</span>)</span>
-<span id="cb7-5"><a href="#cb7-5"></a>ax[<span class="dv">0</span>].legend()</span>
-<span id="cb7-6"><a href="#cb7-6"></a>ax[<span class="dv">0</span>].set_xlim(<span class="dv">0</span>,<span class="dv">100</span>)</span>
-<span id="cb7-7"><a href="#cb7-7"></a></span>
-<span id="cb7-8"><a href="#cb7-8"></a>ax[<span class="dv">1</span>].plot(gaussian_noise, label<span class="op">=</span><span class="st">'original'</span>)</span>
-<span id="cb7-9"><a href="#cb7-9"></a>ax[<span class="dv">1</span>].plot(np.diff(walk_gaussian, prepend<span class="op">=</span><span class="dv">0</span>), label<span class="op">=</span><span class="st">'diff'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
-<span id="cb7-10"><a href="#cb7-10"></a>ax[<span class="dv">1</span>].set_title(<span class="st">'gaussian'</span>)</span>
-<span id="cb7-11"><a href="#cb7-11"></a>ax[<span class="dv">1</span>].legend()</span>
-<span id="cb7-12"><a href="#cb7-12"></a>ax[<span class="dv">1</span>].set_xlim(<span class="dv">0</span>,<span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Change the random seed and run again. A random walk can look quite different each time.</p>
+</section>
+<section id="ar1-how-much-of-yesterday-remains" class="level2" data-number="34.3">
+<h2 data-number="34.3" class="anchored" data-anchor-id="ar1-how-much-of-yesterday-remains"><span class="header-section-number">34.3</span> AR(1): how much of yesterday remains?</h2>
+<p><span class="math display">X_t = \phi X_{t-1} + \varepsilon_t.</span></p>
+<p>For <span class="math inline">|\phi|&lt;1</span>, a shock gradually fades. At <span class="math inline">\phi=1</span>, we recover a random walk. For <span class="math inline">|\phi|&gt;1</span>, the forward simulation is explosive.</p>
+<div id="fcc67ed2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:12.555784Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:12.555589Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:12.626347Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:12.625829Z&quot;}}" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>phi <span class="op">=</span> <span class="fl">0.8</span>                       <span class="co"># try 0, -0.8, 0.98, 1, and 1.01</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>ar1 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n):</span>
+<span id="cb4-4"><a href="#cb4-4"></a>    ar1[t] <span class="op">=</span> phi <span class="op">*</span> ar1[t <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> gaussian_noise[t]</span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a>plt.plot(ar1)</span>
+<span id="cb4-7"><a href="#cb4-7"></a>plt.title(<span class="ss">f"AR(1), phi = </span><span class="sc">{</span>phi<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8"></a>plt.xlabel(<span class="st">"Time step"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="practice_ARIMA_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We started at zero. Even a stable AR model has a short initialization transient; later we discard a few hundred simulated observations. Near <span class="math inline">|\phi|=1</span>, that transient can last longer.</p>
+<section id="arp-choose-the-coefficients" class="level3" data-number="34.3.1">
+<h3 data-number="34.3.1" class="anchored" data-anchor-id="arp-choose-the-coefficients"><span class="header-section-number">34.3.1</span> AR(p): choose the coefficients</h3>
+<p><span class="math display">X_t = \phi_1 X_{t-1} + \phi_2 X_{t-2} + \cdots + \phi_p X_{t-p} + \varepsilon_t.</span></p>
+<p>The order <span class="math inline">p</span> is the number of lags. The list below is always <strong><span class="math inline">[\phi_1,\phi_2,\ldots]</span></strong>: the first coefficient multiplies the most recent value. It is unrelated to a statistical test’s <em>p-value</em>.</p>
+<div id="7cd0954a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:12.629094Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:12.628900Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:12.725371Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:12.724610Z&quot;}}" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">def</span> generate_ar(phi, n<span class="op">=</span><span class="dv">1000</span>, seed<span class="op">=</span><span class="dv">49</span>, burn<span class="op">=</span><span class="dv">300</span>):</span>
+<span id="cb5-2"><a href="#cb5-2"></a>    rng <span class="op">=</span> np.random.default_rng(seed)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    p <span class="op">=</span> <span class="bu">len</span>(phi)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>    noise <span class="op">=</span> rng.normal(size<span class="op">=</span>n <span class="op">+</span> burn <span class="op">+</span> p)</span>
+<span id="cb5-5"><a href="#cb5-5"></a>    x <span class="op">=</span> np.zeros(<span class="bu">len</span>(noise))</span>
+<span id="cb5-6"><a href="#cb5-6"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(p, <span class="bu">len</span>(x)):</span>
+<span id="cb5-7"><a href="#cb5-7"></a>        x[t] <span class="op">=</span> <span class="bu">sum</span>(phi[j] <span class="op">*</span> x[t <span class="op">-</span> j <span class="op">-</span> <span class="dv">1</span>] <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(p)) <span class="op">+</span> noise[t]</span>
+<span id="cb5-8"><a href="#cb5-8"></a>    <span class="cf">return</span> x[burn <span class="op">+</span> p:]</span>
+<span id="cb5-9"><a href="#cb5-9"></a></span>
+<span id="cb5-10"><a href="#cb5-10"></a>phi_true <span class="op">=</span> [<span class="fl">0.7</span>, <span class="op">-</span><span class="fl">0.2</span>]          <span class="co"># AR(2); try [0.8] or [0.5, -0.2, 0.1]</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>ar_series <span class="op">=</span> generate_ar(phi_true)</span>
+<span id="cb5-12"><a href="#cb5-12"></a>plt.plot(ar_series)</span>
+<span id="cb5-13"><a href="#cb5-13"></a>plt.title(<span class="ss">f"AR(</span><span class="sc">{</span><span class="bu">len</span>(phi_true)<span class="sc">}</span><span class="ss">), coefficients = </span><span class="sc">{</span>phi_true<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-14"><a href="#cb5-14"></a>plt.xlabel(<span class="st">"Time step"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1018,230 +1036,381 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Another way of understanding this: the python operations <code>cumsum</code> and <code>diff</code> are each other’s inverse.</p>
+<p><strong>Try:</strong> change the coefficients, keeping a stable model for the fitting exercise later. For AR(2), use the <a href="../stationarity/stationarity.html#stationarity-of-ar2">coefficient-and-roots explorer</a>. Arbitrary coefficients between <span class="math inline">-1</span> and <span class="math inline">1</span> do <strong>not</strong> guarantee a stationary AR(p) process; all roots of <span class="math inline">1-\phi_1 z-\cdots-\phi_p z^p</span> must lie outside the unit circle for a stable causal model.</p>
 </section>
 </section>
-<section id="ar1" class="level1" data-number="37">
-<h1 data-number="37"><span class="header-section-number">37</span> AR(1)</h1>
-<p><span class="math display">
-X_{t} = \phi\,X_{t-1} + \varepsilon.
-</span></p>
-<p>This is called an Autoregressive Process of order 1, or AR(1). Here, the current value <span class="math inline">X_{t}</span> is dependent on the immediately preceding value <span class="math inline">X_{t-1}</span>.</p>
-<div id="cell-11" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#  initialize time series array</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>ar1_series <span class="op">=</span> np.zeros(n)</span>
-<span id="cb8-3"><a href="#cb8-3"></a></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="co"># set a phi value, in addition to this value you should try phi&gt;1 or phi=0</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>phi <span class="op">=</span> <span class="fl">0.9</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n):</span>
-<span id="cb8-8"><a href="#cb8-8"></a>    ar1_series[i] <span class="op">=</span> phi<span class="op">*</span>ar1_series[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> gaussian_noise[i]</span>
-<span id="cb8-9"><a href="#cb8-9"></a></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="co"># plot:</span></span>
-<span id="cb8-11"><a href="#cb8-11"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">4</span>))</span>
-<span id="cb8-12"><a href="#cb8-12"></a>ax.plot(ar1_series)</span>
-<span id="cb8-13"><a href="#cb8-13"></a>ax.set_title(<span class="ss">f'AR(1)</span><span class="ch">\t</span><span class="ss">$</span><span class="er">\</span><span class="ss">Phi=</span><span class="sc">{</span>phi<span class="sc">}</span><span class="ss">$'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>Text(0.5, 1.0, 'AR(1)\t$\\Phi=0.9$')</code></pre>
+<section id="does-it-look-stationary" class="level2" data-number="34.4">
+<h2 data-number="34.4" class="anchored" data-anchor-id="does-it-look-stationary"><span class="header-section-number">34.4</span> Does it look stationary?</h2>
+<p>Start with two checks:</p>
+<ul>
+<li><strong>Mean:</strong> does it stay around the same value?</li>
+<li><strong>Variance:</strong> does it stay around the same finite value, rather than growing without bound?</li>
+</ul>
+<p>A rolling mean and rolling variance help us see changes over time. They are estimates, so some fluctuation is normal. These plots are useful checks, not a proof of stationarity.</p>
+<div id="272a43b4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:12.728733Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:12.728155Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:12.735335Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:12.734684Z&quot;}}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">def</span> rolling_check(values, window<span class="op">=</span><span class="dv">101</span>, title<span class="op">=</span><span class="st">""</span>, log_variance<span class="op">=</span><span class="va">False</span>, true_mean<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    s <span class="op">=</span> pd.Series(values)</span>
+<span id="cb6-3"><a href="#cb6-3"></a>    rolling <span class="op">=</span> s.rolling(window, center<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    ax[<span class="dv">0</span>].plot(s, color<span class="op">=</span><span class="st">"0.65"</span>, linewidth<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="st">"Observations"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    ax[<span class="dv">0</span>].plot(rolling.mean(), color<span class="op">=</span><span class="st">"teal"</span>, label<span class="op">=</span><span class="st">"Rolling mean"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7"></a>    <span class="cf">if</span> true_mean <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb6-8"><a href="#cb6-8"></a>        ax[<span class="dv">0</span>].axhline(true_mean, color<span class="op">=</span><span class="st">"black"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"Theoretical mean"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9"></a>    ax[<span class="dv">0</span>].legend()</span>
+<span id="cb6-10"><a href="#cb6-10"></a>    ax[<span class="dv">0</span>].set_title(title)</span>
+<span id="cb6-11"><a href="#cb6-11"></a>    ax[<span class="dv">1</span>].plot(rolling.var(), color<span class="op">=</span><span class="st">"darkorange"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    ax[<span class="dv">1</span>].<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"Rolling variance"</span>, xlabel<span class="op">=</span><span class="st">"Time"</span>)</span>
+<span id="cb6-13"><a href="#cb6-13"></a>    <span class="cf">if</span> log_variance:</span>
+<span id="cb6-14"><a href="#cb6-14"></a>        ax[<span class="dv">1</span>].set_yscale(<span class="st">"log"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15"></a>        ax[<span class="dv">1</span>].set_ylabel(<span class="st">"Rolling variance (log scale)"</span>)</span>
+<span id="cb6-16"><a href="#cb6-16"></a>    fig.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="97052df4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:12.738518Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:12.738237Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:13.561020Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:13.560777Z&quot;}}" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>time <span class="op">=</span> np.arange(n)</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co"># Mean stays zero, but the size of the fluctuations keeps growing.</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>growing_noise <span class="op">=</span> np.exp(time <span class="op">/</span> <span class="dv">200</span>) <span class="op">*</span> gaussian_noise</span>
+<span id="cb7-5"><a href="#cb7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co"># An AR(1) with phi &gt; 1 amplifies earlier values.</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>explosive <span class="op">=</span> np.zeros(n)</span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n):</span>
+<span id="cb7-9"><a href="#cb7-9"></a>    explosive[t] <span class="op">=</span> <span class="fl">1.01</span> <span class="op">*</span> explosive[t <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> gaussian_noise[t]</span>
+<span id="cb7-10"><a href="#cb7-10"></a></span>
+<span id="cb7-11"><a href="#cb7-11"></a>examples <span class="op">=</span> {</span>
+<span id="cb7-12"><a href="#cb7-12"></a>    <span class="st">"Stable AR(1)"</span>: generate_ar([<span class="fl">0.8</span>]),</span>
+<span id="cb7-13"><a href="#cb7-13"></a>    <span class="st">"Random walk"</span>: walk_gaussian,</span>
+<span id="cb7-14"><a href="#cb7-14"></a>    <span class="st">"Changing mean"</span>: <span class="fl">0.01</span> <span class="op">*</span> time <span class="op">+</span> gaussian_noise,</span>
+<span id="cb7-15"><a href="#cb7-15"></a>    <span class="st">"Growing variance"</span>: growing_noise,</span>
+<span id="cb7-16"><a href="#cb7-16"></a>    <span class="st">"Explosive AR(1), phi = 1.01"</span>: explosive,</span>
+<span id="cb7-17"><a href="#cb7-17"></a>}</span>
+<span id="cb7-18"><a href="#cb7-18"></a></span>
+<span id="cb7-19"><a href="#cb7-19"></a><span class="cf">for</span> name, values <span class="kw">in</span> examples.items():</span>
+<span id="cb7-20"><a href="#cb7-20"></a>    rolling_check(values, window<span class="op">=</span><span class="dv">101</span>, title<span class="op">=</span>name,</span>
+<span id="cb7-21"><a href="#cb7-21"></a>                  log_variance<span class="op">=</span>name <span class="kw">in</span> [<span class="st">"Growing variance"</span>, <span class="st">"Explosive AR(1), phi = 1.01"</span>],</span>
+<span id="cb7-22"><a href="#cb7-22"></a>                  true_mean<span class="op">=</span><span class="dv">0</span> <span class="cf">if</span> name <span class="op">==</span> <span class="st">"Growing variance"</span> <span class="cf">else</span> <span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="practice_ARIMA_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="practice_ARIMA_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
-</div>
-</div>
-<section id="arp" class="level2" data-number="37.1">
-<h2 data-number="37.1" class="anchored" data-anchor-id="arp"><span class="header-section-number">37.1</span> AR(p)</h2>
-<p>The next thing to do is to generalize, and define an autoregressive process that depends on <span class="math inline">p</span> previous states:</p>
-<p><span class="math display">
-x_{t} = \phi_1\,x_{t-1} + \phi_2\,x_{t-2} + \cdots + \phi_p\,x_{t-p} + \varepsilon
-</span></p>
-<div id="cell-13" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Function to generate AR(p) time series</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="co"># this function can recive p as an integer and then is will draw random phi values</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co"># or, you can pass p as a np array of the specific phi values you want.</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="kw">def</span> generate_ar(n, p):</span>
-<span id="cb10-5"><a href="#cb10-5"></a>    <span class="co"># Check if p is an integer or an array</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(p, <span class="bu">int</span>):</span>
-<span id="cb10-7"><a href="#cb10-7"></a>        <span class="co"># Generate random coefficients between -1 and 1</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a>        phi <span class="op">=</span> np.random.uniform(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, size<span class="op">=</span>p)</span>
-<span id="cb10-9"><a href="#cb10-9"></a>    <span class="cf">elif</span> <span class="bu">isinstance</span>(p, np.ndarray):</span>
-<span id="cb10-10"><a href="#cb10-10"></a>        phi <span class="op">=</span> p  <span class="co"># Use the provided array as coefficients</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a>    <span class="cf">else</span>:</span>
-<span id="cb10-12"><a href="#cb10-12"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"p should be either an integer or a NumPy array"</span>)</span>
-<span id="cb10-13"><a href="#cb10-13"></a>    </span>
-<span id="cb10-14"><a href="#cb10-14"></a>    <span class="bu">print</span>(phi)</span>
-<span id="cb10-15"><a href="#cb10-15"></a>    <span class="co"># Generate white noise</span></span>
-<span id="cb10-16"><a href="#cb10-16"></a>    noise <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
-<span id="cb10-17"><a href="#cb10-17"></a>    </span>
-<span id="cb10-18"><a href="#cb10-18"></a>    <span class="co"># Initialize time series array</span></span>
-<span id="cb10-19"><a href="#cb10-19"></a>    ar_series <span class="op">=</span> np.zeros(n)</span>
-<span id="cb10-20"><a href="#cb10-20"></a>    </span>
-<span id="cb10-21"><a href="#cb10-21"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(phi.size, n):</span>
-<span id="cb10-22"><a href="#cb10-22"></a>        ar_series[i] <span class="op">=</span> np.dot(phi, ar_series[i<span class="op">-</span>phi.size:i]) <span class="op">+</span> noise[i]</span>
-<span id="cb10-23"><a href="#cb10-23"></a>    </span>
-<span id="cb10-24"><a href="#cb10-24"></a>    <span class="cf">return</span> ar_series</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-14" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># plot using p as an int</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>p <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a>ar <span class="op">=</span> generate_ar(n, p)</span>
-<span id="cb11-4"><a href="#cb11-4"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">4</span>))</span>
-<span id="cb11-5"><a href="#cb11-5"></a>ax.plot(ar)</span>
-<span id="cb11-6"><a href="#cb11-6"></a>ax.set_title(<span class="ss">f'AR(</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[-0.82679831 -0.50310415 -0.68089179  0.1555622 ]</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>Text(0.5, 1.0, 'AR(4)')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-9-output-3.png" class="img-fluid figure-img"></p>
+<p><img src="practice_ARIMA_files/figure-html/cell-8-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="practice_ARIMA_files/figure-html/cell-8-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="practice_ARIMA_files/figure-html/cell-8-output-5.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="using-specific-phi-values" class="level3" data-number="37.1.1">
-<h3 data-number="37.1.1" class="anchored" data-anchor-id="using-specific-phi-values"><span class="header-section-number">37.1.1</span> using specific <span class="math inline">\phi</span> values</h3>
-<p>In the cell below we can specify specific <span class="math inline">\phi</span> values.<br>
-Use the <a href="https://yairmau.com/time-series/stationarity/stationarity.html#stationarity-of-ar2">interactive tool</a> from our website to chose the right values.<br>
-Remember, if one of the roots is inside the unit circle, the series will be <strong>not</strong> stationary.</p>
-<div id="cell-16" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># plot using p as an array of phi values</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="co"># the order should be [phi2, phi1]</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>p <span class="op">=</span> np.array([<span class="op">-</span><span class="fl">0.97</span>,<span class="op">-</span><span class="fl">1.88</span>])</span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="co"># p = np.array([-1.88,-0.97])</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a></span>
-<span id="cb14-6"><a href="#cb14-6"></a>ar2 <span class="op">=</span> generate_ar(n, p)</span>
-<span id="cb14-7"><a href="#cb14-7"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">4</span>))</span>
-<span id="cb14-8"><a href="#cb14-8"></a></span>
-<span id="cb14-9"><a href="#cb14-9"></a>ax.plot(ar2)</span>
-<span id="cb14-10"><a href="#cb14-10"></a>ax.set_title(<span class="ss">f'AR(</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In <strong>Growing variance</strong>, we multiply zero-mean noise by a number that keeps increasing:</p>
+<p><span class="math display">X_t=e^{t/200}\varepsilon_t.</span></p>
+<p>Since the noise has mean 0 and variance 1,</p>
+<p><span class="math display">\mathbb{E}[X_t]=0,\qquad \operatorname{Var}(X_t)=e^{t/100}\longrightarrow\infty.</span></p>
+<p>The dashed line marks the theoretical mean, which stays zero while the variance grows without bound. The <em>estimated rolling mean</em> can still fluctuate, especially when the noise becomes large.</p>
+<p>The last two variance plots use a log scale to make the growth visible. Change the rolling width from 101 to 21 or 201 to see how the estimates change.</p>
+</section>
+<section id="the-augmented-dickeyfuller-test" class="level2" data-number="34.5">
+<h2 data-number="34.5" class="anchored" data-anchor-id="the-augmented-dickeyfuller-test"><span class="header-section-number">34.5</span> The Augmented Dickey–Fuller test</h2>
+<p>The <strong>ADF test</strong> is a statistical tool that helps us assess stationarity. We will use it without going into its derivation.</p>
+<ul>
+<li><strong>p-value &lt; 0.05:</strong> evidence against a random-walk type of nonstationarity, called a <em>unit root</em>.</li>
+<li><strong>p-value ≥ 0.05:</strong> not enough evidence to rule it out.</li>
+</ul>
+<p>A small p-value supports stationarity, but does not prove it: also check the mean and variance in the plots. The p-value is not the probability that the series is stationary.</p>
+<div id="98688f25" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:13.562415Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:13.562335Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:13.615791Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:13.613501Z&quot;}}" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>result <span class="op">=</span> adfuller(ar1, maxlag<span class="op">=</span><span class="dv">12</span>, autolag<span class="op">=</span><span class="st">"AIC"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2"></a>pvalue <span class="op">=</span> result.pvalue <span class="cf">if</span> <span class="bu">hasattr</span>(result, <span class="st">"pvalue"</span>) <span class="cf">else</span> result[<span class="dv">1</span>]</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="bu">print</span>(<span class="ss">f"p-value: </span><span class="sc">{</span>pvalue<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[-0.97 -1.88]</code></pre>
+<pre><code>p-value: 0.0000</code></pre>
 </div>
+</div>
+<p>Apply the same test to our examples. The helper below collects the results in a table.</p>
+<p><a href="dickey-fuller.html">Optional: how the test gets a p-value</a> · <a href="https://www.statsmodels.org/stable/generated/statsmodels.tsa.stattools.adfuller.html">Python documentation</a></p>
+<div id="d1f73512" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:13.619313Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:13.618998Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:13.916903Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:13.916407Z&quot;}}" data-execution_count="9">
+<details class="code-fold">
+<summary>Helper: ADF results for several series</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">def</span> adf_report(values):</span>
+<span id="cb10-2"><a href="#cb10-2"></a>    s <span class="op">=</span> np.asarray(values, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb10-3"><a href="#cb10-3"></a>    <span class="cf">if</span> <span class="bu">len</span>(s) <span class="op">&lt;</span> <span class="dv">20</span> <span class="kw">or</span> <span class="kw">not</span> np.isfinite(s).<span class="bu">all</span>() <span class="kw">or</span> np.ptp(s) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb10-4"><a href="#cb10-4"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Use at least 20 finite, nonconstant, equally spaced observations."</span>)</span>
+<span id="cb10-5"><a href="#cb10-5"></a>    maxlag <span class="op">=</span> <span class="bu">min</span>(<span class="dv">12</span>, <span class="bu">len</span>(s) <span class="op">//</span> <span class="dv">2</span> <span class="op">-</span> <span class="dv">2</span>)</span>
+<span id="cb10-6"><a href="#cb10-6"></a>    result <span class="op">=</span> adfuller(s, regression<span class="op">=</span><span class="st">"c"</span>, maxlag<span class="op">=</span>maxlag, autolag<span class="op">=</span><span class="st">"AIC"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7"></a>    <span class="co"># Attributes also work with the newer statsmodels result-object API.</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>    <span class="cf">if</span> <span class="bu">hasattr</span>(result, <span class="st">"statistic"</span>):</span>
+<span id="cb10-9"><a href="#cb10-9"></a>        statistic, pvalue, lags <span class="op">=</span> result.statistic, result.pvalue, result.lags</span>
+<span id="cb10-10"><a href="#cb10-10"></a>    <span class="cf">else</span>:</span>
+<span id="cb10-11"><a href="#cb10-11"></a>        statistic, pvalue, lags <span class="op">=</span> result[:<span class="dv">3</span>]</span>
+<span id="cb10-12"><a href="#cb10-12"></a>    <span class="cf">return</span> {<span class="st">"ADF statistic"</span>: statistic, <span class="st">"p-value"</span>: pvalue, <span class="st">"lags"</span>: lags,</span>
+<span id="cb10-13"><a href="#cb10-13"></a>            <span class="st">"conclusion"</span>: <span class="st">"Reject unit root"</span> <span class="cf">if</span> pvalue <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="cf">else</span> <span class="st">"Do not reject unit root"</span>}</span>
+<span id="cb10-14"><a href="#cb10-14"></a></span>
+<span id="cb10-15"><a href="#cb10-15"></a>pd.DataFrame({name: adf_report(values) <span class="cf">for</span> name, values <span class="kw">in</span> examples.items()}).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>Text(0.5, 1.0, 'AR([-0.97 -1.88])')</code></pre>
-</div>
-<div class="cell-output cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-10-output-3.png" class="img-fluid figure-img"></p>
-</figure>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ADF statistic</th>
+<th data-quarto-table-cell-role="th">p-value</th>
+<th data-quarto-table-cell-role="th">lags</th>
+<th data-quarto-table-cell-role="th">conclusion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Stable AR(1)</td>
+<td>-10.295256</td>
+<td>0.0</td>
+<td>2</td>
+<td>Reject unit root</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Random walk</td>
+<td>-2.160837</td>
+<td>0.220765</td>
+<td>0</td>
+<td>Do not reject unit root</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Changing mean</td>
+<td>-0.765849</td>
+<td>0.828949</td>
+<td>12</td>
+<td>Do not reject unit root</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Growing variance</td>
+<td>-14.797614</td>
+<td>0.0</td>
+<td>4</td>
+<td>Reject unit root</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Explosive AR(1), phi = 1.01</td>
+<td>4977.535679</td>
+<td>1.0</td>
+<td>0</td>
+<td>Do not reject unit root</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 </div>
 </div>
 </section>
-<section id="weak-stationarity" class="level3" data-number="37.1.2">
-<h3 data-number="37.1.2" class="anchored" data-anchor-id="weak-stationarity"><span class="header-section-number">37.1.2</span> Weak stationarity</h3>
-<ol type="1">
-<li>its mean <span class="math inline">\mu</span> does not vary in time: <span class="math display">
-\mu_X(t) = \mu_X(t+\tau)
-</span> for all values of <span class="math inline">t</span> and <span class="math inline">\tau</span>.</li>
-<li>its variance is finite for any time <span class="math inline">t</span>: <span class="math display">
-\sigma^2_X(t) &lt; \infty.
-</span></li>
-<li>The autocorrelation function between two lagged versions of the same time series, <span class="math inline">X(t_1)</span> and <span class="math inline">X(t_2)</span>, depends only on the difference <span class="math inline">\tau=t_2-t_1</span>.</li>
-</ol>
-<p>Let’s get a feeling by plotting</p>
-<div id="cell-18" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">def</span> test_stationarity(time_series, window<span class="op">=</span><span class="dv">100</span>, yscale<span class="op">=</span><span class="st">'linear'</span>):</span>
-<span id="cb17-2"><a href="#cb17-2"></a>    series <span class="op">=</span> pd.Series(time_series)</span>
-<span id="cb17-3"><a href="#cb17-3"></a>    rolling_var <span class="op">=</span> series.rolling(window<span class="op">=</span>window, center<span class="op">=</span><span class="va">True</span>).std()<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a>    rolling_mean <span class="op">=</span> series.rolling(window<span class="op">=</span>window, center<span class="op">=</span><span class="va">True</span>).mean()</span>
-<span id="cb17-5"><a href="#cb17-5"></a></span>
-<span id="cb17-6"><a href="#cb17-6"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>,<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">4</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb17-7"><a href="#cb17-7"></a>    ax[<span class="dv">0</span>].plot(series, label<span class="op">=</span><span class="st">'series'</span>)</span>
-<span id="cb17-8"><a href="#cb17-8"></a>    ax[<span class="dv">0</span>].plot(rolling_mean, c<span class="op">=</span><span class="st">'r'</span>, label<span class="op">=</span><span class="st">'mean'</span>)</span>
-<span id="cb17-9"><a href="#cb17-9"></a>    ax[<span class="dv">0</span>].legend()</span>
-<span id="cb17-10"><a href="#cb17-10"></a>    ax[<span class="dv">0</span>].set_title(<span class="st">'rolling mean'</span>)</span>
-<span id="cb17-11"><a href="#cb17-11"></a>    ax[<span class="dv">0</span>].set_yscale(yscale)</span>
-<span id="cb17-12"><a href="#cb17-12"></a></span>
-<span id="cb17-13"><a href="#cb17-13"></a>    ax[<span class="dv">1</span>].plot(rolling_var)</span>
-<span id="cb17-14"><a href="#cb17-14"></a>    ax[<span class="dv">1</span>].set_title(<span class="st">'rolling variance'</span>)</span>
-<span id="cb17-15"><a href="#cb17-15"></a></span>
-<span id="cb17-16"><a href="#cb17-16"></a>    <span class="cf">return</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-19" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>test_stationarity(walk_binary)</span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="co"># test_stationarity(walk_gaussian)</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="co"># test_stationarity(ar1_series)</span></span>
-<span id="cb18-4"><a href="#cb18-4"></a>test_stationarity(ar, yscale<span class="op">=</span><span class="st">'log'</span>)</span>
-<span id="cb18-5"><a href="#cb18-5"></a>test_stationarity(ar2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="temperature-which-window-are-we-describing" class="level2" data-number="34.6">
+<h2 data-number="34.6" class="anchored" data-anchor-id="temperature-which-window-are-we-describing"><span class="header-section-number">34.6</span> Temperature: which window are we describing?</h2>
+<p>A few years of temperature show a seasonal cycle. January to June can look like a rising trend. A single day shows a different part of the pattern.</p>
+<p>We will compare daily temperatures in Jerusalem from 2020–2022 and hourly temperatures from July 2022.</p>
+<div id="31795666" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:13.919593Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:13.919351Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:14.059680Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:14.059126Z&quot;}}" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Put the downloaded CSVs next to the notebook.</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>data_folder <span class="op">=</span> Path(<span class="st">"practice-data"</span>) <span class="cf">if</span> Path(<span class="st">"practice-data"</span>).exists() <span class="cf">else</span> Path(<span class="st">"."</span>)</span>
+<span id="cb11-3"><a href="#cb11-3"></a>daily <span class="op">=</span> pd.read_csv(data_folder <span class="op">/</span> <span class="st">"jerusalem_daily_2020_2022.csv"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4"></a>                    parse_dates<span class="op">=</span>[<span class="st">"time"</span>], index_col<span class="op">=</span><span class="st">"time"</span>)[<span class="st">"temperature"</span>]</span>
+<span id="cb11-5"><a href="#cb11-5"></a>hourly <span class="op">=</span> pd.read_csv(data_folder <span class="op">/</span> <span class="st">"jerusalem_hourly_july_2022.csv"</span>,</span>
+<span id="cb11-6"><a href="#cb11-6"></a>                     parse_dates<span class="op">=</span>[<span class="st">"time"</span>], index_col<span class="op">=</span><span class="st">"time"</span>)[<span class="st">"temperature"</span>]</span>
+<span id="cb11-7"><a href="#cb11-7"></a></span>
+<span id="cb11-8"><a href="#cb11-8"></a>plt.plot(daily)</span>
+<span id="cb11-9"><a href="#cb11-9"></a>plt.ylabel(<span class="st">"Daily mean temperature (°C)"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-12-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-12-output-3.png" class="img-fluid figure-img"></p>
+<p><img src="practice_ARIMA_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
+<section id="change-the-window" class="level3" data-number="34.6.1">
+<h3 data-number="34.6.1" class="anchored" data-anchor-id="change-the-window"><span class="header-section-number">34.6.1</span> Change the window</h3>
+<p>Choose three years, January–June, one week, or one day. Move the sliders and compare the plots with the ADF result.</p>
+<p>The <strong>observation window</strong> selects the data for the test. The <strong>rolling width</strong> changes the mean and variance curves. Switching between daily and hourly data also changes the sampling interval.</p>
+<p><a href="practice-lab/index.html#windows" target="_blank" rel="noopener">Open the window experiment in a full browser tab</a></p>
+<iframe id="stationarity-window-lab" src="practice-lab/index.html#windows" title="Temperature windows, rolling statistics and the ADF test" loading="lazy" style="width:100%;height:1450px;border:1px solid #dce4e8;border-radius:12px;">
+</iframe>
+<script>
+window.addEventListener("message", function (event) {
+  const frame = document.getElementById("stationarity-window-lab");
+  if (event.source === frame.contentWindow && event.origin === window.location.origin &&
+      event.data && event.data.type === "stationarity-practice-height" && Number.isFinite(event.data.height)) {
+    frame.style.height = Math.max(500, Math.min(5000, event.data.height)) + "px";
+  }
+});
+</script>
+<noscript>
+Run the Python window examples below to explore these data without JavaScript.
+</noscript>
+<div id="9d242beb" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:14.063377Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:14.063110Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:14.290363Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:14.277878Z&quot;}}" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>windows <span class="op">=</span> {</span>
+<span id="cb12-2"><a href="#cb12-2"></a>    <span class="st">"Three years · daily"</span>: daily,</span>
+<span id="cb12-3"><a href="#cb12-3"></a>    <span class="st">"January–June 2021 · daily"</span>: daily.loc[<span class="st">"2021-01"</span>:<span class="st">"2021-06"</span>],</span>
+<span id="cb12-4"><a href="#cb12-4"></a>    <span class="st">"One week · hourly"</span>: hourly.loc[<span class="st">"2022-07-01"</span>:<span class="st">"2022-07-07"</span>],</span>
+<span id="cb12-5"><a href="#cb12-5"></a>    <span class="st">"One day · hourly"</span>: hourly.loc[<span class="st">"2022-07-01"</span>],</span>
+<span id="cb12-6"><a href="#cb12-6"></a>}</span>
+<span id="cb12-7"><a href="#cb12-7"></a></span>
+<span id="cb12-8"><a href="#cb12-8"></a>pd.DataFrame({name: adf_report(values) <span class="cf">for</span> name, values <span class="kw">in</span> windows.items()}).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ADF statistic</th>
+<th data-quarto-table-cell-role="th">p-value</th>
+<th data-quarto-table-cell-role="th">lags</th>
+<th data-quarto-table-cell-role="th">conclusion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Three years · daily</td>
+<td>-2.936691</td>
+<td>0.041245</td>
+<td>10</td>
+<td>Reject unit root</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">January–June 2021 · daily</td>
+<td>-2.596429</td>
+<td>0.093738</td>
+<td>2</td>
+<td>Do not reject unit root</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">One week · hourly</td>
+<td>-3.541167</td>
+<td>0.006991</td>
+<td>11</td>
+<td>Reject unit root</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">One day · hourly</td>
+<td>1.329503</td>
+<td>0.996769</td>
+<td>10</td>
+<td>Do not reject unit root</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="d42b83dd" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:14.298167Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:14.298014Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:14.670734Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:14.670450Z&quot;}}" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>selected <span class="op">=</span> daily.loc[<span class="st">"2021-01"</span>:<span class="st">"2021-06"</span>]    <span class="co"># choose different dates</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>rolling_check(selected, window<span class="op">=</span><span class="dv">31</span>, title<span class="op">=</span><span class="st">"January–June: daily temperature"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3"></a>adf_report(selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>{'ADF statistic': -2.596428761748879,
+ 'p-value': 0.09373761846104106,
+ 'lags': 2,
+ 'conclusion': 'Do not reject unit root'}</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="practice_ARIMA_files/figure-html/cell-13-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Several complete years can have a stable overall average while the mean still changes with the season. A low ADF p-value does not remove that seasonal pattern. Hourly data can also have a day–night cycle.</p>
+<p>Changing the window changes what we can see and how much evidence the test has. It does not change the process that produced the data.</p>
+<p><a href="https://otexts.com/fpp3/arima.html#stationarity-and-differencing">More on stationarity</a>.</p>
 </section>
 </section>
-</section>
-<section id="acf" class="level1" data-number="38">
-<h1 data-number="38"><span class="header-section-number">38</span> ACF</h1>
-<div id="cell-21" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">def</span> compute_acf(series):</span>
-<span id="cb19-2"><a href="#cb19-2"></a>    N <span class="op">=</span> <span class="bu">len</span>(series)</span>
-<span id="cb19-3"><a href="#cb19-3"></a>    lags <span class="op">=</span> np.arange(N)</span>
-<span id="cb19-4"><a href="#cb19-4"></a>    acf <span class="op">=</span> np.zeros_like(lags)</span>
-<span id="cb19-5"><a href="#cb19-5"></a>    series <span class="op">=</span> (series <span class="op">-</span> series.mean()) <span class="op">/</span> series.std()</span>
-<span id="cb19-6"><a href="#cb19-6"></a>    <span class="cf">for</span> i <span class="kw">in</span> lags:</span>
-<span id="cb19-7"><a href="#cb19-7"></a>        acf[i] <span class="op">=</span> np.<span class="bu">sum</span>(series[i:] <span class="op">*</span> series[:N<span class="op">-</span>i])</span>
-<span id="cb19-8"><a href="#cb19-8"></a>    acf <span class="op">=</span> acf <span class="op">/</span> N</span>
-<span id="cb19-9"><a href="#cb19-9"></a>    <span class="cf">return</span> lags, acf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-22" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># walk_binary, walk_gaussian, ar1_series, ar, ar2</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a>series_to_plot <span class="op">=</span> walk_binary</span>
-<span id="cb20-3"><a href="#cb20-3"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb20-4"><a href="#cb20-4"></a>lags, acf <span class="op">=</span> compute_acf(series_to_plot)</span>
-<span id="cb20-5"><a href="#cb20-5"></a>ax.plot([<span class="dv">0</span>, n], [<span class="dv">0</span>]<span class="op">*</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">"black"</span>, ls<span class="op">=</span><span class="st">"--"</span>)</span>
-<span id="cb20-6"><a href="#cb20-6"></a>ax.plot(lags, acf)</span>
-<span id="cb20-7"><a href="#cb20-7"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"lag"</span>,</span>
-<span id="cb20-8"><a href="#cb20-8"></a>       ylabel<span class="op">=</span><span class="st">"acf"</span>,</span>
-<span id="cb20-9"><a href="#cb20-9"></a>       xlim<span class="op">=</span>[<span class="dv">0</span>, n])<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
-</figure>
+<section id="fit-temperature-then-let-it-run" class="level2" data-number="34.7">
+<h2 data-number="34.7" class="anchored" data-anchor-id="fit-temperature-then-let-it-run"><span class="header-section-number">34.7</span> Fit temperature, then let it run</h2>
+<p>We chose coefficients when making synthetic AR series. Now estimate them from a window of hourly temperature:</p>
+<p><span class="math display">T_t=c+\phi_1 T_{t-1}+\cdots+\phi_p T_{t-p}+\varepsilon_t.</span></p>
+<p>Try AR(1), AR(2), …, up to AR(24). <strong>BIC</strong> balances fit against the number of coefficients; we keep the model with the lowest BIC. Every candidate uses the same target observations so the comparison is fair.</p>
+<p>Select two weeks for fitting. The following observations are not used in model selection or fitting.</p>
+<div id="9224e666" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:14.672047Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:14.671955Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:14.693937Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:14.693689Z&quot;}}" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>train <span class="op">=</span> hourly.loc[<span class="st">"2022-07-01"</span>:<span class="st">"2022-07-14"</span>].to_numpy()</span>
+<span id="cb15-2"><a href="#cb15-2"></a>max_order <span class="op">=</span> <span class="bu">min</span>(<span class="dv">24</span>, <span class="bu">len</span>(train) <span class="op">//</span> <span class="dv">5</span>)</span>
+<span id="cb15-3"><a href="#cb15-3"></a>models <span class="op">=</span> [AutoReg(train, lags<span class="op">=</span>p, hold_back<span class="op">=</span>max_order, trend<span class="op">=</span><span class="st">"c"</span>).fit()</span>
+<span id="cb15-4"><a href="#cb15-4"></a>          <span class="cf">for</span> p <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, max_order <span class="op">+</span> <span class="dv">1</span>)]</span>
+<span id="cb15-5"><a href="#cb15-5"></a>fit <span class="op">=</span> <span class="bu">min</span>(models, key<span class="op">=</span><span class="kw">lambda</span> model: model.bic)</span>
+<span id="cb15-6"><a href="#cb15-6"></a>p <span class="op">=</span> <span class="bu">len</span>(fit.params) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="bu">print</span>(<span class="ss">f"Selected model: AR(</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Selected model: AR(24)</code></pre>
 </div>
 </div>
+<div id="8c1e1fab" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:14.695254Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:14.695177Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:14.702612Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:14.702364Z&quot;}}" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>steps <span class="op">=</span> <span class="dv">72</span>                         <span class="co"># continue for three days</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>noise_sd <span class="op">=</span> np.sqrt(fit.sigma2)</span>
+<span id="cb17-3"><a href="#cb17-3"></a>new_noise <span class="op">=</span> np.random.default_rng(<span class="dv">49</span>).normal(<span class="dv">0</span>, noise_sd, steps)</span>
+<span id="cb17-4"><a href="#cb17-4"></a></span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="co"># Begin with the training observations, then append only generated values.</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a>values <span class="op">=</span> <span class="bu">list</span>(train)</span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="cf">for</span> shock <span class="kw">in</span> new_noise:</span>
+<span id="cb17-8"><a href="#cb17-8"></a>    next_value <span class="op">=</span> fit.params[<span class="dv">0</span>] <span class="op">+</span> <span class="bu">sum</span>(fit.params[j <span class="op">+</span> <span class="dv">1</span>] <span class="op">*</span> values[<span class="op">-</span>j <span class="op">-</span> <span class="dv">1</span>] <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(p))</span>
+<span id="cb17-9"><a href="#cb17-9"></a>    values.append(next_value <span class="op">+</span> shock)</span>
+<span id="cb17-10"><a href="#cb17-10"></a>simulation <span class="op">=</span> np.array(values[<span class="bu">len</span>(train):])</span>
+<span id="cb17-11"><a href="#cb17-11"></a></span>
+<span id="cb17-12"><a href="#cb17-12"></a><span class="co"># The average forecast follows the same recurrence with future noise set to zero.</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a>average_forecast <span class="op">=</span> fit.predict(start<span class="op">=</span><span class="bu">len</span>(train), end<span class="op">=</span><span class="bu">len</span>(train) <span class="op">+</span> steps <span class="op">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb21-2"><a href="#cb21-2"></a>sm.graphics.tsa.plot_acf(series_to_plot, lags<span class="op">=</span> n<span class="op">-</span><span class="dv">1</span>, ax<span class="op">=</span>ax, label<span class="op">=</span><span class="st">"statsmodels"</span>, alpha<span class="op">=</span><span class="va">None</span>, use_vlines<span class="op">=</span><span class="va">False</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-24" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb22-2"><a href="#cb22-2"></a>sm.graphics.tsa.plot_acf(series_to_plot, lags<span class="op">=</span> n<span class="op">-</span><span class="dv">1</span>, ax<span class="op">=</span>ax, alpha<span class="op">=</span><span class="fl">.05</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>After the training window, both continuations use <strong>their own previous values</strong>. Neither receives the actual future temperature.</p>
+<ul>
+<li><strong>Simulated future:</strong> add a new random noise value at each step. This gives one possible continuation.</li>
+<li><strong>Average forecast:</strong> set future noise to zero. Its oscillations may gradually fade.</li>
+</ul>
+<p>The widget chooses the AR order automatically. Compare one week with two weeks. The main plot always shows only the last three training days, so changing the training window does not squeeze the whole record into one graph.</p>
+<p><a href="practice-lab/index.html#fit" target="_blank" rel="noopener">Open the AR fitting experiment in a full browser tab</a></p>
+<iframe id="stationarity-fit-lab" src="practice-lab/index.html#fit" title="Fit hourly temperature and generate an AR continuation" loading="lazy" style="width:100%;height:1100px;border:1px solid #dce4e8;border-radius:12px;">
+</iframe>
+<script>
+window.addEventListener("message", function (event) {
+  const frame = document.getElementById("stationarity-fit-lab");
+  if (event.source === frame.contentWindow && event.origin === window.location.origin &&
+      event.data && event.data.type === "stationarity-practice-height" && Number.isFinite(event.data.height)) {
+    frame.style.height = Math.max(500, Math.min(5000, event.data.height)) + "px";
+  }
+});
+</script>
+<noscript>
+The AutoReg cells above and below provide the Python fitting exercise.
+</noscript>
+<div id="890ff3f2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:14.703970Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:14.703889Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:14.829053Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:14.828315Z&quot;}}" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>history <span class="op">=</span> <span class="dv">72</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb18-3"><a href="#cb18-3"></a>ax.plot(np.arange(<span class="op">-</span>history, <span class="dv">0</span>), train[<span class="op">-</span>history:], color<span class="op">=</span><span class="st">"0.5"</span>, label<span class="op">=</span><span class="st">"Observed history"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4"></a>ax.plot(np.arange(<span class="op">-</span><span class="dv">1</span>, steps), np.r_[train[<span class="op">-</span><span class="dv">1</span>], simulation], color<span class="op">=</span><span class="st">"darkorange"</span>, label<span class="op">=</span><span class="st">"Simulated future"</span>)</span>
+<span id="cb18-5"><a href="#cb18-5"></a>ax.plot(np.arange(<span class="op">-</span><span class="dv">1</span>, steps), np.r_[train[<span class="op">-</span><span class="dv">1</span>], average_forecast], color<span class="op">=</span><span class="st">"teal"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"Average forecast"</span>)</span>
+<span id="cb18-6"><a href="#cb18-6"></a>ax.axvline(<span class="op">-</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">"black"</span>, linestyle<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Hours after the training window"</span>, ylabel<span class="op">=</span><span class="st">"Temperature (°C)"</span>, title<span class="op">=</span><span class="ss">f"AR(</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">): continue without future observations"</span>)</span>
+<span id="cb18-8"><a href="#cb18-8"></a>ax.legend()</span>
+<span id="cb18-9"><a href="#cb18-9"></a>fig.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1250,31 +1419,25 @@ Remember, if one of the roots is inside the unit circle, the series will be <str
 </div>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb23-2"><a href="#cb23-2"></a>sm.graphics.tsa.plot_pacf(series_to_plot, lags<span class="op">=</span><span class="dv">25</span>, ax<span class="op">=</span>ax, alpha<span class="op">=</span><span class="fl">.05</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="now-lets-work-with-actual-data" class="level2" data-number="38.1">
-<h2 data-number="38.1" class="anchored" data-anchor-id="now-lets-work-with-actual-data"><span class="header-section-number">38.1</span> Now let’s work with actual data</h2>
-<div id="cell-27" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>filename <span class="op">=</span> <span class="st">"jerusalem2019.csv"</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a>filename <span class="op">=</span> <span class="st">"co2_mm_mlo.csv"</span></span>
-<span id="cb24-3"><a href="#cb24-3"></a>df <span class="op">=</span> pd.read_csv(filename, comment<span class="op">=</span><span class="st">'#'</span>)</span>
-<span id="cb24-4"><a href="#cb24-4"></a>df[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'month'</span>].astype(<span class="bu">str</span>) <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> df[<span class="st">'year'</span>].astype(<span class="bu">str</span>))</span>
-<span id="cb24-5"><a href="#cb24-5"></a>df <span class="op">=</span> df.set_index(<span class="st">'date'</span>)</span>
-<span id="cb24-6"><a href="#cb24-6"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/wn/2bz1970d2w5182zy7h96yfcc0000gn/T/ipykernel_54211/3919485795.py:4: UserWarning: Could not infer format, so each element will be parsed individually, falling back to `dateutil`. To ensure parsing is consistent and as-expected, please specify a format.
-  df['date'] = pd.to_datetime(df['month'].astype(str) + ' ' + df['year'].astype(str))</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<p>The model can capture an oscillatory pattern without matching the actual future weather. New noise makes each simulated path different. A useful fit also does not establish that raw temperature is stationary.</p>
+<p>The selected order is the best among the candidates for this window, not a known “true order” of temperature. <a href="https://www.statsmodels.org/stable/generated/statsmodels.tsa.ar_model.AutoReg.html">AutoReg documentation</a>.</p>
+</section>
+<section id="differencing-remove-a-trend-then-fit" class="level2" data-number="34.8">
+<h2 data-number="34.8" class="anchored" data-anchor-id="differencing-remove-a-trend-then-fit"><span class="header-section-number">34.8</span> Differencing: remove a trend, then fit</h2>
+<p>A trend can make a series nonstationary. <strong>Differencing</strong> replaces each value with its change from the previous value:</p>
+<p><span class="math display">\Delta X_t=X_t-X_{t-1}.</span></p>
+<p>Sometimes one difference is enough to obtain a stationary series. If a trend remains, we can try differencing again:</p>
+<p><span class="math display">\Delta^2 X_t=\Delta X_t-\Delta X_{t-1}.</span></p>
+<p>For example, <code>10, 12, 14, 16</code> becomes <code>2, 2, 2</code>: the rising level becomes a constant change. Check the plots and the ADF result before deciding whether another difference is useful.</p>
+<div id="31770988" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:14.832998Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:14.832337Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:15.046848Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:15.045889Z&quot;}}" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>temperature <span class="op">=</span> daily.loc[<span class="st">"2020-01-01"</span>:<span class="st">"2020-06-30"</span>].to_numpy()</span>
+<span id="cb19-2"><a href="#cb19-2"></a>d <span class="op">=</span> <span class="dv">1</span>  <span class="co"># Try 0, 1, or 2 differences, keeping the same temperature window.</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>changes <span class="op">=</span> np.diff(temperature, n<span class="op">=</span>d)</span>
+<span id="cb19-4"><a href="#cb19-4"></a></span>
+<span id="cb19-5"><a href="#cb19-5"></a>rolling_check(changes, window<span class="op">=</span><span class="dv">15</span>, title<span class="op">=</span><span class="ss">f"Daily temperature after </span><span class="sc">{</span>d<span class="sc">}</span><span class="ss"> difference(s)"</span>)</span>
+<span id="cb19-6"><a href="#cb19-6"></a>pd.DataFrame({<span class="st">"Original temperature"</span>: adf_report(temperature),</span>
+<span id="cb19-7"><a href="#cb19-7"></a>              <span class="ss">f"After </span><span class="sc">{</span>d<span class="sc">}</span><span class="ss"> difference(s)"</span>: adf_report(changes)}).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -1282,622 +1445,134 @@ Remember, if one of the roots is inside the unit circle, the series will be <str
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">year</th>
-<th data-quarto-table-cell-role="th">month</th>
-<th data-quarto-table-cell-role="th">decimal date</th>
-<th data-quarto-table-cell-role="th">average</th>
-<th data-quarto-table-cell-role="th">deseasonalized</th>
-<th data-quarto-table-cell-role="th">ndays</th>
-<th data-quarto-table-cell-role="th">sdev</th>
-<th data-quarto-table-cell-role="th">unc</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">date</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ADF statistic</th>
+<th data-quarto-table-cell-role="th">p-value</th>
+<th data-quarto-table-cell-role="th">lags</th>
+<th data-quarto-table-cell-role="th">conclusion</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">1958-03-01</td>
-<td>1958</td>
-<td>3</td>
-<td>1958.2027</td>
-<td>315.71</td>
-<td>314.44</td>
-<td>-1</td>
-<td>-9.99</td>
-<td>-0.99</td>
+<td data-quarto-table-cell-role="th">Original temperature</td>
+<td>-2.248994</td>
+<td>0.188946</td>
+<td>2</td>
+<td>Do not reject unit root</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1958-04-01</td>
-<td>1958</td>
-<td>4</td>
-<td>1958.2877</td>
-<td>317.45</td>
-<td>315.16</td>
-<td>-1</td>
-<td>-9.99</td>
-<td>-0.99</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">1958-05-01</td>
-<td>1958</td>
-<td>5</td>
-<td>1958.3699</td>
-<td>317.51</td>
-<td>314.69</td>
-<td>-1</td>
-<td>-9.99</td>
-<td>-0.99</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1958-06-01</td>
-<td>1958</td>
-<td>6</td>
-<td>1958.4548</td>
-<td>317.27</td>
-<td>315.15</td>
-<td>-1</td>
-<td>-9.99</td>
-<td>-0.99</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">1958-07-01</td>
-<td>1958</td>
-<td>7</td>
-<td>1958.5370</td>
-<td>315.87</td>
-<td>315.20</td>
-<td>-1</td>
-<td>-9.99</td>
-<td>-0.99</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2024-06-01</td>
-<td>2024</td>
-<td>6</td>
-<td>2024.4583</td>
-<td>426.91</td>
-<td>424.47</td>
-<td>20</td>
-<td>0.65</td>
-<td>0.28</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2024-07-01</td>
-<td>2024</td>
-<td>7</td>
-<td>2024.5417</td>
-<td>425.55</td>
-<td>425.10</td>
-<td>24</td>
-<td>0.69</td>
-<td>0.27</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2024-08-01</td>
-<td>2024</td>
-<td>8</td>
-<td>2024.6250</td>
-<td>422.99</td>
-<td>424.82</td>
-<td>22</td>
-<td>1.08</td>
-<td>0.44</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2024-09-01</td>
-<td>2024</td>
-<td>9</td>
-<td>2024.7083</td>
-<td>422.03</td>
-<td>425.42</td>
-<td>18</td>
-<td>0.41</td>
-<td>0.18</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2024-10-01</td>
-<td>2024</td>
-<td>10</td>
-<td>2024.7917</td>
-<td>422.38</td>
-<td>425.65</td>
-<td>22</td>
-<td>0.35</td>
-<td>0.14</td>
+<td data-quarto-table-cell-role="th">After 1 difference(s)</td>
+<td>-12.791614</td>
+<td>0.0</td>
+<td>1</td>
+<td>Reject unit root</td>
 </tr>
 </tbody>
 </table>
 
-<p>800 rows × 8 columns</p>
 </div>
-</div>
-</div>
-<div id="cell-28" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>series <span class="op">=</span> df[<span class="st">'average'</span>].rolling(window<span class="op">=</span><span class="dv">12</span>, center<span class="op">=</span><span class="va">True</span>, min_periods<span class="op">=</span><span class="dv">12</span>).mean()</span>
-<span id="cb26-2"><a href="#cb26-2"></a>series <span class="op">=</span> series.dropna()</span>
-<span id="cb26-3"><a href="#cb26-3"></a>series_np <span class="op">=</span> series.values</span>
-<span id="cb26-4"><a href="#cb26-4"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb26-5"><a href="#cb26-5"></a>ax.plot(series)</span>
-<span id="cb26-6"><a href="#cb26-6"></a><span class="co"># ax.plot(df['average'])</span></span>
-<span id="cb26-7"><a href="#cb26-7"></a><span class="co"># ax.plot((series2.cumsum() + series1[0]).cumsum()+first_ppm_recorded)</span></span>
-<span id="cb26-8"><a href="#cb26-8"></a>first_ppm_recorded <span class="op">=</span> series.iloc[<span class="dv">0</span>]</span>
-<span id="cb26-9"><a href="#cb26-9"></a>first_ppm_recorded</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
-<pre><code>315.37</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-19-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="practice_ARIMA_files/figure-html/cell-17-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-29" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>series.diff(periods<span class="op">=-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
-<pre><code>date
-1958-09-01   -0.078333
-1958-10-01   -0.022500
-1958-11-01   -0.065000
-1958-12-01   -0.073333
-1959-01-01   -0.055833
-                ...   
-2024-01-01   -0.310000
-2024-02-01   -0.275833
-2024-03-01   -0.294167
-2024-04-01   -0.296667
-2024-05-01         NaN
-Name: average, Length: 789, dtype: float64</code></pre>
-</div>
-</div>
-<div id="cell-30" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a>series1 <span class="op">=</span> series.diff()</span>
-<span id="cb30-2"><a href="#cb30-2"></a>series_np <span class="op">=</span> series.values</span>
-<span id="cb30-3"><a href="#cb30-3"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb30-4"><a href="#cb30-4"></a>ax.plot(series1)</span>
-<span id="cb30-5"><a href="#cb30-5"></a></span>
-<span id="cb30-6"><a href="#cb30-6"></a><span class="co"># ax.plot(series2.cumsum()+series1[0])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-31" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a>series1.cumsum()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>date
-1958-09-01           NaN
-1958-10-01      0.078333
-1958-11-01      0.100833
-1958-12-01      0.165833
-1959-01-01      0.239167
-                 ...    
-2024-01-01    107.480000
-2024-02-01    107.790000
-2024-03-01    108.065833
-2024-04-01    108.360000
-2024-05-01    108.656667
-Name: average, Length: 789, dtype: float64</code></pre>
-</div>
-</div>
-<div id="cell-32" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">def</span> integrate(series, first_value):</span>
-<span id="cb33-2"><a href="#cb33-2"></a>    reconst <span class="op">=</span> series.cumsum()</span>
-<span id="cb33-3"><a href="#cb33-3"></a>    reconst[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb33-4"><a href="#cb33-4"></a>    <span class="cf">return</span> (reconst <span class="op">+</span> first_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-33" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb34-2"><a href="#cb34-2"></a>ax.plot(integrate(series1, first_ppm_recorded), c<span class="op">=</span><span class="st">'m'</span>)</span>
-<span id="cb34-3"><a href="#cb34-3"></a><span class="co"># ax.plot(series1.cumsum()+first_ppm_recorded)</span></span>
-<span id="cb34-4"><a href="#cb34-4"></a>ax.plot(series, ls<span class="op">=</span><span class="st">'--'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/wn/2bz1970d2w5182zy7h96yfcc0000gn/T/ipykernel_54211/2153033442.py:3: FutureWarning: Series.__setitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To set a value by position, use `ser.iloc[pos] = value`
-  reconst[0] = 0</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-24-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-34" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>series2 <span class="op">=</span> series1.diff()</span>
-<span id="cb36-2"><a href="#cb36-2"></a>series_np <span class="op">=</span> series2.values</span>
-<span id="cb36-3"><a href="#cb36-3"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb36-4"><a href="#cb36-4"></a>ax.plot(series2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-25-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-35" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">def</span> integrate(series, first_value):</span>
-<span id="cb37-2"><a href="#cb37-2"></a>    <span class="co"># Check the type of input</span></span>
-<span id="cb37-3"><a href="#cb37-3"></a>    is_series <span class="op">=</span> <span class="bu">isinstance</span>(series, pd.Series)</span>
-<span id="cb37-4"><a href="#cb37-4"></a>    </span>
-<span id="cb37-5"><a href="#cb37-5"></a>    <span class="co"># Convert numpy array to pandas Series for processing</span></span>
-<span id="cb37-6"><a href="#cb37-6"></a>    <span class="cf">if</span> <span class="kw">not</span> is_series:</span>
-<span id="cb37-7"><a href="#cb37-7"></a>        series <span class="op">=</span> pd.Series(series)</span>
-<span id="cb37-8"><a href="#cb37-8"></a>    </span>
-<span id="cb37-9"><a href="#cb37-9"></a>    <span class="co"># Perform cumulative sum and adjustment</span></span>
-<span id="cb37-10"><a href="#cb37-10"></a>    reconst <span class="op">=</span> series.cumsum()</span>
-<span id="cb37-11"><a href="#cb37-11"></a>    reconst.iloc[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb37-12"><a href="#cb37-12"></a>    reconst <span class="op">+=</span> first_value</span>
-<span id="cb37-13"><a href="#cb37-13"></a>    </span>
-<span id="cb37-14"><a href="#cb37-14"></a>    <span class="co"># Return the result as the same type as the input</span></span>
-<span id="cb37-15"><a href="#cb37-15"></a>    <span class="cf">return</span> reconst <span class="cf">if</span> is_series <span class="cf">else</span> reconst.to_numpy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-36" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb38-2"><a href="#cb38-2"></a>reconstructed1 <span class="op">=</span> integrate(series1, series[series.first_valid_index()])</span>
-<span id="cb38-3"><a href="#cb38-3"></a>reconstructed2 <span class="op">=</span> integrate(integrate(series2, series1[series1.first_valid_index()]), first_ppm_recorded)</span>
-<span id="cb38-4"><a href="#cb38-4"></a></span>
-<span id="cb38-5"><a href="#cb38-5"></a>ax.plot(reconstructed1, c<span class="op">=</span><span class="st">'m'</span>)</span>
-<span id="cb38-6"><a href="#cb38-6"></a>ax.plot(reconstructed2, c<span class="op">=</span><span class="st">'r'</span>)</span>
-<span id="cb38-7"><a href="#cb38-7"></a>ax.plot(series, c<span class="op">=</span><span class="st">'k'</span>, ls<span class="op">=</span><span class="st">'--'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-27-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-37" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a>series2_clean <span class="op">=</span> series2[<span class="dv">2</span>:] <span class="co"># we skip the first two NaN values</span></span>
-<span id="cb39-2"><a href="#cb39-2"></a>series1_clean <span class="op">=</span> series1[<span class="dv">1</span>:] <span class="co"># we skip the first NaN value</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-38" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a><span class="im">from</span> statsmodels.tsa.stattools <span class="im">import</span> adfuller</span>
-<span id="cb40-2"><a href="#cb40-2"></a></span>
-<span id="cb40-3"><a href="#cb40-3"></a>result <span class="op">=</span> adfuller(series2_clean) <span class="co"># must be without nanas</span></span>
-<span id="cb40-4"><a href="#cb40-4"></a></span>
-<span id="cb40-5"><a href="#cb40-5"></a><span class="bu">print</span>(<span class="st">"ADF Statistic:"</span>, result[<span class="dv">0</span>])</span>
-<span id="cb40-6"><a href="#cb40-6"></a><span class="bu">print</span>(<span class="st">"p-value:"</span>, result[<span class="dv">1</span>])</span>
-<span id="cb40-7"><a href="#cb40-7"></a><span class="cf">if</span> result[<span class="dv">1</span>] <span class="op">&lt;</span> <span class="fl">0.05</span>:</span>
-<span id="cb40-8"><a href="#cb40-8"></a>    <span class="bu">print</span>(<span class="st">"The series is stationary."</span>)</span>
-<span id="cb40-9"><a href="#cb40-9"></a><span class="cf">else</span>:</span>
-<span id="cb40-10"><a href="#cb40-10"></a>    <span class="bu">print</span>(<span class="st">"The series is not stationary. Differencing is needed."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Fit the AR relationship to these values. Generate its future using its own previous values, just as before.</p>
+<div id="d8237696" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:15.049946Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:15.049685Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:15.091079Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:15.090086Z&quot;}}" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>max_order <span class="op">=</span> <span class="bu">min</span>(<span class="dv">24</span>, <span class="bu">len</span>(changes) <span class="op">//</span> <span class="dv">5</span>)</span>
+<span id="cb20-2"><a href="#cb20-2"></a>models <span class="op">=</span> [AutoReg(changes, lags<span class="op">=</span>p, hold_back<span class="op">=</span>max_order, trend<span class="op">=</span><span class="st">"c"</span>).fit()</span>
+<span id="cb20-3"><a href="#cb20-3"></a>          <span class="cf">for</span> p <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, max_order <span class="op">+</span> <span class="dv">1</span>)]</span>
+<span id="cb20-4"><a href="#cb20-4"></a>change_fit <span class="op">=</span> <span class="bu">min</span>(models, key<span class="op">=</span><span class="kw">lambda</span> model: model.bic)</span>
+<span id="cb20-5"><a href="#cb20-5"></a>p <span class="op">=</span> <span class="bu">len</span>(change_fit.params) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="bu">print</span>(<span class="ss">f"AR(</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">) fitted after </span><span class="sc">{</span>d<span class="sc">}</span><span class="ss"> difference(s)"</span>)</span>
+<span id="cb20-7"><a href="#cb20-7"></a></span>
+<span id="cb20-8"><a href="#cb20-8"></a>steps <span class="op">=</span> <span class="dv">30</span>  <span class="co"># Days, because these are daily observations.</span></span>
+<span id="cb20-9"><a href="#cb20-9"></a>noise <span class="op">=</span> np.random.default_rng(<span class="dv">49</span>).normal(<span class="dv">0</span>, np.sqrt(change_fit.sigma2), steps)</span>
+<span id="cb20-10"><a href="#cb20-10"></a>values <span class="op">=</span> <span class="bu">list</span>(changes)</span>
+<span id="cb20-11"><a href="#cb20-11"></a><span class="cf">for</span> shock <span class="kw">in</span> noise:</span>
+<span id="cb20-12"><a href="#cb20-12"></a>    next_value <span class="op">=</span> change_fit.params[<span class="dv">0</span>] <span class="op">+</span> <span class="bu">sum</span>(</span>
+<span id="cb20-13"><a href="#cb20-13"></a>        change_fit.params[j<span class="op">+</span><span class="dv">1</span>] <span class="op">*</span> values[<span class="op">-</span>j<span class="op">-</span><span class="dv">1</span>] <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(p))</span>
+<span id="cb20-14"><a href="#cb20-14"></a>    values.append(next_value <span class="op">+</span> shock)</span>
+<span id="cb20-15"><a href="#cb20-15"></a>future_changes <span class="op">=</span> np.array(values[<span class="bu">len</span>(changes):])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ADF Statistic: -11.337942249877967
-p-value: 1.0721230892309654e-20
-The series is stationary.</code></pre>
+<pre><code>AR(2) fitted after 1 difference(s)</code></pre>
 </div>
 </div>
-<div id="cell-39" class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a><span class="im">from</span> statsmodels.graphics.tsaplots <span class="im">import</span> plot_acf, plot_pacf</span>
-<span id="cb42-2"><a href="#cb42-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb42-3"><a href="#cb42-3"></a></span>
-<span id="cb42-4"><a href="#cb42-4"></a><span class="co"># Plot ACF and PACF</span></span>
-<span id="cb42-5"><a href="#cb42-5"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
-<span id="cb42-6"><a href="#cb42-6"></a>plot_acf(series2_clean, ax<span class="op">=</span>ax[<span class="dv">0</span>])</span>
-<span id="cb42-7"><a href="#cb42-7"></a>plot_pacf(series2_clean, ax<span class="op">=</span>ax[<span class="dv">1</span>])</span>
-<span id="cb42-8"><a href="#cb42-8"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Return to temperature by adding the generated changes to the last observed temperature. With two differences, first rebuild the daily changes, then the temperature. We never insert actual future observations.</p>
+<div id="6f557396" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:15.094678Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:15.094404Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:15.187865Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:15.187291Z&quot;}}" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">def</span> to_temperature(future):</span>
+<span id="cb22-2"><a href="#cb22-2"></a>    <span class="cf">if</span> d <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb22-3"><a href="#cb22-3"></a>        future <span class="op">=</span> np.cumsum(future) <span class="op">+</span> (temperature[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> temperature[<span class="op">-</span><span class="dv">2</span>])</span>
+<span id="cb22-4"><a href="#cb22-4"></a>    <span class="cf">if</span> d <span class="op">&gt;=</span> <span class="dv">1</span>:</span>
+<span id="cb22-5"><a href="#cb22-5"></a>        future <span class="op">=</span> np.cumsum(future) <span class="op">+</span> temperature[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb22-6"><a href="#cb22-6"></a>    <span class="cf">return</span> np.asarray(future)</span>
+<span id="cb22-7"><a href="#cb22-7"></a></span>
+<span id="cb22-8"><a href="#cb22-8"></a>simulation <span class="op">=</span> to_temperature(future_changes)</span>
+<span id="cb22-9"><a href="#cb22-9"></a>average <span class="op">=</span> to_temperature(change_fit.predict(<span class="bu">len</span>(changes), <span class="bu">len</span>(changes) <span class="op">+</span> steps <span class="op">-</span> <span class="dv">1</span>))</span>
+<span id="cb22-10"><a href="#cb22-10"></a></span>
+<span id="cb22-11"><a href="#cb22-11"></a>history <span class="op">=</span> <span class="dv">60</span></span>
+<span id="cb22-12"><a href="#cb22-12"></a>plt.plot(np.arange(<span class="op">-</span>history, <span class="dv">0</span>), temperature[<span class="op">-</span>history:], color<span class="op">=</span><span class="st">"0.5"</span>, label<span class="op">=</span><span class="st">"Observed history"</span>)</span>
+<span id="cb22-13"><a href="#cb22-13"></a>plt.plot(np.arange(<span class="op">-</span><span class="dv">1</span>, steps), np.r_[temperature[<span class="op">-</span><span class="dv">1</span>], simulation], color<span class="op">=</span><span class="st">"darkorange"</span>, label<span class="op">=</span><span class="st">"Simulated future"</span>)</span>
+<span id="cb22-14"><a href="#cb22-14"></a>plt.plot(np.arange(<span class="op">-</span><span class="dv">1</span>, steps), np.r_[temperature[<span class="op">-</span><span class="dv">1</span>], average], color<span class="op">=</span><span class="st">"teal"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"Average forecast"</span>)</span>
+<span id="cb22-15"><a href="#cb22-15"></a>plt.axvline(<span class="op">-</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">"black"</span>, linestyle<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb22-16"><a href="#cb22-16"></a>plt.xlabel(<span class="st">"Days after the training window"</span>)</span>
+<span id="cb22-17"><a href="#cb22-17"></a>plt.ylabel(<span class="st">"Temperature (°C)"</span>)</span>
+<span id="cb22-18"><a href="#cb22-18"></a>plt.legend()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-30-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="practice_ARIMA_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-40" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a><span class="im">from</span> pmdarima <span class="im">import</span> auto_arima</span>
-<span id="cb43-2"><a href="#cb43-2"></a></span>
-<span id="cb43-3"><a href="#cb43-3"></a><span class="co"># Fit auto-ARIMA to find the best (p, d, q)</span></span>
-<span id="cb43-4"><a href="#cb43-4"></a>model <span class="op">=</span> auto_arima(series, seasonal<span class="op">=</span><span class="va">False</span>, trace<span class="op">=</span><span class="va">True</span>, error_action<span class="op">=</span><span class="st">'ignore'</span>, suppress_warnings<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb43-5"><a href="#cb43-5"></a><span class="co"># try again with series1 and series2</span></span>
-<span id="cb43-6"><a href="#cb43-6"></a></span>
-<span id="cb43-7"><a href="#cb43-7"></a><span class="bu">print</span>(model.summary())</span>
-<span id="cb43-8"><a href="#cb43-8"></a></span>
-<span id="cb43-9"><a href="#cb43-9"></a><span class="co"># Use the recommended order</span></span>
-<span id="cb43-10"><a href="#cb43-10"></a>order <span class="op">=</span> model.order</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Performing stepwise search to minimize aic
- ARIMA(2,2,2)(0,0,0)[0] intercept   : AIC=-3057.034, Time=0.39 sec
- ARIMA(0,2,0)(0,0,0)[0] intercept   : AIC=-2967.319, Time=0.05 sec
- ARIMA(1,2,0)(0,0,0)[0] intercept   : AIC=-3030.622, Time=0.07 sec
- ARIMA(0,2,1)(0,0,0)[0] intercept   : AIC=-3053.037, Time=0.08 sec
- ARIMA(0,2,0)(0,0,0)[0]             : AIC=-2969.274, Time=0.04 sec
- ARIMA(1,2,2)(0,0,0)[0] intercept   : AIC=-3058.503, Time=0.13 sec
- ARIMA(0,2,2)(0,0,0)[0] intercept   : AIC=-3058.777, Time=0.17 sec
- ARIMA(0,2,3)(0,0,0)[0] intercept   : AIC=-3059.752, Time=0.15 sec
- ARIMA(1,2,3)(0,0,0)[0] intercept   : AIC=-3058.012, Time=0.13 sec
- ARIMA(0,2,4)(0,0,0)[0] intercept   : AIC=-3058.251, Time=0.17 sec
- ARIMA(1,2,4)(0,0,0)[0] intercept   : AIC=-3056.365, Time=0.47 sec
- ARIMA(0,2,3)(0,0,0)[0]             : AIC=-3061.530, Time=0.08 sec
- ARIMA(0,2,2)(0,0,0)[0]             : AIC=-3060.588, Time=0.07 sec
- ARIMA(1,2,3)(0,0,0)[0]             : AIC=-3059.800, Time=0.06 sec
- ARIMA(0,2,4)(0,0,0)[0]             : AIC=-3060.049, Time=0.12 sec
- ARIMA(1,2,2)(0,0,0)[0]             : AIC=-3060.292, Time=0.07 sec
- ARIMA(1,2,4)(0,0,0)[0]             : AIC=-3058.173, Time=0.10 sec
-
-Best model:  ARIMA(0,2,3)(0,0,0)[0]          
-Total fit time: 2.336 seconds
-                               SARIMAX Results                                
-==============================================================================
-Dep. Variable:                      y   No. Observations:                  789
-Model:               SARIMAX(0, 2, 3)   Log Likelihood                1534.765
-Date:                Tue, 03 Dec 2024   AIC                          -3061.530
-Time:                        10:45:21   BIC                          -3042.857
-Sample:                    09-01-1958   HQIC                         -3054.351
-                         - 05-01-2024                                         
-Covariance Type:                  opg                                         
-==============================================================================
-                 coef    std err          z      P&gt;|z|      [0.025      0.975]
-------------------------------------------------------------------------------
-ma.L1         -0.3491      0.034    -10.194      0.000      -0.416      -0.282
-ma.L2         -0.0733      0.034     -2.145      0.032      -0.140      -0.006
-ma.L3         -0.0645      0.035     -1.846      0.065      -0.133       0.004
-sigma2         0.0012   5.81e-05     20.374      0.000       0.001       0.001
-===================================================================================
-Ljung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):                 0.60
-Prob(Q):                              0.98   Prob(JB):                         0.74
-Heteroskedasticity (H):               1.28   Skew:                             0.04
-Prob(H) (two-sided):                  0.04   Kurtosis:                         3.11
-===================================================================================
-
-Warnings:
-[1] Covariance matrix calculated using the outer product of gradients (complex-step).</code></pre>
-</div>
-</div>
-<div id="cell-41" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a><span class="im">from</span> statsmodels.tsa.arima.model <span class="im">import</span> ARIMA</span>
-<span id="cb45-2"><a href="#cb45-2"></a></span>
-<span id="cb45-3"><a href="#cb45-3"></a><span class="co"># Fit ARIMA model with correct order</span></span>
-<span id="cb45-4"><a href="#cb45-4"></a>model <span class="op">=</span> ARIMA(series2_clean, order<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">3</span>))  <span class="co"># Replace 'order' with (p, d, q)</span></span>
-<span id="cb45-5"><a href="#cb45-5"></a>results <span class="op">=</span> model.fit()</span>
-<span id="cb45-6"><a href="#cb45-6"></a><span class="bu">print</span>(results.summary())</span>
-<span id="cb45-7"><a href="#cb45-7"></a></span>
-<span id="cb45-8"><a href="#cb45-8"></a><span class="co"># Extract AR coefficients</span></span>
-<span id="cb45-9"><a href="#cb45-9"></a>ar_coeff <span class="op">=</span> [<span class="dv">1</span>] <span class="op">+</span> <span class="bu">list</span>(<span class="op">-</span>results.arparams)  <span class="co"># Include 1 for ARIMA polynomial standard</span></span>
-<span id="cb45-10"><a href="#cb45-10"></a>ma_coeff <span class="op">=</span> <span class="bu">list</span>(results.maparams)   </span>
-<span id="cb45-11"><a href="#cb45-11"></a>residual_std <span class="op">=</span> np.std(results.resid)  </span>
-<span id="cb45-12"><a href="#cb45-12"></a><span class="bu">print</span>(<span class="st">"Fitted AR Coefficients:"</span>, ar_coeff)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                               SARIMAX Results                                
-==============================================================================
-Dep. Variable:                average   No. Observations:                  787
-Model:                 ARIMA(0, 0, 3)   Log Likelihood                1534.876
-Date:                Tue, 03 Dec 2024   AIC                          -3059.752
-Time:                        10:45:22   BIC                          -3036.411
-Sample:                    11-01-1958   HQIC                         -3050.778
-                         - 05-01-2024                                         
-Covariance Type:                  opg                                         
-==============================================================================
-                 coef    std err          z      P&gt;|z|      [0.025      0.975]
-------------------------------------------------------------------------------
-const          0.0003      0.001      0.454      0.650      -0.001       0.002
-ma.L1         -0.3495      0.034    -10.191      0.000      -0.417      -0.282
-ma.L2         -0.0727      0.034     -2.125      0.034      -0.140      -0.006
-ma.L3         -0.0620      0.035     -1.774      0.076      -0.131       0.007
-sigma2         0.0012   5.82e-05     20.353      0.000       0.001       0.001
-===================================================================================
-Ljung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):                 0.60
-Prob(Q):                              0.99   Prob(JB):                         0.74
-Heteroskedasticity (H):               1.28   Skew:                             0.04
-Prob(H) (two-sided):                  0.04   Kurtosis:                         3.11
-===================================================================================
-
-Warnings:
-[1] Covariance matrix calculated using the outer product of gradients (complex-step).
-Fitted AR Coefficients: [1]</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/opt/anaconda3/lib/python3.11/site-packages/statsmodels/tsa/base/tsa_model.py:473: ValueWarning: No frequency information was provided, so inferred frequency MS will be used.
-  self._init_dates(dates, freq)
-/opt/anaconda3/lib/python3.11/site-packages/statsmodels/tsa/base/tsa_model.py:473: ValueWarning: No frequency information was provided, so inferred frequency MS will be used.
-  self._init_dates(dates, freq)
-/opt/anaconda3/lib/python3.11/site-packages/statsmodels/tsa/base/tsa_model.py:473: ValueWarning: No frequency information was provided, so inferred frequency MS will be used.
-  self._init_dates(dates, freq)</code></pre>
-</div>
-</div>
-<div id="cell-42" class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a><span class="co"># Number of steps to forecast</span></span>
-<span id="cb48-2"><a href="#cb48-2"></a>steps <span class="op">=</span> <span class="dv">200</span></span>
-<span id="cb48-3"><a href="#cb48-3"></a></span>
-<span id="cb48-4"><a href="#cb48-4"></a><span class="co"># Forecast future values</span></span>
-<span id="cb48-5"><a href="#cb48-5"></a>forecast <span class="op">=</span> results.get_forecast(steps<span class="op">=</span>steps)</span>
-<span id="cb48-6"><a href="#cb48-6"></a>forecast_values <span class="op">=</span> forecast.predicted_mean</span>
-<span id="cb48-7"><a href="#cb48-7"></a>confidence_intervals <span class="op">=</span> forecast.conf_int()</span>
-<span id="cb48-8"><a href="#cb48-8"></a></span>
-<span id="cb48-9"><a href="#cb48-9"></a></span>
-<span id="cb48-10"><a href="#cb48-10"></a></span>
-<span id="cb48-11"><a href="#cb48-11"></a><span class="co"># Create a new index for the forecast</span></span>
-<span id="cb48-12"><a href="#cb48-12"></a>forecast_index <span class="op">=</span> pd.date_range(</span>
-<span id="cb48-13"><a href="#cb48-13"></a>    start<span class="op">=</span>series.index[<span class="op">-</span><span class="dv">1</span>], </span>
-<span id="cb48-14"><a href="#cb48-14"></a>    periods<span class="op">=</span>steps <span class="op">+</span> <span class="dv">1</span>,  <span class="co"># +1 to include the start point</span></span>
-<span id="cb48-15"><a href="#cb48-15"></a>    freq<span class="op">=</span>pd.infer_freq(series.index)</span>
-<span id="cb48-16"><a href="#cb48-16"></a>)[<span class="dv">1</span>:]  <span class="co"># Exclude the start point</span></span>
-<span id="cb48-17"><a href="#cb48-17"></a></span>
-<span id="cb48-18"><a href="#cb48-18"></a><span class="co"># Align forecast with the index</span></span>
-<span id="cb48-19"><a href="#cb48-19"></a>forecast_values.index <span class="op">=</span> forecast_index</span>
-<span id="cb48-20"><a href="#cb48-20"></a>confidence_intervals.index <span class="op">=</span> forecast_index</span>
-<span id="cb48-21"><a href="#cb48-21"></a></span>
-<span id="cb48-22"><a href="#cb48-22"></a></span>
-<span id="cb48-23"><a href="#cb48-23"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb48-24"><a href="#cb48-24"></a></span>
-<span id="cb48-25"><a href="#cb48-25"></a>last_point <span class="op">=</span> series[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb48-26"><a href="#cb48-26"></a>first_ppm_recorded <span class="op">=</span> series.iloc[<span class="dv">0</span>]</span>
-<span id="cb48-27"><a href="#cb48-27"></a></span>
-<span id="cb48-28"><a href="#cb48-28"></a><span class="co"># Plot original series</span></span>
-<span id="cb48-29"><a href="#cb48-29"></a>ax.plot(reconstructed2, label<span class="op">=</span><span class="st">'reconstracted Series'</span>, color<span class="op">=</span><span class="st">'green'</span>)</span>
-<span id="cb48-30"><a href="#cb48-30"></a>ax.plot(series, label<span class="op">=</span><span class="st">'Original Series'</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
-<span id="cb48-31"><a href="#cb48-31"></a></span>
-<span id="cb48-32"><a href="#cb48-32"></a><span class="co"># Plot forecast</span></span>
-<span id="cb48-33"><a href="#cb48-33"></a>ax.plot(series[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> forecast_values.cumsum().cumsum(), label<span class="op">=</span><span class="st">'Forecast'</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
-<span id="cb48-34"><a href="#cb48-34"></a></span>
-<span id="cb48-35"><a href="#cb48-35"></a></span>
-<span id="cb48-36"><a href="#cb48-36"></a><span class="co"># Add confidence intervals</span></span>
-<span id="cb48-37"><a href="#cb48-37"></a>ax.fill_between(</span>
-<span id="cb48-38"><a href="#cb48-38"></a>    forecast_index,</span>
-<span id="cb48-39"><a href="#cb48-39"></a>    last_point <span class="op">+</span> confidence_intervals.cumsum().cumsum().iloc[:, <span class="dv">0</span>],</span>
-<span id="cb48-40"><a href="#cb48-40"></a>    last_point <span class="op">+</span> confidence_intervals.cumsum().cumsum().iloc[:, <span class="dv">1</span>],</span>
-<span id="cb48-41"><a href="#cb48-41"></a>    color<span class="op">=</span><span class="st">'pink'</span>,</span>
-<span id="cb48-42"><a href="#cb48-42"></a>    alpha<span class="op">=</span><span class="fl">0.3</span>,</span>
-<span id="cb48-43"><a href="#cb48-43"></a>    label<span class="op">=</span><span class="st">'Confidence Interval'</span></span>
-<span id="cb48-44"><a href="#cb48-44"></a>)</span>
-<span id="cb48-45"><a href="#cb48-45"></a></span>
-<span id="cb48-46"><a href="#cb48-46"></a></span>
-<span id="cb48-47"><a href="#cb48-47"></a><span class="co"># Highlight visual continuity with dashed lines</span></span>
-<span id="cb48-48"><a href="#cb48-48"></a>ax.axvline(series.index[<span class="op">-</span><span class="dv">1</span>], color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'Forecast Start'</span>)</span>
-<span id="cb48-49"><a href="#cb48-49"></a></span>
-<span id="cb48-50"><a href="#cb48-50"></a><span class="co"># Add labels, legend, and grid</span></span>
-<span id="cb48-51"><a href="#cb48-51"></a>ax.set_title(<span class="st">'ARIMA Forecast with Confidence Intervals'</span>)</span>
-<span id="cb48-52"><a href="#cb48-52"></a>ax.set_xlabel(<span class="st">'Date'</span>)</span>
-<span id="cb48-53"><a href="#cb48-53"></a>ax.set_ylabel(<span class="st">'Values'</span>)</span>
-<span id="cb48-54"><a href="#cb48-54"></a>ax.legend(loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
-<span id="cb48-55"><a href="#cb48-55"></a>ax.grid()</span>
-<span id="cb48-56"><a href="#cb48-56"></a></span>
-<span id="cb48-57"><a href="#cb48-57"></a>fig.tight_layout()</span>
-<span id="cb48-58"><a href="#cb48-58"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/wn/2bz1970d2w5182zy7h96yfcc0000gn/T/ipykernel_54211/2253271819.py:25: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  last_point = series[-1]
-/var/folders/wn/2bz1970d2w5182zy7h96yfcc0000gn/T/ipykernel_54211/2253271819.py:33: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  ax.plot(series[-1] + forecast_values.cumsum().cumsum(), label='Forecast', color='red', linestyle='--')</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-33-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-43" class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a>ma_coeff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="33">
-<pre><code>[-0.3495294478282093, -0.07269624580059555, -0.06203261498192508]</code></pre>
-</div>
-</div>
-<div id="cell-44" class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a><span class="co"># Forecasting function using ARIMA coefficients</span></span>
-<span id="cb52-2"><a href="#cb52-2"></a><span class="kw">def</span> arma_forecast(series, ar_coeff, ma_coeff, noise_scale<span class="op">=</span>residual_std):</span>
-<span id="cb52-3"><a href="#cb52-3"></a>    s <span class="op">=</span> series.copy()</span>
-<span id="cb52-4"><a href="#cb52-4"></a>    phi <span class="op">=</span> <span class="op">-</span>np.array(ar_coeff[<span class="dv">1</span>:])  <span class="co"># AR coefficients</span></span>
-<span id="cb52-5"><a href="#cb52-5"></a>    theta <span class="op">=</span> np.array(ma_coeff)     <span class="co"># MA coefficients</span></span>
-<span id="cb52-6"><a href="#cb52-6"></a>    theta <span class="op">=</span> np.array([<span class="dv">0</span>])</span>
-<span id="cb52-7"><a href="#cb52-7"></a>    <span class="co"># start_index = np.argmax(np.isnan(s))  # Start forecasting at first NaN</span></span>
-<span id="cb52-8"><a href="#cb52-8"></a>    start_index <span class="op">=</span> np.where(np.isnan(s))[<span class="dv">0</span>]</span>
-<span id="cb52-9"><a href="#cb52-9"></a>    start_index <span class="op">=</span> start_index[start_index <span class="op">&gt;</span> np.argmax(<span class="op">~</span>np.isnan(s))][<span class="dv">0</span>]</span>
-<span id="cb52-10"><a href="#cb52-10"></a>    <span class="co"># print(start_index)</span></span>
-<span id="cb52-11"><a href="#cb52-11"></a>    noise <span class="op">=</span> np.random.normal(scale<span class="op">=</span>noise_scale, size<span class="op">=</span><span class="bu">len</span>(series))  <span class="co"># Random noise for MA component</span></span>
-<span id="cb52-12"><a href="#cb52-12"></a></span>
-<span id="cb52-13"><a href="#cb52-13"></a>    <span class="co"># Forecast ARMA process</span></span>
-<span id="cb52-14"><a href="#cb52-14"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(start_index, <span class="bu">len</span>(series)):</span>
-<span id="cb52-15"><a href="#cb52-15"></a>        <span class="co"># AR component</span></span>
-<span id="cb52-16"><a href="#cb52-16"></a>        ar_term <span class="op">=</span> <span class="bu">sum</span>(phi[j] <span class="op">*</span> s[i <span class="op">-</span> j <span class="op">-</span> <span class="dv">1</span>] <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(phi)) <span class="cf">if</span> i <span class="op">-</span> j <span class="op">-</span> <span class="dv">1</span> <span class="op">&gt;=</span> <span class="dv">0</span>)</span>
-<span id="cb52-17"><a href="#cb52-17"></a>        <span class="co"># MA component</span></span>
-<span id="cb52-18"><a href="#cb52-18"></a>        ma_term <span class="op">=</span> <span class="bu">sum</span>(theta[j] <span class="op">*</span> noise[i <span class="op">-</span> j <span class="op">-</span> <span class="dv">1</span>] <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(theta)) <span class="cf">if</span> i <span class="op">-</span> j <span class="op">-</span> <span class="dv">1</span> <span class="op">&gt;=</span> <span class="dv">0</span>)</span>
-<span id="cb52-19"><a href="#cb52-19"></a>        <span class="co"># Combine AR, MA, and noise</span></span>
-<span id="cb52-20"><a href="#cb52-20"></a>        s[i] <span class="op">=</span> ar_term <span class="op">+</span> ma_term <span class="op">+</span> noise[i]</span>
-<span id="cb52-21"><a href="#cb52-21"></a>    <span class="cf">return</span> s</span>
-<span id="cb52-22"><a href="#cb52-22"></a></span>
-<span id="cb52-23"><a href="#cb52-23"></a>arima_220_diff2 <span class="op">=</span> series2.values</span>
-<span id="cb52-24"><a href="#cb52-24"></a>original_series <span class="op">=</span> series.values</span>
-<span id="cb52-25"><a href="#cb52-25"></a></span>
-<span id="cb52-26"><a href="#cb52-26"></a>l <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb52-27"><a href="#cb52-27"></a>missing <span class="op">=</span> series2.values</span>
-<span id="cb52-28"><a href="#cb52-28"></a>missing[l:] <span class="op">=</span> np.nan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-45" class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb53-2"><a href="#cb53-2"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb53-3"><a href="#cb53-3"></a></span>
-<span id="cb53-4"><a href="#cb53-4"></a>xlim <span class="op">=</span> [<span class="dv">0</span>, <span class="bu">len</span>(missing)]</span>
-<span id="cb53-5"><a href="#cb53-5"></a>ylim <span class="op">=</span> [<span class="dv">300</span>,<span class="dv">600</span>]</span>
-<span id="cb53-6"><a href="#cb53-6"></a></span>
-<span id="cb53-7"><a href="#cb53-7"></a>ax0 <span class="op">=</span> axes[<span class="dv">0</span>]</span>
-<span id="cb53-8"><a href="#cb53-8"></a>ntries <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb53-9"><a href="#cb53-9"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(ntries):</span>
-<span id="cb53-10"><a href="#cb53-10"></a>    np.random.seed(i)</span>
-<span id="cb53-11"><a href="#cb53-11"></a>    try_diff <span class="op">=</span> arma_forecast(missing, ar_coeff<span class="op">=</span>ar_coeff, ma_coeff<span class="op">=</span>ma_coeff)</span>
-<span id="cb53-12"><a href="#cb53-12"></a>    t <span class="op">=</span> np.nancumsum(np.nancumsum(try_diff)<span class="op">+</span>series1[series1.first_valid_index()]) <span class="op">+</span> first_ppm_recorded</span>
-<span id="cb53-13"><a href="#cb53-13"></a>    <span class="co"># t = np.cumsum(np.cumsum(try_diff)+series1[0]) + first_ppm_recorded</span></span>
-<span id="cb53-14"><a href="#cb53-14"></a>    ax0.plot(t, color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb53-15"><a href="#cb53-15"></a>ax0.plot(original_series, color<span class="op">=</span><span class="st">"xkcd:hot pink"</span>, lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"data"</span>)</span>
-<span id="cb53-16"><a href="#cb53-16"></a>ax0.plot([<span class="bu">len</span>(missing),<span class="bu">len</span>(missing)<span class="op">+</span><span class="dv">1</span>], [<span class="dv">0</span>]<span class="op">*</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, label<span class="op">=</span><span class="st">"forecast"</span>)</span>
-<span id="cb53-17"><a href="#cb53-17"></a>ax0.<span class="bu">set</span>(xticklabels<span class="op">=</span>[],</span>
-<span id="cb53-18"><a href="#cb53-18"></a>        xlim<span class="op">=</span>xlim,</span>
-<span id="cb53-19"><a href="#cb53-19"></a>        ylim<span class="op">=</span>ylim)</span>
-<span id="cb53-20"><a href="#cb53-20"></a>ax0.text(<span class="fl">0.5</span>, <span class="fl">0.98</span>, <span class="ss">f"</span><span class="sc">{</span>ntries<span class="sc">}</span><span class="ss"> forecasts"</span>,</span>
-<span id="cb53-21"><a href="#cb53-21"></a>         transform<span class="op">=</span>ax0.transAxes, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"top"</span>)</span>
-<span id="cb53-22"><a href="#cb53-22"></a>ax0.legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb53-23"><a href="#cb53-23"></a>ax0.plot([l]<span class="op">*</span><span class="dv">2</span>, ylim, color<span class="op">=</span><span class="st">"black"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
-<span id="cb53-24"><a href="#cb53-24"></a></span>
-<span id="cb53-25"><a href="#cb53-25"></a>ax1 <span class="op">=</span> axes[<span class="dv">1</span>]</span>
-<span id="cb53-26"><a href="#cb53-26"></a>ntries <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb53-27"><a href="#cb53-27"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(ntries):</span>
-<span id="cb53-28"><a href="#cb53-28"></a>    np.random.seed(i)</span>
-<span id="cb53-29"><a href="#cb53-29"></a>    try_diff <span class="op">=</span> arma_forecast(missing, ar_coeff<span class="op">=</span>ar_coeff, ma_coeff<span class="op">=</span>ma_coeff)</span>
-<span id="cb53-30"><a href="#cb53-30"></a>    t <span class="op">=</span> np.nancumsum(np.nancumsum(try_diff)<span class="op">+</span>series1[series1.first_valid_index()]) <span class="op">+</span> first_ppm_recorded</span>
-<span id="cb53-31"><a href="#cb53-31"></a>    ax1.plot(t, color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb53-32"><a href="#cb53-32"></a>ax1.plot(original_series, color<span class="op">=</span><span class="st">"xkcd:hot pink"</span>, lw<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb53-33"><a href="#cb53-33"></a>ax1.<span class="bu">set</span>(xticklabels<span class="op">=</span>[],</span>
-<span id="cb53-34"><a href="#cb53-34"></a>        ylabel<span class="op">=</span><span class="st">"signal"</span>,</span>
-<span id="cb53-35"><a href="#cb53-35"></a>        xlim<span class="op">=</span>xlim,</span>
-<span id="cb53-36"><a href="#cb53-36"></a>        ylim<span class="op">=</span>ylim)</span>
-<span id="cb53-37"><a href="#cb53-37"></a>ax1.text(<span class="fl">0.5</span>, <span class="fl">0.98</span>, <span class="ss">f"</span><span class="sc">{</span>ntries<span class="sc">}</span><span class="ss"> forecasts"</span>,</span>
-<span id="cb53-38"><a href="#cb53-38"></a>         transform<span class="op">=</span>ax1.transAxes, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"top"</span>)</span>
-<span id="cb53-39"><a href="#cb53-39"></a>ax1.plot([l]<span class="op">*</span><span class="dv">2</span>, ylim, color<span class="op">=</span><span class="st">"black"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
-<span id="cb53-40"><a href="#cb53-40"></a></span>
-<span id="cb53-41"><a href="#cb53-41"></a></span>
-<span id="cb53-42"><a href="#cb53-42"></a>ax2 <span class="op">=</span> axes[<span class="dv">2</span>]</span>
-<span id="cb53-43"><a href="#cb53-43"></a>ntries <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb53-44"><a href="#cb53-44"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(ntries):</span>
-<span id="cb53-45"><a href="#cb53-45"></a>    np.random.seed(i)</span>
-<span id="cb53-46"><a href="#cb53-46"></a>    try_diff <span class="op">=</span> arma_forecast(missing, ar_coeff<span class="op">=</span>ar_coeff, ma_coeff<span class="op">=</span>ma_coeff)</span>
-<span id="cb53-47"><a href="#cb53-47"></a>    t <span class="op">=</span> np.nancumsum(np.nancumsum(try_diff)<span class="op">+</span>series1[series1.first_valid_index()]) <span class="op">+</span> first_ppm_recorded</span>
-<span id="cb53-48"><a href="#cb53-48"></a>    ax2.plot(t, color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.03</span>)</span>
-<span id="cb53-49"><a href="#cb53-49"></a>ax2.plot(original_series, color<span class="op">=</span><span class="st">"xkcd:hot pink"</span>, lw<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb53-50"><a href="#cb53-50"></a>ax2.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'time'</span>,</span>
-<span id="cb53-51"><a href="#cb53-51"></a>        xlim<span class="op">=</span>xlim,</span>
-<span id="cb53-52"><a href="#cb53-52"></a>        ylim<span class="op">=</span>ylim)</span>
-<span id="cb53-53"><a href="#cb53-53"></a>ax2.text(<span class="fl">0.5</span>, <span class="fl">0.98</span>, <span class="ss">f"</span><span class="sc">{</span>ntries<span class="sc">}</span><span class="ss"> forecasts"</span>,</span>
-<span id="cb53-54"><a href="#cb53-54"></a>         transform<span class="op">=</span>ax2.transAxes, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"top"</span>)</span>
-<span id="cb53-55"><a href="#cb53-55"></a>ax2.plot([l]<span class="op">*</span><span class="dv">2</span>, ylim, color<span class="op">=</span><span class="st">"black"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practice_ARIMA_files/figure-html/cell-36-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-
-
+<section id="compare-zero-one-and-two-differences" class="level3" data-number="34.8.1">
+<h3 data-number="34.8.1" class="anchored" data-anchor-id="compare-zero-one-and-two-differences"><span class="header-section-number">34.8.1</span> Compare zero, one, and two differences</h3>
+<p>Keep the window fixed and change the number of differences. Reveal the actual future to compare the continuations. <strong>More differencing is not automatically better.</strong> A seasonal cycle may remain, and errors can accumulate when we add the changes back.</p>
+<p><a href="practice-lab/index.html#difference" target="_blank" rel="noopener">Open the differencing experiment in a full browser tab</a></p>
+<iframe id="stationarity-difference-lab" src="practice-lab/index.html#difference" title="Difference daily temperature, fit an AR model and reconstruct its continuation" loading="lazy" style="width:100%;height:1450px;border:1px solid #dce4e8;border-radius:12px;">
+</iframe>
+<script>
+window.addEventListener("message", function (event) {
+  const frame = document.getElementById("stationarity-difference-lab");
+  if (event.source === frame.contentWindow && event.origin === window.location.origin &&
+      event.data && event.data.type === "stationarity-practice-height" && Number.isFinite(event.data.height)) {
+    frame.style.height = Math.max(500, Math.min(5000, event.data.height)) + "px";
+  }
+});
+</script>
+<noscript>
+The cells above provide the Python differencing and fitting exercise.
+</noscript>
+<p><a href="https://otexts.com/fpp3/stationarity.html">More on differencing</a>.</p>
 </section>
+</section>
+<section id="a-small-step-toward-arima-optional" class="level2" data-number="34.9">
+<h2 data-number="34.9" class="anchored" data-anchor-id="a-small-step-toward-arima-optional"><span class="header-section-number">34.9</span> A small step toward ARIMA (optional)</h2>
+<p>We have met <strong>AR</strong>: use past values. We have met <strong>I</strong>: difference the original series <span class="math inline">d</span> times before modeling it.</p>
+<p>The <strong>MA</strong> part uses past <strong>shocks</strong>, rather than past observations. In MA(1), one shock affects two successive values:</p>
+<p><span class="math display">X_t=\varepsilon_t+\theta\varepsilon_{t-1}.</span></p>
+<p>This is different from a rolling average of the observed temperature. In real data the shocks are hidden; during model fitting they are inferred from prediction errors. For a simulation, we know them:</p>
+<div id="ce910056" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:15.190953Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:15.190707Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:15.273187Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:15.272313Z&quot;}}" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>theta <span class="op">=</span> <span class="fl">0.7</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>shocks <span class="op">=</span> np.random.default_rng(<span class="dv">49</span>).normal(size<span class="op">=</span>n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb23-3"><a href="#cb23-3"></a>ma1 <span class="op">=</span> shocks[<span class="dv">1</span>:] <span class="op">+</span> theta <span class="op">*</span> shocks[:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb23-4"><a href="#cb23-4"></a>plt.plot(ma1[:<span class="dv">150</span>])</span>
+<span id="cb23-5"><a href="#cb23-5"></a>plt.title(<span class="ss">f"MA(1): one new shock + </span><span class="sc">{</span>theta<span class="sc">}</span><span class="ss"> × the previous shock"</span>)</span>
+<span id="cb23-6"><a href="#cb23-6"></a>plt.xlabel(<span class="st">"Time step"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="practice_ARIMA_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>ARIMA(p, d, q)</strong> combines <span class="math inline">p</span> lags of the values, <span class="math inline">d</span> differences, and <span class="math inline">q</span> lags of the shocks. We will stop at that connection here.</p>
+
+
 </section>
 
 </main> <!-- /main -->
