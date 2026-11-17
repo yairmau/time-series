@@ -21,6 +21,11 @@ GitHub Pages — it is generated, not hand-edited.
   the actual change.
 - Treat `docs/` as build output: if you edit a `.qmd`, re-render it so the corresponding
   `docs/**/*.html` stays in sync, but don't hand-edit files under `docs/` directly.
+- Adding, removing, or reordering a chapter in `_quarto.yml`'s book nav changes the sidebar that
+  gets baked into *every* page at render time. Rendering only the new/changed file leaves the
+  sidebar on every other already-built page stale (it won't link to the new page, or will still
+  link to a removed one), even though the new page itself renders fine in isolation. In that case
+  a full `quarto render` (full-book, no path argument) is required, not just the one file.
 
 ## Interactive widgets
 
