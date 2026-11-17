@@ -13,7 +13,7 @@ book:
   author: "Yair Mau"
   repo-url: https://github.com/yairmau/time-series/
   favicon: archive/clock-history.png
-  google-analytics: "G-DLXS6KFJYP"
+  google-analytics: "G-43N4LS3BPR"
   chapters:
     - index.qmd
     - schedule.qmd
