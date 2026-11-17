@@ -927,7 +927,7 @@ window.Quarto = {
 
 <p><a href="practice-data/stationarity-practice.ipynb" download="">download this notebook</a> · <a href="practice-data/jerusalem_daily_2020_2022.csv">daily temperature CSV</a> · <a href="practice-data/jerusalem_hourly_july_2022.csv">hourly temperature CSV</a></p>
 <p>Put the three files in one folder and run the cells in order. Required packages: <code>numpy</code>, <code>pandas</code>, <code>matplotlib</code>, <code>statsmodels</code>.</p>
-<div id="f53c3a9d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:10.676801Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:10.676695Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:12.020006Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:12.019640Z&quot;}}" data-execution_count="1">
+<div id="f53c3a9d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:05:57.068352Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:05:57.068272Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:05:58.225723Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:05:58.225334Z&quot;}}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -943,7 +943,7 @@ window.Quarto = {
 <section id="white-noise" class="level2" data-number="34.1">
 <h2 data-number="34.1" class="anchored" data-anchor-id="white-noise"><span class="header-section-number">34.1</span> White noise</h2>
 <p>Draw each observation independently from the same distribution. Here the mean is zero and the variance is one. The observations change; the distribution does not.</p>
-<div id="6ac65b95" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:12.022156Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:12.021978Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:12.337731Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:12.337146Z&quot;}}" data-execution_count="2">
+<div id="6ac65b95" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:05:58.227547Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:05:58.227378Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:05:58.596407Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:05:58.596116Z&quot;}}" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>binary_noise <span class="op">=</span> rng.choice([<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>], size<span class="op">=</span>n)</span>
 <span id="cb2-2"><a href="#cb2-2"></a>gaussian_noise <span class="op">=</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
@@ -967,7 +967,7 @@ window.Quarto = {
 <p>Now accumulate the noise:</p>
 <p><span class="math display">X_t = X_{t-1} + \varepsilon_t.</span></p>
 <p>A positive or negative shock changes the level permanently. For independent, zero-mean shocks of variance <span class="math inline">\sigma_\varepsilon^2</span> and a fixed starting value, <span class="math inline">\operatorname{Var}(X_t)=t\sigma_\varepsilon^2</span>: the variance grows with time.</p>
-<div id="92abd040" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:12.342811Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:12.342493Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:12.552819Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:12.552289Z&quot;}}" data-execution_count="3">
+<div id="92abd040" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:05:58.598298Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:05:58.598194Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:05:58.731843Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:05:58.731197Z&quot;}}" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>walk_binary <span class="op">=</span> binary_noise.cumsum()</span>
 <span id="cb3-2"><a href="#cb3-2"></a>walk_gaussian <span class="op">=</span> gaussian_noise.cumsum()</span>
 <span id="cb3-3"><a href="#cb3-3"></a></span>
@@ -991,7 +991,7 @@ window.Quarto = {
 <h2 data-number="34.3" class="anchored" data-anchor-id="ar1-how-much-of-yesterday-remains"><span class="header-section-number">34.3</span> AR(1): how much of yesterday remains?</h2>
 <p><span class="math display">X_t = \phi X_{t-1} + \varepsilon_t.</span></p>
 <p>For <span class="math inline">|\phi|&lt;1</span>, a shock gradually fades. At <span class="math inline">\phi=1</span>, we recover a random walk. For <span class="math inline">|\phi|&gt;1</span>, the forward simulation is explosive.</p>
-<div id="fcc67ed2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:12.555784Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:12.555589Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:12.626347Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:12.625829Z&quot;}}" data-execution_count="4">
+<div id="fcc67ed2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:05:58.734673Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:05:58.734479Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:05:58.840402Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:05:58.839784Z&quot;}}" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>phi <span class="op">=</span> <span class="fl">0.8</span>                       <span class="co"># try 0, -0.8, 0.98, 1, and 1.01</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>ar1 <span class="op">=</span> np.zeros(n)</span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n):</span>
@@ -1013,7 +1013,7 @@ window.Quarto = {
 <h3 data-number="34.3.1" class="anchored" data-anchor-id="arp-choose-the-coefficients"><span class="header-section-number">34.3.1</span> AR(p): choose the coefficients</h3>
 <p><span class="math display">X_t = \phi_1 X_{t-1} + \phi_2 X_{t-2} + \cdots + \phi_p X_{t-p} + \varepsilon_t.</span></p>
 <p>The order <span class="math inline">p</span> is the number of lags. The list below is always <strong><span class="math inline">[\phi_1,\phi_2,\ldots]</span></strong>: the first coefficient multiplies the most recent value. It is unrelated to a statistical test’s <em>p-value</em>.</p>
-<div id="7cd0954a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:12.629094Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:12.628900Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:12.725371Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:12.724610Z&quot;}}" data-execution_count="5">
+<div id="7cd0954a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:05:58.843837Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:05:58.843565Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:05:58.923707Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:05:58.923172Z&quot;}}" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">def</span> generate_ar(phi, n<span class="op">=</span><span class="dv">1000</span>, seed<span class="op">=</span><span class="dv">49</span>, burn<span class="op">=</span><span class="dv">300</span>):</span>
 <span id="cb5-2"><a href="#cb5-2"></a>    rng <span class="op">=</span> np.random.default_rng(seed)</span>
 <span id="cb5-3"><a href="#cb5-3"></a>    p <span class="op">=</span> <span class="bu">len</span>(phi)</span>
@@ -1047,7 +1047,7 @@ window.Quarto = {
 <li><strong>Variance:</strong> does it stay around the same finite value, rather than growing without bound?</li>
 </ul>
 <p>A rolling mean and rolling variance help us see changes over time. They are estimates, so some fluctuation is normal. These plots are useful checks, not a proof of stationarity.</p>
-<div id="272a43b4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:12.728733Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:12.728155Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:12.735335Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:12.734684Z&quot;}}" data-execution_count="6">
+<div id="272a43b4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:05:58.926669Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:05:58.926570Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:05:58.930357Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:05:58.929832Z&quot;}}" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">def</span> rolling_check(values, window<span class="op">=</span><span class="dv">101</span>, title<span class="op">=</span><span class="st">""</span>, log_variance<span class="op">=</span><span class="va">False</span>, true_mean<span class="op">=</span><span class="va">None</span>):</span>
 <span id="cb6-2"><a href="#cb6-2"></a>    s <span class="op">=</span> pd.Series(values)</span>
 <span id="cb6-3"><a href="#cb6-3"></a>    rolling <span class="op">=</span> s.rolling(window, center<span class="op">=</span><span class="va">True</span>)</span>
@@ -1065,7 +1065,7 @@ window.Quarto = {
 <span id="cb6-15"><a href="#cb6-15"></a>        ax[<span class="dv">1</span>].set_ylabel(<span class="st">"Rolling variance (log scale)"</span>)</span>
 <span id="cb6-16"><a href="#cb6-16"></a>    fig.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="97052df4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:12.738518Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:12.738237Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:13.561020Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:13.560777Z&quot;}}" data-execution_count="7">
+<div id="97052df4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:05:58.933175Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:05:58.932939Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:05:59.733920Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:05:59.733675Z&quot;}}" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>time <span class="op">=</span> np.arange(n)</span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
 <span id="cb7-3"><a href="#cb7-3"></a><span class="co"># Mean stays zero, but the size of the fluctuations keeps growing.</span></span>
@@ -1139,7 +1139,7 @@ window.Quarto = {
 <li><strong>p-value ≥ 0.05:</strong> not enough evidence to rule it out.</li>
 </ul>
 <p>A small p-value supports stationarity, but does not prove it: also check the mean and variance in the plots. The p-value is not the probability that the series is stationary.</p>
-<div id="98688f25" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:13.562415Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:13.562335Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:13.615791Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:13.613501Z&quot;}}" data-execution_count="8">
+<div id="98688f25" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:05:59.735236Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:05:59.735145Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:05:59.797173Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:05:59.795137Z&quot;}}" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>result <span class="op">=</span> adfuller(ar1, maxlag<span class="op">=</span><span class="dv">12</span>, autolag<span class="op">=</span><span class="st">"AIC"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2"></a>pvalue <span class="op">=</span> result.pvalue <span class="cf">if</span> <span class="bu">hasattr</span>(result, <span class="st">"pvalue"</span>) <span class="cf">else</span> result[<span class="dv">1</span>]</span>
 <span id="cb8-3"><a href="#cb8-3"></a><span class="bu">print</span>(<span class="ss">f"p-value: </span><span class="sc">{</span>pvalue<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1149,7 +1149,7 @@ window.Quarto = {
 </div>
 <p>Apply the same test to our examples. The helper below collects the results in a table.</p>
 <p><a href="dickey-fuller.html">Optional: how the test gets a p-value</a> · <a href="https://www.statsmodels.org/stable/generated/statsmodels.tsa.stattools.adfuller.html">Python documentation</a></p>
-<div id="d1f73512" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:13.619313Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:13.618998Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:13.916903Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:13.916407Z&quot;}}" data-execution_count="9">
+<div id="d1f73512" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:05:59.806260Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:05:59.805995Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:06:00.192097Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:06:00.176288Z&quot;}}" data-execution_count="9">
 <details class="code-fold">
 <summary>Helper: ADF results for several series</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">def</span> adf_report(values):</span>
@@ -1229,7 +1229,7 @@ window.Quarto = {
 <h2 data-number="34.6" class="anchored" data-anchor-id="temperature-which-window-are-we-describing"><span class="header-section-number">34.6</span> Temperature: which window are we describing?</h2>
 <p>A few years of temperature show a seasonal cycle. January to June can look like a rising trend. A single day shows a different part of the pattern.</p>
 <p>We will compare daily temperatures in Jerusalem from 2020–2022 and hourly temperatures from July 2022.</p>
-<div id="31795666" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:13.919593Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:13.919351Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:14.059680Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:14.059126Z&quot;}}" data-execution_count="10">
+<div id="31795666" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:06:00.221524Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:06:00.221154Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:06:00.428327Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:06:00.427480Z&quot;}}" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Put the downloaded CSVs next to the notebook.</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a>data_folder <span class="op">=</span> Path(<span class="st">"practice-data"</span>) <span class="cf">if</span> Path(<span class="st">"practice-data"</span>).exists() <span class="cf">else</span> Path(<span class="st">"."</span>)</span>
 <span id="cb11-3"><a href="#cb11-3"></a>daily <span class="op">=</span> pd.read_csv(data_folder <span class="op">/</span> <span class="st">"jerusalem_daily_2020_2022.csv"</span>,</span>
@@ -1251,8 +1251,8 @@ window.Quarto = {
 <h3 data-number="34.6.1" class="anchored" data-anchor-id="change-the-window"><span class="header-section-number">34.6.1</span> Change the window</h3>
 <p>Choose three years, January–June, one week, or one day. Move the sliders and compare the plots with the ADF result.</p>
 <p>The <strong>observation window</strong> selects the data for the test. The <strong>rolling width</strong> changes the mean and variance curves. Switching between daily and hourly data also changes the sampling interval.</p>
-<p><a href="practice-lab/index.html#windows" target="_blank" rel="noopener">Open the window experiment in a full browser tab</a></p>
-<iframe id="stationarity-window-lab" src="practice-lab/index.html#windows" title="Temperature windows, rolling statistics and the ADF test" loading="lazy" style="width:100%;height:1450px;border:1px solid #dce4e8;border-radius:12px;">
+<p><a href="practice-lab/index.html?v=20261117-hourly-diff#windows" target="_blank" rel="noopener">Open the window experiment in a full browser tab</a></p>
+<iframe id="stationarity-window-lab" src="practice-lab/index.html?v=20261117-hourly-diff#windows" title="Temperature windows, rolling statistics and the ADF test" loading="lazy" style="width:100%;height:1450px;border:1px solid #dce4e8;border-radius:12px;">
 </iframe>
 <script>
 window.addEventListener("message", function (event) {
@@ -1266,7 +1266,7 @@ window.addEventListener("message", function (event) {
 <noscript>
 Run the Python window examples below to explore these data without JavaScript.
 </noscript>
-<div id="9d242beb" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:14.063377Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:14.063110Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:14.290363Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:14.277878Z&quot;}}" data-execution_count="11">
+<div id="9d242beb" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:06:00.432157Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:06:00.431842Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:06:00.536666Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:06:00.536014Z&quot;}}" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>windows <span class="op">=</span> {</span>
 <span id="cb12-2"><a href="#cb12-2"></a>    <span class="st">"Three years · daily"</span>: daily,</span>
 <span id="cb12-3"><a href="#cb12-3"></a>    <span class="st">"January–June 2021 · daily"</span>: daily.loc[<span class="st">"2021-01"</span>:<span class="st">"2021-06"</span>],</span>
@@ -1324,7 +1324,7 @@ Run the Python window examples below to explore these data without JavaScript.
 </div>
 </div>
 </div>
-<div id="d42b83dd" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:14.298167Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:14.298014Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:14.670734Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:14.670450Z&quot;}}" data-execution_count="12">
+<div id="d42b83dd" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:06:00.550542Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:06:00.539933Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:06:00.905279Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:06:00.904352Z&quot;}}" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>selected <span class="op">=</span> daily.loc[<span class="st">"2021-01"</span>:<span class="st">"2021-06"</span>]    <span class="co"># choose different dates</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a>rolling_check(selected, window<span class="op">=</span><span class="dv">31</span>, title<span class="op">=</span><span class="st">"January–June: daily temperature"</span>)</span>
 <span id="cb13-3"><a href="#cb13-3"></a>adf_report(selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1353,7 +1353,7 @@ Run the Python window examples below to explore these data without JavaScript.
 <p><span class="math display">T_t=c+\phi_1 T_{t-1}+\cdots+\phi_p T_{t-p}+\varepsilon_t.</span></p>
 <p>Try AR(1), AR(2), …, up to AR(24). <strong>BIC</strong> balances fit against the number of coefficients; we keep the model with the lowest BIC. Every candidate uses the same target observations so the comparison is fair.</p>
 <p>Select two weeks for fitting. The following observations are not used in model selection or fitting.</p>
-<div id="9224e666" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:14.672047Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:14.671955Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:14.693937Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:14.693689Z&quot;}}" data-execution_count="13">
+<div id="9224e666" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:06:00.908528Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:06:00.908285Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:06:00.934903Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:06:00.934659Z&quot;}}" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>train <span class="op">=</span> hourly.loc[<span class="st">"2022-07-01"</span>:<span class="st">"2022-07-14"</span>].to_numpy()</span>
 <span id="cb15-2"><a href="#cb15-2"></a>max_order <span class="op">=</span> <span class="bu">min</span>(<span class="dv">24</span>, <span class="bu">len</span>(train) <span class="op">//</span> <span class="dv">5</span>)</span>
 <span id="cb15-3"><a href="#cb15-3"></a>models <span class="op">=</span> [AutoReg(train, lags<span class="op">=</span>p, hold_back<span class="op">=</span>max_order, trend<span class="op">=</span><span class="st">"c"</span>).fit()</span>
@@ -1365,7 +1365,7 @@ Run the Python window examples below to explore these data without JavaScript.
 <pre><code>Selected model: AR(24)</code></pre>
 </div>
 </div>
-<div id="8c1e1fab" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:14.695254Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:14.695177Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:14.702612Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:14.702364Z&quot;}}" data-execution_count="14">
+<div id="8c1e1fab" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:06:00.936281Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:06:00.936201Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:06:00.943029Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:06:00.942796Z&quot;}}" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>steps <span class="op">=</span> <span class="dv">72</span>                         <span class="co"># continue for three days</span></span>
 <span id="cb17-2"><a href="#cb17-2"></a>noise_sd <span class="op">=</span> np.sqrt(fit.sigma2)</span>
 <span id="cb17-3"><a href="#cb17-3"></a>new_noise <span class="op">=</span> np.random.default_rng(<span class="dv">49</span>).normal(<span class="dv">0</span>, noise_sd, steps)</span>
@@ -1386,8 +1386,8 @@ Run the Python window examples below to explore these data without JavaScript.
 <li><strong>Average forecast:</strong> set future noise to zero. Its oscillations may gradually fade.</li>
 </ul>
 <p>The widget chooses the AR order automatically. Compare one week with two weeks. The main plot always shows only the last three training days, so changing the training window does not squeeze the whole record into one graph.</p>
-<p><a href="practice-lab/index.html#fit" target="_blank" rel="noopener">Open the AR fitting experiment in a full browser tab</a></p>
-<iframe id="stationarity-fit-lab" src="practice-lab/index.html#fit" title="Fit hourly temperature and generate an AR continuation" loading="lazy" style="width:100%;height:1100px;border:1px solid #dce4e8;border-radius:12px;">
+<p><a href="practice-lab/index.html?v=20261117-hourly-diff#fit" target="_blank" rel="noopener">Open the AR fitting experiment in a full browser tab</a></p>
+<iframe id="stationarity-fit-lab" src="practice-lab/index.html?v=20261117-hourly-diff#fit" title="Fit hourly temperature and generate an AR continuation" loading="lazy" style="width:100%;height:1100px;border:1px solid #dce4e8;border-radius:12px;">
 </iframe>
 <script>
 window.addEventListener("message", function (event) {
@@ -1401,7 +1401,7 @@ window.addEventListener("message", function (event) {
 <noscript>
 The AutoReg cells above and below provide the Python fitting exercise.
 </noscript>
-<div id="890ff3f2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:14.703970Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:14.703889Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:14.829053Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:14.828315Z&quot;}}" data-execution_count="15">
+<div id="890ff3f2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:06:00.944255Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:06:00.944183Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:06:01.068406Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:06:01.067754Z&quot;}}" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>history <span class="op">=</span> <span class="dv">72</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
 <span id="cb18-3"><a href="#cb18-3"></a>ax.plot(np.arange(<span class="op">-</span>history, <span class="dv">0</span>), train[<span class="op">-</span>history:], color<span class="op">=</span><span class="st">"0.5"</span>, label<span class="op">=</span><span class="st">"Observed history"</span>)</span>
@@ -1429,12 +1429,12 @@ The AutoReg cells above and below provide the Python fitting exercise.
 <p>Sometimes one difference is enough to obtain a stationary series. If a trend remains, we can try differencing again:</p>
 <p><span class="math display">\Delta^2 X_t=\Delta X_t-\Delta X_{t-1}.</span></p>
 <p>For example, <code>10, 12, 14, 16</code> becomes <code>2, 2, 2</code>: the rising level becomes a constant change. Check the plots and the ADF result before deciding whether another difference is useful.</p>
-<div id="31770988" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:14.832998Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:14.832337Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:15.046848Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:15.045889Z&quot;}}" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>temperature <span class="op">=</span> daily.loc[<span class="st">"2020-01-01"</span>:<span class="st">"2020-06-30"</span>].to_numpy()</span>
+<div id="31770988" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:06:01.071256Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:06:01.071049Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:06:01.275249Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:06:01.274691Z&quot;}}" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>temperature <span class="op">=</span> hourly.loc[<span class="st">"2022-07-01"</span>:<span class="st">"2022-07-14"</span>].to_numpy()</span>
 <span id="cb19-2"><a href="#cb19-2"></a>d <span class="op">=</span> <span class="dv">1</span>  <span class="co"># Try 0, 1, or 2 differences, keeping the same temperature window.</span></span>
 <span id="cb19-3"><a href="#cb19-3"></a>changes <span class="op">=</span> np.diff(temperature, n<span class="op">=</span>d)</span>
 <span id="cb19-4"><a href="#cb19-4"></a></span>
-<span id="cb19-5"><a href="#cb19-5"></a>rolling_check(changes, window<span class="op">=</span><span class="dv">15</span>, title<span class="op">=</span><span class="ss">f"Daily temperature after </span><span class="sc">{</span>d<span class="sc">}</span><span class="ss"> difference(s)"</span>)</span>
+<span id="cb19-5"><a href="#cb19-5"></a>rolling_check(changes, window<span class="op">=</span><span class="dv">25</span>, title<span class="op">=</span><span class="ss">f"Hourly temperature after </span><span class="sc">{</span>d<span class="sc">}</span><span class="ss"> difference(s)"</span>)</span>
 <span id="cb19-6"><a href="#cb19-6"></a>pd.DataFrame({<span class="st">"Original temperature"</span>: adf_report(temperature),</span>
 <span id="cb19-7"><a href="#cb19-7"></a>              <span class="ss">f"After </span><span class="sc">{</span>d<span class="sc">}</span><span class="ss"> difference(s)"</span>: adf_report(changes)}).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
@@ -1454,16 +1454,16 @@ The AutoReg cells above and below provide the Python fitting exercise.
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Original temperature</td>
-<td>-2.248994</td>
-<td>0.188946</td>
-<td>2</td>
-<td>Do not reject unit root</td>
+<td>-8.166311</td>
+<td>0.0</td>
+<td>9</td>
+<td>Reject unit root</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">After 1 difference(s)</td>
-<td>-12.791614</td>
+<td>-9.781409</td>
 <td>0.0</td>
-<td>1</td>
+<td>11</td>
 <td>Reject unit root</td>
 </tr>
 </tbody>
@@ -1480,7 +1480,7 @@ The AutoReg cells above and below provide the Python fitting exercise.
 </div>
 </div>
 <p>Fit the AR relationship to these values. Generate its future using its own previous values, just as before.</p>
-<div id="d8237696" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:15.049946Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:15.049685Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:15.091079Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:15.090086Z&quot;}}" data-execution_count="17">
+<div id="d8237696" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:06:01.279027Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:06:01.278597Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:06:01.312532Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:06:01.311839Z&quot;}}" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>max_order <span class="op">=</span> <span class="bu">min</span>(<span class="dv">24</span>, <span class="bu">len</span>(changes) <span class="op">//</span> <span class="dv">5</span>)</span>
 <span id="cb20-2"><a href="#cb20-2"></a>models <span class="op">=</span> [AutoReg(changes, lags<span class="op">=</span>p, hold_back<span class="op">=</span>max_order, trend<span class="op">=</span><span class="st">"c"</span>).fit()</span>
 <span id="cb20-3"><a href="#cb20-3"></a>          <span class="cf">for</span> p <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, max_order <span class="op">+</span> <span class="dv">1</span>)]</span>
@@ -1488,7 +1488,7 @@ The AutoReg cells above and below provide the Python fitting exercise.
 <span id="cb20-5"><a href="#cb20-5"></a>p <span class="op">=</span> <span class="bu">len</span>(change_fit.params) <span class="op">-</span> <span class="dv">1</span></span>
 <span id="cb20-6"><a href="#cb20-6"></a><span class="bu">print</span>(<span class="ss">f"AR(</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">) fitted after </span><span class="sc">{</span>d<span class="sc">}</span><span class="ss"> difference(s)"</span>)</span>
 <span id="cb20-7"><a href="#cb20-7"></a></span>
-<span id="cb20-8"><a href="#cb20-8"></a>steps <span class="op">=</span> <span class="dv">30</span>  <span class="co"># Days, because these are daily observations.</span></span>
+<span id="cb20-8"><a href="#cb20-8"></a>steps <span class="op">=</span> <span class="dv">72</span>  <span class="co"># Hours, using the same July temperature as above.</span></span>
 <span id="cb20-9"><a href="#cb20-9"></a>noise <span class="op">=</span> np.random.default_rng(<span class="dv">49</span>).normal(<span class="dv">0</span>, np.sqrt(change_fit.sigma2), steps)</span>
 <span id="cb20-10"><a href="#cb20-10"></a>values <span class="op">=</span> <span class="bu">list</span>(changes)</span>
 <span id="cb20-11"><a href="#cb20-11"></a><span class="cf">for</span> shock <span class="kw">in</span> noise:</span>
@@ -1497,11 +1497,11 @@ The AutoReg cells above and below provide the Python fitting exercise.
 <span id="cb20-14"><a href="#cb20-14"></a>    values.append(next_value <span class="op">+</span> shock)</span>
 <span id="cb20-15"><a href="#cb20-15"></a>future_changes <span class="op">=</span> np.array(values[<span class="bu">len</span>(changes):])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>AR(2) fitted after 1 difference(s)</code></pre>
+<pre><code>AR(24) fitted after 1 difference(s)</code></pre>
 </div>
 </div>
-<p>Return to temperature by adding the generated changes to the last observed temperature. With two differences, first rebuild the daily changes, then the temperature. We never insert actual future observations.</p>
-<div id="6f557396" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:15.094678Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:15.094404Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:15.187865Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:15.187291Z&quot;}}" data-execution_count="18">
+<p>Return to temperature by undoing the differencing: add the generated differences to the last observed value. For two differences, do this twice. Both plots below show the same simulated future.</p>
+<div id="6f557396" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:06:01.315329Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:06:01.315078Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:06:01.547787Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:06:01.547259Z&quot;}}" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">def</span> to_temperature(future):</span>
 <span id="cb22-2"><a href="#cb22-2"></a>    <span class="cf">if</span> d <span class="op">==</span> <span class="dv">2</span>:</span>
 <span id="cb22-3"><a href="#cb22-3"></a>        future <span class="op">=</span> np.cumsum(future) <span class="op">+</span> (temperature[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> temperature[<span class="op">-</span><span class="dv">2</span>])</span>
@@ -1509,17 +1509,24 @@ The AutoReg cells above and below provide the Python fitting exercise.
 <span id="cb22-5"><a href="#cb22-5"></a>        future <span class="op">=</span> np.cumsum(future) <span class="op">+</span> temperature[<span class="op">-</span><span class="dv">1</span>]</span>
 <span id="cb22-6"><a href="#cb22-6"></a>    <span class="cf">return</span> np.asarray(future)</span>
 <span id="cb22-7"><a href="#cb22-7"></a></span>
-<span id="cb22-8"><a href="#cb22-8"></a>simulation <span class="op">=</span> to_temperature(future_changes)</span>
-<span id="cb22-9"><a href="#cb22-9"></a>average <span class="op">=</span> to_temperature(change_fit.predict(<span class="bu">len</span>(changes), <span class="bu">len</span>(changes) <span class="op">+</span> steps <span class="op">-</span> <span class="dv">1</span>))</span>
-<span id="cb22-10"><a href="#cb22-10"></a></span>
-<span id="cb22-11"><a href="#cb22-11"></a>history <span class="op">=</span> <span class="dv">60</span></span>
-<span id="cb22-12"><a href="#cb22-12"></a>plt.plot(np.arange(<span class="op">-</span>history, <span class="dv">0</span>), temperature[<span class="op">-</span>history:], color<span class="op">=</span><span class="st">"0.5"</span>, label<span class="op">=</span><span class="st">"Observed history"</span>)</span>
-<span id="cb22-13"><a href="#cb22-13"></a>plt.plot(np.arange(<span class="op">-</span><span class="dv">1</span>, steps), np.r_[temperature[<span class="op">-</span><span class="dv">1</span>], simulation], color<span class="op">=</span><span class="st">"darkorange"</span>, label<span class="op">=</span><span class="st">"Simulated future"</span>)</span>
-<span id="cb22-14"><a href="#cb22-14"></a>plt.plot(np.arange(<span class="op">-</span><span class="dv">1</span>, steps), np.r_[temperature[<span class="op">-</span><span class="dv">1</span>], average], color<span class="op">=</span><span class="st">"teal"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"Average forecast"</span>)</span>
-<span id="cb22-15"><a href="#cb22-15"></a>plt.axvline(<span class="op">-</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">"black"</span>, linestyle<span class="op">=</span><span class="st">":"</span>)</span>
-<span id="cb22-16"><a href="#cb22-16"></a>plt.xlabel(<span class="st">"Days after the training window"</span>)</span>
-<span id="cb22-17"><a href="#cb22-17"></a>plt.ylabel(<span class="st">"Temperature (°C)"</span>)</span>
-<span id="cb22-18"><a href="#cb22-18"></a>plt.legend()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-8"><a href="#cb22-8"></a>average_changes <span class="op">=</span> change_fit.predict(<span class="bu">len</span>(changes), <span class="bu">len</span>(changes) <span class="op">+</span> steps <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb22-9"><a href="#cb22-9"></a>simulation <span class="op">=</span> to_temperature(future_changes)</span>
+<span id="cb22-10"><a href="#cb22-10"></a>average <span class="op">=</span> to_temperature(average_changes)</span>
+<span id="cb22-11"><a href="#cb22-11"></a></span>
+<span id="cb22-12"><a href="#cb22-12"></a>history <span class="op">=</span> <span class="dv">72</span></span>
+<span id="cb22-13"><a href="#cb22-13"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb22-14"><a href="#cb22-14"></a><span class="cf">for</span> ax, observed, simulated, expected, title <span class="kw">in</span> [</span>
+<span id="cb22-15"><a href="#cb22-15"></a>    (axes[<span class="dv">0</span>], changes, future_changes, average_changes, <span class="ss">f"After </span><span class="sc">{</span>d<span class="sc">}</span><span class="ss"> difference(s)"</span>),</span>
+<span id="cb22-16"><a href="#cb22-16"></a>    (axes[<span class="dv">1</span>], temperature, simulation, average, <span class="st">"Back to temperature"</span>)</span>
+<span id="cb22-17"><a href="#cb22-17"></a>]:</span>
+<span id="cb22-18"><a href="#cb22-18"></a>    ax.plot(np.arange(<span class="op">-</span>history, <span class="dv">0</span>), observed[<span class="op">-</span>history:], color<span class="op">=</span><span class="st">"0.5"</span>, label<span class="op">=</span><span class="st">"Observed history"</span>)</span>
+<span id="cb22-19"><a href="#cb22-19"></a>    ax.plot(np.arange(<span class="op">-</span><span class="dv">1</span>, steps), np.r_[observed[<span class="op">-</span><span class="dv">1</span>], simulated], color<span class="op">=</span><span class="st">"darkorange"</span>, label<span class="op">=</span><span class="st">"Simulated future"</span>)</span>
+<span id="cb22-20"><a href="#cb22-20"></a>    ax.plot(np.arange(<span class="op">-</span><span class="dv">1</span>, steps), np.r_[observed[<span class="op">-</span><span class="dv">1</span>], expected], color<span class="op">=</span><span class="st">"teal"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"Average forecast"</span>)</span>
+<span id="cb22-21"><a href="#cb22-21"></a>    ax.axvline(<span class="op">-</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">"black"</span>, linestyle<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb22-22"><a href="#cb22-22"></a>    ax.<span class="bu">set</span>(title<span class="op">=</span>title, ylabel<span class="op">=</span><span class="st">"°C"</span>)</span>
+<span id="cb22-23"><a href="#cb22-23"></a>axes[<span class="dv">0</span>].legend()</span>
+<span id="cb22-24"><a href="#cb22-24"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"Hours after the training window"</span>)</span>
+<span id="cb22-25"><a href="#cb22-25"></a>fig.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1530,9 +1537,9 @@ The AutoReg cells above and below provide the Python fitting exercise.
 </div>
 <section id="compare-zero-one-and-two-differences" class="level3" data-number="34.8.1">
 <h3 data-number="34.8.1" class="anchored" data-anchor-id="compare-zero-one-and-two-differences"><span class="header-section-number">34.8.1</span> Compare zero, one, and two differences</h3>
-<p>Keep the window fixed and change the number of differences. Reveal the actual future to compare the continuations. <strong>More differencing is not automatically better.</strong> A seasonal cycle may remain, and errors can accumulate when we add the changes back.</p>
-<p><a href="practice-lab/index.html#difference" target="_blank" rel="noopener">Open the differencing experiment in a full browser tab</a></p>
-<iframe id="stationarity-difference-lab" src="practice-lab/index.html#difference" title="Difference daily temperature, fit an AR model and reconstruct its continuation" loading="lazy" style="width:100%;height:1450px;border:1px solid #dce4e8;border-radius:12px;">
+<p>Use the hourly July temperatures. Keep the window fixed and choose 0, 1, or 2 differences. Compare the simulated continuation before and after converting back to temperature. Reveal the actual future to compare the continuations. <strong>More differencing is not automatically better.</strong> A seasonal cycle may remain, and errors can accumulate when we add the changes back.</p>
+<p><a href="practice-lab/index.html?v=20261117-hourly-diff#difference" target="_blank" rel="noopener">Open the differencing experiment in a full browser tab</a></p>
+<iframe id="stationarity-difference-lab" src="practice-lab/index.html?v=20261117-hourly-diff#difference" title="Difference hourly temperature, fit an AR model and reconstruct its continuation" loading="lazy" style="width:100%;height:1450px;border:1px solid #dce4e8;border-radius:12px;">
 </iframe>
 <script>
 window.addEventListener("message", function (event) {
@@ -1555,7 +1562,7 @@ The cells above provide the Python differencing and fitting exercise.
 <p>The <strong>MA</strong> part uses past <strong>shocks</strong>, rather than past observations. In MA(1), one shock affects two successive values:</p>
 <p><span class="math display">X_t=\varepsilon_t+\theta\varepsilon_{t-1}.</span></p>
 <p>This is different from a rolling average of the observed temperature. In real data the shocks are hidden; during model fitting they are inferred from prediction errors. For a simulation, we know them:</p>
-<div id="ce910056" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T10:52:15.190953Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T10:52:15.190707Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T10:52:15.273187Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T10:52:15.272313Z&quot;}}" data-execution_count="19">
+<div id="ce910056" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-17T11:06:01.551220Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-17T11:06:01.550845Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-17T11:06:01.643547Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-17T11:06:01.643014Z&quot;}}" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>theta <span class="op">=</span> <span class="fl">0.7</span></span>
 <span id="cb23-2"><a href="#cb23-2"></a>shocks <span class="op">=</span> np.random.default_rng(<span class="dv">49</span>).normal(size<span class="op">=</span>n <span class="op">+</span> <span class="dv">1</span>)</span>
 <span id="cb23-3"><a href="#cb23-3"></a>ma1 <span class="op">=</span> shocks[<span class="dv">1</span>:] <span class="op">+</span> theta <span class="op">*</span> shocks[:<span class="op">-</span><span class="dv">1</span>]</span>

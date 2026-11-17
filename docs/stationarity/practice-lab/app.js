@@ -172,20 +172,19 @@ average = fit.predict(start=len(x), end=len(x) + len(noise) - 1)
 print("First 5 simulated values:", simulation[:5])`;
   }
   function renderDifference() {
-    const data = D.daily, n = +$("difference-days").value, steps = +$("difference-horizon").value;
+    const data = D.hourly, n = +$("difference-days").value * 24, steps = +$("difference-horizon").value;
     const d = +$("difference-order").value;
     $("difference-start").max = data.values.length - n;
     $("difference-start").value = Math.min(+$("difference-start").value, +$("difference-start").max);
     const start = +$("difference-start").value, end = start + n;
     const train = data.values.slice(start, end), transformed = E.difference(train, d);
-    $("difference-days-value").textContent = `${n} days`;
+    $("difference-days-value").textContent = `${n / 24} days`;
     $("difference-start-value").textContent = timeLabel(data, start);
-    $("difference-horizon-value").textContent = `${steps} days`;
+    $("difference-horizon-value").textContent = `${steps} hours (${num(steps / 24, 1)} days)`;
     chart("difference-overview", [{ values: data.values, color: colors.raw }], data.values.length,
       { label: i => timeLabel(data, i), unit: "°C", shade: [start, end - 1] });
-    $("difference-input-title").textContent = ["Model input: temperature", "Model input: daily changes", "Model input: changes of daily changes"][d];
-    chart("difference-input", [{ values: transformed, color: colors.raw }, { values: E.rolling(transformed, 15).means, color: colors.mean }], transformed.length,
-      { label: i => timeLabel(data, start + d + i), unit: "°C" });
+    $("difference-input-title").textContent = ["No differencing", "After 1 difference", "After 2 differences"][d];
+    $("difference-formula").textContent = ["Original temperature: x", "np.diff(x) · subtract the previous observation", "np.diff(x, n=2) · apply np.diff twice"][d];
     const key = `${start}:${n}:${d}`;
     if (cachedDifference.key !== key) cachedDifference = { key, result: { selected: E.selectAR(transformed), adf: E.adf(transformed) } };
     const { selected, adf } = cachedDifference.result;
@@ -195,31 +194,39 @@ print("First 5 simulated values:", simulation[:5])`;
     $("export-difference").disabled = !!selected.error;
     if (selected.error) { $("difference-error").textContent = selected.error; differenceData = null; return; }
     const shocks = E.innovations(steps, selected.sigma, differenceSeed);
-    const simulation = E.restore(train, E.rollout(transformed, selected.fit.coefficients, shocks), d);
-    const average = E.restore(train, E.forecast(transformed, selected.fit.coefficients, steps), d);
+    const simulationDiff = E.rollout(transformed, selected.fit.coefficients, shocks);
+    const averageDiff = E.forecast(transformed, selected.fit.coefficients, steps);
+    const simulation = E.restore(train, simulationDiff, d);
+    const average = E.restore(train, averageDiff, d);
     const actual = data.values.slice(end, end + steps);
-    differenceData = { start, train, d, shocks, simulation, average, actual, selected };
-    const history = Math.min(60, n), pad = Array(history - 1).fill(null), join = [train[n - 1]];
-    const lines = [
-      { values: train.slice(-history).concat(Array(steps).fill(null)), color: colors.raw },
-      { values: pad.concat(join, simulation), color: colors.variance }
-    ];
-    if ($("difference-mean").checked) lines.push({ values: pad.concat(join, average), color: colors.mean, dashed: true });
-    if ($("difference-actual").checked) lines.push({ values: pad.concat(join, actual, Array(steps - actual.length).fill(null)), color: "#38434c", dashed: true });
-    $("difference-mean-legend").hidden = !$("difference-mean").checked;
-    $("difference-actual-legend").hidden = !$("difference-actual").checked;
-    chart("difference-chart", lines, history + steps,
-      { label: i => timeLabel(data, end - history + i), unit: "°C", shade: [history - 1, history + steps - 1] });
+    // Include the training tail so the first future difference crosses the cutoff correctly.
+    const actualDiff = E.difference(train.concat(actual), d).slice(n - d);
+    differenceData = { start, train, d, transformed, shocks, simulation, average, actual, simulationDiff, averageDiff, actualDiff, selected };
+    const history = Math.min(72, transformed.length), pad = Array(history - 1).fill(null);
+    function drawContinuation(id, observed, simulated, expected, truth) {
+      const join = [observed.at(-1)];
+      const lines = [
+        { values: observed.slice(-history).concat(Array(steps).fill(null)), color: colors.raw },
+        { values: pad.concat(join, simulated), color: colors.variance }
+      ];
+      if ($("difference-mean").checked) lines.push({ values: pad.concat(join, expected), color: colors.mean, dashed: true });
+      if ($("difference-actual").checked) lines.push({ values: pad.concat(join, truth, Array(steps - truth.length).fill(null)), color: "#38434c", dashed: true });
+      chart(id, lines, history + steps,
+        { label: i => timeLabel(data, end - history + i), unit: "°C", shade: [history - 1, history + steps - 1] });
+    }
+    drawContinuation("difference-input", transformed, simulationDiff, averageDiff, actualDiff);
+    drawContinuation("difference-chart", train, simulation, average, actual);
+    document.querySelectorAll('[data-difference-legend="mean"]').forEach(el => { el.hidden = !$("difference-mean").checked; });
+    document.querySelectorAll('[data-difference-legend="actual"]').forEach(el => { el.hidden = !$("difference-actual").checked; });
     $("difference-selected").textContent = `AR(${selected.p})`;
     $("difference-count").textContent = d;
-    const reconstruction = ["Generate each new temperature from previous temperatures.", "Generate each new change, then add it to the previous temperature.", "Generate a change of the daily change. Add it to the previous daily change, then add that change to the previous temperature."][d];
-    $("difference-note").textContent = `${reconstruction} After the cutoff, the model uses its own generated values. BIC selects the AR order live from 1–${selected.maxOrder}.`;
+    $("difference-note").textContent = `The same simulated future in both plots. Undo differencing to return to temperature. BIC selects AR(${selected.p}) live from orders 1–${selected.maxOrder}; the model uses its own generated values after the cutoff.`;
     $("difference-warning").textContent = (!selected.stable ? "The fitted AR model is unstable; its continuation can grow. " : "") +
       (d ? "Adding changes back can accumulate errors, especially with two differences. " : "") +
-      ($("difference-actual").checked && actual.length < steps ? `Actual observations are available for ${actual.length} of the ${steps} future days.` : "");
+      ($("difference-actual").checked && actual.length < steps ? `Actual observations are available for ${actual.length} of the ${steps} future hours.` : "");
     $("difference-warning").hidden = !$("difference-warning").textContent;
     $("difference-score").hidden = !$("difference-actual").checked || !actual.length;
-    $("difference-score").textContent = `Average forecast RMSE: ${num(E.rmse(average, actual), 2)} °C over ${actual.length} observed future days. Smaller is better for this window.`;
+    $("difference-score").textContent = `Average forecast RMSE: ${num(E.rmse(average, actual), 2)} °C over ${actual.length} observed future hours. Smaller is better for this window.`;
     $("difference-python").textContent = `import numpy as np
 import pandas as pd
 from statsmodels.tsa.ar_model import AutoReg
@@ -248,8 +255,10 @@ def to_temperature(future):
         future = np.cumsum(future) + x[-1]
     return np.asarray(future)
 
-simulation = to_temperature(values[len(y):])
-average = to_temperature(fit.predict(len(y), len(y) + len(noise) - 1))
+simulation_diff = np.array(values[len(y):])
+average_diff = fit.predict(len(y), len(y) + len(noise) - 1)
+simulation = to_temperature(simulation_diff)
+average = to_temperature(average_diff)
 print("First 5 simulated temperatures:", simulation[:5])`;
   }
   function height() {
@@ -305,10 +314,8 @@ print("First 5 simulated temperatures:", simulation[:5])`;
     $("fit-days").value = button.dataset.fitDays; schedule();
   }));
   $("new-noise").addEventListener("click", () => { seed++; schedule(); });
-  document.querySelectorAll("[data-difference-year]").forEach(button => button.addEventListener("click", () => {
-    const [start, n] = { 2020: [0, 182], 2021: [366, 181], 2022: [731, 181] }[button.dataset.differenceYear];
-    $("difference-days").value = n; $("difference-start").max = D.daily.values.length - n;
-    $("difference-start").value = start; schedule();
+  document.querySelectorAll("[data-difference-days]").forEach(button => button.addEventListener("click", () => {
+    $("difference-days").value = button.dataset.differenceDays; schedule();
   }));
   $("difference-noise").addEventListener("click", () => { differenceSeed++; schedule(); });
   $("export-window").addEventListener("click", () => {
@@ -329,11 +336,11 @@ print("First 5 simulated temperatures:", simulation[:5])`;
   $("export-difference").addEventListener("click", () => {
     renderDifference();
     if (!differenceData) return;
-    const { start, train, d, shocks, simulation, average, actual } = differenceData;
-    const time = i => timeLabel(D.daily, start + i);
-    download("temperature-differences.csv", ["time,temperature,role,innovation,simulation,average,differences",
-      ...train.map((v, i) => `${time(i)},${v},train,,,,${d}`),
-      ...shocks.map((v, i) => `${time(train.length + i)},${$("difference-actual").checked ? actual[i] ?? "" : ""},future,${v},${simulation[i]},${average[i]},${d}`)]);
+    const { start, train, d, transformed, shocks, simulation, average, actual, simulationDiff, averageDiff, actualDiff } = differenceData;
+    const time = i => new Date(Date.parse(D.hourly.start + "Z") + (start + i) * 3600000).toISOString().slice(0, 19);
+    download("temperature-differences.csv", ["time,temperature,role,innovation,simulation,average,differences,observed_diff,simulation_diff,average_diff",
+      ...train.map((v, i) => `${time(i)},${v},train,,,,${d},${i < d ? "" : transformed[i - d]},,`),
+      ...shocks.map((v, i) => `${time(train.length + i)},${$("difference-actual").checked ? actual[i] ?? "" : ""},future,${v},${simulation[i]},${average[i]},${d},${$("difference-actual").checked ? actualDiff[i] ?? "" : ""},${simulationDiff[i]},${averageDiff[i]}`)]);
   });
   new ResizeObserver(height).observe(document.querySelector("main"));
   window.addEventListener("resize", schedule);

@@ -83,4 +83,4 @@ for case in cases["differences"]:
         if d >= 1:
             future = np.cumsum(future) + x[-1]
         np.testing.assert_allclose(case[key], future, atol=1e-6)
-print(f"PASS: {len(cases['adf'])} ADF cases, AR fits/forecasts, 4 hourly fits and 9 daily fits with differencing and reconstruction.")
+print(f"PASS: {len(cases['adf'])} ADF cases, AR fits/forecasts, 4 hourly fits and 9 hourly fits with differencing and reconstruction.")

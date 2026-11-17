@@ -4,10 +4,10 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stationarity practice · Time Series Analysis</title>
   <meta name="description" content="Explore temperature windows, rolling statistics, the ADF test, and fitting autoregressive models.">
-  <link rel="stylesheet" href="styles.css?v=20261117-differences">
-  <script defer src="engine.js?v=20261117-differences"></script>
+  <link rel="stylesheet" href="styles.css?v=20261117-hourly-diff">
+  <script defer src="engine.js?v=20261117-hourly-diff"></script>
   <script defer src="data.js?v=20261117-practice"></script>
-  <script defer src="app.js?v=20261117-differences"></script>
+  <script defer src="app.js?v=20261117-hourly-diff"></script>
 </head>
 <body><main>
   <header><p class="eyebrow">TIME SERIES ANALYSIS / PRACTICE</p>
@@ -122,44 +122,45 @@
     </details>
   </section>
   <section id="difference-stage" aria-label="Difference temperature and fit an AR model" hidden>
-    <p>Model the temperature, its daily changes, or the changes of those changes. Then continue and convert back to °C.</p>
-    <nav class="presets" aria-label="Longer temperature training windows">
-      <button type="button" data-difference-year="2020">January–June 2020</button>
-      <button type="button" data-difference-year="2021">January–June 2021</button>
-      <button type="button" data-difference-year="2022">January–June 2022</button>
+    <p>Use the same hourly July temperature as above. Difference it, fit an AR model, and continue the series.</p>
+    <nav class="presets" aria-label="Hourly temperature training windows">
+      <button type="button" data-difference-days="7">Fit one week</button>
+      <button type="button" data-difference-days="14">Fit two weeks</button>
+      <button type="button" data-difference-days="21">Fit three weeks</button>
     </nav>
     <div class="workspace">
       <aside class="controls">
         <div class="control"><label for="difference-order">Differences</label>
-          <select id="difference-order"><option value="0">0 · Temperature</option><option value="1">1 · Daily changes</option><option value="2">2 · Changes of changes</option></select></div>
+          <select id="difference-order"><option value="0">0 · No differencing</option><option value="1" selected>1 · First difference</option><option value="2">2 · Second difference</option></select></div>
         <div class="control"><label for="difference-days">Training window <output id="difference-days-value" for="difference-days"></output></label>
-          <input id="difference-days" type="range" min="60" max="365" step="1" value="182"></div>
+          <input id="difference-days" type="range" min="3" max="21" step="1" value="14"></div>
         <div class="control"><label for="difference-start">Window starts at <output id="difference-start-value" for="difference-start"></output></label>
-          <input id="difference-start" type="range" min="0" max="914" step="1" value="0"></div>
+          <input id="difference-start" type="range" min="0" max="408" step="1" value="0"></div>
         <div class="control"><label for="difference-horizon">Continue for <output id="difference-horizon-value" for="difference-horizon"></output></label>
-          <input id="difference-horizon" type="range" min="7" max="90" step="1" value="30"></div>
+          <input id="difference-horizon" type="range" min="12" max="168" step="12" value="72"></div>
         <label class="choice"><input id="difference-mean" type="checkbox"> Show average forecast</label>
         <label class="choice"><input id="difference-actual" type="checkbox"> Reveal actual future</label>
         <button id="difference-noise" type="button">New simulated future</button>
         <button id="export-difference" class="quiet" type="button">Download this experiment</button>
       </aside>
       <div class="plots">
-        <section class="card"><h2>Daily temperature · choose the training window</h2>
-          <svg id="difference-overview" viewBox="0 0 900 170" role="img" aria-label="Daily temperature with the training window shaded"></svg>
+        <section class="card"><h2>July temperature · hourly observations</h2>
+          <svg id="difference-overview" viewBox="0 0 900 170" role="img" aria-label="Hourly July temperature with the training window shaded"></svg>
         </section>
-        <section class="card"><h2 id="difference-input-title">What the AR model sees</h2>
-          <p class="legend"><span class="raw">— Model input</span><span class="mean">— 15-day rolling mean</span></p>
-          <svg id="difference-input" viewBox="0 0 900 220" role="img" aria-label="Transformed training observations and rolling mean"></svg>
+        <section class="card"><h2 id="difference-input-title">After differencing</h2>
+          <p id="difference-formula" class="note"></p>
+          <p class="legend"><span class="raw">— Observed history</span><span class="simulation">— Simulated future</span><span data-difference-legend="mean" class="mean" hidden>┄ Average forecast</span><span data-difference-legend="actual" hidden>┄ Actual future</span></p>
+          <svg id="difference-input" viewBox="0 0 900 300" role="img" aria-label="Differenced hourly observations and their simulated continuation"></svg>
           <p id="difference-adf" class="note" role="status"></p>
         </section>
         <p id="difference-error" class="result" role="status" hidden></p>
-        <section id="difference-card" class="card"><h2>Continue, then return to temperature</h2>
+        <section id="difference-card" class="card"><h2>Back to temperature (°C)</h2>
           <div class="readouts" aria-live="polite">
             <div><span>Automatically selected</span><strong id="difference-selected"></strong></div>
             <div><span>Differences applied</span><strong id="difference-count"></strong></div>
           </div>
-          <p class="legend"><span class="raw">— Observed history</span><span class="simulation">— Simulated future</span><span id="difference-mean-legend" class="mean" hidden>┄ Average forecast</span><span id="difference-actual-legend" hidden>┄ Actual future</span></p>
-          <svg id="difference-chart" viewBox="0 0 900 340" role="img" aria-label="Last 60 training days and an autonomous continuation reconstructed as temperature"></svg>
+          <p class="legend"><span class="raw">— Observed history</span><span class="simulation">— Simulated future</span><span id="difference-mean-legend" data-difference-legend="mean" class="mean" hidden>┄ Average forecast</span><span id="difference-actual-legend" data-difference-legend="actual" hidden>┄ Actual future</span></p>
+          <svg id="difference-chart" viewBox="0 0 900 340" role="img" aria-label="Hourly temperature history and the same simulated continuation after undoing differencing"></svg>
           <p id="difference-note" class="note"></p>
           <p id="difference-warning" class="note" hidden></p>
           <p id="difference-score" class="note" hidden></p>

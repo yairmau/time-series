@@ -153,6 +153,9 @@ with tempfile.TemporaryDirectory(prefix='stationarity-chrome-') as profile:
           const toggle = async (id, value) => { $(id).checked = value; $(id).dispatchEvent(new Event('input')); await tick(); };
           const badPaths = () => [...document.querySelectorAll('#difference-stage svg path')].some(p => /NaN|Infinity|undefined/.test(p.getAttribute('d')));
           assert(!$('difference-stage').hidden, 'Direct differencing link failed');
+          assert($('difference-start-value').textContent === '07-01 00:00', 'Hourly July data not selected');
+          assert($('difference-days-value').textContent === '14 days', 'Hourly training duration');
+          assert(!/daily changes|changes of changes/i.test($('difference-stage').textContent), 'Old difference labels remain');
           const originalURL = URL.createObjectURL;
           URL.createObjectURL = blob => { window.lastDownload = blob; return originalURL(blob); };
           HTMLAnchorElement.prototype.click = function () {};
@@ -163,7 +166,7 @@ with tempfile.TemporaryDirectory(prefix='stationarity-chrome-') as profile:
             await toggle('difference-actual', false);
             $('export-difference').click();
             const csv = await lastDownload.text(), rows = future(csv);
-            assert(rows.length === 30 && rows.every(r => r[1] === '' && +r[6] === d), 'Differences export alignment or hidden future');
+            assert(rows.length === 72 && rows.every(r => r[1] === '' && r[7] === '' && +r[6] === d), 'Differences export alignment or hidden future');
             cases.push({ d, csv, python: $('difference-python').textContent });
             const selected = $('difference-selected').textContent;
             await toggle('difference-actual', true);
@@ -172,6 +175,11 @@ with tempfile.TemporaryDirectory(prefix='stationarity-chrome-') as profile:
             assert(revealed.every((r, i) => r[1] !== '' && r[4] === rows[i][4]), 'Actual future changed differenced rollout');
             assert($('difference-selected').textContent === selected, 'Actual future changed selected order');
             assert(!$('difference-score').hidden, 'Actual future score missing');
+            assert($('difference-input').querySelectorAll('path').length === 3, 'Differenced simulation or actual future missing');
+            assert($('difference-chart').querySelectorAll('path').length === 3, 'Temperature simulation or actual future missing');
+            const all = (await lastDownload.text()).trim().split('\\n').slice(1).map(r => r.split(','));
+            const raw = all.map(r => +r[1]), expectedDiff = StationarityLab.difference(raw, d);
+            assert(revealed.every((r, i) => Math.abs(+r[7] - expectedDiff[336 - d + i]) < 1e-8), 'Future differences misaligned at training boundary');
             assert(!badPaths(), 'Invalid reconstructed path');
           }
           const original = future(cases[2].csv);
@@ -179,17 +187,18 @@ with tempfile.TemporaryDirectory(prefix='stationarity-chrome-') as profile:
           const fresh = future(await lastDownload.text());
           assert(fresh.some((r, i) => r[4] !== original[i][4]), 'Differenced simulation seed unchanged');
           assert(fresh.every((r, i) => r[5] === original[i][5]), 'Noise changed reconstructed mean');
-          for (const year of ['2021', '2022', '2020']) {
-            document.querySelector(`[data-difference-year="${year}"]`).click(); await tick();
-            assert($('difference-start-value').textContent === `${year}-01-01`, 'Year preset alignment');
+          for (const days of ['7', '21', '14']) {
+            document.querySelector(`[data-difference-days="${days}"]`).click(); await tick();
+            assert($('difference-days-value').textContent === `${days} days`, 'Weekly preset duration');
           }
-          await input('difference-days', 60);
+          await input('difference-days', 3);
           await input('difference-start', $('difference-start').max);
-          await input('difference-horizon', 90);
-          assert($('difference-warning').textContent.includes('0 of the 90'), 'Missing daily future warning');
+          await input('difference-horizon', 168);
+          assert($('difference-warning').textContent.includes('0 of the 168'), 'Missing hourly future warning');
           assert($('difference-score').hidden && !badPaths(), 'End-of-record reconstruction');
-          document.querySelector('[data-difference-year="2020"]').click(); await tick();
-          await input('difference-order', 1); await input('difference-horizon', 30);
+          await input('difference-start', 0);
+          document.querySelector('[data-difference-days="14"]').click(); await tick();
+          await input('difference-order', 1); await input('difference-horizon', 72);
           await toggle('difference-mean', true);
           assert(!$('difference-mean-legend').hidden, 'Reconstructed mean missing');
           return cases;
@@ -200,7 +209,7 @@ with tempfile.TemporaryDirectory(prefix='stationarity-chrome-') as profile:
             (folder/'temperature-differences.csv').write_text(case['csv'])
             (folder/'reproduce.py').write_text(case['python'])
         screenshot('differences-desktop.png')
-        print('PASS: 0/1/2 differences, reconstruction, year presets, future isolation and reproducible exports.')
+        print('PASS: 0/1/2 differences, reconstruction, weekly presets, future isolation and reproducible exports.')
         navigate('/stationarity/practice-lab/index.html#windows')
         screenshot('windows-desktop.png')
         call('Emulation.setDeviceMetricsOverride', {'width': 390, 'height': 844, 'deviceScaleFactor': 1, 'mobile': True})

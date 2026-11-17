@@ -54,8 +54,8 @@ for (const d of [0, 1, 2]) {
   const rebuilt = E.restore(known.slice(0, 3), E.difference(known, d).slice(3 - d), d);
   rebuilt.forEach((v, i) => close(v, known[i + 3]));
 }
-const differences = [0, 1, 2].flatMap(d => [[0, 182], [366, 181], [1036, 60]].map(([start, n]) => {
-  const values = D.daily.values.slice(start, start + n), transformed = E.difference(values, d);
+const differences = [0, 1, 2].flatMap(d => [[0, 336], [0, 168], [672, 72]].map(([start, n]) => {
+  const values = D.hourly.values.slice(start, start + n), transformed = E.difference(values, d);
   const selection = E.selectAR(transformed);
   assert(!selection.error, "Differenced temperature selection failed");
   const shocks = E.innovations(30, selection.sigma, 49);
