@@ -109,6 +109,7 @@ book:
         - homework/HW-smoothing-answers.ipynb
         - homework/HW-outliers.qmd
         # - homework/HW-outliers-answers.ipynb
+        - homework/HW-stationarity.qmd
     # - part: "assignments"
     #   chapters:
     #     - assignments/evaluation.qmd

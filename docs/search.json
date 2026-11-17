@@ -3243,5 +3243,148 @@
       "behind-the-scenes",
       "make your own website"
     ]
+  },
+  {
+    "objectID": "homework/HW-stationarity.html",
+    "href": "homework/HW-stationarity.html",
+    "title": "69  HW: stationarity",
+    "section": "",
+    "text": "why homework?\nThis homework comes right after the sessions on stationarity, AR processes and the autocorrelation function. Read all the instructions before you start.\nThis is where you build intuition: you will play with parameters and get surprised by what the data tells you. Doing the homework is essential to prepare for the exams. In the exams there will be no computations. I will show you a series or an ACF/PACF graph and ask you to reason about it, and the questions will be variations of what you do here. Homework is the training, the exam is the match.\nRead the AI policy before you start. AI is welcome here, but write your prediction before you run the code or ask an AI.",
+    "crumbs": [
+      "homework",
+      "<span class='chapter-number'>69</span>  <span class='chapter-title'>HW: stationarity</span>"
+    ]
+  },
+  {
+    "objectID": "homework/HW-stationarity.html#the-data",
+    "href": "homework/HW-stationarity.html#the-data",
+    "title": "69  HW: stationarity",
+    "section": "69.1 the data",
+    "text": "69.1 the data\nMost of this homework uses simulated series, not real measurements. This is on purpose: when we generate the series ourselves, we know exactly which process produced it, so we can check our reasoning against the truth. Use the last digits of your ID number as the seed, so everybody gets a different mystery process in part 5.\nOne part reuses the temperature of the station and year from the previous homeworks (the same 10 consecutive days is fine).\nDownload this Jupyter Notebook template. It already has the simulators you need.",
+    "crumbs": [
+      "homework",
+      "<span class='chapter-number'>69</span>  <span class='chapter-title'>HW: stationarity</span>"
+    ]
+  },
+  {
+    "objectID": "homework/HW-stationarity.html#how-to-work",
+    "href": "homework/HW-stationarity.html#how-to-work",
+    "title": "69  HW: stationarity",
+    "section": "69.2 how to work",
+    "text": "69.2 how to work\nFor every graph below, do these three steps, in this order:\n\nPredict. Before running anything, sketch on paper what you expect to see (a quick sketch, not a work of art), and describe it in one or two sentences in the notebook. The exam will ask you to reason this way, so this is training.\nRun. Make the graph.\nExplain. Compare what you got with what you predicted. If you were surprised, find out why.\n\nA wrong prediction is not a mistake, it is where the learning happens. Please do not edit your prediction after the fact.",
+    "crumbs": [
+      "homework",
+      "<span class='chapter-number'>69</span>  <span class='chapter-title'>HW: stationarity</span>"
+    ]
+  },
+  {
+    "objectID": "homework/HW-stationarity.html#part-1-noise-that-forgets-and-noise-that-doesnt",
+    "href": "homework/HW-stationarity.html#part-1-noise-that-forgets-and-noise-that-doesnt",
+    "title": "69  HW: stationarity",
+    "section": "69.3 part 1: noise that forgets, and noise that doesn’t",
+    "text": "69.3 part 1: noise that forgets, and noise that doesn’t\nSimulate a white noise series and a random walk, both of length 500, using the same underlying random draws (the template shows you how).\n\nPredict: which one will stay close to a fixed level, and which one will wander off? If you simulated a much longer series, would the mean and the variance of each one settle down to a fixed value, or keep changing?\nExplain: compute the mean and the variance of each series using only its first half, and again using only its second half. For which series are they close? Which of the three conditions of weak stationarity does the random walk fail, and why?\n\nWhat if… you plot five different realizations of white noise together, and five different realizations of a random walk together (same length, different seeds)? Describe the difference between the two bundles of lines.\n\n\nhint\n\nrng = np.random.default_rng(seed)\nnoise = rng.normal(size=500)\nwalk = noise.cumsum()",
+    "crumbs": [
+      "homework",
+      "<span class='chapter-number'>69</span>  <span class='chapter-title'>HW: stationarity</span>"
+    ]
+  },
+  {
+    "objectID": "homework/HW-stationarity.html#part-2-ar1-one-knob-that-controls-everything",
+    "href": "homework/HW-stationarity.html#part-2-ar1-one-knob-that-controls-everything",
+    "title": "69  HW: stationarity",
+    "section": "69.4 part 2: AR(1), one knob that controls everything",
+    "text": "69.4 part 2: AR(1), one knob that controls everything\nSimulate an AR(1) process, X_t = \\phi X_{t-1} + \\varepsilon_t, for several values of \\phi: -0.9, -0.5, 0, 0.5, 0.9, 0.99, 1.0, and 1.05. Use the same sequence of noise draws for all of them, so the only thing that changes is \\phi.\n\nPredict: sketch what you expect each series to look like. Which ones do you expect to look “flat and jittery,” which ones “smooth and wandering,” and which one to blow up?\nExplain: were you right? Increase \\phi in small steps starting from 0.9. Around which value does the series stop being bounded? Does this match what you read in the stationarity chapter about the limit on \\phi? What is special, in this series, about \\phi=0 and \\phi=1?\n\nWhat if… you compare \\phi=0.9 with \\phi=-0.9? Both describe “strong memory,” but the series look very different. Describe the difference, and explain it in terms of what happens when you multiply a point by \\phi to get the next one.\n\n\nhint\n\ndef simulate_ar(phis, n, seed):\n    \"\"\"phis is a list: [phi1] for AR(1), [phi1, phi2] for AR(2), etc.\"\"\"\n    rng = np.random.default_rng(seed)\n    p = len(phis)\n    eps = rng.normal(size=n)\n    x = list(eps[:p])\n    for t in range(p, n):\n        x.append(eps[t] + sum(phi * x[t - 1 - i] for i, phi in enumerate(phis)))\n    return pd.Series(x)",
+    "crumbs": [
+      "homework",
+      "<span class='chapter-number'>69</span>  <span class='chapter-title'>HW: stationarity</span>"
+    ]
+  },
+  {
+    "objectID": "homework/HW-stationarity.html#part-3-the-autocorrelation-function-by-hand",
+    "href": "homework/HW-stationarity.html#part-3-the-autocorrelation-function-by-hand",
+    "title": "69  HW: stationarity",
+    "section": "69.5 part 3: the autocorrelation function, by hand",
+    "text": "69.5 part 3: the autocorrelation function, by hand\nWrite your own function acf_manual(series, max_lag) that implements the formula from the chapter, \n\\hat\\rho_{XX}(\\tau) = \\frac{\\sum_t (x_t-\\bar x)(x_{t+\\tau}-\\bar x)}{\\sum_t (x_t - \\bar x)^2},\n and returns the values for \\tau = 0, 1, \\dots, \\text{max\\_lag}.\nUse it on four of the series from parts 1 and 2: white noise, AR(1) with \\phi=0.3, AR(1) with \\phi=0.8, and AR(1) with \\phi=-0.8.\n\nPredict: before running your function, sketch what you expect each of the four ACFs to look like.\nExplain: were you right? For the two positive-\\phi cases, plot \\phi(\\tau) on top of your empirical ACF. Do they line up? What does a negative \\phi do to the ACF, compared to a positive one of the same size?\n\nWhat if… you compute the ACF of the random walk from part 1? What does it look like, and why doesn’t it decay the way the AR(1) ones do?\n\n\nhint\n\ndef acf_manual(series, max_lag):\n    x = series.values\n    mu = x.mean()\n    denom = ((x - mu) ** 2).sum()\n    rhos = []\n    for tau in range(max_lag + 1):\n        num = ((x[:len(x) - tau] - mu) * (x[tau:] - mu)).sum()\n        rhos.append(num / denom)\n    return np.array(rhos)",
+    "crumbs": [
+      "homework",
+      "<span class='chapter-number'>69</span>  <span class='chapter-title'>HW: stationarity</span>"
+    ]
+  },
+  {
+    "objectID": "homework/HW-stationarity.html#part-4-ar2-two-lags-of-memory",
+    "href": "homework/HW-stationarity.html#part-4-ar2-two-lags-of-memory",
+    "title": "69  HW: stationarity",
+    "section": "69.6 part 4: AR(2), two lags of memory",
+    "text": "69.6 part 4: AR(2), two lags of memory\nSimulate AR(2) processes, X_t = \\phi_1 X_{t-1} + \\phi_2 X_{t-2} + \\varepsilon_t, for these three pairs: (\\phi_1,\\phi_2) = (0.5, -0.8), (\\phi_1,\\phi_2)=(1.8,-0.92), and (\\phi_1,\\phi_2)=(0.6,0.3).\n\nPredict: sketch what you expect each series and its ACF to look like.\nExplain: were you right? Which of the three pairs give a series that oscillates, and which one just decays smoothly? For the two oscillating ones, is the oscillation faster or slower? Does the ACF oscillate the same way the series does?\n\nWhat if… you keep \\phi_1=1.8 fixed and slowly change \\phi_2 from -0.92 towards -1.1 in small steps? At some point the series stops being bounded. Make a small table: for each \\phi_2 you tried, does the simulated series stay bounded (say, below 10 times its starting scale) after 300 steps, or does it blow up? Just map out, empirically, where the line is — you don’t need the characteristic roots to do this, only the simulation.\n\n\nhint\n\ndef stays_bounded(phis, n=300, seed=0, limit=10):\n    x = simulate_ar(phis, n, seed)\n    return x.abs().max() &lt; limit * x.iloc[:5].abs().max()",
+    "crumbs": [
+      "homework",
+      "<span class='chapter-number'>69</span>  <span class='chapter-title'>HW: stationarity</span>"
+    ]
+  },
+  {
+    "objectID": "homework/HW-stationarity.html#part-5-finding-the-order",
+    "href": "homework/HW-stationarity.html#part-5-finding-the-order",
+    "title": "69  HW: stationarity",
+    "section": "69.7 part 5: finding the order",
+    "text": "69.7 part 5: finding the order\n\n69.7.1 the noise floor\nSimulate an AR(1) with \\phi=0.7 and length 300. Use statsmodels’ plot_acf with a 95% confidence band (as in the lecture notes).\n\nPredict: roughly at which lag do you expect the ACF to first enter the band and stay inside it?\nExplain: were you right? Compare that lag to the lag at which \\phi(\\tau) drops below, say, 0.1. Do the two numbers tell a similar story?\n\n\n\n69.7.2 the mystery process\nThe template has a function mystery_series(seed). It returns a series generated by an AR process whose order (1, 2 or 3) and \\phi values are hidden from you. Use your own seed.\n\nPredict: before computing anything, what is the largest order you think an AR process could have and still be identified from data alone? Why would a very high order be hard to pin down?\nRun: plot the ACF and the PACF of your mystery series (statsmodels’ plot_acf and plot_pacf). Based on where the PACF cuts off, state the order p you believe generated the series.\nExplain: now run the reveal_mystery(seed) cell. Were you right? If not, look at the PACF again: was the last significant bar ambiguous (close to the edge of the confidence band)? What does that tell you about how much data you’d need to be more confident?",
+    "crumbs": [
+      "homework",
+      "<span class='chapter-number'>69</span>  <span class='chapter-title'>HW: stationarity</span>"
+    ]
+  },
+  {
+    "objectID": "homework/HW-stationarity.html#part-6-back-to-your-own-data",
+    "href": "homework/HW-stationarity.html#part-6-back-to-your-own-data",
+    "title": "69  HW: stationarity",
+    "section": "69.8 part 6: back to your own data",
+    "text": "69.8 part 6: back to your own data\nTake the 10 days of temperature you used in previous homeworks. Plot its ACF and PACF.\n\nPredict: given that the data has a clear daily cycle, what do you expect its ACF to look like? Roughly after how many lags do you expect the autocorrelation to become hard to distinguish from noise?\nExplain: were you right? Does the ACF of real temperature look more like one of the clean processes from parts 1-4, or like a mix of several? Looking back at the three motivating questions from the start of this chapter (how much does now tell you about 10, 100, 1000 minutes from now?) — what would you now answer, using this ACF as evidence?",
+    "crumbs": [
+      "homework",
+      "<span class='chapter-number'>69</span>  <span class='chapter-title'>HW: stationarity</span>"
+    ]
+  },
+  {
+    "objectID": "homework/HW-stationarity.html#part-7-think-like-in-the-exam",
+    "href": "homework/HW-stationarity.html#part-7-think-like-in-the-exam",
+    "title": "69  HW: stationarity",
+    "section": "69.9 part 7: think like in the exam",
+    "text": "69.9 part 7: think like in the exam\nAnswer in your own words, in a few sentences each. No code is needed for this part, but you can use your own graphs as evidence.\n\nThe graph below shows the ACF and PACF of an unlabeled simulated series. What is the most likely order of the AR process that generated it? How can you tell from the PACF, and not just the ACF?\n\nThe graph below shows a series and its ACF with a 95% confidence band. At roughly which lag would you say the series “forgets” itself — i.e. further lags no longer carry a reliable signal? Is this the same as saying the process has no memory at all beyond that lag?\n\nA colleague simulates 10,000 iid gaussian numbers (pure white noise, by construction) and plots the ACF for 40 lags. Two bars, at lag 7 and at lag 23, happen to cross the 95% confidence band. The colleague concludes “there must be a real 7-step and 23-step dependence in my random number generator.” What is wrong with this reasoning?\nA series has an upward trend. Explain, using the definition of weak stationarity, why its ACF stays close to 1 for a very long range of lags. Does this mean the series has unusually long memory, in the sense that matters for forecasting?\nThe autocorrelation function satisfies \\hat\\rho_{XX}(\\tau) = \\hat\\rho_{XX}(-\\tau). Looking at the formula for \\hat\\rho_{XX}(\\tau), explain in one or two sentences why this has to be true.\nTwo AR(1) processes have \\phi=0.3 and \\phi=0.9 respectively. Sketch, roughly, what each of their ACFs looks like on the same axes. Which one would you describe as having a shorter “memory,” and what does that mean operationally (in terms of the confidence band)?",
+    "crumbs": [
+      "homework",
+      "<span class='chapter-number'>69</span>  <span class='chapter-title'>HW: stationarity</span>"
+    ]
+  },
+  {
+    "objectID": "homework/HW-stationarity.html#bonus",
+    "href": "homework/HW-stationarity.html#bonus",
+    "title": "69  HW: stationarity",
+    "section": "69.10 bonus",
+    "text": "69.10 bonus\nOptional, for the curious. Choose one:\n\nRun the mystery-process exercise from part 5 again with two or three other seeds. Was the order always easy to read off the PACF, or did some seeds give you an ambiguous case? What made it ambiguous?\nThe autocorrelation chapter mentions a geometric interpretation: the correlation between two standardized series is the cosine of the angle between them, viewed as vectors. Take your own temperature series and a lagged copy of itself, standardize both, and compute the angle between them directly (using the dot product). Compare it to the ACF value you already computed for that lag.\nBuild your own AR(2) grid search like in part 4, but sweep both \\phi_1 and \\phi_2 over a 2D grid, and make a plot (e.g. a scatter or heatmap) coloring each point by “bounded” or “blew up.” What shape does the boundary trace out?",
+    "crumbs": [
+      "homework",
+      "<span class='chapter-number'>69</span>  <span class='chapter-title'>HW: stationarity</span>"
+    ]
+  },
+  {
+    "objectID": "homework/HW-stationarity.html#guidelines",
+    "href": "homework/HW-stationarity.html#guidelines",
+    "title": "69  HW: stationarity",
+    "section": "69.11 guidelines",
+    "text": "69.11 guidelines\nA graph is good enough when it has:\n\na title, and named axes with units;\nreadable tick labels;\na legend, if there is more than one line;\na size that lets you see everything clearly.",
+    "crumbs": [
+      "homework",
+      "<span class='chapter-number'>69</span>  <span class='chapter-title'>HW: stationarity</span>"
+    ]
+  },
+  {
+    "objectID": "homework/HW-stationarity.html#ai-declaration",
+    "href": "homework/HW-stationarity.html#ai-declaration",
+    "title": "69  HW: stationarity",
+    "section": "69.12 AI declaration",
+    "text": "69.12 AI declaration\nAt the end of your notebook, write a line or two: which AI tools you used, and what you used them for.",
+    "crumbs": [
+      "homework",
+      "<span class='chapter-number'>69</span>  <span class='chapter-title'>HW: stationarity</span>"
+    ]
   }
 ]
