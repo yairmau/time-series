@@ -67,7 +67,9 @@ book:
         - seasonality/motivation.qmd
         - seasonality/seasonal-decomposition-from-scratch.ipynb
         - seasonality/theory.ipynb
+        - seasonality/stl-mstl.ipynb
         - seasonality/widget.ipynb
+        - seasonality/circling-back.ipynb
     - part: "time lags"
       chapters:
         - lags/motivation.qmd
@@ -112,6 +114,7 @@ book:
         - homework/HW-outliers.qmd
         # - homework/HW-outliers-answers.ipynb
         - homework/HW-stationarity.qmd
+        - homework/HW-seasonality.qmd
     # - part: "assignments"
     #   chapters:
     #     - assignments/evaluation.qmd

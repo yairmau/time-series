@@ -1,0 +1,245 @@
+## HW: seasonality
+
+This homework comes right after the sessions on seasonal decomposition, STL and MSTL. Read all the
+instructions before you start.
+
+::: {.alert .alert-info}
+##### why homework? {.unnumbered}
+
+This is where you build intuition: you will play with parameters and get surprised by what the
+data tells you. Doing the homework is **essential to prepare for the exams**. In the exams there
+will be no computations. I will show you a series or a decomposition and ask you to reason about
+it, and the questions will be variations of what you do here. Homework is the training, the exam
+is the match.
+
+Read the [AI policy](/basics/AI-policy.html) before you start. AI is welcome here, but **write
+your prediction before you run the code or ask an AI**.
+:::
+
+::: {.alert .alert-warning}
+##### where to spend your time {.unnumbered}
+
+Not all effort is equal. For every obstacle you meet, ask yourself: is this **productive
+friction** or **pointless friction**?
+
+- *Productive:* sketching what you expect a component to look like, understanding why a
+  decomposition behaves the way it does, working out what a graph is telling you.
+- *Pointless:* fighting with axis labels, colors or tick formats, an obscure error message,
+  remembering the name of an argument.
+
+Spend your time on the first kind, and get help for the second (AI, a classmate, a quick search).
+A clear graph is enough, nobody needs a beautiful one. If you have been stuck on the same
+cosmetic detail for 15 minutes, move on.
+:::
+
+## the data
+
+Use the temperature of the station and the year of the previous homeworks. In the lectures, the
+seasonal cycle was the **annual** cycle of sea surface temperature. With one year of data you
+cannot study an annual cycle (why not? see part 6), but you can study the **daily** cycle: the
+period is one day, and the "typical year" becomes a "typical day".
+
+Download this <a href="/homework/HW-seasonality-template.ipynb" download>Jupyter Notebook
+template</a>. It loads your data, averages it to **hourly** values (so one period is 24 data
+points), and fills short gaps by interpolation. Check how many values were filled: if your
+station has gaps longer than a day or two in the month you choose for parts 1-3, choose another
+month.
+
+## how to work
+
+For every graph below, do these three steps, in this order:
+
+1. **Predict.** Before running anything, **sketch on paper** what you expect to see (a quick
+   sketch, not a work of art), and describe it in one or two sentences in the notebook. The exam
+   will ask you to reason this way, so this is training.
+2. **Run.** Make the graph.
+3. **Explain.** Compare what you got with what you predicted. If you were surprised, find out why.
+
+A wrong prediction is not a mistake, it is where the learning happens. Please do not edit your
+prediction after the fact.
+
+## part 1: a typical day, from scratch
+
+Choose one month of hourly temperature. Decompose it with the same steps we used in [seasonal
+decomposition from scratch](/seasonality/seasonal-decomposition-from-scratch.ipynb), but with a
+period of one day instead of one year:
+
+1. **trend:** a centered rolling mean with a window of 24 hours;
+2. **detrended** = temperature - trend;
+3. **seasonal:** the average of the detrended data for each hour of the day (0, 1, ..., 23),
+   repeated every day;
+4. **residual** = detrended - seasonal.
+
+- **Predict:** sketch the seasonal component for one typical day. At what hour do you expect the
+  minimum, and at what hour the maximum? How large is the difference between them (peak to peak)?
+- **Explain:** plot the four components (temperature, trend, seasonal, residual) in four panels,
+  and also one day of the seasonal component. Were you right? The sun is highest at noon and
+  lowest at midnight. Why do the warmest and coldest hours of the typical day not coincide with
+  these times?
+
+**What if...** you compute the trend with a window of 18 hours instead of 24? Predict what the
+trend will look like, then plot both trends together. Why does the window have to be exactly one
+period long (or a whole number of periods)?
+
+<details>
+<summary>hint</summary>
+```{.python}
+temp = hourly.loc['2024-07']
+trend = temp.rolling(24, center=True).mean()
+detrended = temp - trend
+typical_day = detrended.groupby(detrended.index.hour).mean()   # 24 values
+seasonal = pd.Series(detrended.index.hour, index=detrended.index).map(typical_day)
+residual = detrended - seasonal
+```
+</details>
+
+## part 2: did it work?
+
+A decomposition always produces a residual, even when it went wrong. How can you check that the
+daily cycle is really gone from your residual? If it is still there, then each hour is similar to
+the same hour one day earlier.
+
+- **Predict:** what value do you expect for the autocorrelation of the *detrended* series at a lag
+  of one day? And for the *residual*?
+- **Explain:** compute both (with `.autocorr(lag)`, choosing the right lag). Were you right? Is the
+  residual's autocorrelation at this lag exactly zero? Why might it not be?
+
+**What if...** you had kept the original 10-minute data instead of hourly averages? What lag would
+you need for the same check? Now compute the autocorrelation at lag 1 of the temperature itself,
+once for the hourly data and once for the 10-minute data of the same month. Predict which one is
+larger before you run it. What does this tell you about reading a "lag-1 autocorrelation" without knowing
+the time step?
+
+<details>
+<summary>hint</summary>
+```{.python}
+print(detrended.autocorr(24), residual.autocorr(24))
+```
+</details>
+
+## part 3: the same, with statsmodels
+
+Decompose the same month with `seasonal_decompose`, using `period=24`.
+
+- **Predict:** will the seasonal component be the same as yours? Where in the series do you expect
+  the two decompositions to differ?
+- **Explain:** plot your seasonal component and the `statsmodels` one together, and also the two
+  trends. How close are they? Look at the beginning and end of the month: what happens there, in
+  both methods, and why?
+
+**What if...** you remove the missing values with `.dropna()` instead of filling them, and then
+run `seasonal_decompose` on the shortened series? Choose a month that has some missing hours in
+the raw data (or delete a few hours yourself). Predict what will happen to the typical day, then
+try it. Why is this dangerous, and why doesn't `seasonal_decompose` warn you?
+
+<details>
+<summary>hint</summary>
+```{.python}
+from statsmodels.tsa.seasonal import seasonal_decompose
+result = seasonal_decompose(temp, period=24)
+result.seasonal, result.trend   # pandas Series, same index as temp
+```
+</details>
+
+## part 4: does the typical day change through the year?
+
+Our decomposition from scratch assumes one fixed typical day for the whole period. Over a full
+year that is hard to believe. Use STL on the **whole year** of hourly temperature, with
+`period=24`.
+
+- **Predict:** sketch how the size of the daily cycle (peak to peak, in °C) changes from January to
+  December at your station. In which season do you expect the largest daily swing, and why?
+- **Explain:** run STL with `seasonal=7`. For each day, compute the peak-to-peak size of the
+  seasonal component, and plot it for the whole year. Were you right? Do you see periods of a few
+  days or weeks that stand out? What kind of weather could cause them?
+
+**What if...** you use `seasonal=7`, `seasonal=31` and `seasonal=181`? Plot the three daily swings
+together. Remember that `seasonal` is measured in number of cycles, here days. What does each one
+"listen to," and which would you choose to answer the question in the title?
+
+<details>
+<summary>hint</summary>
+```{.python}
+from statsmodels.tsa.seasonal import STL
+res = STL(hourly, period=24, seasonal=7).fit()
+daily_swing = res.seasonal.resample('D').agg(lambda x: x.max() - x.min())
+```
+</details>
+
+## part 5: a cycle that isn't there
+
+MSTL needs you to tell it the periods. What happens if you ask for one that doesn't exist?
+Temperature has a daily cycle, but we have no strong reason to expect a weekly one. The week is a
+human convention, and its effect on the weather (for example, less traffic and pollution on
+weekends in big cities) is small at best.
+
+- **Predict:** run MSTL on the whole year of hourly temperature with `periods=(24, 24*7)`. Sketch
+  what you expect the weekly component (`seasonal_168`) to look like. How large will it be compared
+  with the daily component?
+- **Explain:** plot both seasonal components for a few weeks, and compare their sizes (for example,
+  their standard deviations). Is the weekly component zero? If not, where does it come from?
+  Weather systems (a cold front, a heat wave) typically last a few days: how could they end up in a
+  "weekly" component?
+
+**What if...** you were analyzing hourly electricity demand in a city instead? Would you expect a
+real weekly cycle there? How would you convince a skeptic that a weekly component you found is
+real, and not the kind of artifact you just saw?
+
+<details>
+<summary>hint</summary>
+```{.python}
+from statsmodels.tsa.seasonal import MSTL
+res = MSTL(hourly, periods=(24, 24*7)).fit()
+res.seasonal['seasonal_24'], res.seasonal['seasonal_168']
+```
+</details>
+
+## part 6: think like in the exam
+
+Answer in your own words, in a few sentences each. No code is needed for this part, but you can
+use your own graphs as evidence.
+
+1. A colleague has exactly one year of daily temperature, and wants to extract its annual seasonal
+   component and its trend using a 365-day rolling mean. What will they get? What is the minimum
+   amount of data they need, and how much would you recommend?
+1. The typical North Atlantic year is coldest in early March and warmest at the end of August
+   (see [circling back](/seasonality/circling-back.ipynb)), and in part 1 you found the warmest
+   and coldest hours of your typical day. Explain both delays with one physical idea.
+1. Would a multiplicative model make sense for temperature in °C? What would a seasonal factor of
+   1.2 mean on a day when the trend is 0.5 °C? And on a day when it is -2 °C? What property must a
+   quantity have for a multiplicative model to make sense?
+1. Global radiation is zero every night, and its midday peak is much higher in summer than in
+   winter. Which model, additive or multiplicative, describes its daily cycle better? Why does
+   `seasonal_decompose(..., model="multiplicative")` refuse to run on it?
+1. A colleague decomposes monthly data with `period=12`, finds that the residual has a lag-1
+   autocorrelation of 0.6, and concludes that the decomposition failed. Is lag 1 the right thing to
+   look at to judge whether the seasonal component was removed? What would you check instead?
+1. The decomposition from scratch gives one fixed seasonal pattern, while STL allows it to evolve.
+   Give an example of a series for which this difference matters, and one for which it doesn't.
+
+## bonus
+
+Optional, for the curious. Choose one:
+
+- Download a second (or third) year of hourly temperature for your station, and run MSTL with
+  `periods=(24, 24*365)`. Plot the annual component. Does the daily component change compared with
+  part 4?
+- Decompose one month of global radiation with STL, once directly and once on
+  `np.log(radiation + 1)`. Why the `+ 1`? Which version gives a residual that looks more like
+  noise?
+- Repeat part 1 for a month in winter and a month in summer, and plot the two typical days on the
+  same axes. Describe every difference you see: size, timing, shape.
+
+## guidelines
+
+A graph is good enough when it has:
+
+1. a title, and named axes with units;
+1. readable tick labels;
+1. a legend, if there is more than one line;
+1. a size that lets you see everything clearly.
+
+## AI declaration
+
+At the end of your notebook, write a line or two: which AI tools you used, and what you used them
+for.
