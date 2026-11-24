@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>72&nbsp; HW: seasonality – Time Series Analysis</title>
+<title>76&nbsp; HW: seasonality – Time Series Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../homework/HW-resampling.html">homework</a></li><li class="breadcrumb-item"><a href="../homework/HW-seasonality.html"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">HW: seasonality</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../homework/HW-resampling.html">homework</a></li><li class="breadcrumb-item"><a href="../homework/HW-seasonality.html"><span class="chapter-number">76</span>&nbsp; <span class="chapter-title">HW: seasonality</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -510,7 +510,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
- <span class="menu-text">time lags</span></a>
+ <span class="menu-text">seasonality · TA practice</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -518,26 +518,26 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../seasonality/ta-finding-periods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Finding a period</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
+  <a href="../seasonality/ta-temperature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Which temperature component?</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/DTW.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">dynamic time warping</span></span></a>
+  <a href="../seasonality/ta-dendrometers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">A tree’s daily cycle</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lags/lags_TA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">time lags practice</span></span></a>
+  <a href="../seasonality/ta-tree-rings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Tree rings: divide out the trend</span></span></a>
   </div>
 </li>
       </ul>
@@ -545,7 +545,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
- <span class="menu-text">frequency</span></a>
+ <span class="menu-text">time lags</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -553,80 +553,26 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link">
+  <a href="../lags/motivation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
+  <a href="../lags/cross-correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">cross-correlation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/dft-and-fft.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">DFT and FFT</span></span></a>
+  <a href="../lags/DTW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">dynamic time warping</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../frequency/sound.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">sound &amp; music</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../frequency/frequencies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">frequencies</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../frequency/convolution-theorem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">convolution theorem</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../frequency/fft_practice_temperature.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">practice 1</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../frequency/fft_practice_stomata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">practice 2</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../frequency/fft_practice_stayin_alive.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">practice 3</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../frequency/filtering_temp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">filtering 1</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../frequency/filtering_scipy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">filtering 2</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../frequency/filtering_hummus.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">filtering 3</span></span></a>
+  <a href="../lags/lags_TA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">time lags practice</span></span></a>
   </div>
 </li>
       </ul>
@@ -634,7 +580,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
- <span class="menu-text">rates of change</span></a>
+ <span class="menu-text">frequency</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -642,26 +588,80 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  <a href="../frequency/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
+  <a href="../frequency/fourier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Fourier transform</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
+  <a href="../frequency/dft-and-fft.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">DFT and FFT</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rates-of-change/does-order-matter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">does order matter?</span></span></a>
+  <a href="../frequency/sound.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">sound &amp; music</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/frequencies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">frequencies</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">filtering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/convolution-theorem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">convolution theorem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/fft_practice_temperature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">practice 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/fft_practice_stomata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">practice 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/fft_practice_stayin_alive.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">practice 3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/filtering_temp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">filtering 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/filtering_scipy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">filtering 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../frequency/filtering_hummus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">filtering 3</span></span></a>
   </div>
 </li>
       </ul>
@@ -669,7 +669,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
- <span class="menu-text">forecasting</span></a>
+ <span class="menu-text">rates of change</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -677,79 +677,114 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link">
+  <a href="../rates-of-change/motivation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../forecasting/forecasting-tutorial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">forecasting tutorial</span></span></a>
+  <a href="../rates-of-change/fourier-based-derivatives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Fourier-based derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../forecasting/filling-gaps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">filling gaps</span></span></a>
+  <a href="../rates-of-change/LOESS-based-derivatives.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">LOESS-based derivatives</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
+  <a href="../rates-of-change/does-order-matter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">does order matter?</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
- <span class="menu-text">homework</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
+ <span class="menu-text">forecasting</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../forecasting/motivation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">motivation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../forecasting/forecasting-tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">forecasting tutorial</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../forecasting/filling-gaps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">filling gaps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../forecasting/arima.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">ARIMA</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true">
+ <span class="menu-text">homework</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../homework/HW-resampling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">HW: resampling</span></span></a>
+ <span class="menu-text"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">HW: resampling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../homework/HW-resampling-answers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">HW: resampling answers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">HW: resampling answers</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../homework/HW-smoothing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">HW: smoothing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">HW: smoothing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../homework/HW-smoothing-answers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">HW: smoothing answers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title">HW: smoothing answers</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../homework/HW-outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">HW: outliers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">74</span>&nbsp; <span class="chapter-title">HW: outliers</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../homework/HW-stationarity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">HW: stationarity</span></span></a>
+ <span class="menu-text"><span class="chapter-number">75</span>&nbsp; <span class="chapter-title">HW: stationarity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../homework/HW-seasonality.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">HW: seasonality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">76</span>&nbsp; <span class="chapter-title">HW: seasonality</span></span></a>
   </div>
 </li>
       </ul>
@@ -762,43 +797,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
- <span class="menu-text">technical stuff</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">73</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">74</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">75</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">76</span>&nbsp; <span class="chapter-title">sources</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
- <span class="menu-text">behind-the-scenes</span></a>
+ <span class="menu-text">technical stuff</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -806,32 +806,67 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/technical-stuff.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">77</span>&nbsp; <span class="chapter-title">technical stuff</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">78</span>&nbsp; <span class="chapter-title">datasets</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/date-formatting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">79</span>&nbsp; <span class="chapter-title">date formatting</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../technical-stuff/sources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">80</span>&nbsp; <span class="chapter-title">sources</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
+ <span class="menu-text">behind-the-scenes</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/sliding-window-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">77</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">81</span>&nbsp; <span class="chapter-title">sliding window video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/savgol-video.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">78</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
+ <span class="menu-text"><span class="chapter-number">82</span>&nbsp; <span class="chapter-title">savgol video</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/API-IMS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">79</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">83</span>&nbsp; <span class="chapter-title">API to download data from IMS</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/consecutive_sequence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">80</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">84</span>&nbsp; <span class="chapter-title">remove consecutive values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../behind-the-scenes/outliers_graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">81</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">85</span>&nbsp; <span class="chapter-title">outliers graphs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -852,26 +887,26 @@ document.addEventListener("DOMContentLoaded", function() {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-data" id="toc-the-data" class="nav-link active" data-scroll-target="#the-data"><span class="header-section-number">72.1</span> the data</a></li>
-  <li><a href="#how-to-work" id="toc-how-to-work" class="nav-link" data-scroll-target="#how-to-work"><span class="header-section-number">72.2</span> how to work</a></li>
-  <li><a href="#part-1-a-typical-day-from-scratch" id="toc-part-1-a-typical-day-from-scratch" class="nav-link" data-scroll-target="#part-1-a-typical-day-from-scratch"><span class="header-section-number">72.3</span> part 1: a typical day, from scratch</a></li>
-  <li><a href="#part-2-did-it-work" id="toc-part-2-did-it-work" class="nav-link" data-scroll-target="#part-2-did-it-work"><span class="header-section-number">72.4</span> part 2: did it work?</a></li>
-  <li><a href="#part-3-the-same-with-statsmodels" id="toc-part-3-the-same-with-statsmodels" class="nav-link" data-scroll-target="#part-3-the-same-with-statsmodels"><span class="header-section-number">72.5</span> part 3: the same, with statsmodels</a></li>
-  <li><a href="#part-4-does-the-typical-day-change-through-the-year" id="toc-part-4-does-the-typical-day-change-through-the-year" class="nav-link" data-scroll-target="#part-4-does-the-typical-day-change-through-the-year"><span class="header-section-number">72.6</span> part 4: does the typical day change through the year?</a></li>
-  <li><a href="#part-5-a-cycle-that-isnt-there" id="toc-part-5-a-cycle-that-isnt-there" class="nav-link" data-scroll-target="#part-5-a-cycle-that-isnt-there"><span class="header-section-number">72.7</span> part 5: a cycle that isn’t there</a></li>
-  <li><a href="#part-6-think-like-in-the-exam" id="toc-part-6-think-like-in-the-exam" class="nav-link" data-scroll-target="#part-6-think-like-in-the-exam"><span class="header-section-number">72.8</span> part 6: think like in the exam</a></li>
-  <li><a href="#bonus" id="toc-bonus" class="nav-link" data-scroll-target="#bonus"><span class="header-section-number">72.9</span> bonus</a></li>
-  <li><a href="#guidelines" id="toc-guidelines" class="nav-link" data-scroll-target="#guidelines"><span class="header-section-number">72.10</span> guidelines</a></li>
-  <li><a href="#ai-declaration" id="toc-ai-declaration" class="nav-link" data-scroll-target="#ai-declaration"><span class="header-section-number">72.11</span> AI declaration</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link active" data-scroll-target="#the-data"><span class="header-section-number">76.1</span> the data</a></li>
+  <li><a href="#how-to-work" id="toc-how-to-work" class="nav-link" data-scroll-target="#how-to-work"><span class="header-section-number">76.2</span> how to work</a></li>
+  <li><a href="#part-1-a-typical-day-from-scratch" id="toc-part-1-a-typical-day-from-scratch" class="nav-link" data-scroll-target="#part-1-a-typical-day-from-scratch"><span class="header-section-number">76.3</span> part 1: a typical day, from scratch</a></li>
+  <li><a href="#part-2-did-it-work" id="toc-part-2-did-it-work" class="nav-link" data-scroll-target="#part-2-did-it-work"><span class="header-section-number">76.4</span> part 2: did it work?</a></li>
+  <li><a href="#part-3-the-same-with-statsmodels" id="toc-part-3-the-same-with-statsmodels" class="nav-link" data-scroll-target="#part-3-the-same-with-statsmodels"><span class="header-section-number">76.5</span> part 3: the same, with statsmodels</a></li>
+  <li><a href="#part-4-does-the-typical-day-change-through-the-year" id="toc-part-4-does-the-typical-day-change-through-the-year" class="nav-link" data-scroll-target="#part-4-does-the-typical-day-change-through-the-year"><span class="header-section-number">76.6</span> part 4: does the typical day change through the year?</a></li>
+  <li><a href="#part-5-a-cycle-that-isnt-there" id="toc-part-5-a-cycle-that-isnt-there" class="nav-link" data-scroll-target="#part-5-a-cycle-that-isnt-there"><span class="header-section-number">76.7</span> part 5: a cycle that isn’t there</a></li>
+  <li><a href="#part-6-think-like-in-the-exam" id="toc-part-6-think-like-in-the-exam" class="nav-link" data-scroll-target="#part-6-think-like-in-the-exam"><span class="header-section-number">76.8</span> part 6: think like in the exam</a></li>
+  <li><a href="#bonus" id="toc-bonus" class="nav-link" data-scroll-target="#bonus"><span class="header-section-number">76.9</span> bonus</a></li>
+  <li><a href="#guidelines" id="toc-guidelines" class="nav-link" data-scroll-target="#guidelines"><span class="header-section-number">76.10</span> guidelines</a></li>
+  <li><a href="#ai-declaration" id="toc-ai-declaration" class="nav-link" data-scroll-target="#ai-declaration"><span class="header-section-number">76.11</span> AI declaration</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../homework/HW-resampling.html">homework</a></li><li class="breadcrumb-item"><a href="../homework/HW-seasonality.html"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">HW: seasonality</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../homework/HW-resampling.html">homework</a></li><li class="breadcrumb-item"><a href="../homework/HW-seasonality.html"><span class="chapter-number">76</span>&nbsp; <span class="chapter-title">HW: seasonality</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">HW: seasonality</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/homework/HW-seasonality.qmd"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">76</span>&nbsp; <span class="chapter-title">HW: seasonality</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/yairmau/time-series/blob/main/homework/HW-seasonality.qmd"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -903,13 +938,13 @@ document.addEventListener("DOMContentLoaded", function() {
 </ul>
 <p>Spend your time on the first kind, and get help for the second (AI, a classmate, a quick search). A clear graph is enough, nobody needs a beautiful one. If you have been stuck on the same cosmetic detail for 15 minutes, move on.</p>
 </section>
-<section id="the-data" class="level2" data-number="72.1">
-<h2 data-number="72.1" class="anchored" data-anchor-id="the-data"><span class="header-section-number">72.1</span> the data</h2>
+<section id="the-data" class="level2" data-number="76.1">
+<h2 data-number="76.1" class="anchored" data-anchor-id="the-data"><span class="header-section-number">76.1</span> the data</h2>
 <p>Use the temperature of the station and the year of the previous homeworks. In the lectures, the seasonal cycle was the <strong>annual</strong> cycle of sea surface temperature. With one year of data you cannot study an annual cycle (why not? see part 6), but you can study the <strong>daily</strong> cycle: the period is one day, and the “typical year” becomes a “typical day”.</p>
 <p>Download this <a href="../homework/HW-seasonality-template.ipynb" download="">Jupyter Notebook template</a>. It loads your data, averages it to <strong>hourly</strong> values (so one period is 24 data points), and fills short gaps by interpolation. Check how many values were filled: if your station has gaps longer than a day or two in the month you choose for parts 1-3, choose another month.</p>
 </section>
-<section id="how-to-work" class="level2" data-number="72.2">
-<h2 data-number="72.2" class="anchored" data-anchor-id="how-to-work"><span class="header-section-number">72.2</span> how to work</h2>
+<section id="how-to-work" class="level2" data-number="76.2">
+<h2 data-number="76.2" class="anchored" data-anchor-id="how-to-work"><span class="header-section-number">76.2</span> how to work</h2>
 <p>For every graph below, do these three steps, in this order:</p>
 <ol type="1">
 <li><strong>Predict.</strong> Before running anything, <strong>sketch on paper</strong> what you expect to see (a quick sketch, not a work of art), and describe it in one or two sentences in the notebook. The exam will ask you to reason this way, so this is training.</li>
@@ -918,8 +953,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </ol>
 <p>A wrong prediction is not a mistake, it is where the learning happens. Please do not edit your prediction after the fact.</p>
 </section>
-<section id="part-1-a-typical-day-from-scratch" class="level2" data-number="72.3">
-<h2 data-number="72.3" class="anchored" data-anchor-id="part-1-a-typical-day-from-scratch"><span class="header-section-number">72.3</span> part 1: a typical day, from scratch</h2>
+<section id="part-1-a-typical-day-from-scratch" class="level2" data-number="76.3">
+<h2 data-number="76.3" class="anchored" data-anchor-id="part-1-a-typical-day-from-scratch"><span class="header-section-number">76.3</span> part 1: a typical day, from scratch</h2>
 <p>Choose one month of hourly temperature. Decompose it with the same steps we used in <a href="../seasonality/seasonal-decomposition-from-scratch.html">seasonal decomposition from scratch</a>, but with a period of one day instead of one year:</p>
 <ol type="1">
 <li><strong>trend:</strong> a centered rolling mean with a window of 24 hours;</li>
@@ -944,8 +979,8 @@ hint
 <span id="cb1-6"><a href="#cb1-6"></a>residual <span class="op">=</span> detrended <span class="op">-</span> seasonal</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </section>
-<section id="part-2-did-it-work" class="level2" data-number="72.4">
-<h2 data-number="72.4" class="anchored" data-anchor-id="part-2-did-it-work"><span class="header-section-number">72.4</span> part 2: did it work?</h2>
+<section id="part-2-did-it-work" class="level2" data-number="76.4">
+<h2 data-number="76.4" class="anchored" data-anchor-id="part-2-did-it-work"><span class="header-section-number">76.4</span> part 2: did it work?</h2>
 <p>A decomposition always produces a residual, even when it went wrong. How can you check that the daily cycle is really gone from your residual? If it is still there, then each hour is similar to the same hour one day earlier.</p>
 <ul>
 <li><strong>Predict:</strong> what value do you expect for the autocorrelation of the <em>detrended</em> series at a lag of one day? And for the <em>residual</em>?</li>
@@ -959,8 +994,8 @@ hint
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="bu">print</span>(detrended.autocorr(<span class="dv">24</span>), residual.autocorr(<span class="dv">24</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </section>
-<section id="part-3-the-same-with-statsmodels" class="level2" data-number="72.5">
-<h2 data-number="72.5" class="anchored" data-anchor-id="part-3-the-same-with-statsmodels"><span class="header-section-number">72.5</span> part 3: the same, with statsmodels</h2>
+<section id="part-3-the-same-with-statsmodels" class="level2" data-number="76.5">
+<h2 data-number="76.5" class="anchored" data-anchor-id="part-3-the-same-with-statsmodels"><span class="header-section-number">76.5</span> part 3: the same, with statsmodels</h2>
 <p>Decompose the same month with <code>seasonal_decompose</code>, using <code>period=24</code>.</p>
 <ul>
 <li><strong>Predict:</strong> will the seasonal component be the same as yours? Where in the series do you expect the two decompositions to differ?</li>
@@ -976,8 +1011,8 @@ hint
 <span id="cb3-3"><a href="#cb3-3"></a>result.seasonal, result.trend   <span class="co"># pandas Series, same index as temp</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </section>
-<section id="part-4-does-the-typical-day-change-through-the-year" class="level2" data-number="72.6">
-<h2 data-number="72.6" class="anchored" data-anchor-id="part-4-does-the-typical-day-change-through-the-year"><span class="header-section-number">72.6</span> part 4: does the typical day change through the year?</h2>
+<section id="part-4-does-the-typical-day-change-through-the-year" class="level2" data-number="76.6">
+<h2 data-number="76.6" class="anchored" data-anchor-id="part-4-does-the-typical-day-change-through-the-year"><span class="header-section-number">76.6</span> part 4: does the typical day change through the year?</h2>
 <p>Our decomposition from scratch assumes one fixed typical day for the whole period. Over a full year that is hard to believe. Use STL on the <strong>whole year</strong> of hourly temperature, with <code>period=24</code>.</p>
 <ul>
 <li><strong>Predict:</strong> sketch how the size of the daily cycle (peak to peak, in °C) changes from January to December at your station. In which season do you expect the largest daily swing, and why?</li>
@@ -993,8 +1028,8 @@ hint
 <span id="cb4-3"><a href="#cb4-3"></a>daily_swing <span class="op">=</span> res.seasonal.resample(<span class="st">'D'</span>).agg(<span class="kw">lambda</span> x: x.<span class="bu">max</span>() <span class="op">-</span> x.<span class="bu">min</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </section>
-<section id="part-5-a-cycle-that-isnt-there" class="level2" data-number="72.7">
-<h2 data-number="72.7" class="anchored" data-anchor-id="part-5-a-cycle-that-isnt-there"><span class="header-section-number">72.7</span> part 5: a cycle that isn’t there</h2>
+<section id="part-5-a-cycle-that-isnt-there" class="level2" data-number="76.7">
+<h2 data-number="76.7" class="anchored" data-anchor-id="part-5-a-cycle-that-isnt-there"><span class="header-section-number">76.7</span> part 5: a cycle that isn’t there</h2>
 <p>MSTL needs you to tell it the periods. What happens if you ask for one that doesn’t exist? Temperature has a daily cycle, but we have no strong reason to expect a weekly one. The week is a human convention, and its effect on the weather (for example, less traffic and pollution on weekends in big cities) is small at best.</p>
 <ul>
 <li><strong>Predict:</strong> run MSTL on the whole year of hourly temperature with <code>periods=(24, 24*7)</code>. Sketch what you expect the weekly component (<code>seasonal_168</code>) to look like. How large will it be compared with the daily component?</li>
@@ -1010,8 +1045,8 @@ hint
 <span id="cb5-3"><a href="#cb5-3"></a>res.seasonal[<span class="st">'seasonal_24'</span>], res.seasonal[<span class="st">'seasonal_168'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </section>
-<section id="part-6-think-like-in-the-exam" class="level2" data-number="72.8">
-<h2 data-number="72.8" class="anchored" data-anchor-id="part-6-think-like-in-the-exam"><span class="header-section-number">72.8</span> part 6: think like in the exam</h2>
+<section id="part-6-think-like-in-the-exam" class="level2" data-number="76.8">
+<h2 data-number="76.8" class="anchored" data-anchor-id="part-6-think-like-in-the-exam"><span class="header-section-number">76.8</span> part 6: think like in the exam</h2>
 <p>Answer in your own words, in a few sentences each. No code is needed for this part, but you can use your own graphs as evidence.</p>
 <ol type="1">
 <li>A colleague has exactly one year of daily temperature, and wants to extract its annual seasonal component and its trend using a 365-day rolling mean. What will they get? What is the minimum amount of data they need, and how much would you recommend?</li>
@@ -1022,8 +1057,8 @@ hint
 <li>The decomposition from scratch gives one fixed seasonal pattern, while STL allows it to evolve. Give an example of a series for which this difference matters, and one for which it doesn’t.</li>
 </ol>
 </section>
-<section id="bonus" class="level2" data-number="72.9">
-<h2 data-number="72.9" class="anchored" data-anchor-id="bonus"><span class="header-section-number">72.9</span> bonus</h2>
+<section id="bonus" class="level2" data-number="76.9">
+<h2 data-number="76.9" class="anchored" data-anchor-id="bonus"><span class="header-section-number">76.9</span> bonus</h2>
 <p>Optional, for the curious. Choose one:</p>
 <ul>
 <li>Download a second (or third) year of hourly temperature for your station, and run MSTL with <code>periods=(24, 24*365)</code>. Plot the annual component. Does the daily component change compared with part 4?</li>
@@ -1031,8 +1066,8 @@ hint
 <li>Repeat part 1 for a month in winter and a month in summer, and plot the two typical days on the same axes. Describe every difference you see: size, timing, shape.</li>
 </ul>
 </section>
-<section id="guidelines" class="level2" data-number="72.10">
-<h2 data-number="72.10" class="anchored" data-anchor-id="guidelines"><span class="header-section-number">72.10</span> guidelines</h2>
+<section id="guidelines" class="level2" data-number="76.10">
+<h2 data-number="76.10" class="anchored" data-anchor-id="guidelines"><span class="header-section-number">76.10</span> guidelines</h2>
 <p>A graph is good enough when it has:</p>
 <ol type="1">
 <li>a title, and named axes with units;</li>
@@ -1041,8 +1076,8 @@ hint
 <li>a size that lets you see everything clearly.</li>
 </ol>
 </section>
-<section id="ai-declaration" class="level2" data-number="72.11">
-<h2 data-number="72.11" class="anchored" data-anchor-id="ai-declaration"><span class="header-section-number">72.11</span> AI declaration</h2>
+<section id="ai-declaration" class="level2" data-number="76.11">
+<h2 data-number="76.11" class="anchored" data-anchor-id="ai-declaration"><span class="header-section-number">76.11</span> AI declaration</h2>
 <p>At the end of your notebook, write a line or two: which AI tools you used, and what you used them for.</p>
 
 
@@ -1520,7 +1555,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../homework/HW-stationarity.html" class="pagination-link" aria-label="HW: stationarity">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">HW: stationarity</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">75</span>&nbsp; <span class="chapter-title">HW: stationarity</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

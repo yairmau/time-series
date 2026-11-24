@@ -1,0 +1,19 @@
+{
+  "zenodo": "https://doi.org/10.5281/zenodo.15382092",
+  "paper": "https://doi.org/10.1111/pce.15604",
+  "ring_source": "https://www.ncei.noaa.gov/pub/data/paleo/treering/measurements/northamerica/usa/ca533-noaa.rwl",
+  "retrieved": "2026-11-24",
+  "dendro_clock": "Supplied naive clock; timezone/DST not confirmed by author",
+  "rows": {
+    "temperature": 1096,
+    "dendro_native": 35040,
+    "dendro_hourly": 17520,
+    "rings": 984
+  },
+  "source_sha256": {
+    "zenodo-dendro-v1.0.1.zip": "52d71e9cf6cab1c3b05b0020544084f1575aaa09b8635e6841ab4be2581e0f4a",
+    "ca533.rwl": "2df48948af003c2fd19d9128de3e8b46490af283ff2adc40ff207c8bf550d11b",
+    "sample_dbh.csv": "b5bbb8174ca019e9eb0377c55aefd82d655704905ef1d9bff64a06d7db959564",
+    "ca533-noaa.rwl": "e51e585dba837348ab62bdcab2e62b2ca2dc5add44b0145e44aa4ee680b4219e"
+  }
+}

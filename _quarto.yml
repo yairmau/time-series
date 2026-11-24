@@ -7,6 +7,8 @@ project:
     - outliers/lab/**
     - stationarity/practice-lab/**
     - stationarity/practice-data/**
+    - seasonality/ta-lab/**
+    - seasonality/ta-data/**
 
 book:
   title: "Time Series Analysis"
@@ -70,6 +72,12 @@ book:
         - seasonality/stl-mstl.ipynb
         - seasonality/widget.ipynb
         - seasonality/circling-back.ipynb
+    - part: "seasonality · TA practice"
+      chapters:
+        - seasonality/ta-finding-periods.qmd
+        - seasonality/ta-temperature.qmd
+        - seasonality/ta-dendrometers.qmd
+        - seasonality/ta-tree-rings.qmd
     - part: "time lags"
       chapters:
         - lags/motivation.qmd

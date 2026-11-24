@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seasonality · TA lab</title>
+<link rel="stylesheet" href="styles.css?v=20261124-seasonality">
+<script defer src="engine.js?v=20261124-seasonality"></script><script defer src="data.js?v=20261124-seasonality"></script><script defer src="app.js?v=20261124-seasonality"></script>
+</head><body><main>
+<header><p class="eyebrow">TIME SERIES ANALYSIS / TA LAB</p><h1>Find the cycle. Choose the component.</h1></header>
+<nav class="modes" aria-label="Seasonality experiments">
+<button id="acf-mode" aria-pressed="true">1 · Find a period</button><button id="temperature-mode" aria-pressed="false">2 · Temperature anomalies</button><button id="dendro-mode" aria-pressed="false">3 · A tree's daily cycle</button><button id="rings-mode" aria-pressed="false">4 · Tree-ring detrending</button>
+</nav>
+<section id="acf-stage">
+<p>Build a repeating signal, then look for equally spaced positive peaks in its autocorrelation.</p>
+<div class="workspace"><aside class="controls">
+<label for="acf-data">Series</label><select id="acf-data"><option value="synthetic">Build a signal</option><option value="hourly">July temperature · hourly</option><option value="ar">Oscillating AR(2) · no fixed season</option></select>
+<div id="signal-controls">
+<label for="period">Seasonal period <output id="period-value"></output></label><input id="period" type="range" min="8" max="72" step="1" value="24">
+<label for="amplitude">Seasonal amplitude <output id="amplitude-value"></output></label><input id="amplitude" type="range" min="0" max="6" step="0.25" value="3">
+<label for="second">Second cycle · 168 hours <output id="second-value"></output></label><input id="second" type="range" min="0" max="5" step="0.25" value="0">
+<label for="slope">Total trend rise <output id="slope-value"></output></label><input id="slope" type="range" min="0" max="30" step="1" value="4">
+<label for="noise">Noise SD <output id="noise-value"></output></label><input id="noise" type="range" min="0" max="4" step="0.1" value="0.8">
+<label class="choice"><input id="signal-parts" type="checkbox"> Show generating components</label></div>
+<label for="acf-length">Analysis window <output id="acf-length-value"></output></label><input id="acf-length" type="range" min="96" max="1440" value="720" step="24">
+<label for="acf-start">Window starts <output id="acf-start-value"></output></label><input id="acf-start" type="range" min="0" max="720" value="0" step="1">
+<label class="choice"><input id="acf-detrend" type="checkbox" checked> Remove a fitted linear trend</label>
+<label for="lag">Inspect lag <output id="lag-value"></output></label><input id="lag" type="range" min="1" max="240" step="1" value="24">
+<button id="acf-export">Download this window</button>
+</aside><div class="plots">
+<section class="card"><h2 id="acf-title">Observed series</h2><svg id="acf-series" viewBox="0 0 900 270" role="img" aria-label="Selected time series"></svg><p class="note" id="acf-series-note"></p></section>
+<section class="card" id="acf-parts-card" hidden><h2>The components we added</h2><p class="legend"><span class="trend">— Trend</span><span class="seasonal">— Seasonality</span><span class="residual">— Noise</span></p><svg id="acf-parts" viewBox="0 0 900 220" role="img" aria-label="Known synthetic trend, seasonal component and noise"></svg></section>
+<section class="card"><h2>Autocorrelation</h2><svg id="acf-chart" viewBox="0 0 900 280" role="img" aria-label="Autocorrelation by lag with multiples of the chosen lag marked"></svg><div class="readouts"><div><span>At the inspected lag</span><strong id="lag-correlation"></strong></div><div><span>Positive local peaks</span><strong id="acf-peaks"></strong></div></div><p id="acf-note" class="result"></p><p class="note">A peak at 24 means 24 observations: 24 hours here. Trend can hide peaks. A damped oscillation can also come from an AR process; it is a clue, not a seasonality test.</p></section>
+</div></div>
+</section>
+<section id="temperature-stage" hidden>
+<p>Temperature = trend + seasonal cycle + residual. Which part answers the question?</p>
+<nav class="presets"><button data-temperature-preset="whole">Three years</button><button data-temperature-preset="warm">Find a warm spell</button><button data-temperature-preset="cold">Find a cold spell</button></nav>
+<div class="workspace"><aside class="controls">
+<label for="temp-smoothing">Smooth the annual cycle</label><select id="temp-smoothing"><option value="15">15 days · more detail</option><option value="31" selected>31 days</option><option value="61">61 days · smoother</option></select>
+<p class="form-note">Repeating cycle · period = 365 days</p>
+<label for="temp-length">Zoom width <output id="temp-length-value"></output></label><input id="temp-length" type="range" min="30" max="1096" step="1" value="365">
+<label for="temp-start">Window starts <output id="temp-start-value"></output></label><input id="temp-start" type="range" min="0" max="731" step="1" value="366">
+<label for="temp-component">Inspect</label><select id="temp-component"><option value="R">R · residual</option><option value="S+R">S + R · remove trend</option><option value="T+R">T + R · remove seasonality</option><option value="T">T · trend</option><option value="S">S · seasonal cycle</option></select>
+<label for="temp-threshold">Residual threshold <output id="temp-threshold-value"></output></label><input id="temp-threshold" type="range" min="1" max="8" value="3" step="0.5">
+<label for="temp-duration">Consecutive days <output id="temp-duration-value"></output></label><input id="temp-duration" type="range" min="2" max="10" value="3" step="1">
+<button id="temp-export">Download components</button>
+</aside><div class="plots">
+<section class="card"><h2>Jerusalem · daily mean temperature, 2020–2022</h2><svg id="temp-overview" viewBox="0 0 900 160" role="img" aria-label="Full daily temperature record with zoomed region shaded"></svg></section>
+<section class="card"><h2>Temperature and expected baseline</h2><p class="legend"><span class="raw">— Observed</span><span class="trend">— Trend + seasonality</span></p><svg id="temp-observed" viewBox="0 0 900 260" role="img" aria-label="Temperature compared with trend plus seasonal baseline"></svg></section>
+<section class="card"><h2 id="temp-component-title">Residual</h2><svg id="temp-component-chart" viewBox="0 0 900 260" role="img" aria-label="Selected decomposition component"></svg><p id="temp-question" class="result"></p><p id="temp-events-note" class="note"></p><div class="table-wrap"><table><thead><tr><th>Spell</th><th>Dates</th><th>Days</th><th>Largest residual</th></tr></thead><tbody id="temp-events"></tbody></table></div><p class="note">These are candidate warm/cold spells relative to this fitted baseline, not an official heatwave definition. A three-year record is a teaching example, not a long-term climate normal.</p></section>
+</div></div>
+<details class="code-panel"><summary>Fit and data settings</summary><p>Classical additive decomposition on the full 2020–2022 record, with a centered 365-day moving-mean trend (linearly extended at the ends). The mean annual pattern is then smoothed across 15, 31, or 61 days, wrapping across the cycle boundary. This keeps individual weather fluctuations out of the repeating baseline. Select a saved smoothing setting; zoom changes the view, not the fit. The 365-sample annual period approximates the calendar across the leap year. Daily averaging removes much of the within-day cycle; it does not remove the annual cycle.</p><a href="../ta-temperature.html" target="_top">Python example and data</a></details>
+</section>
+<section id="dendro-stage" hidden>
+<p>Separate a tree's daily expansion and contraction from its slower changes. Compare the shape and timing in different months.</p>
+<p class="result">Source: one reading every <strong>30 minutes</strong>. Lab: <strong>hourly means</strong>. A daily cycle is 24 hourly observations (48 in the original data).</p>
+<nav class="presets"><button data-dendro-preset="0">January 2018</button><button data-dendro-preset="151">June 2018</button><button data-dendro-preset="365">January 2019</button><button data-dendro-preset="516">June 2019</button></nav>
+<div class="workspace"><aside class="controls">
+<label for="dendro-model">Seasonal model</label><select id="dendro-model"><option value="fixed">One fixed 24-hour pattern</option><option value="7">STL · seasonal span 7 days</option><option value="31" selected>STL · seasonal span 31 days</option><option value="91">STL · seasonal span 91 days</option></select>
+<label for="dendro-length">Zoom width <output id="dendro-length-value"></output></label><input id="dendro-length" type="range" min="3" max="90" step="1" value="14">
+<label for="dendro-start">Window starts <output id="dendro-start-value"></output></label><input id="dendro-start" type="range" min="0" max="716" step="1" value="151">
+<label for="dendro-component">Inspect</label><select id="dendro-component"><option value="S">S · seasonal cycle</option><option value="S+R">S + R · remove trend</option><option value="R">R · residual</option><option value="T">T · trend</option><option value="T+R">T + R · remove daily cycle</option></select>
+<button id="pin-profile">Keep this daily profile</button><button id="clear-profile" disabled>Clear comparison</button><button id="dendro-export">Download components</button>
+</aside><div class="plots">
+<section class="card"><h2>Yatir · hourly stem diameter change, 2018–2019</h2><svg id="dendro-overview" viewBox="0 0 900 160" role="img" aria-label="Two years of diameter variation, with the selected window shaded"></svg></section>
+<section class="card"><h2>Inside the selected window</h2><p class="legend"><span class="raw">— Observed</span><span class="trend">— Trend</span></p><svg id="dendro-observed" viewBox="0 0 900 250" role="img" aria-label="Hourly stem diameter variation and its trend"></svg></section>
+<section class="card"><h2 id="dendro-component-title">Seasonal cycle</h2><svg id="dendro-component-chart" viewBox="0 0 900 220" role="img" aria-label="Selected dendrometer decomposition component"></svg></section>
+<section class="card"><h2>Average seasonal profile · one day</h2><p class="legend"><span class="seasonal">— Current window</span><span id="pinned-legend" hidden>┄ Kept profile</span></p><svg id="dendro-profile" viewBox="0 0 900 260" role="img" aria-label="Mean seasonal component by hour of the supplied clock"></svg><div class="readouts"><div><span>Highest seasonal value</span><strong id="dendro-max"></strong></div><div><span>Lowest seasonal value</span><strong id="dendro-min"></strong></div><div><span>Peak-to-trough range</span><strong id="dendro-amplitude"></strong></div></div><p id="pinned-note" class="note"></p><p class="note">Hours use the supplied clock; timezone and daylight saving are unconfirmed. Peak timing describes this fitted component, not a direct measurement of growth timing.</p></section>
+<section class="card"><h2>How the daily seasonal profile changes</h2><svg id="dendro-heatmap" viewBox="0 0 900 500" role="img" aria-label="Monthly seasonal profiles by hour, blue below trend and orange above trend"></svg><p class="note">Each row averages the seasonal component within one month. Select a row to explore it above. A fixed seasonal model gives the same row every month.</p></section>
+</div></div>
+<details class="code-panel"><summary>Fit and data settings</summary><p>Feuer et al. (2025), Zenodo release v1.0.1. Half-hourly circumference measurements are converted to diameter change (divide by π, then subtract the initial value) and averaged hourly. No gaps are filled. Exact STL fits use period 24, trend span 49 hours, and robust fitting. The seasonal span counts days in each hour's subseries. Fits use both years; zooming does not refit. “Fixed” uses classical additive decomposition.</p><a href="https://doi.org/10.5281/zenodo.15382092" target="_blank" rel="noopener">Source data</a> · <a href="../ta-dendrometers.html" target="_top">Python example</a></details>
+</section>
+<section id="rings-stage" hidden>
+<p>Ring widths have different levels and slow trends. Divide each series by its own fitted trend to compare unusually narrow and wide years.</p>
+<div class="workspace"><aside class="controls">
+<label for="ring-count">Trees shown <output id="ring-count-value"></output></label><input id="ring-count" type="range" min="1" max="12" value="8" step="1">
+<label for="ring-focus" id="ring-focus-label">Highlight one tree</label><select id="ring-focus"></select>
+<label for="ring-width">Rolling-mean window <output id="ring-width-value"></output></label><input id="ring-width" type="range" min="21" max="301" value="101" step="2">
+<label for="ring-height">Plot height <output id="ring-height-value"></output></label><input id="ring-height" type="range" min="0.75" max="2" value="1" step="0.25">
+<label for="ring-gain">Curve magnification <output id="ring-gain-value"></output></label><input id="ring-gain" type="range" min="0.5" max="2" value="1" step="0.25">
+<label class="choice"><input id="ring-trend" type="checkbox" checked> Show rolling means</label>
+<label for="ring-length">Zoom width <output id="ring-length-value"></output></label><input id="ring-length" type="range" min="30" max="450" value="180" step="1">
+<label for="ring-start">Window starts <output id="ring-start-value"></output></label><input id="ring-start" type="range" min="1500" max="1804" value="1804" step="1">
+<label for="ring-year">Inspect year <output id="ring-year-value"></output></label><input id="ring-year" type="range" min="1804" max="1983" value="1900" step="1">
+<button id="ring-event">Find a shared narrow year</button><button id="ring-export">Download indices + chronology</button>
+</aside><div class="plots">
+<section class="card ring-comparison-card"><h2>Before and after detrending · Campito Mountain</h2>
+<p class="legend"><span class="raw">— Tree-ring series</span><span class="seasonal">— Highlighted tree</span><span class="trend">┄ Rolling means · — Chronology</span><span class="residual">● Selected year</span></p>
+<div class="ring-comparison-scroll" tabindex="0" role="region" aria-label="Raw and detrended spaghetti plots; scroll horizontally on narrow screens">
+<div class="ring-comparison">
+<section class="ring-panel"><h3>Before · ring width</h3><p class="note ring-panel-note">Each row's reference is its mean width.</p><svg id="ring-raw" viewBox="0 0 400 582" role="img" aria-label="Stacked raw tree-ring series, all using one millimetre scale, with fitted trends"></svg></section>
+<section class="ring-panel"><h3>After · width ÷ trend</h3><p class="note ring-panel-note">Each row's reference is an index of 1.</p><svg id="ring-index" viewBox="0 0 400 582" role="img" aria-label="Stacked detrended indices, matching the tree rows and years in the raw panel"></svg></section>
+</div></div>
+<p class="note">Same trees and years in both panels. Curves are shifted vertically to separate them; each panel uses one scale for all trees. Left-hand labels show each tree's mean width in this window.</p>
+<p class="result" id="ring-chronology-note">The bold bottom row is the chronology: a robust mean across the displayed trees at each year.</p>
+</section>
+<section class="card"><h2>Compare the selected year</h2><p class="result">1 = matches the fitted trend. 0.5 = half the expected width. 1.5 = one and a half times the expected width.</p><div class="readouts"><div><span>Selected year</span><strong id="ring-selected-year"></strong></div><div><span>Indices below 0.7</span><strong id="ring-shared"></strong></div><div><span>Chronology</span><strong id="ring-chronology-value"></strong></div><div><span>Contributing trees</span><strong id="ring-depth"></strong></div></div><div class="table-wrap"><table><thead><tr><th>Tree/core</th><th>Width (mm)</th><th>Trend (mm)</th><th>Index</th></tr></thead><tbody id="ring-table"></tbody></table></div><p class="note">The chronology uses the displayed trees and their archived calendar dates. A common narrow year is a shared signal, not proof of its cause.</p></section>
+</div></div>
+<details class="code-panel"><summary>Trend and data settings</summary><p>NOAA ITRDB CA533: Graybill and LaMarche, Campito Mountain, bristlecone pine. One core from each of 12 tree IDs; original units 0.01 mm, converted to mm. Gaps retain their calendar position and zero-width rings remain zero. The trend is an ordinary centered rolling mean over years, fitted on each full record. Available observations are averaged equally at the edges and around gaps. Each index is width divided by a positive trend. The chronology is Tukey’s biweight robust mean (C = 9) across the displayed trees in each year, with missing indices omitted. Its sample depth is the number of available trees. No prewhitening or variance stabilization is applied. Short windows can remove shared variation as well as age-related growth. Formal dendrochronology also uses negative exponential curves and splines.</p><a href="https://www.ncei.noaa.gov/pub/data/paleo/treering/measurements/northamerica/usa/ca533-noaa.rwl" target="_blank" rel="noopener">Archived measurements</a> · <a href="../ta-tree-rings.html" target="_top">Python example</a></details>
+</section>
+<footer><a id="lesson-link" href="../ta-finding-periods.html" target="_top">Open this TA lesson</a> · <a href="../ta-data/README.md" target="_blank">Data and methods</a></footer>
+<noscript><p>Use the Python examples and downloadable data on the four TA lesson pages if JavaScript is unavailable.</p></noscript>
+</main></body></html>

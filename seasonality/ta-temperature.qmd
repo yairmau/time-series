@@ -1,0 +1,71 @@
+---
+title: "Which temperature component?"
+page-layout: full
+format:
+  html:
+    toc: false
+---
+
+For an additive decomposition,
+
+$$X_t=T_t+S_t+R_t.$$
+
+Different questions need different components:
+
+| Inspect | Question |
+|---|---|
+| $T$ | What changes slowly? |
+| $S$ | What pattern repeats each year? |
+| $S+R=X-T$ | What remains after removing the trend? |
+| $T+R=X-S$ | What remains after removing the annual cycle? |
+| $R=X-T-S$ | What is unusually warm or cold relative to both? |
+
+We use daily mean Jerusalem temperature from 2020–2022. **Daily averaging is not the trend component:** the annual seasonal cycle remains in these daily values.
+
+Start with the observations, then inspect $R$. Several consecutive large positive or negative residuals identify candidate warm or cold spells. Their size depends on the fitted baseline; our threshold is an exploratory rule, not an official heatwave definition.
+
+[Open this experiment in a full browser tab](ta-lab/index.html?v=20261124-seasonality#temperature){target="_blank" rel="noopener"}
+
+```{=html}
+<iframe id="seasonality-temperature-lab" src="ta-lab/index.html?v=20261124-seasonality#temperature" title="Which temperature component?" loading="lazy" style="width:100%;height:1600px;border:1px solid #dce4e8;border-radius:12px;"></iframe>
+<script>
+window.addEventListener("message", function (event) {
+  const frame = document.getElementById("seasonality-temperature-lab");
+  if (event.source === frame.contentWindow && event.origin === window.location.origin &&
+      event.data && event.data.type === "seasonality-ta-height" && Number.isFinite(event.data.height)) {
+    frame.style.height = Math.max(500, Math.min(5000, event.data.height)) + "px";
+  }
+});
+</script>
+<noscript>Use the Python example and downloadable data below.</noscript>
+```
+
+## Try it in Python
+
+[Download the daily temperature](ta-data/jerusalem_daily.csv).
+
+```python
+import numpy as np
+import pandas as pd
+from statsmodels.tsa.seasonal import seasonal_decompose
+
+x = pd.read_csv("jerusalem_daily.csv", index_col="time",
+                parse_dates=True)["temperature"]
+fit = seasonal_decompose(x, period=365, extrapolate_trend="freq")
+
+# Smooth one annual pattern, wrapping the end back to the start.
+cycle = np.tile(fit.seasonal.iloc[:365], 3)
+smooth = pd.Series(cycle).rolling(31, center=True).mean().iloc[365:730]
+seasonal = pd.Series(np.resize(smooth, len(x)), index=x.index)
+residual = x - fit.trend - seasonal
+
+parts = pd.DataFrame({"observed": x, "trend": fit.trend,
+                      "seasonal": seasonal, "residual": residual})
+parts.loc["2021"].plot(subplots=True, figsize=(10, 7))
+```
+
+Try plotting `x - fit.trend` and `x - seasonal`. They answer different questions. Change the 31-day smoothing span to 15 or 61: a rough annual pattern can absorb short weather fluctuations into the seasonal component.
+
+The trend is a centered 365-day moving mean, extended linearly at the ends. We smooth the average annual pattern so individual weather fluctuations do not dominate it. The lab stores three smoothing choices. Zoom changes the view; each decomposition uses the full record. `period=365` is an approximation to an annual calendar cycle across a leap year. Three years is enough for this exercise, but not for a long-term climate normal.
+
+[Data preparation](ta-data/README.md) · [Classical decomposition](https://www.statsmodels.org/stable/generated/statsmodels.tsa.seasonal.seasonal_decompose.html).

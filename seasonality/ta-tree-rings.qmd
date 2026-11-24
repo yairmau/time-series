@@ -1,0 +1,98 @@
+---
+title: "Tree rings: divide out the trend"
+page-layout: full
+format:
+  html:
+    toc: false
+---
+
+This is an application of **detrending**, rather than within-year seasonality: there is one ring-width measurement per year.
+
+Trees differ in their growth levels and slow age-related patterns. We estimate each tree’s trend with a **centered rolling mean**, then divide:
+
+$$I_t=\frac{\text{ring width}_t}{\text{fitted trend}_t}.$$
+
+An index of 1 matches the fitted trend; 0.5 means half its expected width. Compare the same calendar year across trees before and after division. Shared narrow years become easier to see on a common scale.
+
+The stacked view is called a **spaghetti plot** in [dplPy](https://opendendro.github.io/dplPy/reference/utilities/#plot). Each tree has its own row: raw widths on the left, detrended indices on the right. All trees share one vertical scale within each panel. Raw curves are centered on their means only for display; their trends and amplitude differences remain visible.
+
+Set **Trees shown** to 1 to inspect any individual tree. **Plot height** enlarges the view; **Curve magnification** controls the vertical zoom. With one tree, its detrended series and the chronology are identical.
+
+The example uses real bristlecone-pine measurements from Campito Mountain, archived by Graybill and LaMarche in [NOAA's International Tree-Ring Data Bank, CA533](https://www.ncei.noaa.gov/pub/data/paleo/treering/measurements/northamerica/usa/ca533-noaa.rwl). We take one core from each of 12 tree IDs.
+
+[Open this experiment in a full browser tab](ta-lab/index.html?v=20261124-seasonality#rings){target="_blank" rel="noopener"}
+
+```{=html}
+<iframe id="seasonality-rings-lab" src="ta-lab/index.html?v=20261124-seasonality#rings" title="Tree rings: divide out the trend" loading="lazy" style="width:100%;height:1600px;border:1px solid #dce4e8;border-radius:12px;"></iframe>
+<script>
+window.addEventListener("message", function (event) {
+  const frame = document.getElementById("seasonality-rings-lab");
+  if (event.source === frame.contentWindow && event.origin === window.location.origin &&
+      event.data && event.data.type === "seasonality-ta-height" && Number.isFinite(event.data.height)) {
+    frame.style.height = Math.max(500, Math.min(5000, event.data.height)) + "px";
+  }
+});
+</script>
+<noscript>Use the Python example and downloadable data below.</noscript>
+```
+
+## Try it in Python
+
+[Download the ring widths in mm](ta-data/campito_ring_widths.csv).
+
+The rolling mean averages years within one tree. The chronology averages trees within one year, using a robust mean to reduce the influence of unusual individual values.
+
+```python
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+widths = pd.read_csv("campito_ring_widths.csv", index_col="year")
+window = 101  # years; try 21, 101, and 301
+trend = widths.rolling(window, center=True, min_periods=1).mean()
+trend = trend.where(widths.notna())
+indices = widths / trend.where(trend > 0)
+
+def robust_mean(year):
+    x = year.dropna().to_numpy()
+    if len(x) == 0:
+        return np.nan
+    middle = np.median(x)
+    mad = np.median(np.abs(x - middle))
+    if mad == 0:
+        return middle
+    u = (x - middle) / (9 * mad)
+    weights = np.where(np.abs(u) < 1, (1 - u**2)**2, 0)
+    return np.average(x, weights=weights)
+
+raw = widths.loc[1804:1983].iloc[:, :8]
+rwi = indices.loc[raw.index, raw.columns]
+chronology = rwi.apply(robust_mean, axis=1)
+sample_depth = rwi.notna().sum(axis=1)
+offsets = np.arange(len(raw.columns), 0, -1)
+fig, axes = plt.subplots(1, 2, figsize=(13, 8), sharex=True)
+
+for ax, values, title in zip(axes, [raw - raw.mean(), rwi - 1],
+                             ["Before: ring width", "After: width / trend"]):
+    scale = 0.4 / np.nanmax(np.abs(values.to_numpy()))  # one scale per panel
+    for offset, tree in zip(offsets, values.columns):
+        ax.axhline(offset, color="0.85", linewidth=0.7)
+        ax.plot(values.index, offset + scale * values[tree], linewidth=0.8)
+    ax.axvline(1899, color="tab:orange", linestyle="--")
+    ax.set(yticks=offsets, yticklabels=values.columns, xlabel="Year", title=title,
+           ylim=(-0.6, len(raw.columns) + 0.6))
+    ax.text(0, 1.02, f"One row spacing = {1 / scale:.2f} units",
+            transform=ax.transAxes, fontsize=9)
+index_scale = 0.4 / np.nanmax(np.abs((rwi - 1).to_numpy()))
+axes[1].axhline(0, color="0.85", linewidth=0.7)
+axes[1].plot(chronology.index, index_scale * (chronology - 1),
+             color="teal", linewidth=2)
+axes[1].set_yticks([*offsets, 0], [*rwi.columns, "Chronology"])
+fig.tight_layout()
+```
+
+A very flexible trend can remove shared environmental variation along with the age-related pattern. Formal dendrochronology often uses negative exponential curves or splines; this smoother makes that trade-off easy to explore.
+
+The bold row in the after plot is the chronology, using the same index scale as the individual trees. It updates when the displayed trees or rolling-mean window change. We retain the archive's calendar dates; shared narrow years suggest a common influence, not a particular cause.
+
+[Robust chronology in dplPy](https://opendendro.github.io/dplPy/reference/chronology/#chron) · [Data preparation](ta-data/README.md) · [Standardization in dplR](https://search.r-project.org/CRAN/refmans/dplR/html/detrend.series.html).

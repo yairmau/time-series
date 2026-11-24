@@ -1,0 +1,61 @@
+---
+title: "A tree's daily cycle"
+page-layout: full
+format:
+  html:
+    toc: false
+---
+
+A dendrometer records changes in stem size. The slow changes and the daily expansion–contraction cycle answer different questions.
+
+These are two years of Yatir measurements from [Feuer et al. (2025)](https://doi.org/10.1111/pce.15604), shared in the paper's [Zenodo release](https://doi.org/10.5281/zenodo.15382092). The original data has one measurement every **30 minutes** (48 per day). The lab averages each pair to **hourly values** (24 per day). The **24-hour cycle** is the repeating daily pattern, not the sampling interval.
+
+Inspect $S$ to see the fitted daily cycle; inspect $S+R$ to retain the individual fluctuations around that cycle. The trend describes slower diameter change, which includes water-related shrinkage and recovery as well as growth.
+
+A classical decomposition repeats one fixed 24-hour pattern. **STL lets that pattern evolve.** Keep a profile from one month, then select another. Compare its amplitude and the hours of its highest and lowest values.
+
+[Open this experiment in a full browser tab](ta-lab/index.html?v=20261124-seasonality#dendro){target="_blank" rel="noopener"}
+
+```{=html}
+<iframe id="seasonality-dendro-lab" src="ta-lab/index.html?v=20261124-seasonality#dendro" title="A tree&#39;s daily cycle" loading="lazy" style="width:100%;height:1600px;border:1px solid #dce4e8;border-radius:12px;"></iframe>
+<script>
+window.addEventListener("message", function (event) {
+  const frame = document.getElementById("seasonality-dendro-lab");
+  if (event.source === frame.contentWindow && event.origin === window.location.origin &&
+      event.data && event.data.type === "seasonality-ta-height" && Number.isFinite(event.data.height)) {
+    frame.style.height = Math.max(500, Math.min(5000, event.data.height)) + "px";
+  }
+});
+</script>
+<noscript>Use the Python example and downloadable data below.</noscript>
+```
+
+## Try it in Python
+
+[Download the hourly diameter-change series](ta-data/yatir_hourly.csv).
+
+```python
+import pandas as pd
+from statsmodels.tsa.seasonal import STL
+
+x = pd.read_csv("yatir_hourly.csv", index_col="time",
+                parse_dates=True)["diameter_mm"]
+# Hourly data: 24 observations per day. Raw half-hourly data would need 48.
+fit = STL(x, period=24, seasonal=31, trend=49, robust=True).fit()
+seasonal = pd.Series(fit.seasonal, index=x.index)
+
+profiles = {}
+for month in ["2018-01", "2018-06", "2019-01", "2019-06"]:
+    s = seasonal.loc[month]
+    profiles[month] = s.groupby(s.index.hour).mean() * 1000
+pd.DataFrame(profiles).plot(xlabel="Hour of supplied clock",
+                            ylabel="Seasonal diameter deviation (µm)")
+```
+
+`period=24` means 24 hourly observations per cycle. `seasonal=31` smooths each hour's subseries across 31 daily cycles. Compare 7, 31, and 91: a shorter span allows faster changes.
+
+The lab's fits use the full two years, including observations on both sides of each date. They describe the record; they are not forecasts. The supplied timestamps have no timezone, and daylight-saving handling is unconfirmed. A shift in clock-hour peaks needs this checked before a biological interpretation.
+
+The release example treats its raw input as circumference in mm. We divide by $\pi$ to obtain diameter change, subtract the initial reading, and average hourly. The daily-component plots use µm so the small fluctuations are readable. This STL exercise is separate from the paper's growth-classification method.
+
+[Source and preprocessing](ta-data/README.md) · [STL and MSTL lecture](stl-mstl.ipynb).

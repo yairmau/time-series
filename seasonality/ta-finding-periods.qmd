@@ -1,0 +1,51 @@
+---
+title: "Finding a period"
+page-layout: full
+format:
+  html:
+    toc: false
+---
+
+A seasonal decomposition asks us for a period. How can we choose one before learning Fourier analysis?
+
+Start with the time plot and the **autocorrelation function (ACF)**. Repeated positive peaks around $P,2P,3P,\ldots$ suggest a period of $P$ observations. For hourly temperature, peaks near 24, 48, and 72 mean a candidate daily cycle.
+
+A trend can mask this pattern. Compare the ACF before and after removing a fitted straight line. Then try the oscillating AR(2): a wavy, decaying ACF can occur without a fixed seasonal component. Check the candidate period against the time plot and what you know about the process.
+
+In the lab, change the seasonal amplitude, noise, trend, and period. Add a second cycle, or switch to July temperature. The analysis-window sliders select the observations used by the ACF.
+
+[Open this experiment in a full browser tab](ta-lab/index.html?v=20261124-seasonality#acf){target="_blank" rel="noopener"}
+
+```{=html}
+<iframe id="seasonality-acf-lab" src="ta-lab/index.html?v=20261124-seasonality#acf" title="Finding a period" loading="lazy" style="width:100%;height:1600px;border:1px solid #dce4e8;border-radius:12px;"></iframe>
+<script>
+window.addEventListener("message", function (event) {
+  const frame = document.getElementById("seasonality-acf-lab");
+  if (event.source === frame.contentWindow && event.origin === window.location.origin &&
+      event.data && event.data.type === "seasonality-ta-height" && Number.isFinite(event.data.height)) {
+    frame.style.height = Math.max(500, Math.min(5000, event.data.height)) + "px";
+  }
+});
+</script>
+<noscript>Use the Python example and downloadable data below.</noscript>
+```
+
+## Try it in Python
+
+[Download the hourly July temperature](ta-data/jerusalem_hourly.csv).
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.signal import detrend
+from statsmodels.graphics.tsaplots import plot_acf
+
+x = pd.read_csv("jerusalem_hourly.csv")["temperature"].to_numpy()
+x = x[:14 * 24]  # two weeks
+plot_acf(detrend(x), lags=96, zero=False)
+plt.xlabel("Lag (hours)")
+```
+
+Try 7 days, 14 days, and the full month. Inspect several peaks; the largest single peak at lag 1 is usually persistence, not the seasonal period.
+
+[Reading: autocorrelation and seasonality](https://otexts.com/fpp3/graphics.html#trend-and-seasonality-in-acf-plots).
